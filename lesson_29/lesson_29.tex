@@ -1,7 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
 \usepackage{geometry, enumitem, mdframed, array, xcolor}
-\usepackage{nicematrix}
 \geometry{margin=1in}
 
 \newtheorem{definition}{Definition}
@@ -15,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=brown,linewidth=2pt]{computation}
 
-\title{Lesson 29: Liouville's Formula and Applications}
+\title{ODE Lesson 29: Liouville's Formula and Applications}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -26,7 +25,7 @@
 
 \begin{theorem}[Liouville's Formula]
 For the system $\mathbf{x}' = A(t)\mathbf{x}$ with continuous $A(t)$, the Wronskian of any $n$ solutions satisfies:
-$$W(t) = W(t$_{0}$) \exp\left(\int_{t$_{0}$}$^{t}$ \text{tr}(A(s))\,ds\right)$$
+$$W(t) = W(t_{0}) \exp\left(\int_{t_{0}}^{t} \text{tr}(A(s))\,ds\right)$$
 where $\text{tr}(A)$ denotes the trace (sum of diagonal elements).
 \end{theorem}
 
@@ -43,7 +42,7 @@ Liouville's Formula reveals that:
 
 \begin{definition}[Matrix Trace]
 For an $n \times n$ matrix $A = [a_{ij}]$:
-$$\text{tr}(A) = \sum_{i=1}$^{n}$ a_{ii} = a_{11} + a_{22} + \cdots + a_{nn}$$
+$$\text{tr}(A) = \sum_{i=1}^{n} a_{ii} = a_{11} + a_{22} + \cdots + a_{nn}$$
 \end{definition}
 
 \begin{proposition}[Trace Properties]
@@ -51,8 +50,8 @@ $$\text{tr}(A) = \sum_{i=1}$^{n}$ a_{ii} = a_{11} + a_{22} + \cdots + a_{nn}$$
 \item $\text{tr}(A + B) = \text{tr}(A) + \text{tr}(B)$ (linearity)
 \item $\text{tr}(cA) = c \cdot \text{tr}(A)$
 \item $\text{tr}(AB) = \text{tr}(BA)$ (cyclic property)
-\item $\text{tr}(A) = \sum_{i=1}$^{n}$ \lambda$_{i}$$ (sum of eigenvalues)
-\item $\text{tr}(A$^{T}$) = \text{tr}(A)$
+\item $\text{tr}(A) = \sum_{i=1}^{n} \lambda_{i}$ (sum of eigenvalues)
+\item $\text{tr}(A^{T}) = \text{tr}(A)$
 \end{enumerate}
 \end{proposition}
 
@@ -60,12 +59,12 @@ $$\text{tr}(A) = \sum_{i=1}$^{n}$ a_{ii} = a_{11} + a_{22} + \cdots + a_{nn}$$
 
 \begin{corollary}[Constant Coefficient Systems]
 For $\mathbf{x}' = A\mathbf{x}$ with constant $A$:
-$$W(t) = W(0) \cdot e^{\text{tr}(A) \cdot t}$$
+$W(t) = W(0) \cdot $e^{\text{tr}$(A) \cdot t}$
 \end{corollary}
 
 \begin{example}[Volume-Preserving Systems]
 If $\text{tr}(A(t)) = 0$ for all $t$, then:
-$$W(t) = W(t$_{0}$) = \text{constant}$$
+$$W(t) = W(t_{0}) = \text{constant}$$
 Such systems preserve phase space volume (incompressible flow).
 \end{example}
 
@@ -90,10 +89,10 @@ For the system $\mathbf{x}' = A\mathbf{x}$ with constant $A$:
 \end{theorem}
 
 \begin{example}[Second-Order Scalar Equation]
-For $y'' + py' + qy = 0$, the companion matrix has trace $-p$.
-Thus: $W(t) = W(0) \cdot e^{-pt}$
+For $y'' + py' + qy = 0$, the companion matrix has trace $-p.
+Thus: W(t) = W(0) \cdot $e^{-pt}$
 
-Stability criterion: $p > 0$ implies Wronskian decay.
+Stability criterion: p > 0 implies Wronskian decay.
 \end{example}
 
 \section{Geometric Interpretation}
@@ -105,7 +104,7 @@ The Wronskian $W(t)$ represents the volume of the parallelepiped formed by solut
 \begin{computation}
 For a 2D system:
 \begin{itemize}
-\item Solutions $\mathbf{x}$_{1}$(t), \mathbf{x}$_{2}$(t)$ form a parallelogram
+\item Solutions $\mathbf{x}_{1}(t), \mathbf{x}_{2}(t)$ form a parallelogram
 \item Area = $|W(t)|$
 \item Rate of area change = $\text{tr}(A(t)) \cdot |W(t)|$
 \end{itemize}
@@ -131,10 +130,10 @@ The system matrix has trace zero, so phase space volume is preserved (Liouville'
 \end{example}
 
 \begin{example}[Damped Oscillator]
-For $\ddot{x} + 2\zeta\omega\dot{x} + \omega$^{2x}$ = 0$:
+For $\ddot{x} + 2\zeta\omega\dot{x} + \omega^{2x} = 0$:
 \begin{itemize}
 \item Companion matrix trace = $-2\zeta\omega$
-\item $W(t) = W(0) \cdot e^{-2\zeta\omega t}$
+\item W(t) = W(0) \cdot $e^{-2\zeta\omega t}$
 \item Damping $(\zeta > 0)$ causes Wronskian decay
 \end{itemize}
 \end{example}
@@ -144,7 +143,7 @@ Common errors:
 \begin{itemize}
 \item Confusing trace with determinant
 \item Forgetting the integral for time-dependent $A(t)$
-\item Missing that $\text{tr}(A) = \sum\lambda$_{i}$$
+\item Missing that $\text{tr}(A) = \sum\lambda_{i}$
 \item Not recognizing volume-preserving systems
 \end{itemize}
 \end{warning}
@@ -153,7 +152,7 @@ Common errors:
 
 \begin{proposition}[Periodic Systems]
 For $T$-periodic $A(t)$, stability depends on:
-$$\mu = \frac{1}{T}\int$_{0}$^T \text{tr}(A(s))\,ds$$
+$$\mu = \frac{1}{T}\int_{0}^T \text{tr}(A(s))\,ds$$
 \begin{itemize}
 \item $\mu < 0$: Stable
 \item $\mu > 0$: Unstable
@@ -177,10 +176,10 @@ Prof. Ditkowski's favorite Liouville problems:
 \begin{keypoint}
 Essential formulas:
 \begin{itemize}
-\item General: $W(t) = W(t$_{0}$)e^{\int_{t$_{0}$}$^{t}$ \text{tr}(A(s))ds}$
-\item Constant: $W(t) = W(0)e^{\text{tr}(A) \cdot t}$
-\item Scalar $n$th order: $W(t) = W(0)e^{-\int a_{n-1}(s)ds}$
-\item Trace-eigenvalue: $\text{tr}(A) = \lambda$_{1}$ + \cdots + \lambda$_{n}$$
+\item General: W(t) = W(t_{0})$e^{\int_{t_{0}$}^{t} \text{tr}(A(s))ds}
+\item Constant: W(t) = W(0)$e^{\text{tr}$(A) \cdot t}
+\item Scalar $n$th order: W(t) = W(0)$e^{-\int a_{n-1}$(s)ds}
+\item Trace-eigenvalue: $\text{tr}(A) = \lambda_{1} + \cdots + \lambda_{n}$
 \end{itemize}
 \end{keypoint}
 

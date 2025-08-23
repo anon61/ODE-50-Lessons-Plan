@@ -14,8 +14,8 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{quickcheck}
 
-\title{2D Linear Systems: Complete Classification}
-\author{ODE 1 - Lesson 37}
+\title{ODE Lesson 37: 2D Linear Systems: Complete Classification}
+\author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
 \begin{document}
@@ -39,10 +39,10 @@ These three quantities completely determine the phase portrait!
 \section{Eigenvalue Analysis}
 
 The characteristic equation is:
-$$\lambda$^{2}$ - \tau\lambda + \Delta = 0$$
+$$\lambda^{2} - \tau\lambda + \Delta = 0$$
 
 with eigenvalues:
-$$\lambda_{1,2} = \frac{\tau \pm \sqrt{\tau$^{2}$ - 4\Delta}}{2} = \frac{\tau \pm \sqrt{D}}{2}$$
+$$\lambda_{1,2} = \frac{\tau \pm \sqrt{\tau^{2} - 4\Delta}}{2} = \frac{\tau \pm \sqrt{D}}{2}$$
 
 \begin{theorem}[Eigenvalue Classification]
 The nature of eigenvalues depends on the discriminant $D$:
@@ -61,11 +61,11 @@ The nature of eigenvalues depends on the discriminant $D$:
 \textbf{Type} & \textbf{Condition} & \textbf{Eigenvalues} & \textbf{Stability} & \textbf{Behavior} \\
 \hline
 \hline
-Saddle & $\Delta < 0$ & $\lambda$_{1}$ < 0 < \lambda$_{2}$$ & Unstable & Hyperbolic \\
+Saddle & $\Delta < 0$ & $\lambda_{1} < 0 < \lambda_{2}$ & Unstable & Hyperbolic \\
 \hline
-Stable Node & $\Delta > 0, D > 0, \tau < 0$ & $\lambda$_{1}$, \lambda$_{2}$ < 0$ & Asymp. Stable & Approach \\
+Stable Node & $\Delta > 0, D > 0, \tau < 0$ & $\lambda_{1}, \lambda_{2} < 0$ & Asymp. Stable & Approach \\
 \hline
-Unstable Node & $\Delta > 0, D > 0, \tau > 0$ & $\lambda$_{1}$, \lambda$_{2}$ > 0$ & Unstable & Repelling \\
+Unstable Node & $\Delta > 0, D > 0, \tau > 0$ & $\lambda_{1}, \lambda_{2} > 0$ & Unstable & Repelling \\
 \hline
 Stable Spiral & $\Delta > 0, D < 0, \tau < 0$ & $\alpha \pm i\beta, \alpha < 0$ & Asymp. Stable & Spiral in \\
 \hline
@@ -85,9 +85,9 @@ Center & $\Delta > 0, \tau = 0$ & $\pm i\beta$ & Neutrally Stable & Ellipses \\
 \textbf{Eigenvalues:} Real with opposite signs\\
 \textbf{Key Features:}
 \begin{itemize}
-    \item Stable manifold: $E$^{s}$ = \text{span}\{v$_{1}$\}$ where $\lambda$_{1}$ < 0$
-    \item Unstable manifold: $E$^{u}$ = \text{span}\{v$_{2}$\}$ where $\lambda$_{2}$ > 0$
-    \item Trajectories approach along $E$^{s}$$, depart along $E$^{u}$$
+    \item Stable manifold: $E^{s} = \text{span}\{v_{1}\}$ where $\lambda_{1} < 0$
+    \item Unstable manifold: $E^{u} = \text{span}\{v_{2}\}$ where $\lambda_{2} > 0$
+    \item Trajectories approach along $E^{s}$, depart along $E^{u}$
     \item Four hyperbolic sectors
 \end{itemize}
 \end{classification}
@@ -105,11 +105,11 @@ Center & $\Delta > 0, \tau = 0$ & $\pm i\beta$ & Neutrally Stable & Ellipses \\
 \subsection{Nodes}
 
 \begin{classification}[Proper Node]
-\textbf{Condition:} $\Delta > 0$, $D > 0$, $\lambda$_{1}$ \neq \lambda$_{2}$$\\
+\textbf{Condition:} $\Delta > 0$, $D > 0$, $\lambda_{1} \neq \lambda_{2}$\\
 \textbf{Behavior:}
 \begin{itemize}
     \item All trajectories tangent to slow eigenvector at origin
-    \item Fast eigenvector: $|\lambda$_{1}$| > |\lambda$_{2}$|$ determines initial direction
+    \item Fast eigenvector: $|\lambda_{1}| > |\lambda_{2}|$ determines initial direction
     \item Slow eigenvector: determines final approach direction
 \end{itemize}
 \end{classification}
@@ -184,7 +184,7 @@ Look at the off-diagonal elements of $A$:
     \node[blue] at (0, 2) {Center};
 
     % Labels
-    \node[blue] at (3, 3) {$\Delta = \frac{\tau$^{2}$}{4}$};
+    \node[blue] at (3, 3) {$\Delta = \frac{\tau^{2}}{4}$};
     \draw[dashed] (-4,0) -- (4,0) node[near end, below] {$\Delta = 0$};
 \end{tikzpicture}
 \end{center}
@@ -205,7 +205,7 @@ Look at the off-diagonal elements of $A$:
         \item If $\tau = 0$ \rightarrow \textbf{CENTER}
         \item If $\tau \neq 0$ \rightarrow Continue...
     \end{itemize}
-    \item Compute $D = \tau$^{2}$ - 4\det(A)$
+    \item Compute $D = \tau^{2} - 4\det(A)$
     \begin{itemize}
         \item If $D > 0$ \rightarrow \textbf{NODE} (stable if $\tau < 0$)
         \item If $D < 0$ \rightarrow \textbf{SPIRAL} (stable if $\tau < 0$)
@@ -223,7 +223,7 @@ Classify $A = \begin{pmatrix} 2 & 3 \\ 3 & 2 \end{pmatrix}$:
 \end{align}
 Therefore: \textbf{SADDLE} (unstable)
 
-Verification: $\lambda = \frac{4 \pm \sqrt{16 + 20}}{2} = \frac{4 \pm 6}{2} = 5, -1$ \checkmark
+Verification: $\lambda = \frac{4 \pm \sqrt{16 + 20}}{2} = \frac{4 \pm 6}{2} = 5, -1$ $\checkmark$
 \end{example}
 
 \begin{example}[Using Trace-Det Only]

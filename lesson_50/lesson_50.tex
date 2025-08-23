@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{stability}
 
-\title{Lesson 50: Numerical Methods for ODEs}
+\title{ODE Lesson 50: Numerical Methods for ODEs}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -25,9 +25,9 @@
 \section{Introduction to Numerical Methods}
 
 \begin{definition}[Numerical Solution]
-A numerical solution to the IVP $y' = f(x,y)$, $y(x$_{0}$) = y$_{0}$$ is a sequence of approximations:
-$$(x$_{0}$, y$_{0}$), (x$_{1}$, y$_{1}$), \ldots, (x$_{n}$, y$_{n}$)$$
-where $y$_{i}$ \approx y(x$_{i}$)$ and $x_{i+1} = x$_{i}$ + h$ (step size).
+A numerical solution to the IVP $y' = f(x,y)$, $y(x_{0}) = y_{0}$ is a sequence of approximations:
+$$(x_{0}, y_{0}), (x_{1}, y_{1}), \ldots, (x_{n}, y_{n})$$
+where $y_{i} \approx y(x_{i})$ and $x_{i+1} = x_{i} + h$ (step size).
 \end{definition}
 
 \begin{keypoint}
@@ -37,10 +37,10 @@ Numerical methods trade analytical exactness for computational practicality, pro
 \section{Euler's Method}
 
 \begin{method}[Forward Euler]
-$$y_{n+1} = y$_{n}$ + hf(x$_{n}$, y$_{n}$)$$
+$$y_{n+1} = y_{n} + hf(x_{n}, y_{n})$$
 \begin{itemize}
 \item Order: 1
-\item Local truncation error: $O(h$^{2}$)$
+\item Local truncation error: $O(h^{2})$
 \item Global error: $O(h)$
 \item Stability: Conditionally stable
 \item Function evaluations per step: 1
@@ -103,10 +103,10 @@ Remember RK4 weights as "1-2-2-1, divide by 6". The middle points get double wei
 \hline
 \textbf{Method} & \textbf{Order} & \textbf{Local Error} & \textbf{Global Error} \\
 \hline
-Euler & 1 & $O(h$^{2}$)$ & $O(h)$ \\
-Improved Euler & 2 & $O(h$^{3}$)$ & $O(h$^{2}$)$ \\
-RK2 & 2 & $O(h$^{3}$)$ & $O(h$^{2}$)$ \\
-RK4 & 4 & $O(h$^{5}$)$ & $O(h$^{4}$)$ \\
+Euler & 1 & $O(h^{2})$ & $O(h)$ \\
+Improved Euler & 2 & $O(h^{3})$ & $O(h^{2})$ \\
+RK2 & 2 & $O(h^{3})$ & $O(h^{2})$ \\
+RK4 & 4 & $O(h^{5})$ & $O(h^{4})$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -118,11 +118,11 @@ RK4 & 4 & $O(h$^{5}$)$ & $O(h$^{4}$)$ \\
 For the test equation $y' = \lambda y$ with $\lambda \in \mathbb{C}$:
 
 \textbf{Euler's Method:}
-$$y_{n+1} = (1 + h\lambda)y$_{n}$$$
+$$y_{n+1} = (1 + h\lambda)y_{n}$$
 Stable if $|1 + h\lambda| < 1$
 
 \textbf{RK4:}
-$$y_{n+1} = \left(1 + h\lambda + \frac{(h\lambda)$^{2}$}{2} + \frac{(h\lambda)$^{3}$}{6} + \frac{(h\lambda)$^{4}$}{24}\right)y$_{n}$$$
+$$y_{n+1} = \left(1 + h\lambda + \frac{(h\lambda)^{2}}{2} + \frac{(h\lambda)^{3}}{6} + \frac{(h\lambda)^{4}}{24}\right)y_{n}$$
 Stable if $|R(h\lambda)| < 1$ where $R$ is the stability function.
 \end{stability}
 
@@ -137,27 +137,27 @@ An ODE is \textbf{stiff} if:
 
 \begin{warning}
 For stiff problems, explicit methods become impractical. Use implicit methods like Backward Euler:
-$$y_{n+1} = y$_{n}$ + hf(x_{n+1}, y_{n+1})$$
+$$y_{n+1} = y_{n} + hf(x_{n+1}, y_{n+1})$$
 \end{warning}
 
 \section{Algorithm Comparison}
 
 \begin{algorithm}[H]
 \SetAlgoLined
-\KwIn{$f(x,y)$, $x$_{0}$$, $y$_{0}$$, $h$, $N$ steps}
-\KwOut{Numerical solution $(x$_{i}$, y$_{i}$)$}
-$x \leftarrow x$_{0}$$; $y \leftarrow y$_{0}$$\;
+\KwIn{$f(x,y)$, $x_{0}$, $y_{0}$, $h$, $N$ steps}
+\KwOut{Numerical solution $(x_{i}, y_{i})$}
+$x \leftarrow x_{0}$; $y \leftarrow y_{0}$\;
 \For{$i = 0$ to $N-1$}{
     \Switch{Method}{
         \Case{Euler}{
             $y \leftarrow y + hf(x,y)$\;
         }
         \Case{RK4}{
-            $k$_{1}$ \leftarrow f(x,y)$\;
-            $k$_{2}$ \leftarrow f(x+h/2, y+hk$_{1}$/2)$\;
-            $k$_{3}$ \leftarrow f(x+h/2, y+hk$_{2}$/2)$\;
-            $k$_{4}$ \leftarrow f(x+h, y+hk$_{3}$)$\;
-            $y \leftarrow y + h(k$_{1}$+2k$_{2}$+2k$_{3}$+k$_{4}$)/6$\;
+            $k_{1} \leftarrow f(x,y)$\;
+            $k_{2} \leftarrow f(x+h/2, y+hk_{1}/2)$\;
+            $k_{3} \leftarrow f(x+h/2, y+hk_{2}/2)$\;
+            $k_{4} \leftarrow f(x+h, y+hk_{3})$\;
+            $y \leftarrow y + h(k_{1}+2k_{2}+2k_{3}+k_{4})/6$\;
         }
     }
     $x \leftarrow x + h$\;
@@ -221,8 +221,8 @@ Common exam questions and point distribution:
 \begin{warning}
 Common errors:
 \begin{itemize}
-\item Using $y$_{n}$$ instead of $y$_{n}$ + k$_{1}$/2$ in RK4's $k$_{2}$$
-\item Forgetting to update $x$_{n}$$ when computing $k$_{i}$$
+\item Using $y_{n}$ instead of $y_{n} + k_{1}/2$ in RK4's $k_{2}$
+\item Forgetting to update $x_{n}$ when computing $k_{i}$
 \item Wrong RK4 weights (not 1-2-2-1)
 \item Confusing order with number of function evaluations
 \end{itemize}

@@ -14,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{formula}
 
-\title{Lesson 45: Method of Undetermined Coefficients}
+\title{ODE Lesson 45: Method of Undetermined Coefficients}
 \author{ODE 1 with Prof. Adi Ditkowski}
 \date{Tel Aviv University}
 
@@ -57,10 +57,10 @@ A function $f(t)$ is suitable for the method of undetermined coefficients if it 
 \begin{keypoint}
 The method works for linear combinations of:
 \begin{enumerate}
-    \item Polynomials: $t^n, t^{n-1}, \ldots, t, 1$
-    \item Exponentials: $e^{at}$ where $a \in \mathbb{C}$
+    \item Polynomials: $t^n, t^{n-1}, \ldots, t, 1
+    \item Exponentials: $e^{at}$ where a \in \mathbb{C}$
     \item Trigonometric: $\sin(bt), \cos(bt)$ where $b \in \mathbb{R}$
-    \item Products: $t^n e^{at}, e^{at}\sin(bt), e^{at}\cos(bt), t^n e^{at}\sin(bt)$, etc.
+    \item Products: t^n $e^{at}$, e^{at}\sin(bt), e^{at}\cos(bt), t^n e^{at}\sin(bt), etc.
 \end{enumerate}
 \end{keypoint}
 
@@ -85,18 +85,18 @@ For $L[y] = f(t)$ where $f(t)$ is UC-suitable:
 \hline
 \textbf{Forcing Function $f(t)$} & \textbf{Trial Solution $y_p(t)$} \\
 \hline
-$P_n(t)$ (polynomial degree $n$) & $A_n t^n + A_{n-1}t^{n-1} + \cdots + A_1 t + A_0$ \\
+$P_n(t)$ (polynomial degree $n$) & $A_n t^n + A_{n-1}t^{n-1} + \cdots + A_1 t + A_0 \\
 \hline
-$e^{at}$ & $Ae^{at}$ \\
+$e^{at}$ & Ae^{at} \\
 \hline
-$\sin(bt)$ or $\cos(bt)$ & $A\cos(bt) + B\sin(bt)$ \\
+\sin(bt) or $\cos(bt)$ & $A\cos(bt) + B\sin(bt) \\
 \hline
-$P_n(t) e^{at}$ & $(A_n t^n + \cdots + A_0)e^{at}$ \\
+P_n(t) $e^{at}$ & (A_n t^n + \cdots + A_0)$e^{at}$ \\
 \hline
-$e^{at}\sin(bt)$ or $e^{at}\cos(bt)$ & $e^{at}[A\cos(bt) + B\sin(bt)]$ \\
+e^{at}\sin(bt) or e^{at}\cos(bt) & $e^{at}$[A\cos(bt) + B\sin(bt)] \\
 \hline
-$P_n(t) e^{at} \sin(bt)$ & $e^{at}[(A_n t^n + \cdots + A_0)\cos(bt) +$ \\
-& $(B_n t^n + \cdots + B_0)\sin(bt)]$ \\
+P_n(t) $e^{at}$ \sin(bt) & $e^{at}$[(A_n t^n + \cdots + A_0)\cos(bt) + \\
+& (B_n t^n + \cdots + B_0)\sin(bt)]$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -124,13 +124,13 @@ Resonance physically corresponds to driving a system at its natural frequency, l
 \begin{method}[Checking for Resonance]
 \begin{enumerate}
     \item Find all roots of the characteristic equation (with multiplicities)
-    \item For forcing function $f(t) = e^{at}g(t)$:
+    \item For forcing function f(t) = e^{at}g(t):
     \begin{itemize}
         \item If $a$ is not a characteristic root: no modification
         \item If $a$ is a simple root: multiply trial by $t$
         \item If $a$ is a root of multiplicity $m$: multiply trial by $t^m$
     \end{itemize}
-    \item For $f(t) = e^{at}[\sin(bt) \text{ or } \cos(bt)]$:
+    \item For f(t) = $e^{at}$[\sin(bt) \text{ or } \cos(bt)]:
     \begin{itemize}
         \item Check if $a \pm ib$ are characteristic roots
         \item Multiply by $t^m$ where $m$ is the multiplicity
@@ -159,9 +159,9 @@ Solve: $y'' - 3y' + 2y = 6t^2 - 4t + 1$
 \begin{enumerate}
     \item Homogeneous: $r^2 - 3r + 2 = 0 \Rightarrow r = 1, 2$
 
-    Thus: $y_h = c_1 e^t + c_2 e^{2t}$
+    Thus: y_h = c_1 e^t + c_2 $e^{2t}$
 
-    \item Trial: $y_p = At^2 + Bt + C$
+    \item Trial: y_p = At^2 + Bt + C$
 
     \item Derivatives: $y_p' = 2At + B$, $y_p'' = 2A$
 
@@ -176,22 +176,22 @@ Solve: $y'' - 3y' + 2y = 6t^2 - 4t + 1$
     t^0: & \quad 2A - 3B + 2C = 1 \Rightarrow C = 8
     \end{align}
 
-    \item Solution: $y = c_1 e^t + c_2 e^{2t} + 3t^2 + 7t + 8$
+    \item Solution: y = c_1 e^t + c_2 $e^{2t}$ + 3t^2 + 7t + 8
 \end{enumerate}
 \end{example}
 
 \begin{example}[Resonant Exponential]
-Solve: $y'' - 4y' + 4y = e^{2t}$
+Solve: y'' - 4y' + 4y = $e^{2t}$
 
 \textbf{Solution:}
 \begin{enumerate}
-    \item Homogeneous: $(r-2)^2 = 0 \Rightarrow r = 2$ (double root)
+    \item Homogeneous: (r-2)^2 = 0 \Rightarrow r = 2 (double root)
 
-    Thus: $y_h = (c_1 + c_2 t)e^{2t}$
+    Thus: y_h = (c_1 + c_2 t)$e^{2t}$
 
-    \item Standard trial $Ae^{2t}$ appears in $y_h$ (resonance!)
+    \item Standard trial Ae^{2t} appears in y_h$ (resonance!)
 
-    Since 2 is a double root, multiply by $t^2$: $y_p = At^2 e^{2t}$
+    Since 2 is a double root, multiply by $t^2: y_p = At^2 $e^{2t}$
 
     \item Derivatives:
     \begin{align}
@@ -199,14 +199,14 @@ Solve: $y'' - 4y' + 4y = e^{2t}$
     y_p'' &= 2Ae^{2t}(1 + 4t + 2t^2)
     \end{align}
 
-    \item Substitute and simplify: $2Ae^{2t} = e^{2t}$
+    \item Substitute and simplify: 2Ae^{2t} = $e^{2t}$
 
-    \item Thus $A = 1/2$ and $y_p = \frac{t^2}{2}e^{2t}$
+    \item Thus A = 1/2 and y_p = \frac{t^2}{2}$e^{2t}$
 \end{enumerate}
 \end{example}
 
 \begin{example}[Resonant Trigonometric]
-Solve: $y'' + \omega^2 y = F_0 \cos(\omega t)$
+Solve: y'' + \omega^2 y = F_0 \cos(\omega t)
 
 \textbf{Solution:}
 \begin{enumerate}
@@ -255,19 +255,19 @@ Prof. Ditkowski's exam strategy:
 \textbf{Forcing $f(t)$} & \textbf{Char. Root?} & \textbf{Trial $y_p$} \\
 \hline
 $P_n(t)$ & $r = 0$ not a root & $A_n t^n + \cdots + A_0$ \\
-& $r = 0$ mult. $m$ & $t^m(A_n t^n + \cdots + A_0)$ \\
+& $r = 0$ mult. $m$ & $t^m(A_n t^n + \cdots + A_0) \\
 \hline
-$e^{at}$ & $r = a$ not a root & $Ae^{at}$ \\
-& $r = a$ mult. $m$ & $At^m e^{at}$ \\
+$e^{at}$ & r = a not a root & Ae^{at} \\
+& r = a mult. $m & At^m $e^{at}$ \\
 \hline
-$\sin(bt), \cos(bt)$ & $r = \pm ib$ not roots & $A\cos(bt) + B\sin(bt)$ \\
-& $r = \pm ib$ mult. $m$ & $t^m[A\cos(bt) + B\sin(bt)]$ \\
+\sin(bt), \cos(bt) & $r = \pm ib$ not roots & $A\cos(bt) + B\sin(bt)$ \\
+& $r = \pm ib$ mult. $m$ & $t^m[A\cos(bt) + B\sin(bt)] \\
 \hline
-$P_n(t)e^{at}$ & $r = a$ not a root & $(A_n t^n + \cdots + A_0)e^{at}$ \\
-& $r = a$ mult. $m$ & $t^m(A_n t^n + \cdots + A_0)e^{at}$ \\
+P_n(t)$e^{at}$ & r = a not a root & (A_n t^n + \cdots + A_0)$e^{at}$ \\
+& r = a$ mult. $m & t^m(A_n t^n + \cdots + A_0)$e^{at}$ \\
 \hline
-$e^{at}\sin(bt)$ & $r = a \pm ib$ not roots & $e^{at}[A\cos(bt) + B\sin(bt)]$ \\
-$e^{at}\cos(bt)$ & $r = a \pm ib$ mult. $m$ & $t^m e^{at}[A\cos(bt) + B\sin(bt)]$ \\
+e^{at}\sin(bt) & $r = a \pm ib not roots & $e^{at}$[A\cos(bt) + B\sin(bt)] \\
+e^{at}\cos(bt) & r = a \pm ib$ mult. $m$ & t^m $e^{at}$[A\cos(bt) + B\sin(bt)] \\
 \hline
 \end{tabular}
 \end{center}

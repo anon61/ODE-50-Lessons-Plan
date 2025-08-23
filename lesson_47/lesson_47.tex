@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{formula}
 
-\title{Lesson 47: Euler-Cauchy Equations}
+\title{ODE Lesson 47: Euler-Cauchy Equations}
 \author{ODE 1 with Prof. Adi Ditkowski}
 \date{Tel Aviv University}
 
@@ -27,8 +27,8 @@
 
 \begin{definition}[Euler-Cauchy Equation]
 An $n$-th order Euler-Cauchy equation (also called an equidimensional equation) has the form:
-$$t$^{n}$ y^{(n)} + a_{n-1} t^{n-1} y^{(n-1)} + \cdots + a$_{1}$ t y' + a$_{0}$ y = 0$$
-where $a$_{0}$, a$_{1}$, \ldots, a_{n-1}$ are constants and $t \neq 0$.
+$$t^{n} y^{(n)} + a_{n-1} t^{n-1} y^{(n-1)} + \cdots + a_{1} t y' + a_{0} y = 0$$
+where $a_{0}, a_{1}, \ldots, a_{n-1}$ are constants and $t \neq 0$.
 \end{definition}
 
 \begin{keypoint}
@@ -38,17 +38,17 @@ The defining characteristic: the power of $t$ equals the order of the derivative
 \section{Method 1: Power Function Ansatz}
 
 \begin{theorem}[Power Solutions]
-For the Euler equation, solutions have the form $y = t$^{r}$$ where $r$ satisfies an algebraic characteristic equation.
+For the Euler equation, solutions have the form $y = t^{r}$ where $r$ satisfies an algebraic characteristic equation.
 \end{theorem}
 
 \subsection{Second-Order Case}
 
 Consider the second-order Euler equation:
-$$t$^{2}$ y'' + a t y' + b y = 0, \quad t > 0$$
+$$t^{2} y'' + a t y' + b y = 0, \quad t > 0$$
 
 \begin{method}[Direct Solution Method]
 \begin{enumerate}
-    \item Assume $y = t$^{r}$$ for some constant $r$
+    \item Assume $y = t^{r}$ for some constant $r$
     \item Compute derivatives:
     \begin{align}
     y &= t^{r} \\
@@ -56,56 +56,56 @@ $$t$^{2}$ y'' + a t y' + b y = 0, \quad t > 0$$
     y'' &= r(r-1) t^{r-2}
     \end{align}
     \item Substitute into the equation:
-    $$t$^{2}$ \cdot r(r-1)t^{r-2} + at \cdot rt^{r-1} + b \cdot t$^{r}$ = 0$$
+    $$t^{2} \cdot r(r-1)t^{r-2} + at \cdot rt^{r-1} + b \cdot t^{r} = 0$$
     \item Simplify:
-    $$t$^{r}$[r(r-1) + ar + b] = 0$$
-    \item Since $t$^{r}$ \neq 0$ for $t > 0$, we get the characteristic equation:
-    $$r$^{2}$ + (a-1)r + b = 0$$
+    $$t^{r}[r(r-1) + ar + b] = 0$$
+    \item Since $t^{r} \neq 0$ for $t > 0$, we get the characteristic equation:
+    $$r^{2} + (a-1)r + b = 0$$
 \end{enumerate}
 \end{method}
 
 \begin{formula}
 \textbf{Characteristic Equation for Second-Order Euler:}
-$$\boxed{r(r-1) + ar + b = 0 \quad \text{or} \quad r$^{2}$ + (a-1)r + b = 0}$$
+$$\boxed{r(r-1) + ar + b = 0 \quad \text{or} \quad r^{2} + (a-1)r + b = 0}$$
 \end{formula}
 
 \subsection{Solution Forms Based on Roots}
 
 \begin{theorem}[Complete Solution Classification]
-Let $r$_{1}$, r$_{2}$$ be roots of the characteristic equation. Then:
+Let $r_{1}, r_{2}$ be roots of the characteristic equation. Then:
 \begin{enumerate}
-    \item \textbf{Distinct real roots}: $y = c$_{1}$ t^{r$_{1}$} + c$_{2}$ t^{r$_{2}$}$
-    \item \textbf{Repeated real root} $r$: $y = (c$_{1}$ + c$_{2}$ \ln t) t$^{r}$$
+    \item \textbf{Distinct real roots}: $y = c_{1} t^{r_{1}} + c_{2} t^{r_{2}}$
+    \item \textbf{Repeated real root} $r$: $y = (c_{1} + c_{2} \ln t) t^{r}$
     \item \textbf{Complex roots} $r = \alpha \pm i\beta$:
-    $$y = t^\alpha [c$_{1}$ \cos(\beta \ln t) + c$_{2}$ \sin(\beta \ln t)]$$
+    $$y = t^\alpha [c_{1} \cos(\beta \ln t) + c_{2} \sin(\beta \ln t)]$$
 \end{enumerate}
 \end{theorem}
 
 \begin{proof}[Proof of Repeated Root Case]
-When $r$ is a repeated root, we use reduction of order. Given $y$_{1}$ = t$^{r}$$, we seek $y$_{2}$ = v(t) \cdot t$^{r}$$.
+When $r$ is a repeated root, we use reduction of order. Given $y_{1} = t^{r}$, we seek $y_{2} = v(t) \cdot t^{r}$.
 
 The Euler equation in standard form:
-$$y'' + \frac{a}{t}y' + \frac{b}{t$^{2}$}y = 0$$
+$$y'' + \frac{a}{t}y' + \frac{b}{t^{2}}y = 0$$
 
 Using the reduction formula with $p(t) = a/t$:
-$$v = \int \frac{e^{-\int (a/t) dt}}{t^{2r}} dt = \int \frac{t^{-a}}{t^{2r}} dt$$
+$v = \int \frac{$e^{-\int (a/t) dt}$}{t^{2r}} dt = \int \frac{t^{-a}}{t^{2r}} dt$
 
 For a repeated root, $r = (1-a)/2$, so $2r = 1-a$. Thus:
 $$v = \int \frac{t^{-a}}{t^{1-a}} dt = \int \frac{1}{t} dt = \ln t$$
 
-Therefore, $y$_{2}$ = t$^{r}$ \ln t$.
+Therefore, $y_{2} = t^{r} \ln t$.
 \end{proof}
 
 \section{Method 2: Logarithmic Transformation}
 
 \begin{theorem}[Transformation to Constant Coefficients]
-The substitution $x = \ln t$ (equivalently, $t = e$^{x}$$) transforms an Euler equation into a constant coefficient equation.
+The substitution $x = \ln t (equivalently, t = $e^{x}$) transforms an Euler equation into a constant coefficient equation.
 \end{theorem}
 
 \subsection{Derivative Transformations}
 
 \begin{lemma}[Change of Variables]
-Under the substitution $x = \ln t$, if $v(x) = y(t)$:
+Under the substitution x = \ln t$, if $v(x) = y(t)$:
 \begin{align}
 t \frac{dy}{dt} &= \frac{dv}{dx} \\
 t^{2} \frac{d^{2y}}{dt^{2}} &= \frac{d^{2v}}{dx^{2}} - \frac{dv}{dx} \\
@@ -118,19 +118,19 @@ Using the chain rule:
 $$\frac{dy}{dt} = \frac{dv}{dx} \cdot \frac{dx}{dt} = \frac{1}{t} \frac{dv}{dx}$$
 
 For the second derivative:
-$$\frac{d$^{2y}$}{dt$^{2}$} = \frac{d}{dt}\left(\frac{1}{t} \frac{dv}{dx}\right) = -\frac{1}{t$^{2}$}\frac{dv}{dx} + \frac{1}{t} \frac{d}{dt}\left(\frac{dv}{dx}\right)$$
+$$\frac{d^{2y}}{dt^{2}} = \frac{d}{dt}\left(\frac{1}{t} \frac{dv}{dx}\right) = -\frac{1}{t^{2}}\frac{dv}{dx} + \frac{1}{t} \frac{d}{dt}\left(\frac{dv}{dx}\right)$$
 
-Since $\frac{d}{dt}\left(\frac{dv}{dx}\right) = \frac{d$^{2v}$}{dx$^{2}$} \cdot \frac{dx}{dt} = \frac{1}{t}\frac{d$^{2v}$}{dx$^{2}$}$:
+Since $\frac{d}{dt}\left(\frac{dv}{dx}\right) = \frac{d^{2v}}{dx^{2}} \cdot \frac{dx}{dt} = \frac{1}{t}\frac{d^{2v}}{dx^{2}}$:
 
-$$\frac{d$^{2y}$}{dt$^{2}$} = \frac{1}{t$^{2}$}\left(\frac{d$^{2v}$}{dx$^{2}$} - \frac{dv}{dx}\right)$$
+$$\frac{d^{2y}}{dt^{2}} = \frac{1}{t^{2}}\left(\frac{d^{2v}}{dx^{2}} - \frac{dv}{dx}\right)$$
 \end{proof}
 
 \subsection{The Transformed Equation}
 
 \begin{theorem}[Constant Coefficient Form]
-The Euler equation $t$^{2y}$'' + aty' + by = 0$ becomes:
-$$v'' + (a-1)v' + bv = 0$$
-where $v(x) = y(e$^{x}$)$ and $x = \ln t$.
+The Euler equation $t^{2y}'' + aty' + by = 0$ becomes:
+$$v'' + (a-1)v' + bv = 0$
+where v(x) = y($e^{x}$) and x = \ln t$.
 \end{theorem}
 
 \begin{insight}
@@ -140,14 +140,14 @@ The characteristic polynomial of the transformed equation is identical to the ch
 \section{Higher-Order Euler Equations}
 
 \begin{theorem}[General $n$-th Order]
-For the $n$-th order Euler equation, assume $y = t$^{r}$$. The characteristic equation is:
-$$\prod_{k=0}^{n-1}(r-k) + \sum_{j=1}^{n-1} a$_{j}$ \prod_{k=0}^{j-1}(r-k) + a$_{0}$ = 0$$
+For the $n$-th order Euler equation, assume $y = t^{r}$. The characteristic equation is:
+$$\prod_{k=0}^{n-1}(r-k) + \sum_{j=1}^{n-1} a_{j} \prod_{k=0}^{j-1}(r-k) + a_{0} = 0$$
 \end{theorem}
 
 \begin{example}[Third-Order]
-For $t$^{3y}$''' + at$^{2y}$'' + bty' + cy = 0$:
+For $t^{3y}''' + at^{2y}'' + bty' + cy = 0$:
 
-Assuming $y = t$^{r}$$:
+Assuming $y = t^{r}$:
 - $y' = rt^{r-1}$
 - $y'' = r(r-1)t^{r-2}$
 - $y''' = r(r-1)(r-2)t^{r-3}$
@@ -161,15 +161,15 @@ $$r(r-1)(r-2) + ar(r-1) + br + c = 0$$
 \subsection{The Cauchy-Euler Equation}
 
 \begin{definition}[Standard Cauchy-Euler]
-The equation $t$^{2y}$'' + ty' + (\lambda$^{2}$ t$^{2}$ + \nu$^{2}$)y = 0$ appears in many applications, especially in Bessel function theory.
+The equation $t^{2y}'' + ty' + (\lambda^{2} t^{2} + \nu^{2})y = 0$ appears in many applications, especially in Bessel function theory.
 \end{definition}
 
 \subsection{Modified Euler Equations}
 
 \begin{example}[Shifted Center]
-For equations centered at $t = t$_{0}$$:
-$$(t-t$_{0}$)$^{2}$ y'' + a(t-t$_{0}$)y' + by = 0$$
-Use the substitution $s = t - t$_{0}$$ first.
+For equations centered at $t = t_{0}$:
+$$(t-t_{0})^{2} y'' + a(t-t_{0})y' + by = 0$$
+Use the substitution $s = t - t_{0}$ first.
 \end{example}
 
 \section{Solution Strategies}
@@ -180,15 +180,15 @@ Use the substitution $s = t - t$_{0}$$ first.
     \item \textbf{Choose domain}: Usually $t > 0$
     \item \textbf{Select method}:
     \begin{itemize}
-        \item Direct ($y = t$^{r}$$) for straightforward cases
+        \item Direct ($y = t^{r}$) for straightforward cases
         \item Transform ($x = \ln t$) for complex or higher-order
     \end{itemize}
     \item \textbf{Find characteristic equation}
     \item \textbf{Solve for roots}
     \item \textbf{Build solution} based on root types:
     \begin{itemize}
-        \item Real distinct: $t^{r$_{1}$}, t^{r$_{2}$}, \ldots$
-        \item Real repeated: $t$^{r}$, t$^{r}$\ln t, t$^{r}$(\ln t)$^{2}$, \ldots$
+        \item Real distinct: $t^{r_{1}}, t^{r_{2}}, \ldots$
+        \item Real repeated: $t^{r}, t^{r}\ln t, t^{r}(\ln t)^{2}, \ldots$
         \item Complex: $t^\alpha\cos(\beta\ln t), t^\alpha\sin(\beta\ln t)$
     \end{itemize}
 \end{enumerate}
@@ -212,7 +212,7 @@ Euler equations arise naturally in:
 \subsection{Series Solutions}
 
 \begin{theorem}[Frobenius Connection]
-The point $t = 0$ is a regular singular point of the Euler equation. The indicial equation from the Frobenius method is exactly our characteristic equation.
+The point $t = 0 is a regular singular point of the Euler equation. The indicial equation from the Frobenius method is exactly our characteristic equation.
 \end{theorem}
 
 \subsection{Relationship to Constant Coefficients}
@@ -223,11 +223,11 @@ The point $t = 0$ is a regular singular point of the Euler equation. The indicia
 \hline
 \textbf{Constant Coefficient} & \textbf{Euler Equation} \\
 \hline
-$y = e^{rt}$ ansatz & $y = t$^{r}$$ ansatz \\
+y = $e^{rt}$ ansatz & y = t^{r} ansatz \\
 \hline
-Repeated root gives $te^{rt}$ & Repeated root gives $t$^{r}$\ln t$ \\
+Repeated root gives te^{rt} & Repeated root gives t^{r}\ln t \\
 \hline
-Complex roots give $e^{\alpha t}\sin(\beta t)$ & Complex roots give $t^\alpha\sin(\beta\ln t)$ \\
+Complex roots give e^{\alpha t}\sin(\beta t) & Complex roots give t^\alpha\sin(\beta\ln t)$ \\
 \hline
 Linear time scale & Logarithmic time scale \\
 \hline
@@ -240,7 +240,7 @@ Linear time scale & Logarithmic time scale \\
 \begin{warning}
 \begin{enumerate}
     \item \textbf{Domain}: Solutions differ for $t > 0$ and $t < 0$
-    \item \textbf{Characteristic equation}: It's $r(r-1) + ar + b$, not $r$^{2}$ + ar + b$
+    \item \textbf{Characteristic equation}: It's $r(r-1) + ar + b$, not $r^{2} + ar + b$
     \item \textbf{Complex roots}: Arguments are $\beta\ln t$, not $\beta t$
     \item \textbf{At $t = 0$}: This is a singular point; solutions may not extend through it
     \item \textbf{Initial conditions}: Often given at $t = 1$ to avoid the singularity
@@ -265,13 +265,13 @@ Prof. Ditkowski often combines Euler equations with:
 \hline
 \textbf{Equation} & \textbf{Characteristic Eq.} & \textbf{Solutions} \\
 \hline
-$t$^{2y}$'' + aty' + by = 0$ & $r$^{2}$ + (a-1)r + b = 0$ & Based on roots \\
+$t^{2y}'' + aty' + by = 0$ & $r^{2} + (a-1)r + b = 0$ & Based on roots \\
 \hline
-Distinct real $r$_{1}$, r$_{2}$$ & -- & $c$_{1t}$^{r$_{1}$} + c$_{2t}$^{r$_{2}$}$ \\
+Distinct real $r_{1}, r_{2}$ & -- & $c_{1t}^{r_{1}} + c_{2t}^{r_{2}}$ \\
 \hline
-Repeated root $r$ & -- & $(c$_{1}$ + c$_{2}$\ln t)t$^{r}$$ \\
+Repeated root $r$ & -- & $(c_{1} + c_{2}\ln t)t^{r}$ \\
 \hline
-Complex $\alpha \pm i\beta$ & -- & $t^\alpha[c$_{1}$\cos(\beta\ln t) + c$_{2}$\sin(\beta\ln t)]$ \\
+Complex $\alpha \pm i\beta$ & -- & $t^\alpha[c_{1}\cos(\beta\ln t) + c_{2}\sin(\beta\ln t)]$ \\
 \hline
 \end{tabular}
 \end{center}

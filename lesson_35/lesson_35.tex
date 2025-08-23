@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{duhamel}
 
-\title{Lesson 35: Duhamel's Principle - The Complete Method}
+\title{ODE Lesson 35: Duhamel's Principle - The Complete Method}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -27,25 +27,25 @@
 \begin{duhamel}
 \textbf{Duhamel's Principle:}
 The unique solution to the initial value problem
-\[\mathbf{x}'(t) = A\mathbf{x}(t) + \mathbf{f}(t), \quad \mathbf{x}(t$_{0}$) = \mathbf{x}$_{0}$\]
+\[\mathbf{x}'(t) = A\mathbf{x}(t) + \mathbf{f}(t), \quad \mathbf{x}(t_{0}) = \mathbf{x}_{0}\]
 is given by
-\[\boxed{\mathbf{x}(t) = e^{A(t-t$_{0}$)}\mathbf{x}$_{0}$ + \int_{t$_{0}$}$^{t}$ e^{A(t-s)}\mathbf{f}(s)\,ds}\]
+\[\boxed{\mathbf{x}(t) = $e^{A(t-t_{0}$)}\mathbf{x}_{0} + \int_{t_{0}}^{t} e^{A(t-s)}\mathbf{f}(s)\,ds}\]
 \end{duhamel}
 
 \begin{theorem}[Components of the Solution]
 The complete solution consists of:
 \begin{enumerate}
-\item \textbf{Homogeneous contribution:} $\mathbf{x}$_{h}$(t) = e^{A(t-t$_{0}$)}\mathbf{x}$_{0}$$
+\item \textbf{Homogeneous contribution:} \mathbf{x}_{h}(t) = $e^{A(t-t_{0}$)}\mathbf{x}_{0}
    \begin{itemize}
    \item Evolves initial condition forward
    \item Depends only on system dynamics (matrix $A$)
-   \item Satisfies $\mathbf{x}$_{h}$' = A\mathbf{x}$_{h}$$ with $\mathbf{x}$_{h}$(t$_{0}$) = \mathbf{x}$_{0}$$
+   \item Satisfies $\mathbf{x}_{h}' = A\mathbf{x}_{h}$ with $\mathbf{x}_{h}(t_{0}) = \mathbf{x}_{0}$
    \end{itemize}
 
-\item \textbf{Particular contribution:} $\mathbf{x}$_{p}$(t) = \int_{t$_{0}$}$^{t}$ e^{A(t-s)}\mathbf{f}(s)\,ds$
+\item \textbf{Particular contribution:} \mathbf{x}_{p}(t) = \int_{t_{0}}^{t} e^{A(t-s)}\mathbf{f}(s)\,ds
    \begin{itemize}
    \item Response to forcing
-   \item Zero initial condition: $\mathbf{x}$_{p}$(t$_{0}$) = \mathbf{0}$
+   \item Zero initial condition: $\mathbf{x}_{p}(t_{0}) = \mathbf{0}$
    \item Convolution of forcing with impulse response
    \end{itemize}
 \end{enumerate}
@@ -54,11 +54,11 @@ The complete solution consists of:
 \section{Solution Operator Perspective}
 
 \begin{definition}[Solution Operator]
-The solution operator (or propagator) $S(t,s)$ maps the state at time $s$ to the state at time $t$:
+The solution operator (or propagator) $S(t,s)$ maps the state at time $s$ to the state at time $t:
 \[S(t,s) = e^{A(t-s)}\]
 Properties:
 \begin{itemize}
-\item $S(t,t) = I$ (identity at equal times)
+\item S(t,t) = I$ (identity at equal times)
 \item $S(t,r)S(r,s) = S(t,s)$ (semigroup property)
 \item $S(t,s)^{-1} = S(s,t)$ (time reversal)
 \end{itemize}
@@ -66,70 +66,70 @@ Properties:
 
 \begin{keypoint}
 \textbf{Physical Interpretation:}
-\[\mathbf{x}(t) = \underbrace{S(t,t$_{0}$)\mathbf{x}$_{0}$}_{\text{Evolution of IC}} + \underbrace{\int_{t$_{0}$}$^{t}$ S(t,s)\mathbf{f}(s)\,ds}_{\text{Accumulated forcing effects}}\]
+\[\mathbf{x}(t) = \underbrace{S(t,t_{0})\mathbf{x}_{0}}_{\text{Evolution of IC}} + \underbrace{\int_{t_{0}}^{t} S(t,s)\mathbf{f}(s)\,ds}_{\text{Accumulated forcing effects}}\]
 Each infinitesimal forcing $\mathbf{f}(s)ds$ creates an impulse at time $s$ that propagates to time $t$ via $S(t,s)$.
 \end{keypoint}
 
 \section{Complete Worked Examples}
 
-\begin{example}[2\times2 System with Exponential Forcing]
-Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ e$^{t}$ \end{pmatrix}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+\begin{example}[2$\times2 System with Exponential Forcing]
+Solve: \mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ $e^{t}$ \end{pmatrix} with \mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}
 
 \textbf{Solution:}
 \begin{enumerate}
 \item \textbf{Find $e^{At}$:}
-Since $A$^{2}$ = 0$ (nilpotent), we have:
-\[e^{At} = I + At = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\]
+Since A^{2} = 0 (nilpotent), we have:
+\[$e^{At}$ = I + At = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\]
 
 \item \textbf{Homogeneous solution:}
-\[\mathbf{x}$_{h}$(t) = e^{At}\mathbf{x}$_{0}$ = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\]
+\[\mathbf{x}_{h}(t) = e^{At}\mathbf{x}_{0} = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\]
 
 \item \textbf{Particular solution via Duhamel:}
 \begin{align}
 \mathbf{x}_{p}(t) &= \int_{0}^t e^{A(t-s)}\mathbf{f}(s)\,ds \\
-&= \int_{0}^t \begin{pmatrix} 1 & t-s \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 0 \\ e^{s} \end{pmatrix}ds \\
-&= \int_{0}^t \begin{pmatrix} (t-s)e^{s} \\ e^{s} \end{pmatrix}ds
+&= \int_{0}^t \begin{pmatrix} 1 & t-s \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 0 \\ $e^{s}$ \end{pmatrix}ds \\
+&= \int_{0}^t \begin{pmatrix} (t-s)$e^{s}$ \\ $e^{s}$ \end{pmatrix}ds
 \end{align}
 
 Computing the integrals:
 \begin{itemize}
-\item Second component: $\int$_{0}$^t e$^{s}$\,ds = e$^{t}$ - 1$
-\item First component: $\int$_{0}$^t (t-s)e$^{s}$\,ds = t\int$_{0}$^t e$^{s}$\,ds - \int$_{0}$^t se$^{s}$\,ds$
+\item Second component: \int_{0}^t e^{s}\,ds = $e^{t}$ - 1
+\item First component: \int_{0}^t (t-s)e^{s}\,ds = t\int_{0}^t e^{s}\,ds - \int_{0}^t se^{s}\,ds
 
-Using integration by parts for $\int se$^{s}$\,ds = se$^{s}$ - e$^{s}$$:
-\[= t(e$^{t}$ - 1) - [(se$^{s}$ - e$^{s}$)]$_{0}$^t = t(e$^{t}$ - 1) - (te$^{t}$ - e$^{t}$ - (0 - 1))\]
-\[= te$^{t}$ - t - te$^{t}$ + e$^{t}$ + 1 = e$^{t}$ - t + 1\]
+Using integration by parts for \int se^{s}\,ds = se^{s} - $e^{s}$:
+\[= t($e^{t}$ - 1) - [(se^{s} - $e^{s}$)]_{0}^t = t($e^{t}$ - 1) - (te^{t} - $e^{t}$ - (0 - 1))\]
+\[= te^{t} - t - te^{t} + $e^{t}$ + 1 = $e^{t}$ - t + 1\]
 \end{itemize}
 
-So: $\mathbf{x}$_{p}$(t) = \begin{pmatrix} e$^{t}$ - t + 1 \\ e$^{t}$ - 1 \end{pmatrix}$
+So: \mathbf{x}_{p}(t) = \begin{pmatrix} $e^{t}$ - t + 1 \\ $e^{t}$ - 1 \end{pmatrix}
 
 \item \textbf{Complete solution:}
-\[\mathbf{x}(t) = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} e$^{t}$ - t + 1 \\ e$^{t}$ - 1 \end{pmatrix} = \begin{pmatrix} e$^{t}$ - t + 2 \\ e$^{t}$ - 1 \end{pmatrix}\]
+\[\mathbf{x}(t) = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} $e^{t}$ - t + 1 \\ $e^{t}$ - 1 \end{pmatrix} = \begin{pmatrix} $e^{t}$ - t + 2 \\ $e^{t}$ - 1 \end{pmatrix}\]
 \end{enumerate}
 \end{example}
 
 \begin{example}[System with Discontinuous Forcing]
-Solve: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-1) \\ 0 \end{pmatrix}$ with $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+Solve: \mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-1) \\ 0 \end{pmatrix}$ with $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
 
-where $H(t-1)$ is the Heaviside step function.
+where $H(t-1) is the Heaviside step function.
 
 \textbf{Solution:}
 \begin{enumerate}
-\item $e^{At} = \begin{pmatrix} e^{-t} & 0 \\ 0 & e^{-2t} \end{pmatrix}$
+\item $e^{At}$ = \begin{pmatrix} $e^{-t}$ & 0 \\ 0 & $e^{-2t}$ \end{pmatrix}$
 
-\item Homogeneous: $\mathbf{x}$_{h}$(t) = \begin{pmatrix} 0 \\ e^{-2t} \end{pmatrix}$
+\item Homogeneous: \mathbf{x}_{h}(t) = \begin{pmatrix} 0 \\ $e^{-2t}$ \end{pmatrix}
 
-\item Particular (for $t > 1$):
+\item Particular (for $t > 1):
 \begin{align}
-\mathbf{x}_{p}(t) &= \int_{0}^t \begin{pmatrix} e^{-(t-s)} & 0 \\ 0 & e^{-2(t-s)} \end{pmatrix}\begin{pmatrix} H(s-1) \\ 0 \end{pmatrix}ds \\
-&= \int_{1}^t \begin{pmatrix} e^{-(t-s)} \\ 0 \end{pmatrix}ds = \begin{pmatrix} e^{-t}\int_{1}^t e^{s}\,ds \\ 0 \end{pmatrix} \\
-&= \begin{pmatrix} e^{-t}(e^{t} - e) \\ 0 \end{pmatrix} = \begin{pmatrix} 1 - e^{1-t} \\ 0 \end{pmatrix}
+\mathbf{x}_{p}(t) &= \int_{0}^t \begin{pmatrix} $e^{-(t-s)}$ & 0 \\ 0 & $e^{-2(t-s)}$ \end{pmatrix}\begin{pmatrix} H(s-1) \\ 0 \end{pmatrix}ds \\
+&= \int_{1}^t \begin{pmatrix} $e^{-(t-s)}$ \\ 0 \end{pmatrix}ds = \begin{pmatrix} e^{-t}\int_{1}^t e^{s}\,ds \\ 0 \end{pmatrix} \\
+&= \begin{pmatrix} $e^{-t}$(e^{t} - e) \\ 0 \end{pmatrix} = \begin{pmatrix} 1 - $e^{1-t}$ \\ 0 \end{pmatrix}
 \end{align}
 
 \item Complete solution:
 \[\mathbf{x}(t) = \begin{cases}
-\begin{pmatrix} 0 \\ e^{-2t} \end{pmatrix} & t < 1 \\
-\begin{pmatrix} 1 - e^{1-t} \\ e^{-2t} \end{pmatrix} & t \geq 1
+\begin{pmatrix} 0 \\ $e^{-2t}$ \end{pmatrix} & t < 1 \\
+\begin{pmatrix} 1 - $e^{1-t}$ \\ $e^{-2t}$ \end{pmatrix} & t \geq 1
 \end{cases}\]
 \end{enumerate}
 \end{example}
@@ -138,14 +138,14 @@ where $H(t-1)$ is the Heaviside step function.
 
 \begin{insight}
 \textbf{Impulse Response:}
-For a Dirac delta forcing $\mathbf{f}(t) = \delta(t-a)\mathbf{b}$:
-\[\mathbf{x}(t) = e^{At}\mathbf{x}$_{0}$ + H(t-a)e^{A(t-a)}\mathbf{b}\]
-The impulse creates an instantaneous jump in the state at time $a$.
+For a Dirac delta forcing \mathbf{f}(t) = \delta(t-a)\mathbf{b}:
+\[\mathbf{x}(t) = e^{At}\mathbf{x}_{0} + H(t-a)e^{A(t-a)}\mathbf{b}\]
+The impulse creates an instantaneous jump in the state at time a$.
 \end{insight}
 
 \begin{method}[Periodic Forcing]
-For periodic forcing $\mathbf{f}(t + T) = \mathbf{f}(t)$, the steady-state solution (if stable) is also periodic with period $T$:
-\[\mathbf{x}_{ss}(t) = \frac{1}{I - e^{-AT}}\int$_{0}$^T e^{A(T-s)}\mathbf{f}(s)\,ds\]
+For periodic forcing $\mathbf{f}(t + T) = \mathbf{f}(t)$, the steady-state solution (if stable) is also periodic with period $T:
+\[\mathbf{x}_{ss}(t) = \frac{1}{I - $e^{-AT}$}\int_{0}^T e^{A(T-s)}\mathbf{f}(s)\,ds\]
 (Valid when all eigenvalues have negative real parts)
 \end{method}
 
@@ -157,8 +157,8 @@ For periodic forcing $\mathbf{f}(t + T) = \mathbf{f}(t)$, the steady-state solut
 \item Write Duhamel's formula immediately
 \item Compute $e^{At}$ using the best method:
    \begin{itemize}
-   \item Diagonal $A$ \rightarrow direct
-   \item Diagonalizable \rightarrow $Pe^{Dt}P^{-1}$
+   \item Diagonal A$ \rightarrow direct
+   \item Diagonalizable \rightarrow Pe^{Dt}P^{-1}
    \item Jordan blocks \rightarrow polynomial terms
    \item Nilpotent \rightarrow finite series
    \end{itemize}
@@ -172,8 +172,8 @@ For periodic forcing $\mathbf{f}(t + T) = \mathbf{f}(t)$, the steady-state solut
 \begin{warning}
 \textbf{Common Errors:}
 \begin{itemize}
-\item Writing $e^{At}e^{-As}$ instead of $e^{A(t-s)}$
-\item Forgetting that $t$ is a parameter in the integral (integrate over $s$)
+\item Writing e^{At}$e^{-As}$ instead of e^{A(t-s)}$
+\item Forgetting that $t$ is a parameter in the integral (integrate over $s)
 \item Missing the initial condition contribution
 \item Wrong bounds of integration
 \item Not checking that the solution satisfies the ODE
@@ -190,8 +190,8 @@ For periodic forcing $\mathbf{f}(t + T) = \mathbf{f}(t)$, the steady-state solut
 Eigenvalue method & Used to compute $e^{At}$ \\
 Matrix exponential & Core of the solution operator \\
 Variation of parameters & Second term in Duhamel's formula \\
-Fundamental matrix & $\Phi(t) = e^{At}\Phi(0)$ \\
-Green's function & $G(t,s) = e^{A(t-s)}H(t-s)$ \\
+Fundamental matrix & \Phi(t) = e^{At}\Phi(0)$ \\
+Green's function & G(t,s) = e^{A(t-s)}H(t-s) \\
 \hline
 \end{tabular}
 \end{center}
@@ -210,7 +210,7 @@ Duhamel's formula gives the UNIQUE solution to the IVP. This follows from:
 \begin{theorem}[Stability Implications]
 If all eigenvalues of $A$ have negative real parts:
 \begin{itemize}
-\item $\|e^{At}\| \leq Me^{-\alpha t}$ for some $M, \alpha > 0$
+\item \|e^{At}\| \leq Me^{-\alpha t} for some $M, \alpha > 0$
 \item The homogeneous part decays exponentially
 \item Bounded forcing produces bounded solutions
 \item System has a unique steady-state for constant forcing

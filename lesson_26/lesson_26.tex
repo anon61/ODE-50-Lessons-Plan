@@ -1,7 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
 \usepackage{geometry, enumitem, mdframed, array, xcolor}
-\usepackage{nicematrix}
 \geometry{margin=1in}
 
 \newtheorem{definition}{Definition}
@@ -14,7 +13,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=brown,linewidth=2pt]{computation}
 
-\title{Lesson 26: Converting Higher-Order to First-Order Systems}
+\title{ODE Lesson 26: Converting Higher-Order to First-Order Systems}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -25,13 +24,13 @@
 
 \begin{definition}[State Vector Representation]
 For an $n$th-order differential equation, the \textbf{state vector} is defined as:
-$$\mathbf{x} = \begin{bmatrix} x$_{1}$ \\ x$_{2}$ \\ \vdots \\ x$_{n}$ \end{bmatrix} = \begin{bmatrix} y \\ y' \\ \vdots \\ y^{(n-1)} \end{bmatrix}$$
+$$\mathbf{x} = \begin{bmatrix} x_{1} \\ x_{2} \\ \vdots \\ x_{n} \end{bmatrix} = \begin{bmatrix} y \\ y' \\ \vdots \\ y^{(n-1)} \end{bmatrix}$$
 where each component represents a successive derivative of the solution $y(t)$.
 \end{definition}
 
 \begin{keypoint}
 Any $n$th-order linear ODE:
-$$y^{(n)} + a_{n-1}(t)y^{(n-1)} + \cdots + a$_{1}$(t)y' + a$_{0}$(t)y = f(t)$$
+$$y^{(n)} + a_{n-1}(t)y^{(n-1)} + \cdots + a_{1}(t)y' + a_{0}(t)y = f(t)$$
 can be converted to a first-order system:
 $$\mathbf{x}' = A(t)\mathbf{x} + \mathbf{F}(t)$$
 \end{keypoint}
@@ -39,13 +38,13 @@ $$\mathbf{x}' = A(t)\mathbf{x} + \mathbf{F}(t)$$
 \section{The Companion Matrix}
 
 \begin{definition}[Companion Matrix]
-For the equation $y^{(n)} + a_{n-1}y^{(n-1)} + \cdots + a$_{1y}$' + a$_{0y}$ = 0$, the companion matrix is:
+For the equation $y^{(n)} + a_{n-1}y^{(n-1)} + \cdots + a_{1}y' + a_{0}y = 0$, the companion matrix is:
 $$A = \begin{bmatrix}
 0 & 1 & 0 & \cdots & 0 \\
 0 & 0 & 1 & \cdots & 0 \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & 0 & \cdots & 1 \\
--a$_{0}$ & -a$_{1}$ & -a$_{2}$ & \cdots & -a_{n-1}
+-a_{0} & -a_{1} & -a_{2} & \cdots & -a_{n-1}
 \end{bmatrix}$$
 \end{definition}
 
@@ -53,7 +52,7 @@ $$A = \begin{bmatrix}
 The companion matrix has a special structure:
 \begin{itemize}
 \item First $n-1$ rows: ones on the superdiagonal, zeros elsewhere
-\item Last row: negative coefficients in order from $a$_{0}$$ to $a_{n-1}$
+\item Last row: negative coefficients in order from $a_{0}$ to $a_{n-1}$
 \end{itemize}
 \end{insight}
 
@@ -61,28 +60,28 @@ The companion matrix has a special structure:
 
 \begin{method}[Standard Conversion Procedure]
 \begin{enumerate}
-\item Write the equation in standard form: $y^{(n)} = -a_{n-1}y^{(n-1)} - \cdots - a$_{0y}$ + f(t)$
-\item Define state variables: $x$_{1}$ = y, x$_{2}$ = y', \ldots, x$_{n}$ = y^{(n-1)}$
+\item Write the equation in standard form: $y^{(n)} = -a_{n-1}y^{(n-1)} - \cdots - a_{0}y + f(t)$
+\item Define state variables: $x_{1} = y, x_{2} = y', \ldots, x_{n} = y^{(n-1)}$
 \item Write the system of equations:
 \begin{align}
 x_{1}' &= x_{2} \\
 x_{2}' &= x_{3} \\
 &\vdots \\
 x_{n-1}' &= x_{n} \\
-x_{n}' &= -a_{n-1}x_{n} - \cdots - a_{1x}_2 - a_{0x}_1 + f(t)
+x_{n}' &= -a_{n-1}x_{n} - \cdots - a_{1}x_2 - a_{0}x_1 + f(t)
 \end{align}
-\item Express in matrix form: $\mathbf{x}' = A\mathbf{x} + \mathbf{F}(t)$
+\item Express in matrix form: $\mathbf{x}' = A\mathbf{x} + \mathbf{F}(t)
 \end{enumerate}
 \end{method}
 
 \section{Examples}
 
 \begin{example}[Second-Order Conversion]
-Convert $y'' + 3y' + 2y = e^{-t}$ with $y(0) = 1$, $y'(0) = 0$.
+Convert y'' + 3y' + 2y = $e^{-t}$ with y(0) = 1$, $y'(0) = 0$.
 
 \textbf{Solution:}
-Set $x$_{1}$ = y$, $x$_{2}$ = y'$. Then:
-$$\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -2 & -3 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0 \\ e^{-t} \end{bmatrix}$$
+Set $x_{1} = y$, $x_{2} = y'$. Then:
+\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -2 & -3 \end{bmatrix}\mathbf{x} + \begin{bmatrix} 0 \\ $e^{-t}$ \end{bmatrix}
 Initial condition: $\mathbf{x}(0) = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$
 \end{example}
 
@@ -90,7 +89,7 @@ Initial condition: $\mathbf{x}(0) = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$
 Convert $y''' - 2y'' + y' - y = 0$.
 
 \textbf{Solution:}
-State vector: $\mathbf{x} = [y, y', y'']$^{T}$$
+State vector: $\mathbf{x} = [y, y', y'']^{T}$
 
 Companion matrix:
 $$A = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & -1 & 2 \end{bmatrix}$$
@@ -100,7 +99,7 @@ $$A = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 1 & -1 & 2 \end{bmatrix}$$
 Common errors:
 \begin{itemize}
 \item Incorrect signs in the last row (must be negative of coefficients)
-\item Wrong ordering of coefficients (should be $a$_{0}$$ to $a_{n-1}$)
+\item Wrong ordering of coefficients (should be $a_{0}$ to $a_{n-1}$)
 \item Forgetting to include non-homogeneous term in correct position
 \end{itemize}
 \end{warning}
@@ -108,15 +107,15 @@ Common errors:
 \section{Reverse Conversion}
 
 \begin{theorem}[System to Scalar Conversion]
-Given a system $\mathbf{x}' = A\mathbf{x}$ where $A$ is a companion matrix, the first component $x$_{1}$(t)$ satisfies the scalar equation:
-$$x$_{1}$^{(n)} + a_{n-1}x$_{1}$^{(n-1)} + \cdots + a$_{0x}$_1 = 0$$
+Given a system $\mathbf{x}' = A\mathbf{x}$ where $A$ is a companion matrix, the first component $x_{1}(t)$ satisfies the scalar equation:
+$$x_{1}^{(n)} + a_{n-1}x_{1}^{(n-1)} + \cdots + a_{0}x_1 = 0$$
 \end{theorem}
 
 \begin{computation}
 To convert back:
 \begin{enumerate}
-\item Use $x$_{1}$' = x$_{2}$$, $x$_{2}$' = x$_{3}$$, etc.
-\item Express all $x$_{i}$$ in terms of derivatives of $x$_{1}$$
+\item Use $x_{1}' = x_{2}$, $x_{2}' = x_{3}$, etc.
+\item Express all $x_i$ in terms of derivatives of $x_{1}$
 \item Substitute into the last equation
 \item Simplify to get scalar ODE
 \end{enumerate}
@@ -126,7 +125,7 @@ To convert back:
 
 \begin{insight}
 The eigenvalues of the companion matrix are exactly the roots of the characteristic polynomial:
-$$\det(A - \lambda I) = (-1)$^{n}$(\lambda$^{n}$ + a_{n-1}\lambda^{n-1} + \cdots + a$_{0}$)$$
+$$\det(A - \lambda I) = (-1)^{n}(\lambda^{n} + a_{n-1}\lambda^{n-1} + \cdots + a_{0})$$
 \end{insight}
 
 \begin{examtip}
@@ -142,10 +141,10 @@ Prof. Ditkowski often tests:
 \section{Special Cases}
 
 \begin{example}[Variable Coefficients]
-For $t$^{2y}$'' + ty' - y = 0$ (Euler equation):
+For $t^{2}y'' + ty' - y = 0$ (Euler equation):
 \begin{enumerate}
-\item First divide by $t$^{2}$$: $y'' + \frac{1}{t}y' - \frac{1}{t$^{2}$}y = 0$
-\item Then convert: $A(t) = \begin{bmatrix} 0 & 1 \\ \frac{1}{t$^{2}$} & -\frac{1}{t} \end{bmatrix}$
+\item First divide by $t^{2}$: $y'' + \frac{1}{t}y' - \frac{1}{t^{2}}y = 0$
+\item Then convert: $A(t) = \begin{bmatrix} 0 & 1 \\ \frac{1}{t^{2}} & -\frac{1}{t} \end{bmatrix}$
 \end{enumerate}
 \end{example}
 

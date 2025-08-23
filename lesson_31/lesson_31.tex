@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{jordan}
 
-\title{Lesson 31: Repeated Eigenvalues and Jordan Forms}
+\title{ODE Lesson 31: Repeated Eigenvalues and Jordan Forms}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -35,13 +35,13 @@ For an eigenvalue $\lambda$:
 
 \begin{definition}[Generalized Eigenvector]
 A \textbf{generalized eigenvector} of order $k$ associated with eigenvalue $\lambda$ is a vector $\mathbf{v}$ satisfying:
-\[(A - \lambda I)$^{k}$ \mathbf{v} = \mathbf{0} \quad \text{but} \quad (A - \lambda I)^{k-1} \mathbf{v} \neq \mathbf{0}\]
+\[(A - \lambda I)^{k} \mathbf{v} = \mathbf{0} \quad \text{but} \quad (A - \lambda I)^{k-1} \mathbf{v} \neq \mathbf{0}\]
 \end{definition}
 
 \begin{jordan}
 \textbf{Jordan Block Structure:}
 A Jordan block of size $n$ for eigenvalue $\lambda$ is:
-\[J$_{n}$(\lambda) = \begin{pmatrix}
+\[J_{n}(\lambda) = \begin{pmatrix}
 \lambda & 1 & 0 & \cdots & 0 \\
 0 & \lambda & 1 & \cdots & 0 \\
 \vdots & \vdots & \ddots & \ddots & \vdots \\
@@ -55,18 +55,18 @@ A Jordan block of size $n$ for eigenvalue $\lambda$ is:
 \begin{algorithm}[Jordan Chain Construction]
 Given eigenvalue $\lambda$ with defect $d > 0$:
 \begin{enumerate}
-\item Find all regular eigenvectors: $(A - \lambda I)\mathbf{v}$_{1}$ = \mathbf{0}$
-\item Find first generalized eigenvector: $(A - \lambda I)\mathbf{v}$_{2}$ = \mathbf{v}$_{1}$$
-\item Continue the chain: $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}$_{k}$$
+\item Find all regular eigenvectors: $(A - \lambda I)\mathbf{v}_{1} = \mathbf{0}$
+\item Find first generalized eigenvector: $(A - \lambda I)\mathbf{v}_{2} = \mathbf{v}_{1}$
+\item Continue the chain: $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}_{k}$
 \item Stop when you have enough vectors to match algebraic multiplicity
 \end{enumerate}
 \end{algorithm}
 
 \begin{theorem}[Solution Form for Repeated Eigenvalues]
-For eigenvalue $\lambda$ with a Jordan chain $\{\mathbf{v}$_{1}$, \mathbf{v}$_{2}$, \ldots, \mathbf{v}$_{k}$\}$:
+For eigenvalue $\lambda$ with a Jordan chain $\{\mathbf{v}_{1}, \mathbf{v}_{2}, \ldots, \mathbf{v}_{k}\}:
 \begin{align}
 \mathbf{x}_{1}(t) &= e^{\lambda t}\mathbf{v}_{1} \\
-\mathbf{x}_{2}(t) &= e^{\lambda t}(t\mathbf{v}_{1} + \mathbf{v}_{2}) \\
+\mathbf{x}_{2}(t) &= $e^{\lambda t}$(t\mathbf{v}_{1} + \mathbf{v}_{2}) \\
 \mathbf{x}_{3}(t) &= e^{\lambda t}\left(\frac{t^{2}}{2!}\mathbf{v}_{1} + t\mathbf{v}_{2} + \mathbf{v}_{3}\right) \\
 &\vdots \\
 \mathbf{x}_{k}(t) &= e^{\lambda t}\sum_{j=0}^{k-1} \frac{t^{j}}{j!}\mathbf{v}_{k-j}
@@ -75,76 +75,76 @@ For eigenvalue $\lambda$ with a Jordan chain $\{\mathbf{v}$_{1}$, \mathbf{v}$_{2
 
 \begin{keypoint}
 \textbf{Why Polynomial Terms Appear:}\\
-The polynomial terms arise from the nilpotent part $(A - \lambda I)$. When we write $A = \lambda I + N$ where $N = A - \lambda I$ is nilpotent:
-\[e^{At} = e^{\lambda t} e^{Nt} = e^{\lambda t}\left(I + Nt + \frac{N$^{2t}$^2}{2!} + \cdots\right)\]
-The series terminates because $N$^{k}$ = 0$ for some $k$!
+The polynomial terms arise from the nilpotent part (A - \lambda I)$. When we write $A = \lambda I + N$ where $N = A - \lambda I is nilpotent:
+\[$e^{At}$ = $e^{\lambda t}$ e^{Nt} = e^{\lambda t}\left(I + Nt + \frac{N^{2t}^2}{2!} + \cdots\right)\]
+The series terminates because N^{k} = 0$ for some $k$!
 \end{keypoint}
 
 \section{Complete Examples}
 
-\begin{example}[2\times2 System with Repeated Eigenvalue]
+\begin{example}[2$\times$2 System with Repeated Eigenvalue]
 Solve $\mathbf{x}' = \begin{pmatrix} 5 & 1 \\ -4 & 1 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$
 
 \textbf{Solution:}
 \begin{enumerate}
 \item \textbf{Eigenvalues:}
 \[\det(A - \lambda I) = \det\begin{pmatrix} 5-\lambda & 1 \\ -4 & 1-\lambda \end{pmatrix} = (5-\lambda)(1-\lambda) + 4\]
-\[= 5 - 6\lambda + \lambda$^{2}$ + 4 = \lambda$^{2}$ - 6\lambda + 9 = (\lambda - 3)$^{2}$\]
+\[= 5 - 6\lambda + \lambda^{2} + 4 = \lambda^{2} - 6\lambda + 9 = (\lambda - 3)^{2}\]
 So $\lambda = 3$ with algebraic multiplicity 2.
 
 \item \textbf{Eigenvectors:}
 \[(A - 3I) = \begin{pmatrix} 2 & 1 \\ -4 & -2 \end{pmatrix}\]
-Row reduction: $R$_{2}$ + 2R$_{1}$ \to R$_{2}$$ gives $\begin{pmatrix} 2 & 1 \\ 0 & 0 \end{pmatrix}$
+Row reduction: $R_{2} + 2R_{1} \to R_{2}$ gives $\begin{pmatrix} 2 & 1 \\ 0 & 0 \end{pmatrix}$
 
-So $2v$_{1}$ + v$_{2}$ = 0 \implies v$_{2}$ = -2v$_{1}$$. Choose $v$_{1}$ = 1$: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ -2 \end{pmatrix}$
+So $2v_{1} + v_{2} = 0 \implies v_{2} = -2v_{1}$. Choose $v_{1} = 1$: $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ -2 \end{pmatrix}$
 
 Geometric multiplicity = 1, Defect = 1.
 
 \item \textbf{Generalized Eigenvector:}
-Solve $(A - 3I)\mathbf{w} = \mathbf{v}$_{1}$$:
-\[\begin{pmatrix} 2 & 1 \\ -4 & -2 \end{pmatrix}\begin{pmatrix} w$_{1}$ \\ w$_{2}$ \end{pmatrix} = \begin{pmatrix} 1 \\ -2 \end{pmatrix}\]
+Solve $(A - 3I)\mathbf{w} = \mathbf{v}_{1}$:
+\[\begin{pmatrix} 2 & 1 \\ -4 & -2 \end{pmatrix}\begin{pmatrix} w_{1} \\ w_{2} \end{pmatrix} = \begin{pmatrix} 1 \\ -2 \end{pmatrix}\]
 
-From row 1: $2w$_{1}$ + w$_{2}$ = 1$. Choose $w$_{1}$ = 0$: $w$_{2}$ = 1$, so $\mathbf{w} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+From row 1: $2w_{1} + w_{2} = 1$. Choose $w_{1} = 0$: $w_{2} = 1$, so $\mathbf{w} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 
 \item \textbf{General Solution:}
-\[\mathbf{x}(t) = c$_{1}$ e^{3t}\begin{pmatrix} 1 \\ -2 \end{pmatrix} + c$_{2}$ e^{3t}\left(t\begin{pmatrix} 1 \\ -2 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix}\right)\]
-\[= e^{3t}\begin{pmatrix} c$_{1}$ + c$_{2t}$ \\ -2c$_{1}$ - 2c$_{2t}$ + c$_{2}$ \end{pmatrix}\]
+\[\mathbf{x}(t) = c_{1} e^{3t}\begin{pmatrix} 1 \\ -2 \end{pmatrix} + c_{2} e^{3t}\left(t\begin{pmatrix} 1 \\ -2 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix}\right)\]
+\[= e^{3t}\begin{pmatrix} c_{1} + c_{2t} \\ -2c_{1} - 2c_{2t} + c_{2} \end{pmatrix}\]
 
 \item \textbf{Apply Initial Conditions:}
-\[\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} c$_{1}$ \\ -2c$_{1}$ + c$_{2}$ \end{pmatrix}\]
-So $c$_{1}$ = 2$ and $-2(2) + c$_{2}$ = 1 \implies c$_{2}$ = 5$
+\[\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} c_{1} \\ -2c_{1} + c_{2} \end{pmatrix}\]
+So c_{1} = 2$ and $-2(2) + c_{2} = 1 \implies c_{2} = 5
 
 \item \textbf{Final Solution:}
 \[\mathbf{x}(t) = e^{3t}\begin{pmatrix} 2 + 5t \\ -4 - 10t + 5 \end{pmatrix} = e^{3t}\begin{pmatrix} 2 + 5t \\ 1 - 10t \end{pmatrix}\]
 \end{enumerate}
 \end{example}
 
-\begin{example}[3\times3 System with Triple Eigenvalue]
+\begin{example}[3\times$3 System with Triple Eigenvalue]
 Solve $\mathbf{x}' = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}\mathbf{x}$
 
 \textbf{Solution:}
 The matrix is upper triangular, so $\lambda = 1$ (triple).
 
 \textbf{First eigenvector:}
-$(A - I)\mathbf{v}$_{1}$ = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{v}$_{1}$ = \mathbf{0}$
+$(A - I)\mathbf{v}_{1} = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{v}_{1} = \mathbf{0}$
 
-This gives $v$_{2}$ = v$_{3}$ = 0$, so $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+This gives $v_{2} = v_{3} = 0$, so $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
 
 \textbf{First generalized eigenvector:}
-$(A - I)\mathbf{v}$_{2}$ = \mathbf{v}$_{1}$$:
+$(A - I)\mathbf{v}_{2} = \mathbf{v}_{1}$:
 $\begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
 
-This gives $y = 1, z = 0$, so $\mathbf{v}$_{2}$ = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$
+This gives $y = 1, z = 0$, so $\mathbf{v}_{2} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$
 
 \textbf{Second generalized eigenvector:}
-$(A - I)\mathbf{v}$_{3}$ = \mathbf{v}$_{2}$$:
+$(A - I)\mathbf{v}_{3} = \mathbf{v}_{2}$:
 $\begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$
 
-This gives $y = 0, z = 1$, so $\mathbf{v}$_{3}$ = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$
+This gives $y = 0, z = 1$, so \mathbf{v}_{3} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}
 
 \textbf{General Solution:}
 \begin{align}
-\mathbf{x}(t) = e^{t} &\left[c_{1}\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + c_{2}\left(t\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\right)\right. \\
+\mathbf{x}(t) = $e^{t}$ &\left[c_{1}\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + c_{2}\left(t\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\right)\right. \\
 &\left.+ c_{3}\left(\frac{t^{2}}{2}\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + t\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\right)\right]
 \end{align}
 \end{example}
@@ -152,18 +152,18 @@ This gives $y = 0, z = 1$, so $\mathbf{v}$_{3}$ = \begin{pmatrix} 0 \\ 0 \\ 1 \e
 \begin{warning}
 \textbf{Critical Mistakes to Avoid:}
 \begin{itemize}
-\item Do NOT solve $(A - \lambda I)$^{2}$\mathbf{v} = \mathbf{0}$ directly for generalized eigenvectors
+\item Do NOT solve (A - \lambda I)^{2}\mathbf{v} = \mathbf{0} directly for generalized eigenvectors
 \item The order matters in Jordan chains: always solve sequentially
-\item Check that $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}$_{k}$$ is satisfied
-\item The coefficient of $t$^{k}$$ is $1/k!$, not just $t$^{k}$$
+\item Check that $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}_{k}$ is satisfied
+\item The coefficient of $t^{k}$ is $1/k!$, not just $t^{k}$
 \end{itemize}
 \end{warning}
 
 \begin{insight}
 \textbf{Matrix Exponential for Jordan Blocks:}
-For a Jordan block $J = \lambda I + N$ where $N$ is the nilpotent part:
-\[e^{Jt} = e^{\lambda t}e^{Nt} = e^{\lambda t}\begin{pmatrix}
-1 & t & \frac{t$^{2}$}{2!} & \cdots \\
+For a Jordan block $J = \lambda I + N$ where $N is the nilpotent part:
+\[$e^{Jt}$ = e^{\lambda t}$e^{Nt}$ = e^{\lambda t}\begin{pmatrix}
+1 & t & \frac{t^{2}}{2!} & \cdots \\
 0 & 1 & t & \cdots \\
 0 & 0 & 1 & \cdots \\
 \vdots & \vdots & \vdots & \ddots
@@ -183,7 +183,7 @@ Prof. Ditkowski's favorite Jordan form problems:
 
 \section{Solution Behavior}
 
-For repeated eigenvalue $\lambda$ with Jordan block structure:
+For repeated eigenvalue \lambda$ with Jordan block structure:
 \begin{itemize}
 \item If $\lambda < 0$: Solutions decay to zero (polynomial growth dominated by exponential decay)
 \item If $\lambda = 0$: Polynomial growth in time

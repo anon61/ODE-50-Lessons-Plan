@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{construction}
 
-\title{Lesson 42: Lyapunov Functions and Global Stability\\
+\title{ODE Lesson 42: Lyapunov Functions and Global Stability\\
 \large ODE 1 - Prof. Adi Ditkowski}
 \author{Nonlinear Systems Analysis}
 \date{}
@@ -132,8 +132,8 @@ Try $V(x,y) = x^2 + y^2$:
 
 \textbf{Check conditions:}
 \begin{enumerate}
-    \item $V(0,0) = 0$ \checkmark
-    \item $V(x,y) = x^2 + y^2 > 0$ for $(x,y) \neq (0,0)$ \checkmark
+    \item $V(0,0) = 0$ $\checkmark$
+    \item $V(x,y) = x^2 + y^2 > 0$ for $(x,y) \neq (0,0)$ $\checkmark$
     \item Compute $\dot{V}$:
     \begin{align}
     \dot{V} &= 2x\dot{x} + 2y\dot{y}\\
@@ -163,8 +163,8 @@ Energy function: $V(x,y) = \frac{1}{2}y^2 + (1 - \cos x)$
 
 \textbf{Analysis:}
 \begin{enumerate}
-    \item $V(0,0) = 0$ \checkmark
-    \item For small $x$: $1 - \cos x \approx \frac{x^2}{2} > 0$, so $V > 0$ near origin \checkmark
+    \item $V(0,0) = 0$ $\checkmark$
+    \item For small $x$: $1 - \cos x \approx \frac{x^2}{2} > 0$, so $V > 0$ near origin $\checkmark$
     \item $\dot{V} = y\dot{y} + \sin x \cdot \dot{x} = y(-\sin x - cy) + \sin x \cdot y = -cy^2 \leq 0$
 \end{enumerate}
 

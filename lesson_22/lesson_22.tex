@@ -14,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
 
-\title{Lesson 22: Finding Potential Functions - Systematic Approach}
+\title{ODE Lesson 22: Finding Potential Functions - Systematic Approach}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -63,22 +63,22 @@ The potential function is unique up to an additive constant. All methods for fin
 \end{algorithm}
 
 \begin{example}[Method 1 Application]
-Solve $(3x$^{2y}$ + y$^{3}$)dx + (x$^{3}$ + 3xy$^{2}$)dy = 0$
+Solve $(3x^{2y} + y^{3})dx + (x^{3} + 3xy^{2})dy = 0$
 
-\textbf{Step 1:} Verify exactness (assumed done): $\frac{\partial M}{\partial y} = 3x$^{2}$ + 3y$^{2}$ = \frac{\partial N}{\partial x}$ \checkmark
+\textbf{Step 1:} Verify exactness (assumed done): $\frac{\partial M}{\partial y} = 3x^{2} + 3y^{2} = \frac{\partial N}{\partial x}$ $\checkmark$
 
-\textbf{Step 2:} Integrate $M = 3x$^{2y}$ + y$^{3}$$ with respect to $x$:
-\[H = x$^{3y}$ + xy$^{3}$ + g(y)\]
+\textbf{Step 2:} Integrate $M = 3x^{2y} + y^{3}$ with respect to $x$:
+\[H = x^{3y} + xy^{3} + g(y)\]
 
 \textbf{Step 3:} Differentiate with respect to $y$:
-\[\frac{\partial H}{\partial y} = x$^{3}$ + 3xy$^{2}$ + g'(y)\]
+\[\frac{\partial H}{\partial y} = x^{3} + 3xy^{2} + g'(y)\]
 
-\textbf{Step 4:} Set equal to $N = x$^{3}$ + 3xy$^{2}$$:
-\[x$^{3}$ + 3xy$^{2}$ + g'(y) = x$^{3}$ + 3xy$^{2}$\]
+\textbf{Step 4:} Set equal to $N = x^{3} + 3xy^{2}$:
+\[x^{3} + 3xy^{2} + g'(y) = x^{3} + 3xy^{2}\]
 
 \textbf{Step 5:} Therefore $g'(y) = 0$, so $g(y) = 0$ (we can choose the constant to be 0).
 
-\textbf{Solution:} $H(x,y) = x$^{3y}$ + xy$^{3}$$, so the general solution is $x$^{3y}$ + xy$^{3}$ = C$.
+\textbf{Solution:} $H(x,y) = x^{3y} + xy^{3}$, so the general solution is $x^{3y} + xy^{3} = C$.
 \end{example}
 
 \section{Method 2: Integration with Respect to $y$}
@@ -110,10 +110,10 @@ Choose Method 1 when $M$ is simpler to integrate. Choose Method 2 when $N$ is si
 \textbf{Method 3 - Path Integration:}
 
 Since the equation is exact, the line integral is path-independent:
-\[H(x,y) = \int_{(x$_{0}$,y$_{0}$)}^{(x,y)} M\,dx + N\,dy\]
+\[H(x,y) = \int_{(x_{0},y_{0})}^{(x,y)} M\,dx + N\,dy\]
 
 Common choice: Use path from $(0,0) \to (x,0) \to (x,y)$:
-\[H(x,y) = \int$_{0}$^x M(t,0)\,dt + \int$_{0}$^y N(x,s)\,ds\]
+\[H(x,y) = \int_{0}^x M(t,0)\,dt + \int_{0}^y N(x,s)\,ds\]
 \end{algorithm}
 
 \begin{examtip}
@@ -125,8 +125,8 @@ Prof. Ditkowski often asks: "Solve using two different methods and verify they g
 \begin{warning}
 Always verify your solution! Check that:
 \begin{enumerate}
-    \item $\frac{\partial H}{\partial x} = M(x,y)$ \checkmark
-    \item $\frac{\partial H}{\partial y} = N(x,y)$ \checkmark
+    \item $\frac{\partial H}{\partial x} = M(x,y)$ $\checkmark$
+    \item $\frac{\partial H}{\partial y} = N(x,y)$ $\checkmark$
 \end{enumerate}
 This catches errors and ensures partial credit.
 \end{warning}
@@ -141,10 +141,10 @@ This catches errors and ensures partial credit.
 \textbf{If you see} & \textbf{Think potential} \\
 \hline
 $y\,dx + x\,dy$ & $H = xy$ \\
-$2xy\,dx + x$^{2}$\,dy$ & $H = x$^{2y}$$ \\
-$\frac{y}{x$^{2}$}\,dx - \frac{1}{x}\,dy$ & $H = -\frac{y}{x}$ \\
-$e$^{x}$\sin y\,dx + e$^{x}$\cos y\,dy$ & $H = e$^{x}$\sin y$ \\
-$\frac{x}{\sqrt{x$^{2}$+y$^{2}$}}\,dx + \frac{y}{\sqrt{x$^{2}$+y$^{2}$}}\,dy$ & $H = \sqrt{x$^{2}$+y$^{2}$}$ \\
+$2xy\,dx + x^{2}\,dy$ & $H = x^{2y}$ \\
+$\frac{y}{x^{2}}\,dx - \frac{1}{x}\,dy$ & $H = -\frac{y}{x} \\
+e^{x}\sin y\,dx + e^{x}\cos y\,dy & H = e^{x}\sin y \\
+\frac{x}{\sqrt{x^{2}+y^{2}}}\,dx + \frac{y}{\sqrt{x^{2}+y^{2}}}\,dy$ & $H = \sqrt{x^{2}+y^{2}}$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -155,20 +155,20 @@ $\frac{x}{\sqrt{x$^{2}$+y$^{2}$}}\,dx + \frac{y}{\sqrt{x$^{2}$+y$^{2}$}}\,dy$ & 
 \begin{method}[Solving IVPs with Exact Equations]
 \begin{enumerate}
     \item Find the potential function $H(x,y)$
-    \item Use initial condition $(x$_{0}$, y$_{0}$)$ to find $C$:
-    \[H(x$_{0}$, y$_{0}$) = C\]
+    \item Use initial condition $(x_{0}, y_{0})$ to find $C$:
+    \[H(x_{0}, y_{0}) = C\]
     \item Write particular solution: $H(x,y) = C$
 \end{enumerate}
 \end{method}
 
 \begin{example}[IVP Example]
-Solve $(2xy + 1)dx + (x$^{2}$ + 2y)dy = 0$ with $y(1) = 2$.
+Solve $(2xy + 1)dx + (x^{2} + 2y)dy = 0$ with $y(1) = 2$.
 
-\textbf{Solution:} From Method 1: $H = x$^{2y}$ + x + y$^{2}$$
+\textbf{Solution:} From Method 1: $H = x^{2y} + x + y^{2}$
 
-Using $y(1) = 2$: $H(1,2) = (1)$^{2}$(2) + 1 + (2)$^{2}$ = 7$
+Using $y(1) = 2$: $H(1,2) = (1)^{2}(2) + 1 + (2)^{2} = 7$
 
-Particular solution: $x$^{2y}$ + x + y$^{2}$ = 7$
+Particular solution: $x^{2y} + x + y^{2} = 7$
 \end{example}
 
 \section{Efficiency Tips}

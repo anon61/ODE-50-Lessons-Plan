@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=cyan,linewidth=2pt]{complex}
 
-\title{Lesson 32: Complex Eigenvalues - Real Solutions}
+\title{ODE Lesson 32: Complex Eigenvalues - Real Solutions}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -28,43 +28,43 @@
 If $A$ is a real $n \times n$ matrix and $\lambda = \alpha + i\beta$ is a complex eigenvalue with eigenvector $\mathbf{v} = \mathbf{p} + i\mathbf{q}$, then:
 \begin{itemize}
 \item $\bar{\lambda} = \alpha - i\beta$ is also an eigenvalue
-\item $\bar{\mathbf{v}} = \mathbf{p} - i\mathbf{q}$ is the corresponding eigenvector
+\item $\bar{\mathbf{v}} = \mathbf{p} - i\mathbf{q} is the corresponding eigenvector
 \end{itemize}
 \end{theorem}
 
 \begin{complex}
 \textbf{Euler's Formula - The Key Tool:}
-\[e^{i\theta} = \cos\theta + i\sin\theta\]
+\[$e^{i\theta}$ = \cos\theta + i\sin\theta\]
 Therefore:
-\[e^{(\alpha + i\beta)t} = e^{\alpha t}e^{i\beta t} = e^{\alpha t}(\cos(\beta t) + i\sin(\beta t))\]
+\[$e^{(\alpha + i\beta)t}$ = e^{\alpha t}$e^{i\beta t}$ = $e^{\alpha t}$(\cos(\beta t) + i\sin(\beta t))\]
 \end{complex}
 
 \begin{method}[Extracting Real Solutions]
-Given complex eigenvalue $\lambda = \alpha + i\beta$ with eigenvector $\mathbf{v} = \mathbf{p} + i\mathbf{q}$:
+Given complex eigenvalue \lambda = \alpha + i\beta$ with eigenvector $\mathbf{v} = \mathbf{p} + i\mathbf{q}:
 
 \textbf{Step 1:} Write the complex solution:
-\[\mathbf{x}$_{c}$(t) = e^{(\alpha + i\beta)t}(\mathbf{p} + i\mathbf{q})\]
+\[\mathbf{x}_{c}(t) = $e^{(\alpha + i\beta)t}$(\mathbf{p} + i\mathbf{q})\]
 
 \textbf{Step 2:} Apply Euler's formula:
-\[\mathbf{x}$_{c}$(t) = e^{\alpha t}[\cos(\beta t) + i\sin(\beta t)][\mathbf{p} + i\mathbf{q}]\]
+\[\mathbf{x}_{c}(t) = $e^{\alpha t}$[\cos(\beta t) + i\sin(\beta t)][\mathbf{p} + i\mathbf{q}]\]
 
 \textbf{Step 3:} Expand and collect real and imaginary parts:
 \begin{align}
-\mathbf{x}_{c}(t) &= e^{\alpha t}[(\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}) \\
+\mathbf{x}_{c}(t) &= $e^{\alpha t}$[(\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}) \\
 &\quad + i(\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q})]
 \end{align}
 
 \textbf{Step 4:} Extract two real solutions:
 \begin{align}
-\mathbf{x}_{1}(t) &= e^{\alpha t}[\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}] \\
-\mathbf{x}_{2}(t) &= e^{\alpha t}[\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q}]
+\mathbf{x}_{1}(t) &= $e^{\alpha t}$[\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}] \\
+\mathbf{x}_{2}(t) &= $e^{\alpha t}$[\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q}]
 \end{align}
 \end{method}
 
 \begin{theorem}[General Real Solution]
-For a 2\times2 system with complex eigenvalues $\lambda = \alpha \pm i\beta$:
-\[\mathbf{x}(t) = e^{\alpha t}[c$_{1}$(\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}) + c$_{2}$(\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q})]\]
-where $\mathbf{p} = \text{Re}(\mathbf{v})$ and $\mathbf{q} = \text{Im}(\mathbf{v})$.
+For a 2\times2 system with complex eigenvalues \lambda = \alpha \pm i\beta:
+\[\mathbf{x}(t) = $e^{\alpha t}$[c_{1}(\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}) + c_{2}(\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q})]\]
+where \mathbf{p} = \text{Re}(\mathbf{v})$ and $\mathbf{q} = \text{Im}(\mathbf{v})$.
 \end{theorem}
 
 \section{Standard Forms and Special Cases}
@@ -91,14 +91,14 @@ Solve $\mathbf{x}' = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}\mathbf{x}$ wi
 \textbf{Solution:}
 \begin{enumerate}
 \item \textbf{Eigenvalues:}
-\[\det(A - \lambda I) = \det\begin{pmatrix} -\lambda & -2 \\ 2 & -\lambda \end{pmatrix} = \lambda$^{2}$ + 4 = 0\]
+\[\det(A - \lambda I) = \det\begin{pmatrix} -\lambda & -2 \\ 2 & -\lambda \end{pmatrix} = \lambda^{2} + 4 = 0\]
 So $\lambda = \pm 2i$ (pure imaginary $\Rightarrow$ center)
 
 \item \textbf{Eigenvector for $\lambda = 2i$:}
-\[(A - 2iI)\mathbf{v} = \begin{pmatrix} -2i & -2 \\ 2 & -2i \end{pmatrix}\begin{pmatrix} v$_{1}$ \\ v$_{2}$ \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}\]
-From row 1: $-2iv$_{1}$ - 2v$_{2}$ = 0 \Rightarrow v$_{2}$ = -iv$_{1}$$
+\[(A - 2iI)\mathbf{v} = \begin{pmatrix} -2i & -2 \\ 2 & -2i \end{pmatrix}\begin{pmatrix} v_{1} \\ v_{2} \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}\]
+From row 1: $-2iv_{1} - 2v_{2} = 0 \Rightarrow v_{2} = -iv_{1}$
 
-Choose $v$_{1}$ = 1$: $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ -1 \end{pmatrix}$
+Choose $v_{1} = 1$: $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ -1 \end{pmatrix}$
 
 So $\mathbf{p} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{q} = \begin{pmatrix} 0 \\ -1 \end{pmatrix}$
 
@@ -109,11 +109,11 @@ So $\mathbf{p} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{q} = \begin{pma
 \end{align}
 
 \item \textbf{General Solution:}
-\[\mathbf{x}(t) = c$_{1}$\begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} + c$_{2}$\begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}\]
+\[\mathbf{x}(t) = c_{1}\begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} + c_{2}\begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}\]
 
 \item \textbf{Apply Initial Conditions:}
-\[\begin{pmatrix} 1 \\ 0 \end{pmatrix} = c$_{1}$\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c$_{2}$\begin{pmatrix} 0 \\ -1 \end{pmatrix}\]
-So $c$_{1}$ = 1$ and $c$_{2}$ = 0$.
+\[\begin{pmatrix} 1 \\ 0 \end{pmatrix} = c_{1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_{2}\begin{pmatrix} 0 \\ -1 \end{pmatrix}\]
+So $c_{1} = 1$ and $c_{2} = 0$.
 
 \item \textbf{Final Solution:}
 \[\mathbf{x}(t) = \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}\]
@@ -130,28 +130,28 @@ This is already in standard form with $\alpha = 1$, $\beta = 2$.
 \item Eigenvalues: $\lambda = 1 \pm 2i$
 \item Since $\alpha = 1 > 0$: unstable spiral
 \item Angular frequency: $\omega = 2$
-\item Period of rotation: $T = 2\pi/2 = \pi$
+\item Period of rotation: T = 2\pi/2 = \pi
 \end{itemize}
 
 General solution:
-\[\mathbf{x}(t) = e$^{t}$\left[c$_{1}$\begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} + c$_{2}$\begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}\right]\]
+\[\mathbf{x}(t) = e^{t}\left[c_{1}\begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} + c_{2}\begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}\right]\]
 \end{example}
 
-\begin{example}[3\times3 System with Complex Eigenvalues]
-Consider $\mathbf{x}' = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & -2 \end{pmatrix}\mathbf{x}$
+\begin{example}[3\times$3 System with Complex Eigenvalues]
+Consider \mathbf{x}' = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & -2 \end{pmatrix}\mathbf{x}$
 
 \textbf{Solution:}
-The eigenvalues are $\lambda$_{1}$ = i$, $\lambda$_{2}$ = -i$, $\lambda$_{3}$ = -2$.
+The eigenvalues are $\lambda_{1} = i$, $\lambda_{2} = -i$, $\lambda_{3} = -2$.
 
 For $\lambda = i$: eigenvector $\mathbf{v} = \begin{pmatrix} 1 \\ -i \\ 0 \end{pmatrix}$
 
 Real solutions from complex pair:
-\[\mathbf{x}$_{1}$(t) = \begin{pmatrix} \cos t \\ \sin t \\ 0 \end{pmatrix}, \quad \mathbf{x}$_{2}$(t) = \begin{pmatrix} \sin t \\ -\cos t \\ 0 \end{pmatrix}\]
+\[\mathbf{x}_{1}(t) = \begin{pmatrix} \cos t \\ \sin t \\ 0 \end{pmatrix}, \quad \mathbf{x}_{2}(t) = \begin{pmatrix} \sin t \\ -\cos t \\ 0 \end{pmatrix}\]
 
-For $\lambda$_{3}$ = -2$: eigenvector $\mathbf{v}$_{3}$ = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$
+For $\lambda_{3} = -2$: eigenvector $\mathbf{v}_{3} = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$
 
 General solution:
-\[\mathbf{x}(t) = c$_{1}$\begin{pmatrix} \cos t \\ \sin t \\ 0 \end{pmatrix} + c$_{2}$\begin{pmatrix} \sin t \\ -\cos t \\ 0 \end{pmatrix} + c$_{3e}$^{-2t}\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\]
+\[\mathbf{x}(t) = c_{1}\begin{pmatrix} \cos t \\ \sin t \\ 0 \end{pmatrix} + c_{2}\begin{pmatrix} \sin t \\ -\cos t \\ 0 \end{pmatrix} + c_{3e}^{-2t}\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\]
 \end{example}
 
 \begin{insight}
@@ -168,7 +168,7 @@ $\alpha = 0$ & $\beta \neq 0$ & Center (closed orbits) \\
 \end{tabular}
 \end{center}
 
-The ratio $|\alpha/\beta|$ determines the "tightness" of the spiral:
+The ratio $|\alpha/\beta| determines the "tightness" of the spiral:
 \begin{itemize}
 \item Small ratio: tight spiral (many rotations)
 \item Large ratio: loose spiral (few rotations)
@@ -179,7 +179,7 @@ The ratio $|\alpha/\beta|$ determines the "tightness" of the spiral:
 \textbf{Common Errors with Complex Eigenvalues:}
 \begin{itemize}
 \item Forgetting to extract BOTH real and imaginary parts
-\item Using $e^{i\theta} = \sin\theta + i\cos\theta$ (wrong order!)
+\item Using $e^{i\theta}$ = \sin\theta + i\cos\theta (wrong order!)
 \item Not including the $e^{\alpha t}$ scaling factor
 \item Trying to use complex eigenvectors directly in the real solution
 \item Missing the negative sign in conjugate eigenvalues
@@ -189,11 +189,11 @@ The ratio $|\alpha/\beta|$ determines the "tightness" of the spiral:
 \begin{examtip}
 Prof. Ditkowski's exam patterns:
 \begin{itemize}
-\item Often uses matrices of form $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$
+\item Often uses matrices of form \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$
 \item Asks about period of oscillation: $T = 2\pi/\beta$
 \item Tests understanding of spiral vs. center
 \item May ask for solution at specific times like $t = \pi/\beta$
-\item Loves IVPs that simplify nicely (e.g., $c$_{2}$ = 0$)
+\item Loves IVPs that simplify nicely (e.g., $c_{2} = 0$)
 \end{itemize}
 \end{examtip}
 
@@ -217,9 +217,9 @@ This decomposition shows:
 \hline
 \textbf{Eigenvalues} & \textbf{Solution Form} & \textbf{Behavior} \\
 \hline
-$\lambda = \pm i\beta$ & $c$_{1}$\cos(\beta t) + c$_{2}$\sin(\beta t)$ & Center \\
-$\lambda = \alpha \pm i\beta$, $\alpha > 0$ & $e^{\alpha t}[c$_{1}$\cos(\beta t) + c$_{2}$\sin(\beta t)]$ & Unstable spiral \\
-$\lambda = \alpha \pm i\beta$, $\alpha < 0$ & $e^{\alpha t}[c$_{1}$\cos(\beta t) + c$_{2}$\sin(\beta t)]$ & Stable spiral \\
+$\lambda = \pm i\beta$ & $c_{1}\cos(\beta t) + c_{2}\sin(\beta t)$ & Center \\
+$\lambda = \alpha \pm i\beta$, $\alpha > 0 & $e^{\alpha t}$[c_{1}\cos(\beta t) + c_{2}\sin(\beta t)] & Unstable spiral \\
+\lambda = \alpha \pm i\beta$, $\alpha < 0$ & $e^{\alpha t}$[c_{1}\cos(\beta t) + c_{2}\sin(\beta t)] & Stable spiral \\
 \hline
 \end{tabular}
 \end{center}

@@ -14,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
 
-\title{Lesson 23: Integrating Factors - $\mu(x)$ and $\mu(y)$ Cases}
+\title{ODE Lesson 23: Integrating Factors - $\mu(x)$ and $\mu(y)$ Cases}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -55,12 +55,12 @@ This is a partial differential equation for $\mu$ - generally very difficult to 
 \begin{theorem}[Existence of $\mu(x)$]
 An integrating factor depending only on $x$ exists if and only if
 \[\frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = g(x)\]
-where $g(x)$ is a function of $x$ alone. The integrating factor is then:
+where $g(x)$ is a function of $x alone. The integrating factor is then:
 \[\mu(x) = e^{\int g(x)\,dx}\]
 \end{theorem}
 
 \begin{proof}
-If $\mu = \mu(x)$, then $\frac{\partial \mu}{\partial y} = 0$. The exactness condition becomes:
+If \mu = \mu(x)$, then $\frac{\partial \mu}{\partial y} = 0$. The exactness condition becomes:
 \[-N\frac{d\mu}{dx} = \mu\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right)\]
 \[\frac{1}{\mu}\frac{d\mu}{dx} = \frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right)\]
 This is solvable only if the right side depends solely on $x$.
@@ -70,10 +70,10 @@ This is solvable only if the right side depends solely on $x$.
 \textbf{Finding $\mu(x)$:}
 \begin{enumerate}
     \item Compute $\frac{\partial M}{\partial y}$ and $\frac{\partial N}{\partial x}$
-    \item Calculate $R(x,y) = \frac{M$_{y}$ - N$_{x}$}{N}$
-    \item If $R = g(x)$ (function of $x$ only), then:
+    \item Calculate $R(x,y) = \frac{M_{y} - N_{x}}{N}$
+    \item If $R = g(x)$ (function of $x only), then:
     \[\mu(x) = e^{\int g(x)\,dx}\]
-    \item If $R$ contains $y$, then $\mu(x)$ doesn't exist
+    \item If R$ contains $y$, then $\mu(x)$ doesn't exist
 \end{enumerate}
 \end{algorithm}
 
@@ -82,18 +82,18 @@ This is solvable only if the right side depends solely on $x$.
 \begin{theorem}[Existence of $\mu(y)$]
 An integrating factor depending only on $y$ exists if and only if
 \[\frac{1}{M}\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right) = h(y)\]
-where $h(y)$ is a function of $y$ alone. The integrating factor is:
+where $h(y)$ is a function of $y alone. The integrating factor is:
 \[\mu(y) = e^{\int h(y)\,dy}\]
 \end{theorem}
 
 \begin{algorithm}
-\textbf{Finding $\mu(y)$:}
+\textbf{Finding \mu(y)$:}
 \begin{enumerate}
     \item Compute $\frac{\partial M}{\partial y}$ and $\frac{\partial N}{\partial x}$
-    \item Calculate $S(x,y) = \frac{N$_{x}$ - M$_{y}$}{M}$
-    \item If $S = h(y)$ (function of $y$ only), then:
+    \item Calculate $S(x,y) = \frac{N_{x} - M_{y}}{M}$
+    \item If $S = h(y)$ (function of $y only), then:
     \[\mu(y) = e^{\int h(y)\,dy}\]
-    \item If $S$ contains $x$, then $\mu(y)$ doesn't exist
+    \item If S$ contains $x$, then $\mu(y)$ doesn't exist
 \end{enumerate}
 \end{algorithm}
 
@@ -103,8 +103,8 @@ where $h(y)$ is a function of $y$ alone. The integrating factor is:
 \textbf{Step-by-Step Solution with Integrating Factors:}
 \begin{enumerate}
     \item Test for exactness (if exact, skip to step 6)
-    \item Check if $\mu(x)$ exists: Is $(M$_{y}$ - N$_{x}$)/N$ a function of $x$ only?
-    \item If not, check if $\mu(y)$ exists: Is $(N$_{x}$ - M$_{y}$)/M$ a function of $y$ only?
+    \item Check if $\mu(x)$ exists: Is $(M_{y} - N_{x})/N$ a function of $x$ only?
+    \item If not, check if $\mu(y)$ exists: Is $(N_{x} - M_{y})/M$ a function of $y$ only?
     \item Find the integrating factor using the appropriate formula
     \item Multiply the original equation by $\mu$
     \item Verify the new equation is exact
@@ -115,28 +115,28 @@ where $h(y)$ is a function of $y$ alone. The integrating factor is:
 \section{Important Examples}
 
 \begin{example}[Standard $\mu(x)$ Case]
-Solve $(2y + 3x$^{2}$)dx + xdy = 0$
+Solve $(2y + 3x^{2})dx + xdy = 0$
 
-\textbf{Step 1:} Test exactness: $M$_{y}$ = 2$, $N$_{x}$ = 1$. Not exact!
+\textbf{Step 1:} Test exactness: $M_{y} = 2$, $N_{x} = 1$. Not exact!
 
 \textbf{Step 2:} Check for $\mu(x)$:
-\[\frac{M$_{y}$ - N$_{x}$}{N} = \frac{2 - 1}{x} = \frac{1}{x}\]
+\[\frac{M_{y} - N_{x}}{N} = \frac{2 - 1}{x} = \frac{1}{x}\]
 This is a function of $x$ only!
 
-\textbf{Step 3:} Find $\mu(x)$:
-\[\mu(x) = e^{\int \frac{1}{x}dx} = e^{\ln|x|} = x\]
+\textbf{Step 3:} Find $\mu(x):
+\[\mu(x) = $e^{\int \frac{1}${x}dx} = $e^{\ln|x|}$ = x\]
 
-\textbf{Step 4:} Multiply by $\mu = x$:
-\[(2xy + 3x$^{3}$)dx + x$^{2dy}$ = 0\]
+\textbf{Step 4:} Multiply by \mu = x$:
+\[(2xy + 3x^{3})dx + x^{2dy} = 0\]
 
-\textbf{Step 5:} Verify exactness: $M$_{y}$ = 2x$, $N$_{x}$ = 2x$. \checkmark
+\textbf{Step 5:} Verify exactness: $M_{y} = 2x$, $N_{x} = 2x$. $$\checkmark$$
 
 \textbf{Step 6:} Find potential function:
-\[H = \int x$^{2}$\,dy = x$^{2y}$ + f(x)\]
-\[\frac{\partial H}{\partial x} = 2xy + f'(x) = 2xy + 3x$^{3}$\]
-\[f'(x) = 3x$^{3}$ \Rightarrow f(x) = \frac{3x$^{4}$}{4}\]
+\[H = \int x^{2}\,dy = x^{2y} + f(x)\]
+\[\frac{\partial H}{\partial x} = 2xy + f'(x) = 2xy + 3x^{3}\]
+\[f'(x) = 3x^{3} \Rightarrow f(x) = \frac{3x^{4}}{4}\]
 
-\textbf{Solution:} $x$^{2y}$ + \frac{3x$^{4}$}{4} = C$
+\textbf{Solution:} $x^{2y} + \frac{3x^{4}}{4} = C$
 \end{example}
 
 \begin{example}[Linear Equation Connection]
@@ -144,9 +144,9 @@ The linear equation $y' + P(x)y = Q(x)$ can be written as:
 \[(Py - Q)dx + dy = 0\]
 
 Check for $\mu(x)$:
-\[\frac{M$_{y}$ - N$_{x}$}{N} = \frac{P - 0}{1} = P(x)\]
+\[\frac{M_{y} - N_{x}}{N} = \frac{P - 0}{1} = P(x)\]
 
-Therefore: $\mu(x) = e^{\int P(x)dx}$ - exactly the integrating factor from Block 5!
+Therefore: \mu(x) = $e^{\int P(x)dx}$ - exactly the integrating factor from Block 5!
 \end{example}
 
 \section{Common Patterns to Recognize}
@@ -158,9 +158,9 @@ Therefore: $\mu(x) = e^{\int P(x)dx}$ - exactly the integrating factor from Bloc
 \hline
 \textbf{If you see} & \textbf{Try} & \textbf{Integrating Factor} \\
 \hline
-$N = x$^{n}$$ & $\mu(x)$ & Often $\mu = x$^{k}$$ \\
-$M = y$^{n}$$ & $\mu(y)$ & Often $\mu = y$^{k}$$ \\
-Linear in $y$ & $\mu(x)$ & $\mu = e^{\int P(x)dx}$ \\
+$N = x^{n}$ & $\mu(x)$ & Often $\mu = x^{k}$ \\
+$M = y^{n}$ & $\mu(y)$ & Often $\mu = y^{k}$ \\
+Linear in $y$ & $\mu(x)$ & \mu = $e^{\int P(x)dx}$ \\
 Homogeneous & Either & Check both tests \\
 $N = f(x)$ only & $\mu(x)$ & Guaranteed to exist \\
 $M = g(y)$ only & $\mu(y)$ & Guaranteed to exist \\
@@ -174,8 +174,8 @@ $M = g(y)$ only & $\mu(y)$ & Guaranteed to exist \\
 \begin{insight}
 \textbf{Mnemonic Devices:}
 \begin{itemize}
-    \item "$\mu(x)$: My Nexus over N" - $(M$_{y}$ - N$_{x}$)/N$ for $x$ dependence
-    \item "$\mu(y)$: Nexus My over M" - $(N$_{x}$ - M$_{y}$)/M$ for $y$ dependence
+    \item "$\mu(x)$: My Nexus over N" - $(M_{y} - N_{x})/N$ for $x$ dependence
+    \item "$\mu(y)$: Nexus My over M" - $(N_{x} - M_{y})/M$ for $y$ dependence
     \item Notice: Numerators are negatives of each other!
     \item The variable in $\mu$ matches what you divide by (sort of):
     \begin{itemize}

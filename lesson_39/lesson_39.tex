@@ -15,8 +15,8 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{visualization}
 
-\title{3D Systems and Higher Dimensions}
-\author{ODE 1 - Lesson 39}
+\title{ODE Lesson 39: 3D Systems and Higher Dimensions}
+\author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
 \begin{document}
@@ -29,7 +29,7 @@ $$\dot{\mathbf{x}} = A\mathbf{x}, \quad \text{where } A \in \mathbb{R}^{3 \times
 
 \begin{keypoint}
 \textbf{Fundamental Principle:}
-The behavior is completely determined by the eigenvalues $\lambda$_{1}$, \lambda$_{2}$, \lambda$_{3}$$ of $A$.
+The behavior is completely determined by the eigenvalues $\lambda_{1}, \lambda_{2}, \lambda_{3}$ of $A$.
 \begin{itemize}
     \item Real eigenvalues \rightarrow exponential behavior
     \item Complex pair \rightarrow rotation in a plane
@@ -46,9 +46,9 @@ The behavior is completely determined by the eigenvalues $\lambda$_{1}$, \lambda
 \textbf{Type} & \textbf{Eigenvalues} & \textbf{Stability} & \textbf{Behavior} \\
 \hline
 \hline
-Stable Node & $\lambda$_{i}$ < 0$ (all real) & Asymp. Stable & All trajectories converge \\
+Stable Node & $\lambda_{i} < 0$ (all real) & Asymp. Stable & All trajectories converge \\
 \hline
-Unstable Node & $\lambda$_{i}$ > 0$ (all real) & Unstable & All trajectories diverge \\
+Unstable Node & $\lambda_{i} > 0$ (all real) & Unstable & All trajectories diverge \\
 \hline
 Saddle (1-2) & 1 pos., 2 neg. & Unstable & 1D unstable, 2D stable manifold \\
 \hline
@@ -69,20 +69,20 @@ Center-Line & 1 real = 0, 2 pure imag. & Marginally Stable & Circles in plane, l
 \section{Invariant Manifolds}
 
 \begin{definition}[Stable, Unstable, and Center Manifolds]
-For an equilibrium at the origin with eigenvalues $\{\lambda$_{i}$\}$:
+For an equilibrium at the origin with eigenvalues $\{\lambda_{i}\}$:
 \begin{align}
 E^{s} &= \text{span}\{v_{i} : \text{Re}(\lambda_{i}) < 0\} \quad \text{(Stable manifold)} \\
 E^{u} &= \text{span}\{v_{i} : \text{Re}(\lambda_{i}) > 0\} \quad \text{(Unstable manifold)} \\
 E^{c} &= \text{span}\{v_{i} : \text{Re}(\lambda_{i}) = 0\} \quad \text{(Center manifold)}
 \end{align}
-Dimensions: $\dim(E$^{s}$) + \dim(E$^{u}$) + \dim(E$^{c}$) = 3$
+Dimensions: $\dim(E^{s}) + \dim(E^{u}) + \dim(E^{c}) = 3$
 \end{definition}
 
 \begin{theorem}[Manifold Dynamics]
 \begin{itemize}
-    \item Trajectories in $E$^{s}$$ approach origin as $t \to \infty$
-    \item Trajectories in $E$^{u}$$ approach origin as $t \to -\infty$
-    \item Trajectories in $E$^{c}$$ may be periodic or stationary
+    \item Trajectories in $E^{s}$ approach origin as $t \to \infty$
+    \item Trajectories in $E^{u}$ approach origin as $t \to -\infty$
+    \item Trajectories in $E^{c}$ may be periodic or stationary
 \end{itemize}
 \end{theorem}
 
@@ -101,7 +101,7 @@ Each projection shows 2D "shadow" of 3D dynamics
 \end{visualization}
 
 \begin{example}[Projection Analysis]
-System with $\lambda$_{1}$ = -1$, $\lambda$_{2}$,3 = -0.5 \pm 2i$:
+System with $\lambda_{1} = -1$, $\lambda_{2},3 = -0.5 \pm 2i$:
 \begin{itemize}
     \item xy-projection: Spiral (from complex pair)
     \item xz-projection: Node-like (real eigenvalue dominates)
@@ -131,14 +131,14 @@ A \textbf{Poincaré section} is a lower-dimensional slice through phase space. F
 Consider the matrix:
 $$A = \begin{pmatrix} -2 & 1 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 3 \end{pmatrix}$$
 
-\textbf{Step 1:} Eigenvalues are $\lambda$_{1}$ = -2$, $\lambda$_{2}$ = -1$, $\lambda$_{3}$ = 3$
+\textbf{Step 1:} Eigenvalues are $\lambda_{1} = -2$, $\lambda_{2} = -1$, $\lambda_{3} = 3$
 
 \textbf{Step 2:} Classification: Saddle (2-1 type)
 
 \textbf{Step 3:} Manifolds:
 \begin{itemize}
-    \item $E$^{s}$ = \text{span}\{e$_{1}$, e$_{2}$\}$ (xy-plane), $\dim(E$^{s}$) = 2$
-    \item $E$^{u}$ = \text{span}\{e$_{3}$\}$ (z-axis), $\dim(E$^{u}$) = 1$
+    \item $E^{s} = \text{span}\{e_{1}, e_{2}\}$ (xy-plane), $\dim(E^{s}) = 2$
+    \item $E^{u} = \text{span}\{e_{3}\}$ (z-axis), $\dim(E^{u}) = 1$
 \end{itemize}
 
 \textbf{Step 4:} Behavior: Trajectories spiral toward xy-plane, then escape along z-axis
@@ -147,7 +147,7 @@ $$A = \begin{pmatrix} -2 & 1 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 3 \end{pmatrix}$$
 \begin{example}[Spiral-Node System]
 $$A = \begin{pmatrix} -3 & 0 & 0 \\ 0 & -1 & 4 \\ 0 & -4 & -1 \end{pmatrix}$$
 
-Eigenvalues: $\lambda$_{1}$ = -3$, $\lambda_{2,3} = -1 \pm 4i$
+Eigenvalues: $\lambda_{1} = -3$, $\lambda_{2,3} = -1 \pm 4i$
 
 Classification: Stable spiral-node
 - Exponential decay along x-axis (rate = 3)
@@ -160,18 +160,18 @@ Classification: Stable spiral-node
 \textbf{Classification in n-Dimensions:}
 For $\dot{\mathbf{x}} = A\mathbf{x}$ with $A \in \mathbb{R}^{n \times n}$:
 \begin{itemize}
-    \item Count eigenvalues with $\text{Re}(\lambda) < 0$: $n$_{s}$$ (stable directions)
-    \item Count eigenvalues with $\text{Re}(\lambda) > 0$: $n$_{u}$$ (unstable directions)
-    \item Count eigenvalues with $\text{Re}(\lambda) = 0$: $n$_{c}$$ (center directions)
-    \item Check: $n$_{s}$ + n$_{u}$ + n$_{c}$ = n$
+    \item Count eigenvalues with $\text{Re}(\lambda) < 0$: $n_{s}$ (stable directions)
+    \item Count eigenvalues with $\text{Re}(\lambda) > 0$: $n_{u}$ (unstable directions)
+    \item Count eigenvalues with $\text{Re}(\lambda) = 0$: $n_{c}$ (center directions)
+    \item Check: $n_{s} + n_{u} + n_{c} = n$
 \end{itemize}
 \end{keypoint}
 
 \begin{classification}[Stability in Higher Dimensions]
 \begin{itemize}
-    \item \textbf{Asymptotically Stable}: All $\text{Re}(\lambda$_{i}$) < 0$
-    \item \textbf{Unstable}: At least one $\text{Re}(\lambda$_{i}$) > 0$
-    \item \textbf{Marginally Stable}: All $\text{Re}(\lambda$_{i}$) \leq 0$, some $= 0$
+    \item \textbf{Asymptotically Stable}: All $\text{Re}(\lambda_{i}) < 0$
+    \item \textbf{Unstable}: At least one $\text{Re}(\lambda_{i}) > 0$
+    \item \textbf{Marginally Stable}: All $\text{Re}(\lambda_{i}) \leq 0$, some $= 0$
 \end{itemize}
 \end{classification}
 
@@ -242,7 +242,7 @@ Equilibria:
     \item Wrong manifold dimension count
     \item Trying to visualize 4D+ systems
     \item Missing the third eigenvalue
-    \item Not checking $\sum \lambda$_{i}$ = \text{tr}(A)$
+    \item Not checking $\sum \lambda_{i} = \text{tr}(A)$
 \end{itemize}
 \end{warning}
 

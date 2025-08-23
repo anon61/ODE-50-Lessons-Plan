@@ -38,7 +38,7 @@ $$x' = y, \quad y' = -x, \quad x(0) = 1, \quad y(0) = 0$$
 Find $(x(0.4), y(0.4))$.
 
 \item Backward Euler for $y' = -100y$, $y(0) = 1$. Show that with $h = 0.1$:
-$$y$_{1}$ = \frac{y$_{0}$}{1 + 100h}$$
+$$y_{1} = \frac{y_{0}}{1 + 100h}$$
 \end{enumerate}
 
 \section*{Part B: Runge-Kutta Methods (6 problems)}
@@ -53,7 +53,7 @@ $$y' = \sin(x) + y, \quad y(0) = 0$$
 Compute $y(0.5)$.
 
 \item Apply RK4 with $h = 0.5$ to solve:
-$$y' = x$^{2}$ + y$^{2}$, \quad y(0) = 0$$
+$$y' = x^{2} + y^{2}, \quad y(0) = 0$$
 Find $y(0.5)$ (show all $k$_{i}$$ values).
 
 \item For $y' = -y + x + 1$, $y(0) = 1$:
@@ -82,13 +82,13 @@ Find $(x(0.2), y(0.2))$.
 \item How many steps does each method need?
 \end{enumerate}
 
-\item The local truncation error for Euler is $\frac{h$^{2}$}{2}y''(\xi)$. For $y' = x$^{2}$$, $y(0) = 0$:
+\item The local truncation error for Euler is $\frac{h^{2}}{2}y''(\xi)$. For $y' = x^{2}$, $y(0) = 0$:
 \begin{enumerate}[label=(\alph*)]
 \item Find the exact local error at $x = h$
-\item Verify it's $O(h$^{2}$)$
+\item Verify it's $O(h^{2})$
 \end{enumerate}
 
-\item Given that RK4 has local error $O(h$^{5}$)$, if halving the step size reduces the error by factor $F$, what is $F$?
+\item Given that RK4 has local error $O(h^{5})$, if halving the step size reduces the error by factor $F$, what is $F$?
 
 \item For $y' = -1000y + 1000$, $y(0) = 2$:
 \begin{enumerate}[label=(\alph*)]
@@ -99,7 +99,7 @@ Find $(x(0.2), y(0.2))$.
 
 \item Richardson extrapolation: If $y$_{h}$$ is the Euler approximation with step $h$ and $y_{h/2}$ with step $h/2$, show that:
 $$y_{improved} = 2y_{h/2} - y$_{h}$$$
-has error $O(h$^{2}$)$.
+has error $O(h^{2})$.
 \end{enumerate}
 
 \section*{Part D: Stability Analysis (5 problems)}
@@ -123,7 +123,7 @@ $$\mathbf{y}' = \begin{pmatrix} -1 & 10 \\ 0 & -100 \end{pmatrix} \mathbf{y}$$
 \end{enumerate}
 
 \item The stability function for RK4 is:
-$$R(z) = 1 + z + \frac{z$^{2}$}{2} + \frac{z$^{3}$}{6} + \frac{z$^{4}$}{24}$$
+$$R(z) = 1 + z + \frac{z^{2}}{2} + \frac{z^{3}}{6} + \frac{z^{4}}{24}$$
 Find $|R(-2)|$ and determine if $h\lambda = -2$ is stable.
 
 \item Compare stability regions: sketch the stability boundary in the complex $h\lambda$ plane for:
@@ -203,18 +203,18 @@ with $A(0) = 1$, $B(0) = C(0) = 0$.
 \textbf{Selected Solutions:}
 
 \textbf{Problem 1:}
-- $y$_{1}$ = 1 + 0.1(0 - 1) = 0.9$
-- $y$_{2}$ = 0.9 + 0.1(0.1 - 0.9) = 0.82$
-- $y$_{3}$ = 0.82 + 0.1(0.2 - 0.82) = 0.758$
+- $y_{1} = 1 + 0.1(0 - 1) = 0.9$
+- $y_{2} = 0.9 + 0.1(0.1 - 0.9) = 0.82$
+- $y_{3} = 0.82 + 0.1(0.2 - 0.82) = 0.758$
 
 \textbf{Problem 4:} For stability: $|1 - 10h| < 1$, so $h < 0.2$
 
-\textbf{Problem 9:} RK4 for $y' = x$^{2}$ + y$^{2}$$:
-- $k$_{1}$ = 0$
-- $k$_{2}$ = 0.5(0.25)$^{2}$ = 0.03125$
-- $k$_{3}$ = 0.5[(0.25)$^{2}$ + (0.0156)$^{2}$] \approx 0.0312$
-- $k$_{4}$ = 0.5[(0.5)$^{2}$ + (0.0312)$^{2}$] \approx 0.125$
-- $y$_{1}$ \approx 0.031$
+\textbf{Problem 9:} RK4 for $y' = x^{2} + y^{2}$:
+- $k_{1} = 0$
+- $k_{2} = 0.5(0.25)^{2} = 0.03125$
+- $k_{3} = 0.5[(0.25)^{2} + (0.0156)^{2}] \approx 0.0312$
+- $k_{4} = 0.5[(0.5)^{2} + (0.0312)^{2}] \approx 0.125$
+- $y_{1} \approx 0.031$
 
 \textbf{Problem 13:} For Euler: $h \sim \sqrt{10^{-4}} = 0.01$, need 100 steps
 For RK4: $h \sim (10^{-4})^{1/4} \approx 0.1$, need 10 steps

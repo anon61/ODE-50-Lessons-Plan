@@ -14,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
 
-\title{Lesson 25: Orthogonal Trajectories and Applications}
+\title{ODE Lesson 25: Orthogonal Trajectories and Applications}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -29,7 +29,7 @@ Given a one-parameter family of curves $F(x,y,c) = 0$, the \textbf{orthogonal tr
 
 \begin{keypoint}
 At any point of intersection, the product of the slopes of two orthogonal curves equals $-1$:
-\[m$_{1}$ \cdot m$_{2}$ = -1\]
+\[m_{1} \cdot m_{2} = -1\]
 This is the fundamental principle behind finding orthogonal trajectories.
 \end{keypoint}
 
@@ -64,22 +64,22 @@ Find orthogonal trajectories of $y = cx$.
     \item Eliminate $c$: Since $c = \frac{y}{x}$, we have $\frac{dy}{dx} = \frac{y}{x}$
     \item Orthogonal equation: $-\frac{dx}{dy} = \frac{y}{x}$ or $\frac{dx}{dy} = -\frac{y}{x}$
     \item Rearrange: $x dx = -y dy$
-    \item Integrate: $\frac{x$^{2}$}{2} = -\frac{y$^{2}$}{2} + C$
-    \item Simplify: $x$^{2}$ + y$^{2}$ = K$
+    \item Integrate: $\frac{x^{2}}{2} = -\frac{y^{2}}{2} + C$
+    \item Simplify: $x^{2} + y^{2} = K
 \end{enumerate}
 The orthogonal trajectories are circles centered at the origin!
 \end{example}
 
 \begin{example}[Exponential Curves]
-Find orthogonal trajectories of $y = ce^{2x}$.
+Find orthogonal trajectories of y = ce^{2x}.
 
 \textbf{Solution:}
 \begin{enumerate}
-    \item Differentiate: $\frac{dy}{dx} = 2ce^{2x}$
-    \item Eliminate $c$: From original, $c = ye^{-2x}$, so $\frac{dy}{dx} = 2y$
+    \item Differentiate: \frac{dy}{dx} = 2ce^{2x}
+    \item Eliminate c: From original, c = ye^{-2x}, so \frac{dy}{dx} = 2y
     \item Orthogonal equation: $-\frac{dx}{dy} = 2y$ or $\frac{dx}{dy} = -2y$
-    \item Integrate: $x = -y$^{2}$ + C$
-    \item Result: $x + y$^{2}$ = K$ (parabolas opening left)
+    \item Integrate: $x = -y^{2} + C$
+    \item Result: $x + y^{2} = K$ (parabolas opening left)
 \end{enumerate}
 \end{example}
 
@@ -93,7 +93,7 @@ Find orthogonal trajectories of $y = ce^{2x}$.
     ylabel = $y$,
     xmin=-3, xmax=3,
     ymin=-3, ymax=3,
-    title={Orthogonal Families: Lines $y=cx$ and Circles $x$^{2}$+y$^{2}$=K$},
+    title={Orthogonal Families: Lines $y=cx$ and Circles $x^{2}+y^{2}=K$},
     grid=major,
     width=10cm,
     height=10cm
@@ -104,7 +104,7 @@ Find orthogonal trajectories of $y = ce^{2x}$.
     \addplot[blue, thick, domain=-3:3, samples=2] {x*\c};
 }
 
-% Draw circles x$^{2}$ + y$^{2}$ = K
+% Draw circles x^{2} + y^{2} = K
 \foreach \k in {0.5,1,1.5,2,2.5} {
     \addplot[red, thick, domain=0:360, samples=100, parametric]
     ({sqrt(\k)*cos(x)},{sqrt(\k)*sin(x)});
@@ -128,8 +128,8 @@ The family $xy = c$ is self-orthogonal.
     \item Differentiate: $y + x\frac{dy}{dx} = 0$, so $\frac{dy}{dx} = -\frac{y}{x}$
     \item Orthogonal equation: $-\frac{dx}{dy} = -\frac{y}{x}$ or $\frac{dx}{dy} = \frac{y}{x}$
     \item Rearrange: $\frac{x dx}{y dy} = 1$, so $x dx = y dy$
-    \item Integrate: $\frac{x$^{2}$}{2} = \frac{y$^{2}$}{2} + C$
-    \item This gives $x$^{2}$ - y$^{2}$ = K$, or $(x-y)(x+y) = K$
+    \item Integrate: $\frac{x^{2}}{2} = \frac{y^{2}}{2} + C$
+    \item This gives $x^{2} - y^{2} = K$, or $(x-y)(x+y) = K$
 \end{enumerate}
 Actually, more careful analysis shows these are also rectangular hyperbolas, rotated by 45°.
 \end{example}
@@ -163,26 +163,26 @@ The orthogonality of field lines and equipotentials follows from the fact that t
 If a family of curves in polar coordinates satisfies the differential equation
 \[\frac{dr}{d\theta} = F(r,\theta)\]
 then the orthogonal trajectories satisfy
-\[r$^{2}$\frac{d\theta}{dr} = F(r,\theta)\]
+\[r^{2}\frac{d\theta}{dr} = F(r,\theta)\]
 \end{theorem}
 
 \begin{example}[Cardioids]
 Find orthogonal trajectories of $r = a(1 + \cos\theta)$ (family of cardioids).
 
-The differential equation and solution involve more complex polar calculus, but the principle remains: multiply by $r$^{2}$$ and interchange the roles of $r$ and $\theta$ derivatives.
+The differential equation and solution involve more complex polar calculus, but the principle remains: multiply by $r^{2}$ and interchange the roles of $r$ and $\theta$ derivatives.
 \end{example}
 
 \section{Connection to Complex Analysis}
 
 \begin{theorem}[Cauchy-Riemann and Orthogonality]
-If $f(z) = u(x,y) + iv(x,y)$ is analytic, then the families $u(x,y) = c$_{1}$$ and $v(x,y) = c$_{2}$$ are orthogonal trajectories.
+If $f(z) = u(x,y) + iv(x,y)$ is analytic, then the families $u(x,y) = c_{1}$ and $v(x,y) = c_{2}$ are orthogonal trajectories.
 \end{theorem}
 
 \begin{example}[Complex Function]
-For $f(z) = z$^{2}$ = (x+iy)$^{2}$ = x$^{2}$ - y$^{2}$ + 2ixy$:
+For $f(z) = z^{2} = (x+iy)^{2} = x^{2} - y^{2} + 2ixy$:
 \begin{itemize}
-    \item Real part: $u = x$^{2}$ - y$^{2}$ = c$_{1}$$ (hyperbolas)
-    \item Imaginary part: $v = 2xy = c$_{2}$$ (hyperbolas)
+    \item Real part: $u = x^{2} - y^{2} = c_{1}$ (hyperbolas)
+    \item Imaginary part: $v = 2xy = c_{2}$ (hyperbolas)
     \item These families are orthogonal!
 \end{itemize}
 \end{example}
@@ -192,8 +192,8 @@ For $f(z) = z$^{2}$ = (x+iy)$^{2}$ = x$^{2}$ - y$^{2}$ + 2ixy$:
 \begin{examtip}
 Prof. Ditkowski's favorite orthogonal trajectory problems:
 \begin{enumerate}
-    \item Circles and radial lines: $x$^{2}$ + y$^{2}$ = c$^{2}$$ ↔ $y = kx$
-    \item Parabolas and exponentials: $y$^{2}$ = cx$ ↔ $y = ke^{2x}$
+    \item Circles and radial lines: $x^{2} + y^{2} = c^{2}$ ↔ $y = kx$
+    \item Parabolas and exponentials: $y^{2} = cx ↔ y = ke^{2x}
     \item Confocal ellipses and hyperbolas (advanced)
     \item Temperature distribution and heat flow
     \item Self-orthogonal families (always one question!)
@@ -205,7 +205,7 @@ Prof. Ditkowski's favorite orthogonal trajectory problems:
 \begin{algorithm}
 \textbf{Exam Problem Approach:}
 \begin{enumerate}
-    \item Identify the given family $F(x,y,c) = 0$
+    \item Identify the given family F(x,y,c) = 0
     \item Differentiate with respect to $x$ (implicit differentiation if needed)
     \item Eliminate parameter $c$ using the original equation
     \item Write differential equation: $\frac{dy}{dx} = f(x,y)$

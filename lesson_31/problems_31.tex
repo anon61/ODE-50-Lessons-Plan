@@ -74,7 +74,7 @@ $\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 0 & -2 \end{pmatrix}\mathbf{x}$
 
 \item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
 
-\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 3 & 1 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x}$ with $x$_{1}$(0) = 1, x$_{2}$(0) = 0, x$_{3}$(0) = 0$
+\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 3 & 1 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x}$ with $x_{1}(0) = 1, x_{2}(0) = 0, x_{3}(0) = 0$
 
 \item Determine the Jordan form and solve: $\mathbf{x}' = \begin{pmatrix} 2 & 0 & 1 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$
 \end{enumerate}
@@ -96,34 +96,34 @@ $\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 0 & -2 \end{pmatrix}\mathbf{x}$
 \section*{Part F: Theory and Applications}
 
 \begin{enumerate}[start=26]
-\item Prove that if $\lambda$ is a repeated eigenvalue with full defect $n-1$, then the solutions contain terms up to $t^{n-1}e^{\lambda t}$.
+\item Prove that if $\lambda$ is a repeated eigenvalue with full defect $n-1$, then the solutions contain terms up to $t^{n-1}$e^{\lambda$ t}$.
 
-\item Show that for a 2\times2 matrix with repeated eigenvalue $\lambda$, the trace equals $2\lambda$ and the determinant equals $\lambda$^{2}$$.
+\item Show that for a 2\times2 matrix with repeated eigenvalue $\lambda$, the trace equals $2\lambda$ and the determinant equals $\lambda^{2}$.
 
 \item A coupled system has matrix $A = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}$. Find the time when the solution with $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$ reaches its maximum norm.
 
 \item For the radioactive decay chain with matrix $A = \begin{pmatrix} -k & 0 & 0 \\ k & -k & 0 \\ 0 & k & -k \end{pmatrix}$, solve for the amounts of each isotope over time.
 
 \item \textbf{Challenge:} Prove that $e^{Jt}$ for a Jordan block $J$ can be computed as:
-$e^{Jt} = e^{\lambda t}\sum_{k=0}^{n-1} \frac{t$^{k}$}{k!}N$^{k}$$ where $N = J - \lambda I$.
+$e^{Jt} = $e^{\lambda$ t}\sum_{k=0}^{n-1} \frac{t$^{k}$}{k!}N$^{k}$$ where $N = J - \lambda I$.
 \end{enumerate}
 
 \section*{Solutions and Hints}
 
 \textbf{Problem 1:} Algebraic multiplicity = 2, geometric multiplicity = 1, defect = 1.
 
-\textbf{Problem 6:} Eigenvector: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, Generalized: $\mathbf{v}$_{2}$ = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+\textbf{Problem 6:} Eigenvector: $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, Generalized: $\mathbf{v}_{2} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
 
-\textbf{Problem 11:} $\mathbf{x}(t) = e^{2t}[c$_{1}$\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c$_{2}$(t\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix})]$
+\textbf{Problem 11:} $\mathbf{x}(t) = $e^{2t}[c_{1}\begin{pmatrix}$ 1 \\ 0 \end{pmatrix} + c_{2}(t\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix})]$
 
 \textbf{Problem 16:} Use the standard basis vectors as the Jordan chain.
 
-\textbf{Problem 24:} All solutions decay to zero since $\lambda = -2 < 0$ despite the $t$ and $t$^{2}$$ terms.
+\textbf{Problem 24:} All solutions decay to zero since $\lambda = -2 < 0$ despite the $t$ and $t^{2}$ terms.
 
-\textbf{Problem 28:} Maximum occurs at $t = 1$ (derivative of $te^{-t}$ equals zero).
+\textbf{Problem 28:} Maximum occurs at $t = 1$ (derivative of $t$e^{-t$}$ equals zero).
 
 \textbf{Key Strategy:} Always check the defect first! If geometric multiplicity equals algebraic multiplicity, use standard eigenvector methods. Otherwise, build Jordan chains systematically.
 
-\textbf{Verification:} For generalized eigenvector $\mathbf{v}$_{2}$$ satisfying $(A-\lambda I)\mathbf{v}$_{2}$ = \mathbf{v}$_{1}$$, verify that $\mathbf{x}(t) = e^{\lambda t}(t\mathbf{v}$_{1}$ + \mathbf{v}$_{2}$)$ satisfies $\mathbf{x}' = A\mathbf{x}$.
+\textbf{Verification:} For generalized eigenvector $\mathbf{v}_{2}$ satisfying $(A-\lambda I)\mathbf{v}_{2} = \mathbf{v}_{1}$, verify that $\mathbf{x}(t) = $e^{\lambda$ t}(t\mathbf{v}_{1} + \mathbf{v}_{2})$ satisfies $\mathbf{x}' = A\mathbf{x}$.
 
 \end{document}

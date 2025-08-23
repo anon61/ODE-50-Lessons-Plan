@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{variation}
 
-\title{Lesson 34: Variation of Parameters for Systems}
+\title{ODE Lesson 34: Variation of Parameters for Systems}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -32,8 +32,8 @@ where $A(t)$ is an $n \times n$ matrix and $\mathbf{f}(t)$ is the forcing term.
 
 \begin{theorem}[General Solution Structure]
 The general solution to the non-homogeneous system is:
-\[\mathbf{x}(t) = \mathbf{x}$_{h}$(t) + \mathbf{x}$_{p}$(t)\]
-where $\mathbf{x}$_{h}$$ is the general solution to the homogeneous system and $\mathbf{x}$_{p}$$ is any particular solution.
+\[\mathbf{x}(t) = \mathbf{x}_{h}(t) + \mathbf{x}_{p}(t)\]
+where $\mathbf{x}_{h}$ is the general solution to the homogeneous system and $\mathbf{x}_{p}$ is any particular solution.
 \end{theorem}
 
 \section{Variation of Parameters Method}
@@ -41,28 +41,28 @@ where $\mathbf{x}$_{h}$$ is the general solution to the homogeneous system and $
 \begin{variation}
 \textbf{The Fundamental Formula:}
 Given a fundamental matrix $\Phi(t)$ for the homogeneous system $\mathbf{x}' = A\mathbf{x}$, the particular solution is:
-\[\mathbf{x}$_{p}$(t) = \Phi(t)\int \Phi^{-1}(s)\mathbf{f}(s)\,ds\]
+\[\mathbf{x}_{p}(t) = \Phi(t)\int \Phi^{-1}(s)\mathbf{f}(s)\,ds\]
 \end{variation}
 
 \begin{method}[Step-by-Step Procedure]
 \begin{enumerate}
 \item \textbf{Find the fundamental matrix} $\Phi(t)$ for $\mathbf{x}' = A\mathbf{x}$
    \begin{itemize}
-   \item For constant $A$: $\Phi(t) = e^{At}$
-   \item Columns of $\Phi$ are linearly independent solutions
+   \item For constant $A: \Phi(t) = $e^{At}$
+   \item Columns of \Phi are linearly independent solutions
    \end{itemize}
 
 \item \textbf{Compute the inverse} $\Phi^{-1}(t)$
    \begin{itemize}
-   \item For constant $A$: $\Phi^{-1}(t) = e^{-At}$
-   \item Use Wronskian: $W(t) = \det(\Phi(t)) = e^{\int \text{tr}(A)\,dt}$
+   \item For constant $A: \Phi^{-1}(t) = $e^{-At}$
+   \item Use Wronskian: W(t) = \det(\Phi(t)) = $e^{\int \text{tr}$(A)\,dt}
    \end{itemize}
 
 \item \textbf{Form the product} $\Phi^{-1}(s)\mathbf{f}(s)$
 
 \item \textbf{Integrate} component-wise: $\mathbf{v}(t) = \int \Phi^{-1}(s)\mathbf{f}(s)\,ds$
 
-\item \textbf{Multiply} to get particular solution: $\mathbf{x}$_{p}$(t) = \Phi(t)\mathbf{v}(t)$
+\item \textbf{Multiply} to get particular solution: $\mathbf{x}_{p}(t) = \Phi(t)\mathbf{v}(t)$
 \end{enumerate}
 \end{method}
 
@@ -70,41 +70,41 @@ Given a fundamental matrix $\Phi(t)$ for the homogeneous system $\mathbf{x}' = A
 
 \begin{keypoint}
 \textbf{Convolution Formula:}
-For constant matrix $A$ with $\Phi(t) = e^{At}$:
-\[\mathbf{x}$_{p}$(t) = \int$_{0}$^t e^{A(t-s)}\mathbf{f}(s)\,ds\]
+For constant matrix $A with \Phi(t) = $e^{At}$:
+\[\mathbf{x}_{p}(t) = \int_{0}^t e^{A(t-s)}\mathbf{f}(s)\,ds\]
 This represents the superposition of impulse responses!
 \end{keypoint}
 
-\begin{example}[2\times2 System with Exponential Forcing]
-Solve $\mathbf{x}' = \begin{pmatrix} 1 & 2 \\ 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{4t} \\ 0 \end{pmatrix}$
+\begin{example}[2$\times$2 System with Exponential Forcing]
+Solve \mathbf{x}' = \begin{pmatrix} 1 & 2 \\ 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} $e^{4t}$ \\ 0 \end{pmatrix}
 
 \textbf{Solution:}
 \begin{enumerate}
 \item \textbf{Find eigenvalues and eigenvectors:}
 \begin{itemize}
-\item $\lambda$_{1}$ = 1$: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
-\item $\lambda$_{2}$ = 3$: $\mathbf{v}$_{2}$ = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+\item $\lambda_{1} = 1$: $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+\item $\lambda_{2} = 3$: \mathbf{v}_{2} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}
 \end{itemize}
 
 \item \textbf{Fundamental matrix:}
-\[\Phi(t) = \begin{pmatrix} e$^{t}$ & e^{3t} \\ 0 & e^{3t} \end{pmatrix}\]
+\[\Phi(t) = \begin{pmatrix} $e^{t}$ & $e^{3t}$ \\ 0 & $e^{3t}$ \end{pmatrix}\]
 
 \item \textbf{Inverse fundamental matrix:}
-\[\Phi^{-1}(t) = \begin{pmatrix} e^{-t} & -e^{-t} \\ 0 & e^{-3t} \end{pmatrix}\]
+\[\Phi^{-1}(t) = \begin{pmatrix} $e^{-t}$ & -$e^{-t}$ \\ 0 & $e^{-3t}$ \end{pmatrix}\]
 
-\item \textbf{Compute $\Phi^{-1}(s)\mathbf{f}(s)$:}
-\[\Phi^{-1}(s)\mathbf{f}(s) = \begin{pmatrix} e^{-s} & -e^{-s} \\ 0 & e^{-3s} \end{pmatrix}\begin{pmatrix} e^{4s} \\ 0 \end{pmatrix} = \begin{pmatrix} e^{3s} \\ 0 \end{pmatrix}\]
+\item \textbf{Compute $\Phi^{-1}(s)\mathbf{f}(s):}
+\[\Phi^{-1}(s)\mathbf{f}(s) = \begin{pmatrix} $e^{-s}$ & -$e^{-s}$ \\ 0 & $e^{-3s}$ \end{pmatrix}\begin{pmatrix} $e^{4s}$ \\ 0 \end{pmatrix} = \begin{pmatrix} $e^{3s}$ \\ 0 \end{pmatrix}\]
 
 \item \textbf{Integrate:}
-\[\mathbf{v}(t) = \int$_{0}$^t \begin{pmatrix} e^{3s} \\ 0 \end{pmatrix}ds = \begin{pmatrix} \frac{1}{3}(e^{3t} - 1) \\ 0 \end{pmatrix}\]
+\[\mathbf{v}(t) = \int_{0}^t \begin{pmatrix} $e^{3s}$ \\ 0 \end{pmatrix}ds = \begin{pmatrix} \frac{1}{3}($e^{3t}$ - 1) \\ 0 \end{pmatrix}\]
 
 \item \textbf{Particular solution:}
-\[\mathbf{x}$_{p}$(t) = \begin{pmatrix} e$^{t}$ & e^{3t} \\ 0 & e^{3t} \end{pmatrix}\begin{pmatrix} \frac{1}{3}(e^{3t} - 1) \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{1}{3}e$^{t}$(e^{3t} - 1) \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{1}{3}(e^{4t} - e$^{t}$) \\ 0 \end{pmatrix}\]
+\[\mathbf{x}_{p}(t) = \begin{pmatrix} $e^{t}$ & $e^{3t}$ \\ 0 & $e^{3t}$ \end{pmatrix}\begin{pmatrix} \frac{1}{3}($e^{3t}$ - 1) \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{1}{3}$e^{t}$(e^{3t} - 1) \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{1}{3}($e^{4t}$ - $e^{t}$) \\ 0 \end{pmatrix}\]
 \end{enumerate}
 \end{example}
 
 \begin{example}[System with Trigonometric Forcing]
-Solve $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(2t) \\ 0 \end{pmatrix}$
+Solve \mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(2t) \\ 0 \end{pmatrix}$
 
 \textbf{Solution:}
 The fundamental matrix is (from complex eigenvalues $\pm i$):
@@ -114,7 +114,7 @@ Computing:
 \[\Phi^{-1}(s)\mathbf{f}(s) = \begin{pmatrix} \cos s & -\sin s \\ \sin s & \cos s \end{pmatrix}\begin{pmatrix} \cos(2s) \\ 0 \end{pmatrix} = \begin{pmatrix} \cos s \cos(2s) \\ \sin s \cos(2s) \end{pmatrix}\]
 
 Using the identity $\cos s \cos(2s) = \frac{1}{2}[\cos(s) + \cos(3s)]$:
-\[\mathbf{v}(t) = \int$_{0}$^t \begin{pmatrix} \frac{1}{2}[\cos(s) + \cos(3s)] \\ \frac{1}{2}[\sin(s)\cos(2s)] \end{pmatrix}ds\]
+\[\mathbf{v}(t) = \int_{0}^t \begin{pmatrix} \frac{1}{2}[\cos(s) + \cos(3s)] \\ \frac{1}{2}[\sin(s)\cos(2s)] \end{pmatrix}ds\]
 
 After integration and multiplication by $\Phi(t)$, we get the particular solution.
 \end{example}
@@ -123,9 +123,9 @@ After integration and multiplication by $\Phi(t)$, we get the particular solutio
 
 \begin{insight}
 \textbf{Undetermined Coefficients Approach:}
-For $\mathbf{x}' = A\mathbf{x} + \mathbf{f}(t)$ where $\mathbf{f}(t) = e^{\alpha t}\mathbf{b}$:
+For $\mathbf{x}' = A\mathbf{x} + \mathbf{f}(t)$ where \mathbf{f}(t) = e^{\alpha t}\mathbf{b}:
 \begin{itemize}
-\item If $\alpha$ is not an eigenvalue: Try $\mathbf{x}$_{p}$ = e^{\alpha t}\mathbf{c}$
+\item If $\alpha$ is not an eigenvalue: Try \mathbf{x}_{p} = e^{\alpha t}\mathbf{c}
 \item Substitute to get: $(\alpha I - A)\mathbf{c} = \mathbf{b}$
 \item Solution: $\mathbf{c} = (\alpha I - A)^{-1}\mathbf{b}$
 \end{itemize}
@@ -138,7 +138,7 @@ For $\mathbf{x}' = A\mathbf{x} + \mathbf{f}(t)$ where $\mathbf{f}(t) = e^{\alpha
 \item Wrong order of matrix multiplication
 \item Forgetting integration constants (use definite integrals!)
 \item Not verifying the particular solution
-\item Confusion between $\Phi(t-s)$ and $\Phi(t)\Phi^{-1}(s)$
+\item Confusion between $\Phi(t-s)$ and $\Phi(t)\Phi^{-1}(s)
 \end{itemize}
 \end{warning}
 
@@ -150,12 +150,12 @@ The Green's matrix (or kernel) for the system is:
 \Phi(t)\Phi^{-1}(s) & \text{if } t \geq s \\
 0 & \text{if } t < s
 \end{cases}\]
-For constant coefficients: $G(t,s) = e^{A(t-s)}$ for $t \geq s$.
+For constant coefficients: G(t,s) = $e^{A(t-s)}$ for t \geq s.
 \end{definition}
 
 \begin{theorem}[Solution via Green's Matrix]
 The particular solution with zero initial conditions is:
-\[\mathbf{x}$_{p}$(t) = \int$_{0}$^t G(t,s)\mathbf{f}(s)\,ds\]
+\[\mathbf{x}_{p}(t) = \int_{0}^t G(t,s)\mathbf{f}(s)\,ds\]
 \end{theorem}
 
 \begin{examtip}
@@ -163,16 +163,16 @@ Prof. Ditkowski's typical problems:
 \begin{itemize}
 \item 2\times2 systems with exponential forcing
 \item Systems where $\Phi(t)$ is given
-\item Forcing terms like $\begin{pmatrix} t \\ 0 \end{pmatrix}$ or $\begin{pmatrix} e$^{t}$ \\ e^{-t} \end{pmatrix}$
+\item Forcing terms like $\begin{pmatrix} t \\ 0 \end{pmatrix} or \begin{pmatrix} $e^{t}$ \\ $e^{-t}$ \end{pmatrix}$
 \item Verification that a given function is a particular solution
-\item Initial value problems requiring both $\mathbf{x}$_{h}$$ and $\mathbf{x}$_{p}$$
+\item Initial value problems requiring both $\mathbf{x}_{h}$ and $\mathbf{x}_{p}$
 \end{itemize}
 \end{examtip}
 
 \section{Connection to Single Equations}
 
 For a single $n$-th order equation converted to a system:
-\[y^{(n)} + a_{n-1}y^{(n-1)} + \cdots + a$_{0y}$ = f(t)\]
+\[y^{(n)} + a_{n-1}y^{(n-1)} + \cdots + a_{0y} = f(t)\]
 
 The companion matrix form gives:
 \[\mathbf{x}' = \begin{pmatrix}
@@ -180,7 +180,7 @@ The companion matrix form gives:
 0 & 0 & 1 & \cdots & 0 \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & 0 & \cdots & 1 \\
--a$_{0}$ & -a$_{1}$ & -a$_{2}$ & \cdots & -a_{n-1}
+-a_{0} & -a_{1} & -a_{2} & \cdots & -a_{n-1}
 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 0 \\ f(t) \end{pmatrix}\]
 
 The variation of parameters formula for systems then recovers the scalar variation formula!

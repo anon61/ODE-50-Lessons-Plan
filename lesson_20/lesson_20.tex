@@ -14,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{transformation}
 
-\title{Lesson 20: Riccati to Second-Order Linear Transformation}
+\title{ODE Lesson 20: Riccati to Second-Order Linear Transformation}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -25,10 +25,10 @@
 
 \begin{theorem}[Riccati to Second-Order Linear]
 The Riccati equation
-$$y' = q$_{0}$(x) + q$_{1}$(x)y + q$_{2}$(x)y$^{2}$$$
+$$y' = q_{0}(x) + q_{1}(x)y + q_{2}(x)y^{2}$$
 can be transformed into the second-order linear equation
 $$u'' + p(x)u' + r(x)u = 0$$
-via the substitution $y = -\frac{1}{q$_{2}$} \cdot \frac{u'}{u}$, where:
+via the substitution $y = -\frac{1}{q_{2}} \cdot \frac{u'}{u}$, where:
 \begin{align}
 p(x) &= -q_{1} - \frac{q_{2}'}{q_{2}} \\
 r(x) &= q_{0} q_{2}
@@ -36,7 +36,7 @@ r(x) &= q_{0} q_{2}
 \end{theorem}
 
 \begin{proof}
-Starting with $y = -\frac{1}{q$_{2}$} \cdot \frac{u'}{u}$:
+Starting with y = -\frac{1}{q_{2}} \cdot \frac{u'}{u}:
 
 \begin{align}
 y' &= -\frac{1}{q_{2}} \cdot \frac{d}{dx}\left(\frac{u'}{u}\right) + \frac{q_{2}'}{q_{2}^2} \cdot \frac{u'}{u} \\
@@ -54,52 +54,52 @@ Substituting into the Riccati equation and simplifying yields the stated result.
 \begin{transformation}
 \textbf{The Exponential Integral Approach:}
 
-For the Riccati equation $y' = q$_{0}$ + q$_{1}$ y + q$_{2}$ y$^{2}$$, we can use:
+For the Riccati equation $y' = q_{0} + q_{1} y + q_{2} y^{2}$, we can use:
 $$v = \exp\left(\int y \, dx\right)$$
 
 Then:
 \begin{enumerate}
     \item $\frac{v'}{v} = y$ implies $y = \frac{v'}{v}$
-    \item $y' = \frac{v''}{v} - \left(\frac{v'}{v}\right)$^{2}$ = \frac{v''}{v} - y$^{2}$$
-    \item Substituting into Riccati: $\frac{v''}{v} - y$^{2}$ = q$_{0}$ + q$_{1}$ y + q$_{2}$ y$^{2}$$
-    \item This gives: $v'' - q$_{1}$ v' - (1 + q$_{2}$)(v')$^{2}$/v + q$_{0}$ v = 0$
+    \item $y' = \frac{v''}{v} - \left(\frac{v'}{v}\right)^{2} = \frac{v''}{v} - y^{2}$
+    \item Substituting into Riccati: $\frac{v''}{v} - y^{2} = q_{0} + q_{1} y + q_{2} y^{2}$
+    \item This gives: $v'' - q_{1} v' - (1 + q_{2})(v')^{2}/v + q_{0} v = 0$
 \end{enumerate}
 
-This form is useful when $q$_{2}$ = -1$ as it simplifies to:
-$$v'' - q$_{1}$ v' + q$_{0}$ v = 0$$
+This form is useful when $q_{2} = -1$ as it simplifies to:
+$$v'' - q_{1} v' + q_{0} v = 0$$
 \end{transformation}
 
 \section{Standard Examples}
 
 \begin{example}[Constant Coefficients]
-Solve: $y' = 1 + y$^{2}$$
+Solve: $y' = 1 + y^{2}$
 
 \textbf{Method 1: Using $y = -u'/u$}
 
-Here $q$_{0}$ = 1$, $q$_{1}$ = 0$, $q$_{2}$ = 1$. Since $q$_{2}$$ is constant, $q$_{2}$' = 0$.
+Here $q_{0} = 1$, $q_{1} = 0$, $q_{2} = 1$. Since $q_{2}$ is constant, $q_{2}' = 0$.
 
 The second-order equation becomes:
 $$u'' + 0 \cdot u' + 1 \cdot u = 0 \implies u'' + u = 0$$
 
-General solution: $u = c$_{1}$ \cos x + c$_{2}$ \sin x$
+General solution: $u = c_{1} \cos x + c_{2} \sin x$
 
-Therefore: $y = -\frac{u'}{u} = -\frac{-c$_{1}$ \sin x + c$_{2}$ \cos x}{c$_{1}$ \cos x + c$_{2}$ \sin x} = \frac{c$_{1}$ \sin x - c$_{2}$ \cos x}{c$_{1}$ \cos x + c$_{2}$ \sin x}$
+Therefore: $y = -\frac{u'}{u} = -\frac{-c_{1} \sin x + c_{2} \cos x}{c_{1} \cos x + c_{2} \sin x} = \frac{c_{1} \sin x - c_{2} \cos x}{c_{1} \cos x + c_{2} \sin x}$
 
-Simplifying: $y = \tan(x - \phi)$ where $\tan \phi = c$_{2}$/c$_{1}$$
+Simplifying: $y = \tan(x - \phi)$ where $\tan \phi = c_{2}/c_{1}$
 \end{example}
 
 \begin{example}[Euler-Type Transformation]
-Solve: $y' = \frac{a}{x$^{2}$} + b \cdot y$^{2}$$ where $a, b$ are constants.
+Solve: $y' = \frac{a}{x^{2}} + b \cdot y^{2}$ where $a, b$ are constants.
 
-Using $y = -\frac{1}{b} \cdot \frac{u'}{u}$ (note $q$_{2}$ = b$):
+Using $y = -\frac{1}{b} \cdot \frac{u'}{u}$ (note $q_{2} = b$):
 
 The second-order equation becomes:
-$$u'' + 0 \cdot u' + \frac{ab}{x$^{2}$} u = 0$$
+$$u'' + 0 \cdot u' + \frac{ab}{x^{2}} u = 0$$
 
 or equivalently:
-$$x$^{2}$ u'' + ab \cdot u = 0$$
+$$x^{2} u'' + ab \cdot u = 0$$
 
-This is an Euler equation. Let $u = x$^{m}$$:
+This is an Euler equation. Let $u = x^{m}$:
 $$m(m-1) + ab = 0 \implies m = \frac{1 \pm \sqrt{1 - 4ab}}{2}$$
 
 The nature of solutions depends on the discriminant $1 - 4ab$.
@@ -114,11 +114,11 @@ The nature of solutions depends on the discriminant $1 - 4ab$.
 \hline
 \textbf{Riccati Form} & \textbf{Second-Order Result} \\
 \hline
-$y' = a + by$^{2}$$ (const) & $u'' + ab \cdot u = 0$ \\
-$y' = \frac{a}{x$^{2}$} + by$^{2}$$ & $x$^{2u}$'' + ab \cdot u = 0$ (Euler) \\
-$y' = ax$^{2}$ + by$^{2}$$ & $u'' + abx$^{2}$ u = 0$ (Airy-type) \\
-$y' = q$_{0}$(x) - y$^{2}$$ & $u'' - q$_{0}$(x)u = 0$ \\
-$y' = \frac{n(n+1)}{x$^{2}$} + y$^{2}$$ & Modified Bessel equation \\
+$y' = a + by^{2}$ (const) & $u'' + ab \cdot u = 0$ \\
+$y' = \frac{a}{x^{2}} + by^{2}$ & $x^{2u}'' + ab \cdot u = 0$ (Euler) \\
+$y' = ax^{2} + by^{2}$ & $u'' + abx^{2} u = 0$ (Airy-type) \\
+$y' = q_{0}(x) - y^{2}$ & $u'' - q_{0}(x)u = 0$ \\
+$y' = \frac{n(n+1)}{x^{2}} + y^{2}$ & Modified Bessel equation \\
 \hline
 \end{tabular}
 \end{center}
@@ -127,10 +127,10 @@ $y' = \frac{n(n+1)}{x$^{2}$} + y$^{2}$$ & Modified Bessel equation \\
 \begin{warning}
 \textbf{When the Method Fails:}
 \begin{itemize}
-    \item If $q$_{2}$(x) = 0$ at some points, the transformation is singular there
+    \item If $q_{2}(x) = 0$ at some points, the transformation is singular there
     \item The resulting second-order equation may not have elementary solutions
     \item Series solutions or special functions may be required
-    \item Numerical methods might be necessary for general $q$_{i}$(x)$
+    \item Numerical methods might be necessary for general $q_{i}(x)$
 \end{itemize}
 \end{warning}
 
@@ -141,7 +141,7 @@ Given the second-order linear equation:
 $$u'' + p(x)u' + q(x)u = 0$$
 
 The substitution $y = -\frac{u'}{u}$ yields the Riccati equation:
-$$y' = -q(x) - p(x)y - y$^{2}$$$
+$$y' = -q(x) - p(x)y - y^{2}$$
 \end{theorem}
 
 \begin{insight}
@@ -159,10 +159,10 @@ $$y' = -q(x) - p(x)y - y$^{2}$$$
 
 \begin{center}
 \begin{tikzpicture}[node distance=2.5cm, auto]
-    \node[rectangle, draw] (riccati) {Riccati: $y' = q$_{0}$ + q$_{1y}$ + q$_{2y}$^2$};
+    \node[rectangle, draw] (riccati) {Riccati: $y' = q_{0} + q_{1y} + q_{2y}^2$};
     \node[diamond, draw, below of=riccati] (particular) {Know particular solution?};
-    \node[rectangle, draw, left of=particular, xshift=-3cm] (bernoulli) {Use $y = y$_{p}$ + v$ \\ Solve Bernoulli};
-    \node[rectangle, draw, right of=particular, xshift=3cm] (second) {Use $y = -\frac{u'}{q$_{2}$ u}$ \\ Solve 2nd-order};
+    \node[rectangle, draw, left of=particular, xshift=-3cm] (bernoulli) {Use $y = y_{p} + v$ \\ Solve Bernoulli};
+    \node[rectangle, draw, right of=particular, xshift=3cm] (second) {Use $y = -\frac{u'}{q_{2} u}$ \\ Solve 2nd-order};
     \node[rectangle, draw, below of=particular] (solution) {General Solution};
 
     \draw[->] (riccati) -- (particular);
@@ -182,7 +182,7 @@ $$y' = -q(x) - p(x)y - y$^{2}$$$
     \item Riccati $\to$ Euler equation: Power solutions
     \item Riccati $\to$ Airy equation: Special functions required
     \item Riccati $\to$ Bessel equation: Bessel functions needed
-    \item Simple forms where $q$_{2}$ = \pm 1$: Often give nice solutions
+    \item Simple forms where $q_{2} = \pm 1$: Often give nice solutions
 \end{enumerate}
 \end{examtip}
 

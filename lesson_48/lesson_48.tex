@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=cyan,linewidth=2pt]{series}
 
-\title{Lesson 48: Power Series Solutions at Ordinary Points}
+\title{ODE Lesson 48: Power Series Solutions at Ordinary Points}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -30,43 +30,43 @@ Many important ODEs cannot be solved in terms of elementary functions. Power ser
 For the ODE in standard form:
 $$y'' + p(x)y' + q(x)y = 0$$
 \begin{itemize}
-\item $x = x$_{0}$$ is an \textbf{ordinary point} if both $p(x)$ and $q(x)$ are analytic at $x$_{0}$$
-\item $x = x$_{0}$$ is a \textbf{singular point} if either $p(x)$ or $q(x)$ is not analytic at $x$_{0}$$
+\item $x = x_{0}$ is an \textbf{ordinary point} if both $p(x)$ and $q(x)$ are analytic at $x_{0}$
+\item $x = x_{0}$ is a \textbf{singular point} if either $p(x)$ or $q(x)$ is not analytic at $x_{0}$
 \end{itemize}
 \end{definition}
 
 \begin{keypoint}
 At ordinary points, we can always find two linearly independent power series solutions of the form:
-$$y = \sum_{n=0}^{\infty} a$_{n}$(x-x$_{0}$)$^{n}$$$
+$$y = \sum_{n=0}^{\infty} a_{n}(x-x_{0})^{n}$$
 \end{keypoint}
 
 \section{The Power Series Method}
 
 \begin{method}[Power Series Solution Procedure]
 \begin{enumerate}
-\item Verify that $x$_{0}$$ is an ordinary point
-\item Assume: $y = \sum_{n=0}^{\infty} a$_{n}$(x-x$_{0}$)$^{n}$$
+\item Verify that $x_{0}$ is an ordinary point
+\item Assume: $y = \sum_{n=0}^{\infty} a_{n}(x-x_{0})^{n}$
 \item Compute derivatives:
-$$y' = \sum_{n=1}^{\infty} na$_{n}$(x-x$_{0}$)^{n-1}, \quad y'' = \sum_{n=2}^{\infty} n(n-1)a$_{n}$(x-x$_{0}$)^{n-2}$$
+$$y' = \sum_{n=1}^{\infty} na_{n}(x-x_{0})^{n-1}, \quad y'' = \sum_{n=2}^{\infty} n(n-1)a_{n}(x-x_{0})^{n-2}$$
 \item Substitute into the ODE
-\item Shift indices to align powers of $(x-x$_{0}$)$
+\item Shift indices to align powers of $(x-x_{0})$
 \item Equate coefficients of like powers to zero
 \item Solve the resulting recurrence relation
-\item Express $a$_{n}$$ in terms of $a$_{0}$$ and $a$_{1}$$
+\item Express $a_{n}$ in terms of $a_{0}$ and $a_{1}$
 \end{enumerate}
 \end{method}
 
 \begin{warning}
-Index shifting is crucial! When you have $(x-x$_{0}$)^{n-2}$, substitute $m = n-2$ so $n = m+2$:
-$$\sum_{n=2}^{\infty} f(n)(x-x$_{0}$)^{n-2} = \sum_{m=0}^{\infty} f(m+2)(x-x$_{0}$)$^{m}$$$
+Index shifting is crucial! When you have $(x-x_{0})^{n-2}$, substitute $m = n-2$ so $n = m+2$:
+$$\sum_{n=2}^{\infty} f(n)(x-x_{0})^{n-2} = \sum_{m=0}^{\infty} f(m+2)(x-x_{0})^{m}$$
 \end{warning}
 
 \section{Convergence Theory}
 
 \begin{theorem}[Convergence of Power Series Solutions]
-If $x$_{0}$$ is an ordinary point of $y'' + p(x)y' + q(x)y = 0$, then there exist two linearly independent solutions:
-$$y$_{1}$ = \sum_{n=0}^{\infty} a$_{n}$(x-x$_{0}$)$^{n}$, \quad y$_{2}$ = \sum_{n=0}^{\infty} b$_{n}$(x-x$_{0}$)$^{n}$$$
-convergent in $|x-x$_{0}$| < R$, where $R$ is at least the distance from $x$_{0}$$ to the nearest singular point in the complex plane.
+If $x_{0}$ is an ordinary point of $y'' + p(x)y' + q(x)y = 0$, then there exist two linearly independent solutions:
+$$y_{1} = \sum_{n=0}^{\infty} a_{n}(x-x_{0})^{n}, \quad y_{2} = \sum_{n=0}^{\infty} b_{n}(x-x_{0})^{n}$$
+convergent in $|x-x_{0}| < R$, where $R$ is at least the distance from $x_{0}$ to the nearest singular point in the complex plane.
 \end{theorem}
 
 \begin{insight}
@@ -90,7 +90,7 @@ Recurrence: $(n+2)(n+1)a_{n+2} = a_{n-1}$ for $n \geq 1$
 $$y'' - 2xy' + 2\lambda y = 0$$
 
 \begin{examtip}
-When $\lambda = n$ (non-negative integer), one solution becomes a polynomial - the Hermite polynomial $H$_{n}$(x)$.
+When $\lambda = n$ (non-negative integer), one solution becomes a polynomial - the Hermite polynomial $H_{n}(x)$.
 \end{examtip}
 
 \section{Common Recurrence Relations}
@@ -102,9 +102,9 @@ When $\lambda = n$ (non-negative integer), one solution becomes a polynomial - t
 \hline
 $y'' - xy = 0$ (Airy) & $(n+2)(n+1)a_{n+2} = a_{n-1}$ & 3-term recurrence \\
 \hline
-$y'' - 2xy' + 2ny = 0$ & $(n+2)(n+1)a_{n+2} = 2(n-k)a$_{n}$$ & Terminates if $k \in \mathbb{N}$ \\
+$y'' - 2xy' + 2ny = 0$ & $(n+2)(n+1)a_{n+2} = 2(n-k)a_{n}$ & Terminates if $k \in \mathbb{N}$ \\
 \hline
-$(1-x$^{2}$)y'' - 2xy' + n(n+1)y = 0$ & Complex & Legendre polynomials \\
+$(1-x^{2})y'' - 2xy' + n(n+1)y = 0$ & Complex & Legendre polynomials \\
 \hline
 \end{tabular}
 \end{center}
@@ -113,17 +113,17 @@ $(1-x$^{2}$)y'' - 2xy' + n(n+1)y = 0$ & Complex & Legendre polynomials \\
 
 \begin{algorithm}[H]
 \SetAlgoLined
-\KwIn{ODE with ordinary point at $x$_{0}$$}
+\KwIn{ODE with ordinary point at $x_{0}$}
 \KwOut{Recurrence relation for coefficients}
 Write ODE in standard form\;
-Substitute $y = \sum a$_{n}$(x-x$_{0}$)$^{n}$$\;
+Substitute $y = \sum a_{n}(x-x_{0})^{n}$\;
 Compute $y'$ and $y''$ term by term\;
 Substitute all series into ODE\;
 \For{each summation}{
-    Shift index so all have $(x-x$_{0}$)$^{m}$$\;
+    Shift index so all have $(x-x_{0})^{m}$\;
 }
 Combine all terms with same power\;
-Set coefficient of each $(x-x$_{0}$)$^{m}$$ to zero\;
+Set coefficient of each $(x-x_{0})^{m}$ to zero\;
 Solve for highest index coefficient\;
 \caption{Power Series Method}
 \end{algorithm}
@@ -147,7 +147,7 @@ Common errors that cost points:
 \item Wrong index shifting (lose 2-3 points)
 \item Sign errors in recurrence (lose 1-2 points)
 \item Not simplifying coefficients (lose 1 point)
-\item Forgetting initial conditions determine $a$_{0}$, a$_{1}$$ (lose 1 point)
+\item Forgetting initial conditions determine $a_{0}, a_{1}$ (lose 1 point)
 \end{itemize}
 \end{warning}
 

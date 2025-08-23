@@ -14,8 +14,8 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{stepbox}
 
-\title{Drawing Phase Portraits: Complete Methodology}
-\author{ODE 1 - Lesson 38}
+\title{ODE Lesson 38: Drawing Phase Portraits: Complete Methodology}
+\author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
 \begin{document}
@@ -73,13 +73,13 @@ For linear systems $\dot{\mathbf{x}} = A\mathbf{x}$:
 \subsection{Eigenvector Directions}
 
 \begin{technique}[Drawing Eigenvectors]
-For each real eigenvalue $\lambda$_{i}$$ with eigenvector $\mathbf{v}$_{i}$$:
+For each real eigenvalue $\lambda_{i}$ with eigenvector $\mathbf{v}_{i}$:
 \begin{enumerate}
-    \item Draw line through origin in direction $\mathbf{v}$_{i}$$
+    \item Draw line through origin in direction $\mathbf{v}_{i}$
     \item Add arrows:
     \begin{itemize}
-        \item $\lambda$_{i}$ < 0$: arrows point TOWARD origin
-        \item $\lambda$_{i}$ > 0$: arrows point AWAY from origin
+        \item $\lambda_{i} < 0$: arrows point TOWARD origin
+        \item $\lambda_{i} > 0$: arrows point AWAY from origin
     \end{itemize}
     \item Label as stable ($\lambda < 0$) or unstable ($\lambda > 0$) manifold
 \end{enumerate}
@@ -127,7 +127,7 @@ $\dot{x} < 0, \dot{y} < 0$ & $(-,-)$ & Southwest $\swarrow$ \\
     \item Choose test points in each region (e.g., $(\pm1, 0), (0, \pm1), (\pm1, \pm1)$)
     \item Compute velocity vector: $\mathbf{v} = (f(x,y), g(x,y))$
     \item Draw arrow in direction of $\mathbf{v}$
-    \item Length indicates speed: $|\mathbf{v}| = \sqrt{f$^{2}$ + g$^{2}$}$
+    \item Length indicates speed: $|\mathbf{v}| = \sqrt{f^{2} + g^{2}}$
 \end{enumerate}
 \end{technique}
 
@@ -180,7 +180,7 @@ $\dot{x} < 0, \dot{y} < 0$ & $(-,-)$ & Southwest $\swarrow$ \\
 \begin{itemize}
     \item Closed elliptical orbits
     \item Nested, non-intersecting
-    \item Determine ellipse orientation from eigenvectors of $A$^{TA}$$
+    \item Determine ellipse orientation from eigenvectors of $A^{TA}$
 \end{itemize} \\
 \hline
 \end{tabular}
@@ -268,12 +268,12 @@ $$\dot{x} = 2x + y, \quad \dot{y} = x + 2y$$
 
 \textbf{Step 2:} Matrix $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$
 
-Eigenvalues: $\det(A - \lambda I) = (2-\lambda)$^{2}$ - 1 = 0$
+Eigenvalues: $\det(A - \lambda I) = (2-\lambda)^{2} - 1 = 0$
 $$\lambda = 2 \pm 1 = 3, 1$$
 
 Eigenvectors:
-- $\lambda$_{1}$ = 3$: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
-- $\lambda$_{2}$ = 1$: $\mathbf{v}$_{2}$ = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+- $\lambda_{1} = 3$: $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+- $\lambda_{2} = 1$: $\mathbf{v}_{2} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
 
 Classification: Unstable node (both $\lambda > 0$)
 

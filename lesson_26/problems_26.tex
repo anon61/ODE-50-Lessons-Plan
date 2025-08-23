@@ -23,7 +23,7 @@
 
 \item Convert the fourth-order equation: $y^{(4)} - y = 0$
 
-\item Convert with forcing: $y'' + \omega$^{2}$ y = \cos(\omega t)$
+\item Convert with forcing: $y'' + \omega^{2} y = \cos(\omega t)$
 
 \item Convert the Airy equation: $y'' - ty = 0$
 \end{enumerate}
@@ -39,7 +39,7 @@
 
 \item Find the companion matrix eigenvalues for: $y'' + 2y' + 2y = 0$
 
-\item Write the companion matrix for the Bessel equation: $t$^{2y}$'' + ty' + (t$^{2}$ - n$^{2}$)y = 0$
+\item Write the companion matrix for the Bessel equation: $t$^{2y}$'' + ty' + (t^{2} - n^{2})y = 0$
 \end{enumerate}
 
 \section*{Part C: Reverse Conversion (5 problems)}
@@ -47,7 +47,7 @@
 \begin{enumerate}[resume]
 \item Convert the system $\begin{cases} x' = y \\ y' = -4x - 4y \end{cases}$ to a single second-order equation.
 
-\item Given $\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -\omega$^{2}$ & -2\zeta\omega \end{bmatrix}\mathbf{x}$, find the scalar equation.
+\item Given $\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -\omega^{2} & -2\zeta\omega \end{bmatrix}\mathbf{x}$, find the scalar equation.
 
 \item Convert $\begin{cases} x' = y \\ y' = z \\ z' = 6x - 11y + 6z \end{cases}$ to a third-order equation.
 
@@ -61,13 +61,13 @@
 \begin{enumerate}[resume]
 \item Convert IVP: $y''' + y' = 0$, $y(0) = 1$, $y'(0) = 0$, $y''(0) = -1$
 
-\item Transform: $y'' + 3y' + 2y = e^{-t}$, $y(0) = 0$, $y'(0) = 1$
+\item Transform: $y'' + 3y' + 2y = $e^{-t$}$, $y(0) = 0$, $y'(0) = 1$
 
 \item Convert the IVP: $t$^{2y}$'' - 2ty' + 2y = 0$, $y(1) = 1$, $y'(1) = 2$ (for $t > 0$)
 
 \item Set up the system for: $y^{(4)} + 4y'' + 4y = 0$ with $y(0) = y'(0) = y''(0) = 0$, $y'''(0) = 1$
 
-\item Convert: $y'' + (1 - \frac{1}{4t$^{2}$})y = 0$, $y(\pi) = 0$, $y'(\pi) = 1$
+\item Convert: $y'' + (1 - \frac{1}{4t^{2}})y = 0$, $y(\pi) = 0$, $y'(\pi) = 1$
 \end{enumerate}
 
 \section*{Part E: Theoretical Problems (4 problems)}
@@ -79,7 +79,7 @@
 
 \item Prove that the companion matrix for a constant coefficient equation has $n$ linearly independent eigenvectors if and only if all characteristic roots are distinct.
 
-\item Show that the determinant of a companion matrix equals $(-1)^{n+1}a$_{0}$$.
+\item Show that the determinant of a companion matrix equals $(-1)^{n+1}a_{0}$.
 \end{enumerate}
 
 \section*{Part F: Exam-Style Problems (5 problems)}
@@ -105,11 +105,11 @@ $$y^{(4)} + 5y'' + 4y = 0$$
 \item Given the companion matrix $A = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ -\alpha & -\beta & -\gamma \end{bmatrix}$:
 \begin{enumerate}[label=(\alph*)]
 \item Write the scalar ODE
-\item Find $\alpha, \beta, \gamma$ so that $e^{t}, e^{2t}, e^{3t}$ are solutions
+\item Find $\alpha, \beta, \gamma$ so that $e^{t}, $e^{2t},$ e^{3t}$ are solutions
 \item Verify using eigenvalues
 \end{enumerate}
 
-\item (Comprehensive) The equation $y''' + py' + qy = 0$ has solutions $e^{t}, e^{-t}, e^{2t}$.
+\item (Comprehensive) The equation $y''' + py' + qy = 0$ has solutions $e^{t}, $e^{-t},$ e^{2t}$.
 \begin{enumerate}[label=(\alph*)]
 \item Find $p$ and $q$
 \item Write the companion matrix
@@ -128,15 +128,15 @@ $$y^{(4)} + 5y'' + 4y = 0$$
 
 \textbf{Problem 13:} $x'' + 4x' + 4x = 0$ (repeated roots at $\lambda = -2$)
 
-\textbf{Problem 21:} Characteristic polynomial: $\det(A - \lambda I) = (-\lambda)^{n-1}(-\lambda - a_{n-1}\lambda^{n-1} - \cdots - a$_{0}$)$
+\textbf{Problem 21:} Characteristic polynomial: $\det(A - \lambda I) = (-\lambda)^{n-1}(-\lambda - a_{n-1}\lambda^{n-1} - \cdots - a_{0})$
 
-\textbf{Problem 26:} Eigenvalues are $1, 1, 1$ (triple root), indicating $y = (c$_{1}$ + c$_{2t}$ + c$_{3t}$^2)e$^{t}$$
+\textbf{Problem 26:} Eigenvalues are $1, 1, 1$ (triple root), indicating $y = (c_{1} + c$_{2t}$ + c$_{3t}$^2)e$^{t}$$
 
 \textbf{Key Insights:}
 \begin{itemize}
 \item Always check dimensions when setting up state vectors
 \item The companion matrix structure is universal - memorize it!
-\item Initial conditions transform directly: $\mathbf{x}(t$_{0}$) = [y(t$_{0}$), y'(t$_{0}$), \ldots, y^{(n-1)}(t$_{0}$)]$^{T}$$
+\item Initial conditions transform directly: $\mathbf{x}(t_{0}) = [y(t_{0}), y'(t_{0}), \ldots, y^{(n-1)}(t_{0})]$^{T}$$
 \item Eigenvalues of companion matrix = roots of characteristic equation
 \end{itemize}
 

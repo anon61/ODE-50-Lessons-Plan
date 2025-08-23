@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{formula}
 
-\title{Lesson 44: Repeated Roots - Why We Get $t$^{k}$$ Terms}
+\title{ODE Lesson 44: Repeated Roots - Why We Get $t^{k}$ Terms}
 \author{ODE 1 with Prof. Adi Ditkowski}
 \date{Tel Aviv University}
 
@@ -28,7 +28,7 @@
 When the characteristic equation of a linear ODE with constant coefficients has repeated roots, the naive approach of using only exponential solutions fails to generate enough linearly independent solutions.
 
 \begin{definition}[Multiplicity of a Root]
-If the characteristic polynomial $p(r)$ can be factored as $p(r) = (r - r$_{0}$)$^{m}$ q(r)$ where $q(r$_{0}$) \neq 0$, then $r$_{0}$$ is a root of multiplicity $m$.
+If the characteristic polynomial $p(r)$ can be factored as $p(r) = (r - r_{0})^{m} q(r)$ where $q(r_{0}) \neq 0$, then $r_{0}$ is a root of multiplicity $m$.
 \end{definition}
 
 \begin{theorem}[Dimension of Solution Space]
@@ -38,121 +38,121 @@ An $n$-th order linear homogeneous ODE has an $n$-dimensional solution space. Th
 \section{Failure of Simple Exponentials}
 
 \begin{example}[The Problem]
-Consider $y'' - 4y' + 4y = 0$ with characteristic equation $(r-2)$^{2}$ = 0$.
+Consider $y'' - 4y' + 4y = 0$ with characteristic equation $(r-2)^{2} = 0.
 
-If we only use $y = e^{2t}$, we have just one solution. But we need two linearly independent solutions for this second-order equation.
+If we only use y = $e^{2t}$, we have just one solution. But we need two linearly independent solutions for this second-order equation.
 \end{example}
 
 \begin{keypoint}
-When a root $r$ has multiplicity $m > 1$, the solution $e^{rt}$ alone cannot span the $m$-dimensional subspace of solutions corresponding to that root.
+When a root r has multiplicity $m > 1, the solution $e^{rt}$ alone cannot span the m-dimensional subspace of solutions corresponding to that root.
 \end{keypoint}
 
 \section{Derivation via Reduction of Order}
 
 \begin{method}[Reduction of Order for Repeated Roots]
-Given one solution $y$_{1}$ = e^{rt}$ where $r$ is a repeated root, we seek a second solution of the form:
-$$y$_{2}$ = v(t) y$_{1}$ = v(t) e^{rt}$$
+Given one solution y_{1} = $e^{rt}$ where r is a repeated root, we seek a second solution of the form:
+y_{2} = v(t) y_{1} = v(t) $e^{rt}$
 \end{method}
 
 \begin{theorem}[Second Solution for Double Root]
-If $r$ is a double root of the characteristic equation for $y'' + py' + qy = 0$, and $y$_{1}$ = e^{rt}$ is one solution, then $y$_{2}$ = te^{rt}$ is a second, linearly independent solution.
+If r$ is a double root of the characteristic equation for $y'' + py' + qy = 0, and y_{1} = $e^{rt}$ is one solution, then y_{2} = te^{rt} is a second, linearly independent solution.
 \end{theorem}
 
 \begin{proof}
-Let $y$_{2}$ = v(t)e^{rt}$. Then:
+Let y_{2} = v(t)$e^{rt}$. Then:
 \begin{align}
-y_{2}' &= v'e^{rt} + rve^{rt} \\
-y_{2}'' &= v''e^{rt} + 2rv'e^{rt} + r^{2ve}^{rt}
+y_{2}' &= v'$e^{rt}$ + rve^{rt} \\
+y_{2}'' &= v''$e^{rt}$ + 2rv'$e^{rt}$ + r^{2ve}^{rt}
 \end{align}
 
 Substituting into the differential equation:
-$$v''e^{rt} + 2rv'e^{rt} + r$^{2ve}$^{rt} + p(v'e^{rt} + rve^{rt}) + qve^{rt} = 0$$
+$v''$e^{rt}$ + 2rv'$e^{rt}$ + r^{2ve}^{rt} + p(v'$e^{rt}$ + rve^{rt}) + qve^{rt} = 0
 
 Factoring out $e^{rt}$:
-$$v'' + v'(2r + p) + v(r$^{2}$ + pr + q) = 0$$
+$v'' + v'(2r + p) + v(r^{2} + pr + q) = 0$$
 
-Since $r$ is a double root of $\lambda$^{2}$ + p\lambda + q = 0$:
+Since $r$ is a double root of $\lambda^{2} + p\lambda + q = 0$:
 \begin{enumerate}
-\item $r$^{2}$ + pr + q = 0$ (r is a root)
+\item $r^{2} + pr + q = 0$ (r is a root)
 \item $2r + p = 0$ (derivative of characteristic polynomial at r equals 0)
 \end{enumerate}
 
-Therefore: $v'' = 0$, giving $v = c$_{1t}$ + c$_{2}$$.
+Therefore: $v'' = 0$, giving $v = c_{1t} + c_{2}$.
 
-Taking $c$_{1}$ = 1, c$_{2}$ = 0$ yields $y$_{2}$ = te^{rt}$.
+Taking $c_{1} = 1, c_{2} = 0 yields y_{2} = te^{rt}.
 \end{proof}
 
 \section{The Differential Operator Approach}
 
 \begin{insight}
-The differential equation $(D - r)$^{m}$[y] = 0$ naturally produces solutions $t$^{k}$ e^{rt}$ for $k = 0, 1, \ldots, m-1$.
+The differential equation (D - r)^{m}[y] = 0 naturally produces solutions t^{k} $e^{rt}$ for k = 0, 1, \ldots, m-1$.
 \end{insight}
 
 \begin{theorem}[Operator Factorization]
-If the characteristic polynomial factors as $p(\lambda) = (\lambda - r)$^{m}$$, then the differential operator factors as:
-$$L = (D - r)$^{m}$$$
+If the characteristic polynomial factors as $p(\lambda) = (\lambda - r)^{m}$, then the differential operator factors as:
+$$L = (D - r)^{m}$$
 where $D = \frac{d}{dt}$.
 \end{theorem}
 
-\begin{lemma}[Kernel of $(D - r)$^{m}$$]
-The kernel (null space) of the operator $(D - r)$^{m}$$ is:
-$$\text{ker}((D - r)$^{m}$) = \text{span}\{e^{rt}, te^{rt}, t$^{2e}$^{rt}, \ldots, t^{m-1}e^{rt}\}$$
+\begin{lemma}[Kernel of $(D - r)^{m}$]
+The kernel (null space) of the operator $(D - r)^{m}$ is:
+$\text{ker}((D - r)^{m}) = \text{span}\{$e^{rt}$, te^{rt}, t^{2e}^{rt}, \ldots, t^{m-1}e^{rt}\}$
 \end{lemma}
 
 \begin{proof}[Proof by Induction]
-Base case ($m = 1$): $(D - r)[y] = 0 \Rightarrow y = ce^{rt}$.
+Base case ($m = 1): (D - r)[y] = 0 \Rightarrow y = ce^{rt}.
 
-Inductive step: Assume true for $m = k$. For $m = k + 1$:
+Inductive step: Assume true for m = k. For $m = k + 1$:
 If $(D - r)^{k+1}[y] = 0$, let $w = (D - r)[y]$.
-Then $(D - r)$^{k}$[w] = 0$, so $w = p$_{k}$(t)e^{rt}$ where $p$_{k}$$ is a polynomial of degree $\leq k-1$.
+Then $(D - r)^{k}[w] = 0, so w = p_{k}(t)$e^{rt}$ where p_{k} is a polynomial of degree $\leq k-1.
 
-Solving $(D - r)[y] = p$_{k}$(t)e^{rt}$:
-Using integrating factor $e^{-rt}$: $\frac{d}{dt}[e^{-rt}y] = p$_{k}$(t)$
+Solving (D - r)[y] = p_{k}(t)$e^{rt}$:
+Using integrating factor $e^{-rt}$: \frac{d}{dt}[e^{-rt}y] = p_{k}(t)
 
-Integrating: $e^{-rt}y = P_{k+1}(t) + C$ where $P_{k+1}$ has degree $\leq k$.
+Integrating: e^{-rt}y = P_{k+1}(t) + C where $P_{k+1}$ has degree $\leq k$.
 
-Therefore: $y = [P_{k+1}(t) + C]e^{rt} = p_{k+1}(t)e^{rt}$ where $\deg(p_{k+1}) \leq k$.
+Therefore: y = [P_{k+1}(t) + C]$e^{rt}$ = p_{k+1}(t)$e^{rt}$ where \deg(p_{k+1}) \leq k.
 \end{proof}
 
 \section{The Limit Perspective}
 
 \begin{theorem}[Repeated Roots as Limits]
-The solution $te^{rt}$ can be understood as the limit of solutions for nearby distinct roots.
+The solution te^{rt} can be understood as the limit of solutions for nearby distinct roots.
 \end{theorem}
 
 \begin{proof}[Heuristic Derivation]
-Consider two roots $r$_{1}$ = r$ and $r$_{2}$ = r + \epsilon$ with solutions:
-$$y = c$_{1}$ e^{rt} + c$_{2}$ e^{(r+\epsilon)t}$$
+Consider two roots r_{1} = r and $r_{2} = r + \epsilon$ with solutions:
+$y = c_{1} $e^{rt}$ + c_{2} $e^{(r+\epsilon)t}$
 
 Rewriting:
-$$y = c$_{1}$ e^{rt} + c$_{2}$ e^{rt} e^{\epsilon t}$$
+$y = c_{1} $e^{rt}$ + c_{2} $e^{rt}$ e^{\epsilon t}$
 
-For small $\epsilon$: $e^{\epsilon t} \approx 1 + \epsilon t$
+For small $\epsilon: $e^{\epsilon t}$ \approx 1 + \epsilon t
 
 Thus:
-$$y \approx (c$_{1}$ + c$_{2}$)e^{rt} + c$_{2}$ \epsilon t e^{rt}$$
+y \approx (c_{1} + c_{2})$e^{rt}$ + c_{2} \epsilon t $e^{rt}$
 
-As $\epsilon \to 0$, setting $A = c$_{1}$ + c$_{2}$$ and $B = \lim_{\epsilon \to 0} c$_{2}$ \epsilon$:
-$$y = Ae^{rt} + Bte^{rt}$$
+As $\epsilon \to 0$, setting $A = c_{1} + c_{2}$ and $B = \lim_{\epsilon \to 0} c_{2} \epsilon$:
+$y = Ae^{rt} + Bte^{rt}
 \end{proof}
 
 \section{Higher Multiplicities}
 
 \begin{theorem}[General Multiplicity Case]
 If $r$ is a root of multiplicity $m$, then the $m$ linearly independent solutions are:
-$$e^{rt}, \, te^{rt}, \, t$^{2e}$^{rt}, \, \ldots, \, t^{m-1}e^{rt}$$
+$e^{rt}$, \, te^{rt}, \, t^{2e}^{rt}, \, \ldots, \, t^{m-1}$e^{rt}$
 \end{theorem}
 
 \begin{formula}
-For a root $r$ of multiplicity $m$:
-$$\text{Solutions} = \{t$^{k}$ e^{rt} : k = 0, 1, 2, \ldots, m-1\}$$
+For a root r$ of multiplicity $m$:
+$\text{Solutions} = \{t^{k} $e^{rt}$ : k = 0, 1, 2, \ldots, m-1\}$
 \end{formula}
 
 \section{Complex Repeated Roots}
 
 \begin{theorem}[Complex Repeated Roots]
 If $\alpha \pm i\beta$ are complex conjugate roots each of multiplicity $m$, the $2m$ real-valued linearly independent solutions are:
-$$t$^{k}$ e^{\alpha t} \cos(\beta t), \, t$^{k}$ e^{\alpha t} \sin(\beta t) \quad \text{for } k = 0, 1, \ldots, m-1$$
+$t^{k} $e^{\alpha t}$ \cos(\beta t), \, t^{k} $e^{\alpha t}$ \sin(\beta t) \quad \text{for } k = 0, 1, \ldots, m-1$
 \end{theorem}
 
 \begin{warning}
@@ -162,27 +162,27 @@ For complex repeated roots, both the sine AND cosine terms need all powers of $t
 \section{The Wronskian for Repeated Roots}
 
 \begin{theorem}[Linear Independence via Wronskian]
-The functions $\{t$^{k}$ e^{rt} : k = 0, 1, \ldots, m-1\}$ are linearly independent.
+The functions \{t^{k} $e^{rt}$ : k = 0, 1, \ldots, m-1\} are linearly independent.
 \end{theorem}
 
 \begin{proof}[Wronskian Calculation]
-For simplicity, consider $m = 2$ with solutions $e^{rt}$ and $te^{rt}$:
+For simplicity, consider $m = 2 with solutions $e^{rt}$ and te^{rt}:
 
-$$W(t) = \begin{vmatrix}
-e^{rt} & te^{rt} \\
-re^{rt} & (1 + rt)e^{rt}
+W(t) = \begin{vmatrix}
+$e^{rt}$ & te^{rt} \\
+re^{rt} & (1 + rt)$e^{rt}$
 \end{vmatrix}$$
 
-$$W(t) = e^{rt} \cdot (1 + rt)e^{rt} - te^{rt} \cdot re^{rt} = e^{2rt}(1 + rt - rt) = e^{2rt} \neq 0$$
+$W(t) = $e^{rt}$ \cdot (1 + rt)$e^{rt}$ - te^{rt} \cdot re^{rt} = $e^{2rt}$(1 + rt - rt) = $e^{2rt}$ \neq 0$
 
 For general $m$, the Wronskian is:
-$$W(t) = e^{mrt} \cdot \prod_{0 \leq i < j < m} (j - i) \neq 0$$
+$W(t) = $e^{mrt}$ \cdot \prod_{0 \leq i < j < m} (j - i) \neq 0$
 \end{proof}
 
 \section{Connection to Jordan Normal Form}
 
 \begin{insight}
-The appearance of $t$^{k}$$ terms in solutions corresponds exactly to the Jordan block structure of the companion matrix.
+The appearance of $t^{k}$ terms in solutions corresponds exactly to the Jordan block structure of the companion matrix.
 \end{insight}
 
 \begin{theorem}[Jordan Form and Solutions]
@@ -196,8 +196,8 @@ $$J = \begin{pmatrix}
 \end{pmatrix}$$
 
 The matrix exponential is:
-$$e^{Jt} = e^{\lambda t} \begin{pmatrix}
-1 & t & \frac{t$^{2}$}{2!} & \cdots & \frac{t^{m-1}}{(m-1)!} \\
+$e^{Jt}$ = $e^{\lambda t}$ \begin{pmatrix}
+1 & t & \frac{t^{2}}{2!} & \cdots & \frac{t^{m-1}}{(m-1)!} \\
 0 & 1 & t & \cdots & \frac{t^{m-2}}{(m-2)!} \\
 \vdots & \vdots & \ddots & \ddots & \vdots \\
 0 & 0 & 0 & 1 & t \\
@@ -210,11 +210,11 @@ $$e^{Jt} = e^{\lambda t} \begin{pmatrix}
 \begin{method}[Complete Solution Construction]
 \begin{enumerate}
 \item Factor the characteristic polynomial completely.
-\item For each distinct root $r$_{i}$$ with multiplicity $m$_{i}$$:
+\item For each distinct root $r_{i}$ with multiplicity $m_{i}$:
     \begin{itemize}
-    \item If $r$_{i}$$ is real: Include solutions $t$^{k}$ e^{r$_{i}$ t}$ for $k = 0, 1, \ldots, m$_{i}$ - 1$
-    \item If $r$_{i}$ = \alpha + i\beta$ is complex (with conjugate $\alpha - i\beta$):
-        Include solutions $t$^{k}$ e^{\alpha t} \cos(\beta t)$ and $t$^{k}$ e^{\alpha t} \sin(\beta t)$ for $k = 0, 1, \ldots, m$_{i}$ - 1$
+    \item If $r_{i}$ is real: Include solutions t^{k} $e^{r_{i}$ t} for $k = 0, 1, \ldots, m_{i} - 1$
+    \item If $r_{i} = \alpha + i\beta$ is complex (with conjugate $\alpha - i\beta$):
+        Include solutions t^{k} $e^{\alpha t}$ \cos(\beta t) and t^{k} $e^{\alpha t}$ \sin(\beta t) for $k = 0, 1, \ldots, m_{i} - 1$
     \end{itemize}
 \item Form the general solution as a linear combination of all these functions.
 \end{enumerate}
@@ -226,24 +226,24 @@ $$e^{Jt} = e^{\lambda t} \begin{pmatrix}
 Solve: $y''' - 3y'' + 3y' - y = 0$
 
 \textbf{Solution:}
-Characteristic equation: $r$^{3}$ - 3r$^{2}$ + 3r - 1 = 0$
+Characteristic equation: $r^{3} - 3r^{2} + 3r - 1 = 0$
 
-Recognize this as $(r-1)$^{3}$ = 0$ (expand to verify).
+Recognize this as $(r-1)^{3} = 0$ (expand to verify).
 
-Root: $r = 1$ with multiplicity 3.
+Root: $r = 1 with multiplicity 3.
 
-Solutions: $e$^{t}$, te$^{t}$, t$^{2e}$^t$
+Solutions: $e^{t}$, te^{t}, t^{2e}^t
 
-General solution: $y(t) = (c$_{1}$ + c$_{2}$ t + c$_{3}$ t$^{2}$)e$^{t}$$
+General solution: y(t) = (c_{1} + c_{2} t + c_{3} t^{2})$e^{t}$
 \end{example}
 
 \begin{example}[Complex Double Roots]
-Solve: $y^{(4)} + 8y'' + 16y = 0$
+Solve: y^{(4)} + 8y'' + 16y = 0$
 
 \textbf{Solution:}
-Characteristic equation: $r$^{4}$ + 8r$^{2}$ + 16 = 0$
+Characteristic equation: $r^{4} + 8r^{2} + 16 = 0$
 
-This is $(r$^{2}$ + 4)$^{2}$ = 0$, giving $(r - 2i)$^{2}$(r + 2i)$^{2}$ = 0$
+This is $(r^{2} + 4)^{2} = 0$, giving $(r - 2i)^{2}(r + 2i)^{2} = 0$
 
 Roots: $\pm 2i$, each with multiplicity 2.
 
@@ -252,7 +252,7 @@ Real solutions:
 \item From $2i$ (mult. 2): $\cos(2t), t\cos(2t), \sin(2t), t\sin(2t)$
 \end{itemize}
 
-General solution: $y(t) = (c$_{1}$ + c$_{2}$ t)\cos(2t) + (c$_{3}$ + c$_{4}$ t)\sin(2t)$
+General solution: $y(t) = (c_{1} + c_{2} t)\cos(2t) + (c_{3} + c_{4} t)\sin(2t)$
 \end{example}
 
 \begin{examtip}

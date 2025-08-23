@@ -1,7 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
 \usepackage{geometry, enumitem, mdframed, array, xcolor}
-\usepackage{nicematrix}
 \geometry{margin=1in}
 
 \newtheorem{definition}{Definition}
@@ -15,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=brown,linewidth=2pt]{computation}
 
-\title{Lesson 28: Wronskian and Linear Independence}
+\title{ODE Lesson 28: Wronskian and Linear Independence}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -25,8 +24,8 @@
 \section{The Wronskian Matrix and Determinant}
 
 \begin{definition}[Wronskian Matrix]
-For $n$ vector solutions $\mathbf{x}$_{1}$(t), \mathbf{x}$_{2}$(t), \ldots, \mathbf{x}$_{n}$(t)$ of a system, the \textbf{Wronskian matrix} is:
-$$W(t) = [\mathbf{x}$_{1}$(t) \mid \mathbf{x}$_{2}$(t) \mid \cdots \mid \mathbf{x}$_{n}$(t)]$$
+For $n$ vector solutions $\mathbf{x}_{1}(t), \mathbf{x}_{2}(t), \ldots, \mathbf{x}_{n}(t)$ of a system, the \textbf{Wronskian matrix} is:
+$$W(t) = [\mathbf{x}_{1}(t) \mid \mathbf{x}_{2}(t) \mid \cdots \mid \mathbf{x}_{n}(t)]$$
 \end{definition}
 
 \begin{definition}[Wronskian Determinant]
@@ -46,8 +45,8 @@ This is the \textbf{all-or-nothing property}.
 \section{Abel's Identity}
 
 \begin{theorem}[Abel's Identity for Systems]
-If $\mathbf{x}$_{1}$(t), \ldots, \mathbf{x}$_{n}$(t)$ are solutions to $\mathbf{x}' = A(t)\mathbf{x}$, then:
-$$W(t) = W(t$_{0}$) \exp\left(\int_{t$_{0}$}$^{t}$ \text{tr}(A(s))\,ds\right)$$
+If $\mathbf{x}_{1}(t), \ldots, \mathbf{x}_{n}(t)$ are solutions to $\mathbf{x}' = A(t)\mathbf{x}$, then:
+$$W(t) = W(t_{0}) \exp\left(\int_{t_{0}}^{t} \text{tr}(A(s))\,ds\right)$$
 where $\text{tr}(A)$ is the trace (sum of diagonal elements).
 \end{theorem}
 
@@ -63,24 +62,24 @@ Abel's identity shows that:
 \section{Wronskian for Scalar Equations}
 
 \begin{definition}[Scalar Wronskian]
-For $n$ solutions $y$_{1}$(t), \ldots, y$_{n}$(t)$ of an $n$th-order linear ODE:
-$$W[y$_{1}$, \ldots, y$_{n}$](t) = \begin{vmatrix}
-y$_{1}$ & y$_{2}$ & \cdots & y$_{n}$ \\
-y$_{1}$' & y$_{2}$' & \cdots & y$_{n}$' \\
+For $n$ solutions $y_{1}(t), \ldots, y_{n}(t)$ of an $n$th-order linear ODE:
+$$W[y_{1}, \ldots, y_{n}](t) = \begin{vmatrix}
+y_{1} & y_{2} & \cdots & y_{n} \\
+y_{1}' & y_{2}' & \cdots & y_{n}' \\
 \vdots & \vdots & \ddots & \vdots \\
-y$_{1}$^{(n-1)} & y$_{2}$^{(n-1)} & \cdots & y$_{n}$^{(n-1)}
+y_{1}^{(n-1)} & y_{2}^{(n-1)} & \cdots & y_{n}^{(n-1)}
 \end{vmatrix}$$
 \end{definition}
 
 \begin{example}[Second-Order Wronskian]
-For two solutions $y$_{1}$, y$_{2}$$ of a second-order equation:
-$$W[y$_{1}$, y$_{2}$](t) = \begin{vmatrix} y$_{1}$ & y$_{2}$ \\ y$_{1}$' & y$_{2}$' \end{vmatrix} = y$_{1}$ y$_{2}$' - y$_{2}$ y$_{1}$'$$
+For two solutions $y_{1}, y_{2}$ of a second-order equation:
+$$W[y_{1}, y_{2}](t) = \begin{vmatrix} y_{1} & y_{2} \\ y_{1}' & y_{2}' \end{vmatrix} = y_{1} y_{2}' - y_{2} y_{1}'$$
 \end{example}
 
 \section{Linear Independence Criteria}
 
 \begin{theorem}[Independence Characterization]
-Solutions $\mathbf{x}$_{1}$(t), \ldots, \mathbf{x}$_{n}$(t)$ are linearly independent on interval $I$ if and only if $W(t) \neq 0$ for all $t \in I$.
+Solutions $\mathbf{x}_{1}(t), \ldots, \mathbf{x}_{n}(t)$ are linearly independent on interval $I$ if and only if $W(t) \neq 0$ for all $t \in I$.
 \end{theorem}
 
 \begin{proposition}[Fundamental Matrix Connection]
@@ -94,7 +93,7 @@ A matrix $\Phi(t)$ is a fundamental matrix if and only if:
 \section{Computational Techniques}
 
 \begin{computation}
-For a $2 \times 2$ system with solutions $\mathbf{x}$_{1}$ = \begin{bmatrix} x_{11} \\ x_{21} \end{bmatrix}$, $\mathbf{x}$_{2}$ = \begin{bmatrix} x_{12} \\ x_{22} \end{bmatrix}$:
+For a $2 \times 2$ system with solutions $\mathbf{x}_{1} = \begin{bmatrix} x_{11} \\ x_{21} \end{bmatrix}$, $\mathbf{x}_{2} = \begin{bmatrix} x_{12} \\ x_{22} \end{bmatrix}$:
 $$W(t) = x_{11}x_{22} - x_{12}x_{21}$$
 \end{computation}
 
@@ -110,8 +109,8 @@ For the system $\mathbf{x}' = \begin{bmatrix} 2 & 1 \\ 0 & 3 \end{bmatrix}\mathb
 \section{Special Cases and Properties}
 
 \begin{lemma}[Constant Coefficient Systems]
-For $\mathbf{x}' = A\mathbf{x}$ with constant $A$:
-$$W(t) = W(0) \cdot e^{\text{tr}(A) \cdot t}$$
+For \mathbf{x}' = A\mathbf{x}$ with constant $A$:
+$W(t) = W(0) \cdot $e^{\text{tr}$(A) \cdot t}$
 \end{lemma}
 
 \begin{warning}
@@ -127,13 +126,13 @@ Common errors:
 \section{Wronskian Applications}
 
 \begin{theorem}[Finding Differential Equations]
-If $y$_{1}$, \ldots, y$_{n}$$ are $n$ linearly independent solutions, then $y$ is also a solution if and only if:
-$$W[y, y$_{1}$, \ldots, y$_{n}$](t) = 0$$
+If $y_{1}, \ldots, y_{n}$ are $n$ linearly independent solutions, then $y$ is also a solution if and only if:
+$$W[y, y_{1}, \ldots, y_{n}](t) = 0$
 \end{theorem}
 
 \begin{example}[Constructing ODEs]
-Given solutions $e$^{t}$$ and $e^{-2t}$, find the differential equation:
-$$\begin{vmatrix} y & e$^{t}$ & e^{-2t} \\ y' & e$^{t}$ & -2e^{-2t} \\ y'' & e$^{t}$ & 4e^{-2t} \end{vmatrix} = 0$$
+Given solutions $e^{t}$ and $e^{-2t}$, find the differential equation:
+\begin{vmatrix} y & $e^{t}$ & $e^{-2t}$ \\ y' & $e^{t}$ & -2e^{-2t} \\ y'' & $e^{t}$ & 4e^{-2t}$ \end{vmatrix} = 0$$
 Expanding: $y'' + y' - 2y = 0$
 \end{example}
 
@@ -165,9 +164,9 @@ The Wronskian connects ODE theory to linear algebra:
 \begin{proposition}[Obvious Dependencies]
 Without calculation:
 \begin{itemize}
-\item If $y$_{2}$ = c \cdot y$_{1}$$ (proportional), then $W = 0$
-\item If solutions have different exponential growth rates, $W \neq 0$
-\item For $e^{\lambda$_{1}$ t}, \ldots, e^{\lambda$_{n}$ t}$ with distinct $\lambda$_{i}$$: always independent
+\item If $y_{2} = c \cdot y_{1}$ (proportional), then $W = 0$
+\item If solutions have different exponential growth rates, $W \neq 0
+\item For $e^{\lambda_{1}$ t}, \ldots, $e^{\lambda_{n}$ t}$ with distinct $\lambda_{i}$: always independent
 \end{itemize}
 \end{proposition}
 

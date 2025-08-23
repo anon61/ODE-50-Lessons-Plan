@@ -14,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{formula}
 
-\title{Lesson 43: Characteristic Equation Method - All Cases}
+\title{ODE Lesson 43: Characteristic Equation Method - All Cases}
 \author{ODE 1 with Prof. Adi Ditkowski}
 \date{Tel Aviv University}
 
@@ -36,26 +36,26 @@ where $a_0, a_1, \ldots, a_n \in \mathbb{R}$ (or $\mathbb{C}$) are constants wit
 
 \begin{theorem}[Exponential Ansatz]
 For the differential equation
-$$a_n y^{(n)} + a_{n-1} y^{(n-1)} + \cdots + a_1 y' + a_0 y = 0$$
-if we assume a solution of the form $y = e^{rt}$ where $r \in \mathbb{C}$, then $r$ must satisfy the characteristic equation:
-$$a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0$$
+$$a_n y^{(n)} + a_{n-1} y^{(n-1)} + \cdots + a_1 y' + a_0 y = 0$
+if we assume a solution of the form y = $e^{rt}$ where r \in \mathbb{C}, then $r$ must satisfy the characteristic equation:
+$$a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0$
 \end{theorem}
 
 \begin{proof}
-Substituting $y = e^{rt}$ into the differential equation:
+Substituting y = $e^{rt}$ into the differential equation:
 \begin{align}
-y &= e^{rt} \\
+y &= $e^{rt}$ \\
 y' &= re^{rt} \\
 y'' &= r^2e^{rt} \\
 &\vdots \\
-y^{(k)} &= r^k e^{rt}
+y^{(k)} &= r^k $e^{rt}$
 \end{align}
 
 Therefore:
-$$a_n r^n e^{rt} + a_{n-1} r^{n-1} e^{rt} + \cdots + a_1 r e^{rt} + a_0 e^{rt} = 0$$
+$a_n r^n $e^{rt}$ + a_{n-1} r^{n-1} $e^{rt}$ + \cdots + a_1 r $e^{rt}$ + a_0 $e^{rt}$ = 0
 
-Since $e^{rt} \neq 0$ for all $t$, we can divide by $e^{rt}$:
-$$a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0$$
+Since $e^{rt}$ \neq 0 for all t, we can divide by $e^{rt}$:
+$a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0$$
 \end{proof}
 
 \begin{keypoint}
@@ -68,13 +68,13 @@ The characteristic equation is a polynomial equation of degree $n$. By the Funda
 
 \begin{theorem}[Distinct Real Roots]
 If the characteristic equation has $n$ distinct real roots $r_1, r_2, \ldots, r_n$, then the general solution is:
-$$y(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t} + \cdots + c_n e^{r_n t}$$
+$y(t) = c_1 $e^{r_1 t}$ + c_2 $e^{r_2 t}$ + \cdots + c_n e^{r_n t}$
 where $c_1, c_2, \ldots, c_n$ are arbitrary constants.
 \end{theorem}
 
 \begin{insight}
-The functions $\{e^{r_1 t}, e^{r_2 t}, \ldots, e^{r_n t}\}$ form a fundamental set of solutions. Their Wronskian is:
-$$W(t) = \prod_{i<j} (r_j - r_i) \cdot e^{(r_1 + r_2 + \cdots + r_n)t} \neq 0$$
+The functions \{$e^{r_1 t}$, $e^{r_2 t}$, \ldots, e^{r_n t}\} form a fundamental set of solutions. Their Wronskian is:
+$W(t) = \prod_{i<j} (r_j - r_i) \cdot $e^{(r_1 + r_2 + \cdots + r_n)t}$ \neq 0$
 proving linear independence.
 \end{insight}
 
@@ -82,25 +82,25 @@ proving linear independence.
 
 \begin{theorem}[Complex Roots for Real Equations]
 If the differential equation has real coefficients and $r = \alpha + i\beta$ is a complex root, then $\bar{r} = \alpha - i\beta$ is also a root. The corresponding real-valued solutions are:
-$$y_1(t) = e^{\alpha t} \cos(\beta t), \quad y_2(t) = e^{\alpha t} \sin(\beta t)$$
+$y_1(t) = $e^{\alpha t}$ \cos(\beta t), \quad y_2(t) = $e^{\alpha t}$ \sin(\beta t)
 \end{theorem}
 
 \begin{proof}
 From the complex solutions $e^{(\alpha + i\beta)t}$ and $e^{(\alpha - i\beta)t}$, we use Euler's formula:
-$$e^{(\alpha \pm i\beta)t} = e^{\alpha t} e^{\pm i\beta t} = e^{\alpha t}[\cos(\beta t) \pm i\sin(\beta t)]$$
+$e^{(\alpha \pm i\beta)t}$ = $e^{\alpha t}$ e^{\pm i\beta t} = $e^{\alpha t}$[\cos(\beta t) \pm i\sin(\beta t)]
 
 Taking linear combinations:
 \begin{align}
-y_1 &= \frac{1}{2}[e^{(\alpha + i\beta)t} + e^{(\alpha - i\beta)t}] = e^{\alpha t}\cos(\beta t) \\
-y_2 &= \frac{1}{2i}[e^{(\alpha + i\beta)t} - e^{(\alpha - i\beta)t}] = e^{\alpha t}\sin(\beta t)
+y_1 &= \frac{1}{2}[$e^{(\alpha + i\beta)t}$ + $e^{(\alpha - i\beta)t}$] = e^{\alpha t}\cos(\beta t) \\
+y_2 &= \frac{1}{2i}[$e^{(\alpha + i\beta)t}$ - $e^{(\alpha - i\beta)t}$] = e^{\alpha t}\sin(\beta t)
 \end{align}
 \end{proof}
 
 \subsection{Case 3: Repeated Roots (Overview)}
 
 \begin{theorem}[Repeated Roots]
-If $r$ is a root of multiplicity $k$, then the $k$ linearly independent solutions are:
-$$e^{rt}, \, te^{rt}, \, t^2e^{rt}, \, \ldots, \, t^{k-1}e^{rt}$$
+If r$ is a root of multiplicity $k$, then the $k$ linearly independent solutions are:
+$e^{rt}$, \, te^{rt}, \, t^2e^{rt}, \, \ldots, \, t^{k-1}e^{rt}$
 \end{theorem}
 
 \begin{warning}
@@ -115,12 +115,12 @@ The full proof of the repeated roots case requires reduction of order or the the
     \item Find all roots of the characteristic polynomial.
     \item For each root, construct the corresponding solutions:
     \begin{itemize}
-        \item Real root $r$ of multiplicity 1: $e^{rt}$
-        \item Real root $r$ of multiplicity $m$: $e^{rt}, te^{rt}, \ldots, t^{m-1}e^{rt}$
-        \item Complex conjugate pair $\alpha \pm i\beta$ of multiplicity 1: $e^{\alpha t}\cos(\beta t), e^{\alpha t}\sin(\beta t)$
+        \item Real root $r of multiplicity 1: $e^{rt}$
+        \item Real root r$ of multiplicity $m: $e^{rt}$, te^{rt}, \ldots, t^{m-1}$e^{rt}$
+        \item Complex conjugate pair \alpha \pm i\beta of multiplicity 1: e^{\alpha t}\cos(\beta t), e^{\alpha$ t}\sin(\beta t)$
         \item Complex conjugate pair $\alpha \pm i\beta$ of multiplicity $m$:
-        $$e^{\alpha t}\cos(\beta t), te^{\alpha t}\cos(\beta t), \ldots, t^{m-1}e^{\alpha t}\cos(\beta t)$$
-        $$e^{\alpha t}\sin(\beta t), te^{\alpha t}\sin(\beta t), \ldots, t^{m-1}e^{\alpha t}\sin(\beta t)$$
+        e^{\alpha t}\cos(\beta t), te^{\alpha t}\cos(\beta t), \ldots, t^{m-1}e^{\alpha t}\cos(\beta t)$$
+        e^{\alpha t}\sin(\beta t), te^{\alpha t}\sin(\beta t), \ldots, t^{m-1}e^{\alpha t}\sin(\beta t)$$
     \end{itemize}
     \item The general solution is the linear combination of all these solutions.
 \end{enumerate}
@@ -136,19 +136,19 @@ Solve: $y'' - 5y' + 6y = 0$
     \item Characteristic equation: $r^2 - 5r + 6 = 0$
     \item Factor: $(r-2)(r-3) = 0$
     \item Roots: $r_1 = 2, r_2 = 3$
-    \item General solution: $y(t) = c_1 e^{2t} + c_2 e^{3t}$
+    \item General solution: y(t) = c_1 $e^{2t}$ + c_2 $e^{3t}$
 \end{enumerate}
 \end{example}
 
 \begin{example}[Second-Order with Complex Roots]
-Solve: $y'' + 2y' + 5y = 0$
+Solve: y'' + 2y' + 5y = 0$
 
 \textbf{Solution:}
 \begin{enumerate}
     \item Characteristic equation: $r^2 + 2r + 5 = 0$
     \item Using quadratic formula: $r = \frac{-2 \pm \sqrt{4-20}}{2} = \frac{-2 \pm 4i}{2} = -1 \pm 2i$
     \item Roots: $r_1 = -1 + 2i, r_2 = -1 - 2i$
-    \item General solution: $y(t) = e^{-t}[c_1 \cos(2t) + c_2 \sin(2t)]$
+    \item General solution: y(t) = $e^{-t}$[c_1 \cos(2t) + c_2 \sin(2t)]
 \end{enumerate}
 \end{example}
 
@@ -160,14 +160,14 @@ Solve: $y''' - y'' - y' + y = 0$
     \item Characteristic equation: $r^3 - r^2 - r + 1 = 0$
     \item Factor by grouping: $r^2(r-1) - (r-1) = (r^2-1)(r-1) = (r-1)^2(r+1) = 0$
     \item Roots: $r_1 = 1$ (multiplicity 2), $r_2 = -1$
-    \item General solution: $y(t) = (c_1 + c_2 t)e^t + c_3 e^{-t}$
+    \item General solution: y(t) = (c_1 + c_2 t)e^t + c_3 $e^{-t}$
 \end{enumerate}
 \end{example}
 
 \section{Connection to Linear Systems}
 
 \begin{insight}
-Consider the second-order equation $y'' + py' + qy = 0$. Converting to a system with $x_1 = y$ and $x_2 = y'$:
+Consider the second-order equation y'' + py' + qy = 0$. Converting to a system with $x_1 = y$ and $x_2 = y'$:
 $$\begin{pmatrix} x_1' \\ x_2' \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -q & -p \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$$
 
 The characteristic polynomial of this companion matrix is:
@@ -188,7 +188,7 @@ For an $n$-th order IVP with initial conditions $y(t_0) = y_0, y'(t_0) = y_1, \l
 \end{method}
 
 \begin{examtip}
-Prof. Ditkowski often gives initial conditions at $t = 0$. This simplifies calculations since $e^0 = 1$, $\cos(0) = 1$, and $\sin(0) = 0$.
+Prof. Ditkowski often gives initial conditions at $t = 0. This simplifies calculations since e^0 = 1, \cos(0) = 1$, and $\sin(0) = 0$.
 \end{examtip}
 
 \section{Common Errors to Avoid}
@@ -210,13 +210,13 @@ Prof. Ditkowski often gives initial conditions at $t = 0$. This simplifies calcu
 \hline
 \textbf{Root Type} & \textbf{Multiplicity} & \textbf{Solution Terms} \\
 \hline
-Real $r$ & 1 & $e^{rt}$ \\
+Real $r & 1 & $e^{rt}$ \\
 \hline
-Real $r$ & $k$ & $e^{rt}, te^{rt}, \ldots, t^{k-1}e^{rt}$ \\
+Real r$ & $k & $e^{rt}$, te^{rt}, \ldots, t^{k-1}$e^{rt}$ \\
 \hline
-Complex $\alpha \pm i\beta$ & 1 & $e^{\alpha t}\cos(\beta t), e^{\alpha t}\sin(\beta t)$ \\
+Complex \alpha \pm i\beta & 1 & e^{\alpha t}\cos(\beta t), e^{\alpha$ t}\sin(\beta t)$ \\
 \hline
-Complex $\alpha \pm i\beta$ & $k$ & $t^j e^{\alpha t}\cos(\beta t), t^j e^{\alpha t}\sin(\beta t)$ \\
+Complex $\alpha \pm i\beta$ & $k$ & t^j e^{\alpha t}\cos(\beta t), t^j e^{\alpha t}\sin(\beta t) \\
 & & for $j = 0, 1, \ldots, k-1$ \\
 \hline
 \end{tabular}

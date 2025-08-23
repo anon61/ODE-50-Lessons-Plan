@@ -1,7 +1,6 @@
 \documentclass[12pt]{article}
 \usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
 \usepackage{geometry, enumitem, mdframed, array, xcolor}
-\usepackage{nicematrix}
 \geometry{margin=1in}
 
 \newtheorem{definition}{Definition}
@@ -15,7 +14,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=brown,linewidth=2pt]{computation}
 
-\title{Lesson 27: Fundamental Matrix Solutions - Construction}
+\title{ODE Lesson 27: Fundamental Matrix Solutions - Construction}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -35,8 +34,8 @@ A matrix $\Phi(t)$ is a \textbf{fundamental matrix} for the system $\mathbf{x}' 
 
 \begin{keypoint}
 For an $n \times n$ system, the fundamental matrix $\Phi(t)$ is $n \times n$ with structure:
-$$\Phi(t) = [\mathbf{x}$_{1}$(t) \mid \mathbf{x}$_{2}$(t) \mid \cdots \mid \mathbf{x}$_{n}$(t)]$$
-where each $\mathbf{x}$_{i}$(t)$ is a linearly independent solution vector.
+$$\Phi(t) = [\mathbf{x}_{1}(t) \mid \mathbf{x}_{2}(t) \mid \cdots \mid \mathbf{x}_{n}(t)]$$
+where each $\mathbf{x}_{i}(t)$ is a linearly independent solution vector.
 \end{keypoint}
 
 \begin{theorem}[Fundamental Matrix Properties]
@@ -52,35 +51,35 @@ If $\Phi(t)$ is a fundamental matrix, then:
 \section{Principal Fundamental Matrix}
 
 \begin{definition}[Principal Fundamental Matrix]
-The \textbf{principal fundamental matrix} $\Phi(t)$ at $t$_{0}$$ satisfies:
-$$\Phi(t$_{0}$) = I$$
+The \textbf{principal fundamental matrix} $\Phi(t)$ at $t_{0}$ satisfies:
+$$\Phi(t_{0}) = I$$
 where $I$ is the identity matrix.
 \end{definition}
 
 \begin{insight}
 The principal fundamental matrix provides the simplest IVP solution formula:
-$$\mathbf{x}(t) = \Phi(t)\mathbf{x}$_{0}$$$
-for the initial condition $\mathbf{x}(t$_{0}$) = \mathbf{x}$_{0}$$.
+$$\mathbf{x}(t) = \Phi(t)\mathbf{x}_{0}$$
+for the initial condition $\mathbf{x}(t_{0}) = \mathbf{x}_{0}$.
 \end{insight}
 
 \section{Solution of Initial Value Problems}
 
 \begin{theorem}[IVP Solution Formula]
 For the IVP:
-$$\mathbf{x}' = A(t)\mathbf{x}, \quad \mathbf{x}(t$_{0}$) = \mathbf{x}$_{0}$$$
+$$\mathbf{x}' = A(t)\mathbf{x}, \quad \mathbf{x}(t_{0}) = \mathbf{x}_{0}$$
 The unique solution is:
-$$\mathbf{x}(t) = \Phi(t)\Phi(t$_{0}$)^{-1}\mathbf{x}$_{0}$$$
+$$\mathbf{x}(t) = \Phi(t)\Phi(t_{0})^{-1}\mathbf{x}_{0}$$
 where $\Phi(t)$ is any fundamental matrix.
 \end{theorem}
 
 \begin{computation}
 Solution procedure:
 \begin{enumerate}
-\item Find $n$ linearly independent solutions $\mathbf{x}$_{1}$(t), \ldots, \mathbf{x}$_{n}$(t)$
-\item Construct $\Phi(t) = [\mathbf{x}$_{1}$(t) \mid \cdots \mid \mathbf{x}$_{n}$(t)]$
-\item Compute $\Phi(t$_{0}$)$
-\item Find $\Phi(t$_{0}$)^{-1}$
-\item Calculate $\mathbf{x}(t) = \Phi(t)\Phi(t$_{0}$)^{-1}\mathbf{x}$_{0}$$
+\item Find $n$ linearly independent solutions $\mathbf{x}_{1}(t), \ldots, \mathbf{x}_{n}(t)$
+\item Construct $\Phi(t) = [\mathbf{x}_{1}(t) \mid \cdots \mid \mathbf{x}_{n}(t)]$
+\item Compute $\Phi(t_{0})$
+\item Find $\Phi(t_{0})^{-1}$
+\item Calculate $\mathbf{x}(t) = \Phi(t)\Phi(t_{0})^{-1}\mathbf{x}_{0}$
 \end{enumerate}
 \end{computation}
 
@@ -89,32 +88,32 @@ Solution procedure:
 \begin{method}[For Constant Coefficient Systems]
 For $\mathbf{x}' = A\mathbf{x}$ with constant $A$:
 \begin{enumerate}
-\item Find eigenvalues $\lambda$_{1}$, \ldots, \lambda$_{n}$$ of $A$
-\item Find corresponding eigenvectors $\mathbf{v}$_{1}$, \ldots, \mathbf{v}$_{n}$$
-\item Solutions: $\mathbf{x}$_{i}$(t) = e^{\lambda$_{i}$ t}\mathbf{v}$_{i}$$
-\item Fundamental matrix: $\Phi(t) = [e^{\lambda$_{1}$ t}\mathbf{v}$_{1}$ \mid \cdots \mid e^{\lambda$_{n}$ t}\mathbf{v}$_{n}$]$
+\item Find eigenvalues $\lambda_{1}, \ldots, \lambda_{n}$ of $A$
+\item Find corresponding eigenvectors $\mathbf{v}_{1}, \ldots, \mathbf{v}_{n}
+\item Solutions: \mathbf{x}_{i}(t) = e^{\lambda_{i}t}\mathbf{v}_{i}
+\item Fundamental matrix: \Phi(t) = [e^{\lambda_{1}t}\mathbf{v}_{1} \mid \cdots \mid e^{\lambda_{n}t}\mathbf{v}_{n}]
 \end{enumerate}
 \end{method}
 
 \section{Examples}
 
-\begin{example}[2\times2 System]
+\begin{example}[2\times$2 System]
 Consider $\mathbf{x}' = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\mathbf{x}$.
 
 \textbf{Step 1:} Find eigenvalues
-$$\det(A - \lambda I) = \det\begin{bmatrix} 1-\lambda & 2 \\ 3 & 2-\lambda \end{bmatrix} = \lambda$^{2}$ - 3\lambda - 4 = 0$$
-$$\lambda$_{1}$ = 4, \quad \lambda$_{2}$ = -1$$
+$$\det(A - \lambda I) = \det\begin{bmatrix} 1-\lambda & 2 \\ 3 & 2-\lambda \end{bmatrix} = \lambda^{2} - 3\lambda - 4 = 0$$
+$$\lambda_{1} = 4, \quad \lambda_{2} = -1$$
 
 \textbf{Step 2:} Find eigenvectors
-For $\lambda$_{1}$ = 4$: $\mathbf{v}$_{1}$ = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$
-For $\lambda$_{2}$ = -1$: $\mathbf{v}$_{2}$ = \begin{bmatrix} 1 \\ -1 \end{bmatrix}$
+For $\lambda_{1} = 4$: $\mathbf{v}_{1} = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$
+For $\lambda_{2} = -1$: $\mathbf{v}_{2} = \begin{bmatrix} 1 \\ -1 \end{bmatrix}$
 
 \textbf{Step 3:} Construct fundamental matrix
-$$\Phi(t) = \begin{bmatrix} 2e^{4t} & e^{-t} \\ 3e^{4t} & -e^{-t} \end{bmatrix}$$
+\Phi(t) = \begin{bmatrix} 2e^{4t} & $e^{-t}$ \\ 3e^{4t} & -$e^{-t}$ \end{bmatrix}
 
 \textbf{Step 4:} Verify $\Phi'(t) = A\Phi(t)$
-$$\Phi'(t) = \begin{bmatrix} 8e^{4t} & -e^{-t} \\ 12e^{4t} & e^{-t} \end{bmatrix}$$
-$$A\Phi(t) = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\begin{bmatrix} 2e^{4t} & e^{-t} \\ 3e^{4t} & -e^{-t} \end{bmatrix} = \begin{bmatrix} 8e^{4t} & -e^{-t} \\ 12e^{4t} & e^{-t} \end{bmatrix} \checkmark$$
+\Phi'(t) = \begin{bmatrix} 8e^{4t} & -$e^{-t}$ \\ 12e^{4t} & $e^{-t}$ \end{bmatrix}
+A\Phi(t) = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\begin{bmatrix} 2e^{4t} & $e^{-t}$ \\ 3e^{4t} & -$e^{-t}$ \end{bmatrix} = \begin{bmatrix} 8e^{4t} & -$e^{-t}$ \\ 12e^{4t} & $e^{-t}$ \end{bmatrix} \checkmark
 \end{example}
 
 \begin{example}[IVP Solution]
@@ -124,15 +123,15 @@ $$\mathbf{x}' = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\mathbf{x}, \quad \m
 \textbf{Solution:}
 $$\Phi(0) = \begin{bmatrix} 2 & 1 \\ 3 & -1 \end{bmatrix}$$
 $$\Phi(0)^{-1} = \frac{1}{-5}\begin{bmatrix} -1 & -1 \\ -3 & 2 \end{bmatrix} = \begin{bmatrix} 1/5 & 1/5 \\ 3/5 & -2/5 \end{bmatrix}$$
-$$\Phi(0)^{-1}\mathbf{x}$_{0}$ = \begin{bmatrix} 1/5 & 1/5 \\ 3/5 & -2/5 \end{bmatrix}\begin{bmatrix} 5 \\ 7 \end{bmatrix} = \begin{bmatrix} 12/5 \\ 1/5 \end{bmatrix}$$
-$$\mathbf{x}(t) = \Phi(t)\begin{bmatrix} 12/5 \\ 1/5 \end{bmatrix} = \begin{bmatrix} \frac{24}{5}e^{4t} + \frac{1}{5}e^{-t} \\ \frac{36}{5}e^{4t} - \frac{1}{5}e^{-t} \end{bmatrix}$$
+$$\Phi(0)^{-1}\mathbf{x}_{0} = \begin{bmatrix} 1/5 & 1/5 \\ 3/5 & -2/5 \end{bmatrix}\begin{bmatrix} 5 \\ 7 \end{bmatrix} = \begin{bmatrix} 12/5 \\ 1/5 \end{bmatrix}$$
+\mathbf{x}(t) = \Phi(t)\begin{bmatrix} 12/5 \\ 1/5 \end{bmatrix} = \begin{bmatrix} \frac{24}{5}$e^{4t}$ + \frac{1}{5}$e^{-t}$ \\ \frac{36}{5}$e^{4t}$ - \frac{1}{5}$e^{-t}$ \end{bmatrix}
 \end{example}
 
 \section{Relationship Between Fundamental Matrices}
 
 \begin{theorem}[Fundamental Matrix Relationship]
-If $\Phi$_{1}$(t)$ and $\Phi$_{2}$(t)$ are both fundamental matrices for the same system, then:
-$$\Phi$_{2}$(t) = \Phi$_{1}$(t)C$$
+If $\Phi_{1}(t)$ and $\Phi_{2}(t)$ are both fundamental matrices for the same system, then:
+$$\Phi_{2}(t) = \Phi_{1}(t)C$$
 where $C$ is a constant nonsingular matrix.
 \end{theorem}
 
@@ -150,7 +149,7 @@ Common errors:
 
 \begin{insight}
 For repeated eigenvalues, the fundamental matrix includes terms with $t$:
-$$\Phi(t) = e^{\lambda t}[I + tN + \frac{t$^{2}$}{2!}N$^{2}$ + \cdots]$$
+\Phi(t) = $e^{\lambda t}$[I + tN + \frac{t^{2}}{2!}N^{2} + \cdots]
 where $N$ is the nilpotent part of $A - \lambda I$.
 \end{insight}
 
@@ -168,8 +167,8 @@ Prof. Ditkowski's favorite exam questions:
 \section{Matrix Exponential Connection}
 
 \begin{proposition}
-For constant matrix $A$, the principal fundamental matrix at $t$_{0}$ = 0$ is:
-$$\Phi(t) = e^{At} = I + At + \frac{A$^{2t}$^2}{2!} + \cdots$$
+For constant matrix $A$, the principal fundamental matrix at $t_{0} = 0$ is:
+\Phi(t) = $e^{At}$ = I + At + \frac{A^{2}t^2}{2!} + \cdots
 \end{proposition}
 
 \end{document}

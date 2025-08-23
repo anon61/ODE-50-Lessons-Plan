@@ -15,7 +15,7 @@
 \newmdenv[linecolor=purple,linewidth=2pt]{examtip}
 \newmdenv[linecolor=orange,linewidth=2pt]{matexp}
 
-\title{Lesson 33: Matrix Exponential - Computing $e^{At}$}
+\title{ODE Lesson 33: Matrix Exponential - Computing $e^{At}$}
 \author{ODE 1 - Prof. Adi Ditkowski}
 \date{}
 
@@ -25,64 +25,64 @@
 \section{Definition and Basic Properties}
 
 \begin{definition}[Matrix Exponential]
-For an $n \times n$ matrix $A$, the matrix exponential is defined by the convergent series:
-\[e^{At} = \sum_{k=0}^{\infty} \frac{(At)$^{k}$}{k!} = I + At + \frac{(At)$^{2}$}{2!} + \frac{(At)$^{3}$}{3!} + \cdots\]
+For an $n \times n$ matrix $A, the matrix exponential is defined by the convergent series:
+\[$e^{At}$ = \sum_{k=0}^{\infty} \frac{(At)^{k}}{k!} = I + At + \frac{(At)^{2}}{2!} + \frac{(At)^{3}}{3!} + \cdots\]
 \end{definition}
 
 \begin{theorem}[Fundamental Properties]
 The matrix exponential satisfies:
 \begin{enumerate}
-\item $e^{A \cdot 0} = I$ (initial condition)
-\item $\frac{d}{dt}e^{At} = Ae^{At} = e^{At}A$ (derivative property)
-\item $e^{A(s+t)} = e^{As}e^{At}$ (semigroup property)
-\item $(e^{At})^{-1} = e^{-At}$ (inverse property)
-\item $\det(e^{At}) = e^{\text{tr}(A)t}$ (determinant formula)
-\item If $AB = BA$, then $e^{A+B} = e$^{Ae}$^B$ (commutativity requirement)
+\item $e^{A \cdot 0}$ = I (initial condition)
+\item \frac{d}{dt}$e^{At}$ = Ae^{At} = e^{At}A (derivative property)
+\item $e^{A(s+t)}$ = e^{As}e^{At}$ (semigroup property)
+\item ($e^{At}$)^{-1} = $e^{-At}$ (inverse property)
+\item \det($e^{At}$) = $e^{\text{tr}$(A)t}$ (determinant formula)
+\item If $AB = BA, then $e^{A+B}$ = $e^{Ae}$^B (commutativity requirement)
 \end{enumerate}
 \end{theorem}
 
 \begin{matexp}
 \textbf{Fundamental Solution Property:}
 The unique solution to the initial value problem
-\[\mathbf{x}' = A\mathbf{x}, \quad \mathbf{x}(0) = \mathbf{x}$_{0}$\]
+\[\mathbf{x}' = A\mathbf{x}, \quad \mathbf{x}(0) = \mathbf{x}_{0}\]
 is given by
-\[\mathbf{x}(t) = e^{At}\mathbf{x}$_{0}$\]
+\[\mathbf{x}(t) = e^{At}\mathbf{x}_{0}\]
 \end{matexp}
 
 \section{Method 1: Diagonalization}
 
 \begin{method}[Diagonalization Method]
-If $A = PDP^{-1}$ where $D = \text{diag}(\lambda$_{1}$, \ldots, \lambda$_{n}$)$:
-\[e^{At} = Pe^{Dt}P^{-1}\]
+If A = PDP^{-1}$ where $D = \text{diag}(\lambda_{1}, \ldots, \lambda_{n}):
+\[$e^{At}$ = Pe^{Dt}P^{-1}\]
 where
-\[e^{Dt} = \begin{pmatrix}
-e^{\lambda$_{1}$ t} & 0 & \cdots & 0 \\
-0 & e^{\lambda$_{2}$ t} & \cdots & 0 \\
+\[$e^{Dt}$ = \begin{pmatrix}
+$e^{\lambda_{1}$ t} & 0 & \cdots & 0 \\
+0 & $e^{\lambda_{2}$ t} & \cdots & 0 \\
 \vdots & \vdots & \ddots & \vdots \\
-0 & 0 & \cdots & e^{\lambda$_{n}$ t}
+0 & 0 & \cdots & $e^{\lambda_{n}$ t}
 \end{pmatrix}\]
 \end{method}
 
 \begin{example}[Diagonalizable 2\times2]
-Compute $e^{At}$ for $A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$
+Compute $e^{At}$ for A = \begin{pmatrix} 1 & 2 \\ 2 & 1 \end{pmatrix}$
 
 \textbf{Solution:}
 \begin{enumerate}
-\item Eigenvalues: $\det(A - \lambda I) = (1-\lambda)$^{2}$ - 4 = \lambda$^{2}$ - 2\lambda - 3 = 0$
+\item Eigenvalues: $\det(A - \lambda I) = (1-\lambda)^{2} - 4 = \lambda^{2} - 2\lambda - 3 = 0$
 
-$(\lambda - 3)(\lambda + 1) = 0 \Rightarrow \lambda$_{1}$ = 3, \lambda$_{2}$ = -1$
+$(\lambda - 3)(\lambda + 1) = 0 \Rightarrow \lambda_{1} = 3, \lambda_{2} = -1$
 
 \item Eigenvectors:
-For $\lambda$_{1}$ = 3$: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
-For $\lambda$_{2}$ = -1$: $\mathbf{v}$_{2}$ = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+For $\lambda_{1} = 3$: $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+For $\lambda_{2} = -1$: $\mathbf{v}_{2} = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
 
 \item Matrices:
-$P = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$, $P^{-1} = \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$
+$P = \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}$, $P^{-1} = \frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}
 
 \item Result:
 \begin{align}
-e^{At} &= \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} e^{3t} & 0 \\ 0 & e^{-t} \end{pmatrix}\frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \\
-&= \frac{1}{2}\begin{pmatrix} e^{3t} + e^{-t} & e^{3t} - e^{-t} \\ e^{3t} - e^{-t} & e^{3t} + e^{-t} \end{pmatrix}
+$e^{At}$ &= \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} $e^{3t}$ & 0 \\ 0 & $e^{-t}$ \end{pmatrix}\frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix} \\
+&= \frac{1}{2}\begin{pmatrix} $e^{3t}$ + $e^{-t}$ & $e^{3t}$ - $e^{-t}$ \\ $e^{3t}$ - $e^{-t}$ & $e^{3t}$ + $e^{-t}$ \end{pmatrix}
 \end{align}
 \end{enumerate}
 \end{example}
@@ -90,9 +90,9 @@ e^{At} &= \begin{pmatrix} 1 & 1 \\ 1 & -1 \end{pmatrix}\begin{pmatrix} e^{3t} & 
 \section{Method 2: Jordan Form}
 
 \begin{method}[Jordan Form Method]
-For a Jordan block $J$_{n}$(\lambda)$ of size $n$:
-\[e^{J$_{n}$(\lambda)t} = e^{\lambda t}\begin{pmatrix}
-1 & t & \frac{t$^{2}$}{2!} & \cdots & \frac{t^{n-1}}{(n-1)!} \\
+For a Jordan block J_{n}(\lambda)$ of size $n:
+\[$e^{J_{n}$(\lambda)t} = e^{\lambda t}\begin{pmatrix}
+1 & t & \frac{t^{2}}{2!} & \cdots & \frac{t^{n-1}}{(n-1)!} \\
 0 & 1 & t & \cdots & \frac{t^{n-2}}{(n-2)!} \\
 0 & 0 & 1 & \cdots & \frac{t^{n-3}}{(n-3)!} \\
 \vdots & \vdots & \vdots & \ddots & \vdots \\
@@ -100,55 +100,55 @@ For a Jordan block $J$_{n}$(\lambda)$ of size $n$:
 \end{pmatrix}\]
 \end{method}
 
-\begin{example}[2\times2 Jordan Block]
-Compute $e^{At}$ for $A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$
+\begin{example}[2$\times$2 Jordan Block]
+Compute $e^{At}$ for A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$
 
 \textbf{Solution:}
-This is a Jordan block with $\lambda = 2$. Using the formula:
-\[e^{At} = e^{2t}\begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} e^{2t} & te^{2t} \\ 0 & e^{2t} \end{pmatrix}\]
+This is a Jordan block with $\lambda = 2. Using the formula:
+\[$e^{At}$ = e^{2t}\begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} $e^{2t}$ & te^{2t} \\ 0 & $e^{2t}$ \end{pmatrix}\]
 
-Verification: $e^{A \cdot 0} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I$ \checkmark
+Verification: $e^{A \cdot 0}$ = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix} = I \checkmark$
 \end{example}
 
 \section{Method 3: Nilpotent Matrices}
 
 \begin{keypoint}
 \textbf{Nilpotent Matrix Property:}
-If $N$^{k}$ = 0$ for some $k$, then:
-\[e^{Nt} = I + Nt + \frac{N$^{2t}$^2}{2!} + \cdots + \frac{N^{k-1}t^{k-1}}{(k-1)!}\]
+If $N^{k} = 0$ for some $k, then:
+\[$e^{Nt}$ = I + Nt + \frac{N^{2t}^2}{2!} + \cdots + \frac{N^{k-1}t^{k-1}}{(k-1)!}\]
 The series terminates!
 \end{keypoint}
 
-\begin{example}[3\times3 Nilpotent]
-Compute $e^{At}$ for $A = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}$
+\begin{example}[3$\times$3 Nilpotent]
+Compute $e^{At}$ for A = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}$
 
 \textbf{Solution:}
-$A$^{2}$ = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$, $A$^{3}$ = 0$
+$A^{2} = \begin{pmatrix} 0 & 0 & 1 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}$, $A^{3} = 0
 
 Therefore:
-\[e^{At} = I + At + \frac{A$^{2t}$^2}{2} = \begin{pmatrix} 1 & t & \frac{t$^{2}$}{2} \\ 0 & 1 & t \\ 0 & 0 & 1 \end{pmatrix}\]
+\[$e^{At}$ = I + At + \frac{A^{2t}^2}{2} = \begin{pmatrix} 1 & t & \frac{t^{2}}{2} \\ 0 & 1 & t \\ 0 & 0 & 1 \end{pmatrix}\]
 \end{example}
 
 \section{Method 4: Cayley-Hamilton}
 
 \begin{theorem}[Cayley-Hamilton Application]
-For a 2\times2 matrix with characteristic polynomial $p(\lambda) = \lambda$^{2}$ - \text{tr}(A)\lambda + \det(A)$:
+For a 2\times2 matrix with characteristic polynomial p(\lambda) = \lambda^{2} - \text{tr}(A)\lambda + \det(A)$:
 \begin{itemize}
-\item If $\lambda$_{1}$ \neq \lambda$_{2}$$: $e^{At} = \frac{e^{\lambda$_{1}$ t} - e^{\lambda$_{2}$ t}}{\lambda$_{1}$ - \lambda$_{2}$}A + \frac{\lambda$_{1}$ e^{\lambda$_{2}$ t} - \lambda$_{2}$ e^{\lambda$_{1}$ t}}{\lambda$_{1}$ - \lambda$_{2}$}I$
-\item If $\lambda$_{1}$ = \lambda$_{2}$ = \lambda$: $e^{At} = e^{\lambda t}[I + t(A - \lambda I)]$
+\item If $\lambda_{1} \neq \lambda_{2}: $e^{At}$ = \frac{$e^{\lambda_{1}$ t} - $e^{\lambda_{2}$ t}}{\lambda_{1} - \lambda_{2}}A + \frac{\lambda_{1} $e^{\lambda_{2}$ t} - \lambda_{2} $e^{\lambda_{1}$ t}}{\lambda_{1} - \lambda_{2}}I$
+\item If $\lambda_{1} = \lambda_{2} = \lambda: $e^{At}$ = $e^{\lambda t}$[I + t(A - \lambda I)]
 \end{itemize}
 \end{theorem}
 
 \section{Method 5: Complex Eigenvalues}
 
 \begin{example}[Complex Eigenvalues]
-Compute $e^{At}$ for $A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$
+Compute $e^{At}$ for A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$
 
 \textbf{Solution:}
-Eigenvalues: $\lambda = \pm i$
+Eigenvalues: $\lambda = \pm i
 
 Using the formula for complex eigenvalues:
-\[e^{At} = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}\]
+\[$e^{At}$ = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}\]
 
 This is a rotation matrix!
 \end{example}
@@ -157,7 +157,7 @@ This is a rotation matrix!
 \textbf{Computational Strategies:}
 \begin{itemize}
 \item Diagonal matrix: Use $e^{Dt}$ directly
-\item Diagonalizable: Use $Pe^{Dt}P^{-1}$
+\item Diagonalizable: Use Pe^{Dt}P^{-1}
 \item Jordan blocks: Use Jordan exponential formula
 \item Nilpotent: Truncate the series
 \item 2\times2: Use direct formulas
@@ -169,10 +169,10 @@ This is a rotation matrix!
 \textbf{Common Computational Errors:}
 \begin{itemize}
 \item Matrix multiplication is NOT commutative
-\item $e^{A+B} \neq e$^{Ae}$^B$ unless $AB = BA$
+\item $e^{A+B}$ \neq $e^{Ae}$^B unless AB = BA
 \item Don't forget factorials in the series
 \item Jordan block exponentials have specific patterns
-\item Always verify $e^{A \cdot 0} = I$
+\item Always verify $e^{A \cdot 0}$ = I
 \end{itemize}
 \end{warning}
 
@@ -194,13 +194,13 @@ Prof. Ditkowski's typical problems:
 \hline
 \textbf{Matrix Type} & \textbf{Formula for $e^{At}$} \\
 \hline
-Diagonal $D = \text{diag}(\lambda$_{i}$)$ & $\text{diag}(e^{\lambda$_{i}$ t})$ \\
+Diagonal D = \text{diag}(\lambda_{i})$ & \text{diag}($e^{\lambda_{i}$ t}) \\
 \hline
-Diagonalizable $A = PDP^{-1}$ & $Pe^{Dt}P^{-1}$ \\
+Diagonalizable $A = PDP^{-1}$ & Pe^{Dt}P^{-1} \\
 \hline
-2\times2 Jordan block $\begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}$ & $e^{\lambda t}\begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$ \\
+2\times2 Jordan block $\begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix} & e^{\lambda t}\begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix} \\
 \hline
-Nilpotent $N$^{k}$ = 0$ & $\sum_{j=0}^{k-1} \frac{N$^{j}$ t$^{j}$}{j!}$ \\
+Nilpotent N^{k} = 0$ & $\sum_{j=0}^{k-1} \frac{N^{j} t^{j}}{j!}$ \\
 \hline
 Rotation $\begin{pmatrix} 0 & -\omega \\ \omega & 0 \end{pmatrix}$ & $\begin{pmatrix} \cos(\omega t) & -\sin(\omega t) \\ \sin(\omega t) & \cos(\omega t) \end{pmatrix}$ \\
 \hline

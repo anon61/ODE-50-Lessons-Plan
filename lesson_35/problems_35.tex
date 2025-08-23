@@ -57,11 +57,11 @@
 \section*{Part D: Complete IVPs with Various Forcings}
 
 \begin{enumerate}[start=16]
-\item Solve completely: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+\item Solve completely: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} $e^{2t}$ \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
 
 \item Find: $\mathbf{x}' = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ (resonance!)
 
-\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \\ e^{-t} \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 2 \end{pmatrix}$
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \\ $e^{-t}$ \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 2 \end{pmatrix}$
 
 \item Complete solution for: $\mathbf{x}' = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
 
@@ -79,7 +79,7 @@
 
 \item Compute steady-state for: $\mathbf{x}' = \begin{pmatrix} -1 & 1 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
 
-\item Solve with Jordan block: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$
+\item Solve with Jordan block: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} $e^{2t}$ \\ 0 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$
 \end{enumerate}
 
 \section*{Part F: Advanced Applications}
@@ -87,7 +87,7 @@
 \begin{enumerate}[start=26]
 \item Show that for constant forcing $\mathbf{f}(t) = \mathbf{c}$ and stable $A$ (all eigenvalues have negative real parts), the steady-state solution is $\mathbf{x}_{ss} = -A^{-1}\mathbf{c}$.
 
-\item Verify Duhamel gives the same result as variation of parameters for: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{3t} \\ 0 \end{pmatrix}$
+\item Verify Duhamel gives the same result as variation of parameters for: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} $e^{3t}$ \\ 0 \end{pmatrix}$
 
 \item For periodic forcing $\mathbf{f}(t) = \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}$ with $A = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}$, find the steady-state periodic solution.
 
@@ -98,13 +98,13 @@
 
 \section*{Solutions and Hints}
 
-\textbf{Problem 1:} $\mathbf{x}(t) = \begin{pmatrix} \frac{1}{2}(1-e^{2t}) \\ \frac{1}{3}(1-e^{3t}) \end{pmatrix}$
+\textbf{Problem 1:} $\mathbf{x}(t) = \begin{pmatrix} \frac{1}{2}(1-$e^{2t})$ \\ \frac{1}{3}(1-$e^{3t})$ \end{pmatrix}$
 
-\textbf{Problem 3:} Use $e^{At} = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, get $\mathbf{x}(t) = \begin{pmatrix} 1 + t$^{3}$/6 \\ t$^{2}$/2 \end{pmatrix}$
+\textbf{Problem 3:} Use $e^{At} = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, get $\mathbf{x}(t) = \begin{pmatrix} 1 + t^{3}/6 \\ t^{2}/2 \end{pmatrix}$
 
 \textbf{Problem 5:} $e^{At} = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}$, particular solution is $\begin{pmatrix} 1 - \cos t \\ \sin t \end{pmatrix}$
 
-\textbf{Problem 11:} $\mathbf{x}(t) = \begin{pmatrix} H(t-1)e^{-(t-1)} \\ e^{-2t} + 0 \end{pmatrix}$
+\textbf{Problem 11:} $\mathbf{x}(t) = \begin{pmatrix} H(t-1)$e^{-(t-1)}$ \\ $e^{-2t}$ + 0 \end{pmatrix}$
 
 \textbf{Problem 16:} Repeated eigenvalue with resonance gives $t$^{2e}$^{2t}$ terms.
 
