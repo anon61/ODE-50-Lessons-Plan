@@ -1,0 +1,95 @@
+Episode 7: Non-Unique Solutions - Classic Examples and Warnings
+"Let's explore the dark side of ODEs - when uniqueness fails! So basically, non-uniqueness happens when the Lipschitz condition breaks down, and suddenly one initial condition can lead to multiple solutions. Here's the key insight: non-uniqueness isn't a mathematical curiosity - it represents real physical situations where the future isn't determined by the present!
+The classic example everyone must know:
+y' = 2√y with y(0) = 0
+This has infinitely many solutions:
+
+y ≡ 0 (the trivial solution)
+y = (x - c)² for x ≥ c, and y = 0 for x < c (for any c ≥ 0)
+y = (x + c)² for x ≤ -c, and y = 0 for x > -c (for any c ≥ 0)
+
+What's happening? The square root isn't Lipschitz at y = 0. Solutions can 'take off' from the x-axis at any point, or never take off at all!
+Let me show you the general pattern for non-uniqueness:
+The Power Law Family:
+y' = |y|^α with y(0) = 0, where 0 < α < 1
+Solutions:
+
+y ≡ 0
+y = ±[(1-α)(x-c)]^(1/(1-α)) for ±(x-c) ≥ 0
+
+The smaller α is, the 'flatter' the function at zero, and the easier it is for solutions to peel away. This is geometric intuition: if the slope field is too flat near an equilibrium, trajectories can escape in multiple ways.
+Here's a beautiful example with physical meaning:
+Falling raindrop with evaporation:
+y' = -√y with y(T) = 0 (y is radius, hits zero at time T)
+Multiple solutions going backward in time:
+
+Raindrop could have started falling at any time t ≤ T
+Before time t, it didn't exist (y = 0)
+After time t, y = (T-x)²/4
+
+This represents the physical fact that we can't determine when the raindrop formed just from knowing when it completely evaporated!
+Peano Phenomenon:
+Even worse than non-uniqueness is the Peano phenomenon - solutions that branch!
+Example: Consider the implicit equation:
+(y')² = 4y
+Starting from y(0) = 0:
+
+Solution can stay at y = 0 for any interval [0,a]
+Then follow y = (x-a)² for x ≥ a
+Or follow y = -(x-a)² for x ≤ a
+
+We get a whole 'tree' of solutions branching from the origin!
+How to construct non-unique solutions systematically:
+Method 1: Separation of variables gone wrong
+When you separate variables and get ∫dy/g(y) = ∫dx, if g(y₀) = 0 for some y₀, you might lose solutions. The constant solution y = y₀ might not appear in your general solution!
+Example: y' = y(1-y)
+Separating: ∫dy/[y(1-y)] = ∫dx
+This misses y = 0 and y = 1!
+Method 2: Singular solutions to Clairaut's equation
+y = xy' + f(y')
+This always has the general solution y = cx + f(c), but often has a singular solution too (the envelope of the family).
+Method 3: Patching solutions
+If f(x,y) = 0 along some curve, you can often 'pause' on that curve and restart, creating non-uniqueness.
+Warning signs for non-uniqueness on exams:
+
+Powers less than 1: y^(1/2), y^(2/3), |y|^(1/3)
+Implicit equations: F(x, y, y') = 0 where ∂F/∂y' = 0 somewhere
+Piecewise defined functions with 'flat spots'
+Absolute values and max/min functions at transition points
+
+Here's an exam trick: If Prof. Ditkowski asks 'Find ALL solutions,' be suspicious! Check for:
+
+Constant solutions (set y' = 0)
+Singular solutions (for Clairaut-type equations)
+Patchwork solutions (combinations of different solution pieces)
+
+The Osgood Condition (advanced but good to know):
+Even if f isn't Lipschitz, uniqueness can still hold if:
+∫[0 to ε] dy/ω(y) = ∞
+where ω is the modulus of continuity of f.
+Example: f(y) = y ln|y| near y = 0
+Not Lipschitz, but Osgood condition holds, so unique solutions!
+Physical interpretations of non-uniqueness:
+
+Dry friction: Object can start moving at any time
+Phase transitions: Multiple equilibrium states
+Bifurcations: System can follow different paths
+
+Common exam question: 'Give an example of an IVP with exactly n solutions.'
+Answer for n = 2:
+y' = 2√|y| with y(0) = 0
+Solutions: y = 0 and y = x|x|
+Answer for n = 3:
+Modify to have piecewise behavior with three branches
+Answer for n = ∞:
+Our classic y' = 2√y with y(0) = 0
+Memory trick: 'Non-uniqueness needs: Powers less than one, Equilibria too attractive, Absolute values, Non-Lipschitz, Or Singularities' (PEANOS).
+Crucial exam tip: When you find non-uniqueness, always:
+
+State clearly that uniqueness fails
+Identify where Lipschitz condition breaks
+Give at least two distinct solutions explicitly
+Explain why there might be infinitely many
+
+Prof. Ditkowski loves this question: 'Can solutions cross?'
+Answer: If Lipschitz holds, no! Solutions can't cross because that would violate uniqueness at the crossing point. But without Lipschitz, crossing is possible - that's how we get non-uniqueness!"
