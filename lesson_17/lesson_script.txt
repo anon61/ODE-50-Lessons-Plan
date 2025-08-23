@@ -1,0 +1,42 @@
+Episode 17: Homogeneous Equations - The y/x Substitution
+
+Hey there! Welcome to Lesson 17, where we're diving into one of the coolest tricks in differential equations - homogeneous equations and the magical y/x substitution.
+
+So basically, homogeneous equations are all about scaling and proportions. Here's the key insight - imagine you're looking at a differential equation, and if you zoom in or out equally on both x and y axes, the equation looks exactly the same. That's homogeneity! It's like those fractal patterns where the same structure appears at every scale.
+
+Let me show you what I mean mathematically. A first-order equation is homogeneous if you can write it as dy/dx = F(y/x). Notice how everything depends on the ratio y/x? That's the telltale sign. Another way to check - and this is super important for Prof. Ditkowski's exams - is the formal test: if f(tx, ty) = t^n f(x,y) for some n, then it's homogeneous of degree n.
+
+Here's a quick example to cement this. Take dy/dx = (x² + y²)/(xy). Let's test it: replace x with tx and y with ty. We get (t²x² + t²y²)/(t²xy) = t²(x² + y²)/t²(xy) = (x² + y²)/(xy). See? The t's cancel out completely! That's homogeneous of degree 0.
+
+Now, why does the substitution v = y/x work? Think about it geometrically - if everything depends on the ratio y/x, let's just call that ratio something simple, like v. Then y = vx, and here's where it gets interesting. When we differentiate y = vx, we get dy/dx = v + x(dv/dx). This is the crucial step that trips up so many students!
+
+Watch this transformation magic. If we have dy/dx = F(y/x), and we substitute, we get v + x(dv/dx) = F(v). Rearranging: x(dv/dx) = F(v) - v. And boom! This is separable: dv/(F(v) - v) = dx/x. We turned a seemingly complex equation into something we already know how to solve!
+
+Let's work through a complete example. Consider dy/dx = (2xy)/(x² - y²). First, let's verify it's homogeneous. Dividing numerator and denominator by x²: dy/dx = (2y/x)/(1 - (y/x)²). Perfect! It's in the form F(y/x).
+
+Now substitute v = y/x, so y = vx and dy/dx = v + x(dv/dx). Our equation becomes:
+v + x(dv/dx) = 2v/(1 - v²)
+
+Solving for dv/dx: x(dv/dx) = 2v/(1 - v²) - v = (2v - v(1 - v²))/(1 - v²) = (2v - v + v³)/(1 - v²) = (v + v³)/(1 - v²) = v(1 + v²)/(1 - v²)
+
+Now separate: (1 - v²)dv/v(1 + v²) = dx/x
+
+The left side needs partial fractions. Breaking it down: integrate both sides, and after some algebra (which you should practice!), you get the implicit solution involving arctangent and logarithms.
+
+Here's a trickier example that Prof. Ditkowski loves: dy/dx = (x + y)/(x - y). This doesn't look homogeneous at first, but divide top and bottom by x: dy/dx = (1 + y/x)/(1 - y/x). Bingo! Now use v = y/x and watch the magic happen.
+
+Common mistakes to avoid - and trust me, these cost points on exams:
+1. Forgetting the product rule when differentiating y = vx. Remember: dy/dx = v + x(dv/dx), NOT just x(dv/dx)!
+2. Not checking if the equation is actually homogeneous before applying the substitution
+3. Incorrect back-substitution - always replace v with y/x at the end
+4. Missing singular solutions when F(v) - v = 0
+
+Here's an exam strategy that works: First, quickly test for homogeneity by checking if all terms have the same total degree in x and y. If yes, immediately write v = y/x and the derivative formula. Work through the algebra carefully - Prof. Ditkowski gives partial credit for correct setup even if you make computational errors.
+
+One more insight - sometimes the substitution u = x/y works better, especially when you have more y terms than x terms. The derivative becomes dx/dy = u + y(du/dy). Same principle, just flipped!
+
+Remember, homogeneous equations often appear disguised. Terms like x²y, xy², x³ all have degree 3. Terms like sin(y/x), e^(y/x), ln(y/x) are homogeneous of degree 0. Train your eye to spot these patterns quickly.
+
+The geometric interpretation is beautiful - homogeneous equations describe processes where the rate of change depends only on direction from the origin, not distance. Think of it like wind patterns that blow the same way along any ray from the center.
+
+For Prof. Ditkowski's exam, expect at least one homogeneous equation, often combined with an initial condition. Sometimes he'll ask you to verify homogeneity first, then solve. Practice recognition - it should take you under 30 seconds to identify and start the substitution. The whole problem shouldn't take more than 10 minutes if you're well-prepared.

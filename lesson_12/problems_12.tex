@@ -1,0 +1,185 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Practice Problems: Separable Equations}
+\author{Lesson 12 Exercises}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (6 problems)}
+
+\begin{enumerate}
+\item Determine which equations are separable:
+    \begin{enumerate}
+        \item $\frac{dy}{dx} = x + y$
+        \item $\frac{dy}{dx} = xy + x$
+        \item $\frac{dy}{dx} = \frac{x^2}{y^2}$
+        \item $\frac{dy}{dx} = \sin(x+y)$
+        \item $\frac{dy}{dx} = e^x \cdot e^y$
+        \item $\frac{dy}{dx} = \frac{xy}{x^2 + y^2}$
+    \end{enumerate}
+
+\item Rewrite in separable form if possible: $(x^2 + 1)y\,dx + (y^2 - 1)x\,dy = 0$
+
+\item For the autonomous equation $\frac{dy}{dx} = y^3 - y$, identify all equilibrium points.
+
+\item True or False: Every autonomous equation is separable. Explain.
+
+\item Can $\frac{dy}{dx} = \sqrt{xy}$ be made separable? If so, how?
+
+\item Explain why $\frac{dy}{dx} = x + y$ is NOT separable.
+\end{enumerate}
+
+\section*{Part B: Basic Separable Equations (6 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $\frac{dy}{dx} = 2xy$
+
+\item Solve: $\frac{dy}{dx} = \frac{y}{x}$ for $x > 0$
+
+\item Find the general solution: $\frac{dy}{dx} = y^2$
+
+\item Solve: $\frac{dy}{dx} = (1+x)(1+y)$
+
+\item Solve with initial condition: $\frac{dy}{dx} = \frac{x}{y}$, $y(0) = 2$
+
+\item Find all solutions: $\frac{dy}{dx} = y\cos(x)$
+\end{enumerate}
+
+\section*{Part C: Singular Solutions and Lost Solutions (6 problems)}
+
+\begin{enumerate}[resume]
+\item Find ALL solutions to: $\frac{dy}{dx} = 2\sqrt{y}$
+
+\item Solve completely: $\frac{dy}{dx} = y^2 - 1$
+
+\item Find general and singular solutions: $\frac{dy}{dx} = x(y^2 - 4y + 4)$
+
+\item Solve: $y' = y^2(1-y)^2$ and identify all constant solutions
+
+\item For $\frac{dy}{dx} = \frac{2xy}{1-x^2}$, find all solutions including any lost in separation
+
+\item Determine all solutions: $(y-1)y' = x(y-1)^2$
+\end{enumerate}
+
+\section*{Part D: Implicit Solutions and Special Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve (leave implicit if necessary): $\frac{dy}{dx} = \frac{1-y}{1+x}$
+
+\item Find the solution curves: $x\,dy + y\,dx = xy^2\,dx$
+
+\item Solve: $\frac{dy}{dx} = \frac{x^2 + y^2}{2xy}$ using substitution $v = y/x$
+
+\item Show that $x^2 + xy + y^2 = C$ solves a certain separable equation. Find the equation.
+
+\item Solve using appropriate substitution: $\frac{dy}{dx} = (x+y)^2$
+\end{enumerate}
+
+\section*{Part E: Advanced Techniques (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve the logistic equation: $\frac{dy}{dt} = y(1-y/100)$ with $y(0) = 10$
+
+\item Find the solution: $\frac{dy}{dx} = \frac{y^2 - 1}{x^2 - 1}$ passing through $(2, 2)$
+
+\item Solve: $\frac{dy}{dx} = e^{x+y} + e^{x-y}$
+
+\item For what values of $n$ is $\frac{dy}{dx} = x^n y^{2-n}$ separable? Solve for those values.
+
+\item Find the orthogonal trajectories of the family $y = Cx^2$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (7 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Special]} Consider $\frac{dy}{dx} = \frac{2y^2 - y}{x}$
+    \begin{enumerate}
+        \item Find the general solution
+        \item Find all singular solutions
+        \item Solve the IVP with $y(1) = 1/2$
+        \item Sketch several solution curves
+        \item For what initial conditions does the solution blow up in finite time?
+    \end{enumerate}
+
+\item \textbf{[Comprehensive]} The population $P(t)$ of bacteria satisfies $\frac{dP}{dt} = P(2 - P/1000)$
+    \begin{enumerate}
+        \item Find all equilibrium populations
+        \item Solve for $P(t)$ if $P(0) = 500$
+        \item Find $\lim_{t \to \infty} P(t)$
+        \item When does the population reach 1500?
+    \end{enumerate}
+
+\item \textbf{[Implicit Challenge]} Solve $\frac{dy}{dx} = \frac{3x^2 + 2xy}{x^2 + 2y^2}$ and verify your solution
+
+\item \textbf{[Lost Solutions Focus]} For $\frac{dy}{dx} = \frac{y^2(y-3)}{x}$:
+    \begin{enumerate}
+        \item Separate and find the general solution
+        \item Identify ALL constant solutions
+        \item Which constant solutions are singular?
+        \item Verify each constant solution
+    \end{enumerate}
+
+\item \textbf{[Domain Analysis]} Consider $\frac{dy}{dx} = \frac{1}{y\ln(y)}$ for $y > 1$
+    \begin{enumerate}
+        \item Solve the equation
+        \item If $y(0) = e$, find the particular solution
+        \item Determine the domain of existence
+        \item What happens as $x \to \pm\infty$?
+    \end{enumerate}
+
+\item \textbf{[Uniqueness Failure]} For $\frac{dy}{dx} = 3y^{2/3}$:
+    \begin{enumerate}
+        \item Show that $y = 0$ is a solution
+        \item Find the general solution for $y \neq 0$
+        \item Show that the IVP with $y(0) = 0$ has infinitely many solutions
+        \item Sketch several solutions through the origin
+    \end{enumerate}
+
+\item \textbf{[Prof. Ditkowski Comprehensive]}
+    Chemical reaction kinetics gives $\frac{dy}{dt} = k(a-y)(b-y)$ where $a = 2$, $b = 1$, $k = 1$
+    \begin{enumerate}
+        \item Use partial fractions to separate variables
+        \item Find the general solution
+        \item If $y(0) = 0$, find $y(t)$
+        \item What is $\lim_{t \to \infty} y(t)$?
+        \item Interpret physically: what does $y$ represent?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Answer Key with Essential Hints}
+
+\textbf{1.} Separable: (b) factor as $x(y+1)$, (c), (e)
+
+\textbf{3.} Equilibria: $y = 0, \pm 1$
+
+\textbf{7.} $y = Ce^{x^2}$
+
+\textbf{9.} $y = -\frac{1}{x+C}$; blows up at $x = -C$
+
+\textbf{11.} $y = Cx$; also $y = 0$ (singular)
+
+\textbf{13.} $y = 2x^2 + C$; also $y = 0$ (lost solution)
+
+\textbf{14.} General: $\arctan(y) = x^2/2 + C$; Singular: $y = \pm 1$
+
+\textbf{15.} $y = (x-2)^2$; also $y = 2$ (singular)
+
+\textbf{19.} $(1+x)(1-y) = C$
+
+\textbf{24.} Logistic solution: $y = \frac{100}{1 + 9e^{-t}}$
+
+\textbf{27.} Separable for all $n$; Solution form depends on $n$
+
+\textbf{30.} General: $y = \frac{Cx^2}{1+Cx}$; Singular: $y = 0, y = 1$
+
+\textbf{31.} Equilibria at $P = 0, 2000$; Solution approaches 2000
+
+\textbf{35.} Solution: $\ln(\ln(y)) = x + C$
+
+\textbf{37.} Use $(a-y)(b-y) = (y-1)(y-2)$; $y \to 1$ as $t \to \infty$
+
+\end{document}

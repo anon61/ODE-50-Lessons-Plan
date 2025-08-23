@@ -1,0 +1,146 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Practice Problems: Direct Integration}
+\author{Lesson 11 Exercises}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (6 problems)}
+
+\begin{enumerate}
+\item Which of the following ODEs can be solved by direct integration?
+    \begin{enumerate}
+        \item $y' = x^2 + y$
+        \item $y' = e^x \cos(x)$
+        \item $y' = \frac{y}{x}$
+        \item $y'' = \sin(x) - 2$
+    \end{enumerate}
+
+\item For the ODE $y^{(4)} = 0$, what is the general form of the solution?
+
+\item How many arbitrary constants appear in the general solution of $\frac{d^5y}{dx^5} = e^x$?
+
+\item True or False: If $y'' = f(x)$ has solution $y = g(x)$, then $y = g(x) + Ax + B$ is also a solution for any constants $A, B$.
+
+\item What is the minimum number of initial conditions needed to uniquely determine the solution of $y''' = x^2$?
+
+\item If $dy/dx = f(x)$ and $f(x)$ is odd, what can you say about the solution $y(x)$ passing through the origin?
+\end{enumerate}
+
+\section*{Part B: Basic Integration Problems (6 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $\frac{dy}{dx} = 3x^2 - 4x + 1$
+
+\item Solve: $\frac{dy}{dx} = \frac{1}{x} + \frac{1}{x^2}$ for $x > 0$
+
+\item Find the general solution: $y' = e^{2x} + \sin(3x)$
+
+\item Solve: $\frac{dy}{dx} = \frac{1}{\sqrt{1-x^2}}$ for $|x| < 1$
+
+\item Find $y(x)$ if $y' = \sec^2(x)$ and $y(0) = 2$
+
+\item Solve: $\frac{dy}{dx} = |x|$ (consider both $x \geq 0$ and $x < 0$)
+\end{enumerate}
+
+\section*{Part C: Higher-Order Direct Integration (6 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' = 6x$ with $y(0) = 1$ and $y'(0) = -1$
+
+\item Find the general solution: $\frac{d^3y}{dx^3} = 24$
+
+\item Solve: $y'' = \cos(x)$ with $y(0) = 0$ and $y(\pi) = 0$
+
+\item Find $y(x)$ if $y''' = e^x$ with $y(0) = y'(0) = y''(0) = 1$
+
+\item Solve: $\frac{d^4y}{dx^4} = 0$ with $y(0) = 1$, $y'(0) = 0$, $y''(0) = 2$, $y'''(0) = 0$
+
+\item A particle moves with constant jerk (rate of change of acceleration) $j = 2$ m/s³. If at $t = 0$ the particle is at rest at the origin with zero acceleration, find its position at time $t$.
+\end{enumerate}
+
+\section*{Part D: Initial Value Problems with Definite Integrals (5 problems)}
+
+\begin{enumerate}[resume]
+\item Using the definite integral method, solve: $y' = x^2$ with $y(1) = 3$
+
+\item Express the solution to $y' = \sin(x^2)$ with $y(0) = 1$ as a definite integral.
+
+\item Solve: $y' = \frac{1}{1+x^2}$ with $y(0) = \pi/4$
+
+\item Find $y(2)$ if $y' = e^{-x^2}$ and $y(0) = 0$ (express as an integral if needed).
+
+\item Show that the solution to $y' = f(x)$ with $y(a) = A$ and $y(b) = B$ must satisfy: $B - A = \int_a^b f(x)\,dx$
+\end{enumerate}
+
+\section*{Part E: Mixed Exam-Style Questions (7 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Special]} Consider $y'' = x\sin(x)$.
+    \begin{enumerate}
+        \item Find the general solution
+        \item Find the particular solution with $y(0) = 1$ and $y'(\pi) = 0$
+        \item Verify your solution
+    \end{enumerate}
+
+\item \textbf{[Conceptual]} If $y_1$ is a solution to $y'' = f(x)$ and $y_2$ is a solution to $y'' = g(x)$, what ODE does $y_1 + y_2$ solve?
+
+\item \textbf{[Multi-part]} A projectile is launched vertically with $y'' = -10$ m/s² (taking up as positive).
+    \begin{enumerate}
+        \item Find the general solution for height $y(t)$
+        \item If launched from ground level with initial velocity 30 m/s, find $y(t)$
+        \item When does it reach maximum height?
+        \item What is the maximum height?
+    \end{enumerate}
+
+\item \textbf{[Verification Focus]} A student claims that $y = x^3/3 + \ln|x| + 2x + 5$ solves $y' = x^2 + 1/x + 2$ with $y(1) = 5 + 7/3$. Verify or disprove this claim.
+
+\item \textbf{[Domain Awareness]} Solve $y' = \frac{1}{x\ln(x)}$ for $x > 1$ with $y(e) = 0$. State the domain of your solution.
+
+\item \textbf{[Integration Challenge]} Find all functions $y(x)$ such that $y''' = y$ and $y(0) = y'(0) = y''(0) = 0$.
+
+\item \textbf{[Prof. Ditkowski Comprehensive]}
+    Consider the ODE: $\frac{d^2y}{dx^2} = \frac{2}{(1+x^2)^2}$
+    \begin{enumerate}
+        \item Show that $y' = \frac{x}{1+x^2} + C_1$ is the first integral
+        \item Find the general solution
+        \item Find the solution satisfying $y(0) = 0$ and $\lim_{x \to \infty} y'(x) = 1$
+        \item Sketch the solution curve
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Answer Key with Essential Hints}
+
+\textbf{1.} Only (b) and (d) can be solved by direct integration
+
+\textbf{2.} $y = C_1x^3 + C_2x^2 + C_3x + C_4$ (cubic polynomial)
+
+\textbf{5.} Three initial conditions needed
+
+\textbf{7.} $y = x^3 - 2x^2 + x + C$
+
+\textbf{9.} $y = \frac{1}{2}e^{2x} - \frac{1}{3}\cos(3x) + C$
+
+\textbf{13.} $y = x^3 - x + 1$
+
+\textbf{14.} $y = 4x^3 + C_1x^2 + C_2x + C_3$
+
+\textbf{18.} $y = \frac{t^3}{3}$ (position function)
+
+\textbf{19.} $y = \frac{x^3}{3} - \frac{1}{3} + 3 = \frac{x^3}{3} + \frac{8}{3}$
+
+\textbf{22.} $y(2) = \int_0^2 e^{-t^2}dt$ (cannot be expressed in elementary functions)
+
+\textbf{24.} Use integration by parts: $\int x\sin(x)dx = -x\cos(x) + \sin(x) + C$
+
+\textbf{26.} Max height at $t = 3$ seconds, height = 45 meters
+
+\textbf{28.} Solution: $y = \ln|\ln(x)|$, domain: $x > 1$, $x \neq e$
+
+\textbf{30.} First show that $\int \frac{2dx}{(1+x^2)^2} = \frac{x}{1+x^2} + C$ using substitution
+
+\end{document}

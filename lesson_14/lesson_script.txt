@@ -1,0 +1,43 @@
+Episode 14: Linear First-Order ODEs - The Standard Method
+
+Hey there! Welcome to Lesson 14, where we're diving into linear first-order ODEs - honestly, this is THE most important type of first-order equation you'll encounter. If you master this one method, you'll be able to solve about 40% of the problems on Prof. Ditkowski's exam. So let's really dig in here.
+
+Let me start with a real problem you might see. Imagine you have a tank with salty water, and fresh water is flowing in while the mixed water flows out. The salt concentration changes over time according to the equation dy/dt + (2/t)y = 5. This is a linear first-order ODE, and by the end of this lesson, solving it will feel completely natural.
+
+So basically, a linear first-order ODE has this standard form: y' + p(t)y = g(t). Here's the key insight - the y and y' terms appear linearly, meaning no y², no sin(y), no e^y - just plain y and y' with coefficients that might depend on t. The function p(t) is what we call the coefficient function, and g(t) is the forcing function or non-homogeneous term.
+
+Now, when g(t) = 0, we get y' + p(t)y = 0, which is called the homogeneous equation. This one's actually pretty easy to solve - just separate variables! We get dy/y = -p(t)dt, which integrates to ln|y| = -∫p(t)dt + C, giving us y = Ae^(-∫p(t)dt). Remember this formula - it's the homogeneous solution and it'll be crucial for everything we do next.
+
+But here's where things get interesting. When g(t) ≠ 0, separation of variables doesn't work anymore. So mathematicians developed this brilliant trick called the integrating factor method. The idea is to multiply the entire equation by a special function μ(t) that magically makes the left side become the derivative of a product.
+
+Let me show you the magic. We want to find μ(t) such that when we multiply our equation by it, we get μ(t)y' + μ(t)p(t)y = μ(t)g(t), and somehow the left side becomes d/dt[μ(t)y]. For this to work, we need μ(t)y' + μ(t)p(t)y = μ(t)y' + μ'(t)y. Comparing these, we see that μ'(t) = μ(t)p(t), which means μ'(t)/μ(t) = p(t).
+
+Integrating both sides, we get ln|μ(t)| = ∫p(t)dt, so μ(t) = e^(∫p(t)dt). Notice I dropped the absolute value and the constant - we only need one integrating factor, not a family of them, so we pick the simplest one.
+
+Here's the complete algorithm, and this is exactly how you should write it on the exam:
+
+Step 1: Write the equation in standard form y' + p(t)y = g(t). Watch out - sometimes you need to divide by the coefficient of y' first!
+
+Step 2: Compute the integrating factor μ(t) = e^(∫p(t)dt). Don't add a constant of integration here.
+
+Step 3: Multiply the entire equation by μ(t).
+
+Step 4: Recognize that the left side is now d/dt[μ(t)y].
+
+Step 5: Integrate both sides: μ(t)y = ∫μ(t)g(t)dt + C.
+
+Step 6: Solve for y by dividing by μ(t).
+
+Let's work through our mixing problem: y' + (2/t)y = 5. First, we identify p(t) = 2/t, so μ(t) = e^(∫2/t dt) = e^(2ln|t|) = t². Multiplying by t²: t²y' + 2ty = 5t². The left side is d/dt[t²y], so integrating: t²y = (5t³)/3 + C. Therefore, y = 5t/3 + C/t².
+
+Now here's a common mistake - students often mess up the integration when finding μ(t). Remember, ∫1/t dt = ln|t|, not just ln(t). But when we exponentiate, e^(ln|t|) = |t|, and we usually just write t if we're working where t > 0.
+
+Let me give you another example with a trickier p(t). Consider y' - (tan t)y = sec t. Here p(t) = -tan t, so μ(t) = e^(-∫tan t dt) = e^(ln|cos t|) = cos t (assuming cos t > 0). Multiplying through: (cos t)y' - (sin t)y = 1. This is d/dt[(cos t)y] = 1, so (cos t)y = t + C, giving y = (t + C)/cos t = (t + C)sec t.
+
+A crucial exam tip: Prof. Ditkowski loves to give you initial conditions. If y(t₀) = y₀, solve for C using this condition AFTER you get the general solution. Don't try to incorporate it earlier - that's a recipe for errors.
+
+Also, watch for discontinuities! If p(t) or g(t) has a discontinuity at some point, your solution might only be valid on intervals where both are continuous. For instance, if p(t) = 1/t, your solution will have different forms for t > 0 and t < 0, and you can't generally connect them at t = 0.
+
+One more insight - the general solution always has the form y = y_h + y_p, where y_h is the homogeneous solution (with the arbitrary constant) and y_p is a particular solution. This is the superposition principle, and it's fundamental to all linear ODEs.
+
+To remember the integrating factor formula, think "e to the integral of p" - it rhymes! And always, always verify your solution by substituting back into the original equation. Prof. Ditkowski gives partial credit for verification even if your solution is wrong.

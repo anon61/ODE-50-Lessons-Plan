@@ -1,0 +1,208 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, mdframed}
+\usepackage{geometry, xcolor}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=2pt]{hint}
+\newtheorem{problem}{Problem}
+
+\title{Lesson 16: Practice Problems - Variation of Constants}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Variation of Constants (5 Problems)}
+
+\begin{problem}
+Solve $y' - 2y = e^{4t}$ using variation of constants.
+\end{problem}
+
+\begin{problem}
+Solve $y' + y = \sin(2t)$ using variation of constants.
+\end{problem}
+
+\begin{problem}
+Solve $y' + 3y = t^2$ using variation of constants.
+\end{problem}
+
+\begin{problem}
+Solve $y' - \frac{1}{t}y = t^3$ for $t > 0$ using variation of constants.
+\end{problem}
+
+\begin{problem}
+Solve $y' + 4y = e^{-4t}$ using variation of constants. Note the resonance!
+\end{problem}
+
+\section*{Part B: Non-Standard Forcing Functions (6 Problems)}
+
+\begin{problem}
+Solve $y' - y = e^t \ln(t)$ for $t > 0$.
+\end{problem}
+
+\begin{problem}
+Solve $y' + 2y = \frac{\sin(t)}{t}$ for $t > 0$.
+\end{problem}
+
+\begin{problem}
+Solve $y' + \frac{1}{t}y = \cos(\ln(t))$ for $t > 0$.
+\end{problem}
+
+\begin{problem}
+Solve $y' - 3y = e^{3t}t^2$ (resonance with polynomial).
+\end{problem}
+
+\begin{problem}
+Solve $y' + y = \frac{1}{1+e^t}$.
+\end{problem}
+
+\begin{problem}
+Solve $y' + ty = te^{-t^2/2}$.
+\end{problem}
+
+\section*{Part C: Initial Value Problems (5 Problems)}
+
+\begin{problem}
+Solve $y' - 2y = e^t$, $y(0) = 3$.
+\end{problem}
+
+\begin{problem}
+Solve $y' + \frac{2}{t}y = t^2$, $y(1) = 2$ for $t > 0$.
+\end{problem}
+
+\begin{problem}
+Solve $y' + 3y = e^{-3t}\cos(t)$, $y(0) = 0$.
+\end{problem}
+
+\begin{problem}
+Solve $y' - y = \frac{1}{1+e^{-t}}$, $y(0) = 1$.
+\end{problem}
+
+\begin{problem}
+Solve $y' + (\tan t)y = \sec t$, $y(0) = 1$ for $-\pi/2 < t < \pi/2$.
+\end{problem}
+
+\section*{Part D: Comparison with Other Methods (5 Problems)}
+
+\begin{problem}
+Solve $y' + 2y = 3e^{-2t}$ using:
+a) Integrating factor method
+b) Variation of constants
+c) Show the solutions are identical
+\end{problem}
+
+\begin{problem}
+For $y' - y = e^t$:
+a) Explain why undetermined coefficients fails
+b) Solve using variation of constants
+c) Interpret the resonance physically
+\end{problem}
+
+\begin{problem}
+Solve $y' + p(t)y = g(t)$ where:
+\[p(t) = \begin{cases} 1 & 0 \leq t < 1 \\ 2 & t \geq 1 \end{cases}, \quad g(t) = 1\]
+Use variation of constants on each interval.
+\end{problem}
+
+\begin{problem}
+Show that for $y' + p(t)y = g(t)$, the variation of constants formula and integrating factor formula give the same result.
+\end{problem}
+
+\begin{problem}
+Solve $ty' - y = t^2e^t$ for $t > 0$:
+a) First convert to standard form
+b) Apply variation of constants
+c) Verify the solution
+\end{problem}
+
+\section*{Part E: Theoretical Problems (4 Problems)}
+
+\begin{problem}
+Prove that if $y_1$ and $y_2$ are solutions to $y' + p(t)y = g_1(t)$ and $y' + p(t)y = g_2(t)$ respectively, then $y_1 + y_2$ solves $y' + p(t)y = g_1(t) + g_2(t)$.
+\end{problem}
+
+\begin{problem}
+Show that the variation of constants formula:
+\[y_p = y_h(t) \int \frac{g(t)}{y_h(t)}dt\]
+can be written as:
+\[y_p(t) = \int_{t_0}^t \frac{y_h(t)}{y_h(s)} g(s) ds\]
+Interpret this as a Green's function representation.
+\end{problem}
+
+\begin{problem}
+Prove that for the equation $y' + p(t)y = g(t)$, if $p(t)$ and $g(t)$ are continuous on $[a,b]$, then the solution exists and is unique on the entire interval.
+\end{problem}
+
+\begin{problem}
+Derive the variation of constants formula starting from the integrating factor approach. Show all steps.
+\end{problem}
+
+\section*{Part F: Exam-Style Problems (5 Problems)}
+
+\begin{problem}[15 points]
+Consider the equation $y' + \frac{2t}{1+t^2}y = \frac{1}{1+t^2}$.
+\begin{enumerate}
+    \item Find the homogeneous solution
+    \item Use variation of constants to find the general solution
+    \item Find the solution satisfying $y(0) = 1$
+    \item Determine the behavior as $t \to \infty$
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[20 points]
+The current $i(t)$ in an RL circuit satisfies:
+\[L\frac{di}{dt} + Ri = V(t)\]
+where $L = 1$ H, $R = 2$ $\Omega$, and $V(t) = 10e^{-2t}\sin(3t)$ V.
+\begin{enumerate}
+    \item Convert to standard form
+    \item Find the steady-state current using variation of constants
+    \item If $i(0) = 0$, find the complete solution
+    \item Identify transient and steady-state components
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[15 points]
+For the equation $y' - \frac{n}{t}y = t^m$ where $n, m$ are constants and $t > 0$:
+\begin{enumerate}
+    \item Find the general solution using variation of constants
+    \item For what values of $n$ and $m$ does the solution remain bounded as $t \to \infty$?
+    \item Find the particular solution that remains finite at $t = 0$ when possible
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[20 points]
+Consider $y' + y = f(t)$ where:
+\[f(t) = \begin{cases}
+1 & 0 \leq t < \pi \\
+\sin(t) & t \geq \pi
+\end{cases}\]
+\begin{enumerate}
+    \item Solve on $[0, \pi)$ with $y(0) = 0$
+    \item Use continuity at $t = \pi$ to find initial condition for $t \geq \pi$
+    \item Solve on $[\pi, \infty)$
+    \item Sketch the solution
+\end{enumerate}
+\end{problem}
+
+\begin{problem}[15 points - Theoretical]
+\begin{enumerate}
+    \item State the variation of constants formula for $y' + p(t)y = g(t)$
+    \item Prove that this formula gives a particular solution
+    \item Show that if $g(t) = g_1(t) + g_2(t)$, then $y_p = y_{p1} + y_{p2}$
+    \item Explain why variation of constants works for any continuous $g(t)$
+\end{enumerate}
+\end{problem}
+
+\begin{hint}
+\textbf{Solution Hints:}
+\begin{itemize}
+    \item Problem 5: Resonance occurs when forcing matches natural frequency
+    \item Problem 10: Use substitution $u = 1 + e^t$
+    \item Problem 11: The coefficient $t$ suggests $y_h = Ce^{-t^2/2}$
+    \item Problem 20: Convert using $p(t) = 2t/(1+t^2)$, notice $\int p(t)dt = \ln(1+t^2)$
+    \item Problem 24: Use piecewise approach with continuity condition
+\end{itemize}
+\end{hint}
+
+\end{document}

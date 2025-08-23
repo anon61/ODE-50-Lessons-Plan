@@ -1,0 +1,196 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{formula}
+
+\title{Lesson 16: Variation of Constants for First-Order ODEs}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+\maketitle
+
+\section{Introduction and Motivation}
+
+\begin{definition}[Variation of Constants Method]
+For the linear first-order ODE
+\[y' + p(t)y = g(t)\]
+the method of variation of constants seeks a particular solution by allowing the constant in the homogeneous solution to vary with time.
+\end{definition}
+
+\begin{keypoint}
+The variation of constants method works for ANY continuous forcing function $g(t)$, unlike undetermined coefficients which requires specific forms.
+\end{keypoint}
+
+\section{Theoretical Development}
+
+\subsection{The Fundamental Idea}
+
+\begin{theorem}[Variation of Constants Formula]
+Given the linear ODE $y' + p(t)y = g(t)$ with homogeneous solution $y_h = Ce^{-\int p(t)dt}$, a particular solution is:
+\[y_p = y_h(t) \int \frac{g(t)}{y_h(t)} dt\]
+\end{theorem}
+
+\begin{proof}
+Assume $y = C(t) \cdot y_h(t)$ where $y_h$ solves $y_h' + p(t)y_h = 0$.
+
+Differentiating:
+\[y' = C'(t)y_h(t) + C(t)y_h'(t)\]
+
+Substituting into the original equation:
+\[C'(t)y_h(t) + C(t)y_h'(t) + p(t)C(t)y_h(t) = g(t)\]
+
+Since $y_h' + p(t)y_h = 0$, we have $y_h' = -p(t)y_h$:
+\[C'(t)y_h(t) + C(t)(-p(t)y_h(t)) + p(t)C(t)y_h(t) = g(t)\]
+\[C'(t)y_h(t) = g(t)\]
+
+Therefore:
+\[C'(t) = \frac{g(t)}{y_h(t)}\]
+\[C(t) = \int \frac{g(t)}{y_h(t)} dt + K\]
+
+The general solution is:
+\[y = y_h(t) \left(\int \frac{g(t)}{y_h(t)} dt + K\right) = y_p + Ky_h\]
+\end{proof}
+
+\subsection{Connection to Integrating Factor}
+
+\begin{insight}
+The variation of constants formula is equivalent to the integrating factor method:
+\[\mu(t) = e^{\int p(t)dt}, \quad y_h = \frac{C}{\mu(t)}\]
+\[y_p = \frac{1}{\mu(t)} \int \mu(t)g(t)dt\]
+\end{insight}
+
+\section{Solution Algorithm}
+
+\begin{method}[Step-by-Step Procedure]
+\begin{enumerate}
+    \item \textbf{Identify} the equation in standard form: $y' + p(t)y = g(t)$
+    \item \textbf{Solve} the homogeneous equation: $y_h = Ce^{-\int p(t)dt}$
+    \item \textbf{Set up} the variation: $y = C(t) \cdot y_h(t)$
+    \item \textbf{Differentiate} and substitute to find: $C'(t) = \frac{g(t)}{y_h(t)}$
+    \item \textbf{Integrate} to find $C(t)$: $C(t) = \int \frac{g(t)}{y_h(t)}dt + K$
+    \item \textbf{Construct} the general solution: $y = C(t) \cdot y_h(t)$
+    \item \textbf{Apply} initial conditions if given
+\end{enumerate}
+\end{method}
+
+\section{Worked Examples}
+
+\begin{example}[Exponential Forcing]
+Solve $y' - 3y = e^{5t}$ with $y(0) = 2$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Homogeneous solution: $y_h = Ce^{3t}$
+    \item Variation setup: $y = C(t)e^{3t}$
+    \item Finding $C'(t)$:
+    \[C'(t)e^{3t} = e^{5t} \Rightarrow C'(t) = e^{2t}\]
+    \item Integrating:
+    \[C(t) = \frac{1}{2}e^{2t} + K\]
+    \item General solution:
+    \[y = \left(\frac{1}{2}e^{2t} + K\right)e^{3t} = \frac{1}{2}e^{5t} + Ke^{3t}\]
+    \item Apply initial condition:
+    \[2 = \frac{1}{2} + K \Rightarrow K = \frac{3}{2}\]
+    \item Final solution:
+    \[y = \frac{1}{2}e^{5t} + \frac{3}{2}e^{3t}\]
+\end{enumerate}
+\end{example}
+
+\begin{example}[Non-Standard Forcing]
+Solve $y' + \frac{2}{t}y = t\ln(t)$ for $t > 0$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Homogeneous solution: $y_h = \frac{C}{t^2}$
+    \item Variation: $y = \frac{C(t)}{t^2}$
+    \item Finding $C'(t)$:
+    \[\frac{C'(t)}{t^2} = t\ln(t) \Rightarrow C'(t) = t^3\ln(t)\]
+    \item Integration by parts:
+    \[C(t) = \int t^3\ln(t)dt = \frac{t^4\ln(t)}{4} - \frac{t^4}{16} + K\]
+    \item General solution:
+    \[y = \frac{t^2\ln(t)}{4} - \frac{t^2}{16} + \frac{K}{t^2}\]
+\end{enumerate}
+\end{example}
+
+\section{Advantages and Applications}
+
+\begin{keypoint}
+\textbf{Advantages over Undetermined Coefficients:}
+\begin{itemize}
+    \item Works for any continuous $g(t)$
+    \item No need to guess solution form
+    \item Systematic procedure always succeeds
+    \item Extends naturally to higher-order equations
+    \item Provides Green's function interpretation
+\end{itemize}
+\end{keypoint}
+
+\begin{warning}
+\textbf{Common Errors:}
+\begin{itemize}
+    \item Incorrect homogeneous solution
+    \item Forgetting to simplify before integration
+    \item Missing the constant of integration
+    \item Not including full general solution
+    \item Sign errors in exponential arguments
+\end{itemize}
+\end{warning}
+
+\section{Physical Interpretation}
+
+\begin{insight}
+The variation of constants represents:
+\begin{itemize}
+    \item \textbf{RC Circuit:} Time-varying charge accumulation
+    \item \textbf{Population Model:} Variable immigration/emigration
+    \item \textbf{Heat Transfer:} Time-dependent source term
+    \item \textbf{Mechanical System:} External forcing modulation
+\end{itemize}
+
+The integral $\int \frac{g(t)}{y_h(t)}dt$ accumulates the forcing effect, weighted inversely by the system's natural response.
+\end{insight}
+
+\section{Connection to Green's Functions}
+
+\begin{definition}[Green's Function Preview]
+The solution can be written as:
+\[y(t) = y_h(t)y(t_0)/y_h(t_0) + \int_{t_0}^t G(t,s)g(s)ds\]
+where $G(t,s) = y_h(t)/y_h(s)$ for $s \leq t$ is the Green's function.
+\end{definition}
+
+\section{Exam Strategy}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Focus:}
+\begin{enumerate}
+    \item Always show the homogeneous solution first
+    \item Explicitly write $C'(t) = g(t)/y_h(t)$
+    \item Simplify integrands before integrating
+    \item State the general solution as $y = y_p + y_h$
+    \item Verify solution by substitution if time permits
+    \item Use variation for non-standard forcing functions
+\end{enumerate}
+\end{examtip}
+
+\begin{formula}
+\textbf{Key Formulas to Memorize:}
+\begin{align}
+y_h &= Ce^{-\int p(t)dt} \\
+C'(t) &= \frac{g(t)}{y_h(t)} \\
+y_p &= y_h(t) \int \frac{g(t)}{y_h(t)}dt \\
+y &= y_p + Cy_h
+\end{align}
+\end{formula}
+
+\end{document}

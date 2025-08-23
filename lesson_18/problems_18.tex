@@ -1,0 +1,217 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 18: Practice Problems - Bernoulli Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (5 problems)}
+
+\begin{enumerate}
+    \item Identify which equations are Bernoulli and determine $p(x)$, $q(x)$, and $n$:
+    \begin{enumerate}
+        \item $y' + xy = xy^3$
+        \item $xy' - 2y = x^3\sqrt{y}$
+        \item $y' + y^2 = x$
+        \item $\frac{dy}{dx} = y(1 - y)$
+        \item $ty' + 2ty = t^3y^{-1}$
+    \end{enumerate}
+
+    \item Show that the equation $y' = ay + by^2 + c$ can be transformed into Bernoulli form only if $c = 0$.
+
+    \item Prove that if $y_1$ is a solution to the Bernoulli equation with $n = 2$, then $y_2 = y_1/(1 + Cy_1)$ is also a solution for any constant $C$.
+
+    \item Transform each equation to standard Bernoulli form:
+    \begin{enumerate}
+        \item $x^2y' = xy + y^3$
+        \item $\frac{dy}{dx} = \frac{y}{x} + x^2y^{-2}$
+    \end{enumerate}
+
+    \item Determine the appropriate substitution $v$ for each value of $n$:
+    \begin{enumerate}
+        \item $n = 3$
+        \item $n = 1/2$
+        \item $n = -1$
+        \item $n = 5/3$
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Basic Substitution Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve: $y' - y = -y^2$
+
+    \item Find the general solution: $\frac{dy}{dx} + \frac{y}{x} = x^2y^2$
+
+    \item Solve the IVP: $y' + 2y = y^3e^{-2x}$, $y(0) = 1$
+
+    \item Solve: $xy' + y = x^2y^4$
+
+    \item Find all solutions: $\frac{dy}{dt} = 2ty - y^3$
+
+    \item Solve: $y' - \frac{3y}{x} = \frac{x^2}{y^2}$ (Hint: $n = -2$)
+\end{enumerate}
+
+\section*{Part C: Complete Solution Process (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve and verify: $(1 + x^2)y' + 2xy = (1 + x^2)^2y^3$
+
+    \item Find the solution satisfying $y(1) = 2$:
+    $$xy' - y = x^3y^{1/2}$$
+
+    \item Solve the logistic equation with harvesting:
+    $$\frac{dP}{dt} = P(2 - P) - h$$
+    where $h$ is a constant harvesting rate.
+
+    \item Solve: $2xy' + y = xy^{-1}$
+
+    \item Find the general solution:
+    $$\cos x \cdot y' + y\sin x = y^2\cos^3 x$$
+\end{enumerate}
+
+\section*{Part D: Tricky Cases and Variations (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve the generalized logistic equation:
+    $$\frac{dy}{dt} = ry^{\alpha}\left(1 - \left(\frac{y}{K}\right)^{\beta}\right)$$
+    where $\alpha = 1$ and $\beta = 1$.
+
+    \item Transform and solve:
+    $$y' = \frac{1}{x}(y - x^2y^3)$$
+
+    \item Find all solutions including singular ones:
+    $$y' + p(x)y = q(x)y^2$$
+    where $p(x) = 2/x$ and $q(x) = 1/x^2$.
+
+    \item Solve the Bernoulli equation with periodic coefficient:
+    $$y' + \sin x \cdot y = \cos x \cdot y^2$$
+
+    \item Consider the equation $y' = y^2 - 2xy^{3/2} + x^2y$.
+    \begin{enumerate}
+        \item Show this can be written in Bernoulli form
+        \item Find the appropriate substitution
+        \item Solve the equation
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Mixed Recognition Challenge (4 problems)}
+
+\begin{enumerate}[resume]
+    \item Classify each equation and solve only the Bernoulli ones:
+    \begin{enumerate}
+        \item $y' + y/x = y^2\ln x$
+        \item $y' + y = e^x$
+        \item $xy' = y + x^2y^{-1}$
+        \item $y' + y\tan x = \sin x$
+    \end{enumerate}
+
+    \item Show that the Riccati equation $y' = q_0(x) + q_1(x)y + q_2(x)y^2$ becomes Bernoulli if one particular solution $y_p$ is known.
+
+    \item Prove that every autonomous Bernoulli equation $y' = ay + by^n$ can be solved by separation of variables.
+
+    \item Find conditions on $f(x)$ such that $y' + f(x)y = f(x)y^n$ has polynomial solutions.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Complete Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item \textbf{[Prof. Ditkowski Style]}
+    Consider the equation: $xy' - 2y = x^4y^{1/2}$
+    \begin{enumerate}
+        \item Identify the type of equation and write in standard form
+        \item State the appropriate substitution
+        \item Transform to a linear equation
+        \item Solve the linear equation
+        \item Find the general solution in terms of $y$
+        \item Find the particular solution with $y(1) = 4$
+    \end{enumerate}
+
+    \item \textbf{[Application Problem]}
+    A population model with Allee effect is given by:
+    $$\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right)\left(\frac{P}{A} - 1\right)$$
+    where $0 < A < K$.
+    \begin{enumerate}
+        \item Show this is not in Bernoulli form
+        \item Find equilibrium points
+        \item Analyze stability of equilibria
+        \item Sketch solution curves
+    \end{enumerate}
+
+    \item \textbf{[Comprehensive Problem]}
+    For the equation $y' + \frac{n}{x}y = x^{n}y^{1-n}$ where $n$ is a positive integer:
+    \begin{enumerate}
+        \item Verify this is Bernoulli
+        \item Show that $y = x^n$ is a solution
+        \item Find the general solution
+        \item Discuss the behavior as $x \to 0^+$ and $x \to \infty$
+    \end{enumerate}
+
+    \item \textbf{[Theory and Computation]}
+    Consider $y' - \frac{y}{x} = x^{\alpha}y^{\beta}$
+    \begin{enumerate}
+        \item For what values of $\alpha$ and $\beta$ is this Bernoulli?
+        \item Solve for $\alpha = 2$, $\beta = 2$
+        \item Find conditions on $\alpha$ and $\beta$ for bounded solutions
+    \end{enumerate}
+
+    \item \textbf{[Chemical Reaction Model]}
+    The reaction rate equation:
+    $$\frac{dc}{dt} = -kc^2 + \frac{k'}{V}$$
+    where $c$ is concentration, $V$ is volume, and $k, k'$ are rate constants.
+    \begin{enumerate}
+        \item Show this is Bernoulli with $n = 2$
+        \item Solve with $c(0) = c_0$
+        \item Find the steady-state concentration
+        \item Determine conditions for finite-time blow-up
+    \end{enumerate}
+
+    \item \textbf{[Challenge Problem]}
+    The generalized Bernoulli equation:
+    $$y' + p(x)y = q(x)y^n + r(x)y^m$$
+    \begin{enumerate}
+        \item Show that if $m = 2n - 1$, a single substitution reduces this to linear form
+        \item Solve the special case: $y' - y = y^2 - y^3$
+        \item Discuss the connection to Riccati equations
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1(a):} Bernoulli with $p(x) = x$, $q(x) = x$, $n = 3$.
+
+\textbf{Problem 6:} $n = 2$, so $v = y^{-1}$. After substitution: $v' + v = -1$.
+Solution: $v = -1 + Ce^{-x}$, thus $y = \frac{1}{-1 + Ce^{-x}}$.
+
+\textbf{Problem 7:} With $n = 2$, use $v = y^{-1}$. The transformed equation is $v' - v/x = -x^2$.
+Integrating factor: $\mu = e^{\int -1/x \, dx} = 1/x$.
+Solution: $v = x(x^2/4 + C)$, so $y = \frac{1}{x(x^2/4 + C)}$.
+
+\textbf{Problem 11:} Use $v = y^{1/2}$. The transformed equation becomes:
+$v' + \frac{v}{2x} = \frac{x^2}{2}$. Solution involves $v = x^2 + Cx^{-1/2}$.
+
+\textbf{Problem 25:} Standard form: $y' - \frac{2y}{x} = x^3y^{1/2}$.
+Here $n = 1/2$, so $v = y^{1/2}$. Transformed: $v' - \frac{v}{x} = \frac{x^3}{2}$.
+
+\textbf{Key Formulas:}
+\begin{itemize}
+    \item Bernoulli: $y' + p(x)y = q(x)y^n$
+    \item Substitution: $v = y^{1-n}$
+    \item Linear form: $v' + (1-n)p(x)v = (1-n)q(x)$
+    \item Special case $n = 2$: Logistic-type equations
+\end{itemize}
+
+\textbf{Common Integration Results:}
+\begin{itemize}
+    \item $\int xe^x dx = (x-1)e^x + C$
+    \item $\int x^ne^{ax} dx$ requires integration by parts
+    \item $\int \frac{1}{x^2 + a^2} dx = \frac{1}{a}\arctan(x/a) + C$
+\end{itemize}
+
+\end{document}

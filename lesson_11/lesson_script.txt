@@ -1,0 +1,67 @@
+Episode 11: Direct Integration - The Simplest ODEs
+
+Hey there! So basically, today we're starting with the absolute simplest ODEs you can imagine - the ones where you just... integrate! Sounds too easy? Well, here's the key insight: these "simple" problems are the building blocks for EVERYTHING else, and Prof. Ditkowski will definitely test whether you handle them correctly. Miss a +C here, and you're losing easy points!
+
+Let me show you what I mean. When you see an ODE like dy/dx = f(x), where the right side is just a function of x alone - no y's anywhere - that's direct integration territory! You literally just integrate both sides. But here's where students mess up immediately: they forget that y is a FUNCTION of x, not just a variable.
+
+Let's do a concrete example. Say dy/dx = x² + sin(x). To solve this, we integrate both sides with respect to x:
+∫(dy/dx)dx = ∫(x² + sin(x))dx
+
+The left side becomes just y (since ∫(dy/dx)dx = y), and the right side becomes x³/3 - cos(x) + C. So our general solution is:
+y = x³/3 - cos(x) + C
+
+Now here's the first Pro Ditkowski tip: ALWAYS write +C immediately! Don't wait until the end. Write it the second you do an indefinite integral. I've seen so many students lose points because they forgot to add it at the end. Make it automatic!
+
+But wait, what if we have initial conditions? Say y(0) = 2. Here's where the magic happens. Substitute x = 0 and y = 2:
+2 = 0³/3 - cos(0) + C
+2 = 0 - 1 + C
+C = 3
+
+So our particular solution is y = x³/3 - cos(x) + 3.
+
+Now let's level up! What about higher-order direct integration? Say you have y'' = 6x. This means d²y/dx² = 6x. We integrate once:
+dy/dx = ∫6x dx = 3x² + C₁
+
+See that? C₁, not just C! Because we're going to integrate again:
+y = ∫(3x² + C₁)dx = x³ + C₁x + C₂
+
+Two integrations, two constants! This is CRUCIAL for the exam. If you have a second-order equation, you need TWO arbitrary constants in your general solution.
+
+Here's where students really struggle - handling multiple initial conditions. Say we have y'' = 6x with y(0) = 1 and y'(0) = -2. Watch this systematic approach:
+
+First, integrate to get y' = 3x² + C₁
+Use y'(0) = -2: -2 = 3(0)² + C₁, so C₁ = -2
+Now y' = 3x² - 2
+
+Second, integrate again: y = x³ - 2x + C₂
+Use y(0) = 1: 1 = 0³ - 2(0) + C₂, so C₂ = 1
+Final answer: y = x³ - 2x + 1
+
+Memory device: "Orders match constants" - nth order equation needs n constants!
+
+Let's talk about a sneaky exam trick. Sometimes Prof. Ditkowski gives you y⁽ⁿ⁾ = 0. Students panic! But think about it - if the nth derivative is zero, what's the (n-1)th derivative? A constant! Keep going:
+- y''' = 0
+- y'' = C₁
+- y' = C₁x + C₂
+- y = C₁x²/2 + C₂x + C₃
+
+That's a quadratic! The general solution when y⁽ⁿ⁾ = 0 is always a polynomial of degree n-1.
+
+Here's another exam favorite - definite integral approach. Instead of finding C and then substituting, you can directly write:
+If dy/dx = f(x) and y(x₀) = y₀, then:
+y(x) = y₀ + ∫[from x₀ to x] f(t)dt
+
+This is super elegant and Prof. Ditkowski loves it! Example: dy/dx = e^x with y(0) = 3:
+y(x) = 3 + ∫[from 0 to x] e^t dt = 3 + [e^t][from 0 to x] = 3 + e^x - e^0 = 2 + e^x
+
+Common mistake alert! When you have something like dy/dx = 1/x, don't write y = ln(x) + C. It's y = ln|x| + C! The absolute value matters because ln(x) isn't defined for negative x. Prof. Ditkowski will definitely test this!
+
+Physical interpretation is huge too. If y is position, then y' is velocity and y'' is acceleration. So y'' = -g (constant gravity) gives:
+- y' = -gt + v₀ (velocity with initial velocity v₀)
+- y = -gt²/2 + v₀t + y₀ (position)
+
+Those constants? They're your initial velocity and position! Physics gives meaning to the math.
+
+One more killer tip: ALWAYS verify your solution! Substitute back into the original equation. If dy/dx = x² and you got y = x³/3 + C, check: dy/dx = d/dx(x³/3 + C) = x². ✓ It works! This verification can save you from silly errors and sometimes gets you partial credit even if your answer is wrong.
+
+The absolute key takeaway? Direct integration looks simple, but it's the foundation for everything. Master these patterns: recognize when only x appears on the right side, integrate carefully (watching for absolute values and domains), always include integration constants, handle initial conditions systematically, and VERIFY your solution. Get these basics rock-solid, and you've secured the easy points on Prof. Ditkowski's exam!

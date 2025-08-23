@@ -1,0 +1,46 @@
+Episode 18: Bernoulli Equations - The Power Transform
+
+Welcome to Lesson 18! Today we're tackling Bernoulli equations - one of the most elegant transformations in differential equations. These equations look impossible at first, but with one clever substitution, they become completely solvable.
+
+So basically, a Bernoulli equation has this specific form: y' + p(x)y = q(x)y^n. Notice how we have y to different powers? That's what makes it nonlinear and seemingly difficult. But here's the key insight - we can transform this nonlinear equation into a linear one with the right power substitution!
+
+Let me show you why this is so cool. When n = 0, the equation becomes y' + p(x)y = q(x), which is already linear - we solved these in Lesson 5! When n = 1, we get y' + p(x)y = q(x)y, which rearranges to y' = y(q(x) - p(x)), and that's separable! But for any other value of n, we need the Bernoulli trick.
+
+The magic substitution is v = y^(1-n). Why this specific power? Watch what happens when we differentiate. From v = y^(1-n), we get dv/dx = (1-n)y^(-n) · dy/dx. Now, solving for dy/dx: dy/dx = y^n/(1-n) · dv/dx.
+
+Here's where it gets beautiful. Substitute this into our original Bernoulli equation. We have y^n/(1-n) · dv/dx + p(x)y = q(x)y^n. Now multiply everything by (1-n)y^(-n). After some algebra - and trust me, you should work through this yourself - you get: dv/dx + (1-n)p(x)v = (1-n)q(x).
+
+Boom! That's a linear equation in v! We just turned a nonlinear nightmare into something we already know how to solve.
+
+Let's work through a complete example. Consider y' - y/x = x√y. First, identify that this is Bernoulli with p(x) = -1/x, q(x) = x, and n = 1/2.
+
+Using v = y^(1-1/2) = y^(1/2) = √y, we get y = v² and dy/dx = 2v · dv/dx. Substituting into the original equation: 2v · dv/dx - v²/x = x·v. Dividing by v (assuming v ≠ 0): 2 · dv/dx - v/x = x.
+
+Rearranging: dv/dx - v/(2x) = x/2. This is linear! Using the integrating factor μ = e^(-∫1/(2x)dx) = e^(-ln|x|/2) = 1/√|x|, we can solve it completely.
+
+Here's a trickier example that Prof. Ditkowski loves: the logistic equation y' = ay(1 - y/K). This doesn't look like Bernoulli at first, but expand it: y' = ay - (a/K)y². Rearranging: y' - ay = -(a/K)y². Now we see it's Bernoulli with p(x) = -a, q(x) = -a/K, and n = 2!
+
+Using v = y^(1-2) = y^(-1) = 1/y, the equation transforms to dv/dx + av = a/K. This linear equation has solution v = 1/K + Ce^(-ax), so y = K/(1 + CKe^(-ax)). That's the famous logistic curve!
+
+Common mistakes to avoid - these are exam killers:
+1. Wrong power in the substitution. Remember: v = y^(1-n), not y^n!
+2. Incorrect derivative computation. From v = y^(1-n), we get dv/dx = (1-n)y^(-n) · dy/dx.
+3. Sign errors when rearranging to standard form.
+4. Forgetting to check for singular solutions when dividing by y^n.
+5. Not recognizing disguised Bernoulli equations.
+
+Here's an exam strategy: First, rearrange your equation to match y' + p(x)y = q(x)y^n exactly. Identify n clearly - fractional and negative values are common! Write down the substitution v = y^(1-n) immediately, along with the derivative relation. Work through the transformation carefully - Prof. Ditkowski gives partial credit for correct setup.
+
+One insight that helps: Bernoulli equations often model real phenomena. Population growth with carrying capacity gives logistic equations (n = 2). Chemical reactions often lead to n = 2 or n = 3. Fluid dynamics problems frequently produce n = -1 or n = 1/2.
+
+Special cases to remember:
+- When n = 2, we get Riccati-type behavior
+- When n = -1, the substitution v = y² works nicely
+- Negative n values often appear in physics problems
+- Fractional n values come from root expressions
+
+The connection to Riccati is important for Prof. Ditkowski's course. Every Riccati equation y' = q₀(x) + q₁(x)y + q₂(x)y² can be viewed as a Bernoulli equation if you know one particular solution. This connection appears on exams!
+
+For computational efficiency, here's a pro tip: After identifying n, immediately write the transformed linear equation dv/dx + (1-n)p(x)v = (1-n)q(x) without going through all the intermediate steps. Just be careful with the algebra!
+
+Remember, Bernoulli equations are about recognizing the pattern and applying the mechanical transformation. Once you've practiced a dozen of these, you'll solve them almost automatically. The whole problem shouldn't take more than 8-10 minutes on an exam if you're well-prepared.

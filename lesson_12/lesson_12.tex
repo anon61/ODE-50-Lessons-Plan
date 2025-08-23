@@ -1,0 +1,204 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{Separable Equations: Complete Method and Analysis}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{Lesson 12}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Recognition}
+
+\begin{definition}[Separable Equation]
+A first-order ODE is \textbf{separable} if it can be written in the form:
+$$\frac{dy}{dx} = g(x)h(y)$$
+where $g(x)$ is a function of $x$ only and $h(y)$ is a function of $y$ only.
+\end{definition}
+
+\begin{keypoint}
+Alternative forms that are separable:
+\begin{itemize}
+    \item $M(x)N(y)dx + P(x)Q(y)dy = 0$
+    \item $\frac{dy}{dx} = \frac{f(x)}{g(y)}$
+    \item Autonomous: $\frac{dy}{dx} = f(y)$
+\end{itemize}
+\end{keypoint}
+
+\section{Solution Method}
+
+\begin{method}[Separation of Variables]
+\begin{enumerate}
+    \item Write in standard form: $\frac{dy}{dx} = g(x)h(y)$
+    \item Separate variables: $\frac{dy}{h(y)} = g(x)dx$ \quad (assuming $h(y) \neq 0$)
+    \item Integrate both sides: $\int \frac{dy}{h(y)} = \int g(x)dx$
+    \item Include integration constant: $H(y) = G(x) + C$
+    \item Solve for $y$ if possible (explicit solution)
+    \item Check for singular solutions where $h(y) = 0$
+\end{enumerate}
+\end{method}
+
+\begin{warning}
+Division by $h(y)$ loses solutions where $h(y) = 0$. These must be checked separately!
+\end{warning}
+
+\section{Complete Solution Structure}
+
+\begin{theorem}[General and Singular Solutions]
+For $\frac{dy}{dx} = g(x)h(y)$:
+\begin{itemize}
+    \item \textbf{General solution}: Obtained by separation (family of curves)
+    \item \textbf{Singular solutions}: Constants $y = c$ where $h(c) = 0$
+    \item \textbf{Complete solution}: Union of general and singular solutions
+\end{itemize}
+\end{theorem}
+
+\begin{example}[Finding All Solutions]
+Solve: $\frac{dy}{dx} = 2x(y^2 - 1)$
+
+\textbf{Step 1:} Separate (assuming $y^2 - 1 \neq 0$):
+$$\frac{dy}{y^2 - 1} = 2x\,dx$$
+
+\textbf{Step 2:} Use partial fractions:
+$$\frac{1}{y^2-1} = \frac{1}{2}\left(\frac{1}{y-1} - \frac{1}{y+1}\right)$$
+
+\textbf{Step 3:} Integrate:
+$$\frac{1}{2}\ln\left|\frac{y-1}{y+1}\right| = x^2 + C$$
+
+\textbf{Step 4:} General solution:
+$$\frac{y-1}{y+1} = Ae^{2x^2}$$ where $A = \pm e^{2C}$
+
+\textbf{Step 5:} Check $y^2 - 1 = 0$:
+\begin{itemize}
+    \item If $y = 1$: $\frac{dy}{dx} = 0 = 2x(1-1)$ \checkmark
+    \item If $y = -1$: $\frac{dy}{dx} = 0 = 2x(1-1)$ \checkmark
+\end{itemize}
+
+\textbf{Complete solution:} $\frac{y-1}{y+1} = Ae^{2x^2}$ and $y = \pm 1$
+\end{example}
+
+\section{Autonomous Equations}
+
+\begin{definition}[Autonomous Equation]
+An ODE $\frac{dy}{dx} = f(y)$ depending only on $y$ is \textbf{autonomous}.
+\end{definition}
+
+\begin{method}[Solving Autonomous Equations]
+For $\frac{dy}{dx} = f(y)$:
+\begin{enumerate}
+    \item Find equilibria: solve $f(y) = 0$
+    \item For non-equilibrium solutions: $\int \frac{dy}{f(y)} = \int dx = x + C$
+    \item This gives $x$ as a function of $y$ (inverse solution)
+    \item Invert if possible to get $y(x)$
+\end{enumerate}
+\end{method}
+
+\begin{insight}
+Autonomous equations have time-translation symmetry: if $y(x)$ is a solution, so is $y(x - x_0)$ for any constant $x_0$.
+\end{insight}
+
+\section{Common Integration Patterns}
+
+\subsection{Essential Integrals for Separable Equations}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Integral} & \textbf{Result} & \textbf{Notes} \\
+\hline
+$\int \frac{dy}{y}$ & $\ln|y| + C$ & $y \neq 0$ \\
+\hline
+$\int \frac{dy}{y^2}$ & $-\frac{1}{y} + C$ & $y \neq 0$ \\
+\hline
+$\int \frac{dy}{1-y^2}$ & $\frac{1}{2}\ln\left|\frac{1+y}{1-y}\right| + C$ & $|y| \neq 1$ \\
+\hline
+$\int \frac{dy}{1+y^2}$ & $\arctan(y) + C$ & All $y$ \\
+\hline
+$\int \frac{dy}{\sqrt{1-y^2}}$ & $\arcsin(y) + C$ & $|y| < 1$ \\
+\hline
+$\int \frac{dy}{y(1-y)}$ & $\ln\left|\frac{y}{1-y}\right| + C$ & $y \neq 0, 1$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Implicit Solutions}
+
+\begin{definition}[Implicit Solution]
+A relation $F(x,y) = C$ that cannot be solved explicitly for $y$ but satisfies the ODE.
+\end{definition}
+
+\begin{example}[Necessarily Implicit]
+For $\frac{dy}{dx} = \frac{-2xy}{x^2 + 2y^2}$:
+
+Separating gives: $x^2 + 2y^2 = C$ (circles and ellipses)
+
+Cannot solve explicitly for $y$ as a single-valued function.
+\end{example}
+
+\begin{examtip}
+Prof. Ditkowski accepts implicit solutions. Don't waste time trying to solve for $y$ if the algebra becomes messy!
+\end{examtip}
+
+\section{Existence and Uniqueness Issues}
+
+\begin{theorem}[Uniqueness Violation at Equilibria]
+For $\frac{dy}{dx} = f(y)$ with $f(y_0) = 0$:
+\begin{itemize}
+    \item The constant solution $y = y_0$ exists
+    \item Non-constant solutions may touch $y = y_0$
+    \item Uniqueness fails if $f'(y_0) = 0$
+\end{itemize}
+\end{theorem}
+
+\begin{example}[Non-unique Solution]
+$\frac{dy}{dx} = 2\sqrt{|y|}$ with $y(0) = 0$
+
+Solutions include:
+\begin{itemize}
+    \item $y = 0$ (singular)
+    \item $y = x^2$ for $x \geq 0$
+    \item $y = -x^2$ for $x \leq 0$
+    \item Combinations thereof
+\end{itemize}
+\end{example}
+
+\section{Solution Verification}
+
+\begin{method}[Verification Protocol]
+\begin{enumerate}
+    \item Differentiate the solution (implicit differentiation if needed)
+    \item Substitute into original ODE
+    \item Verify algebraic identity
+    \item Check initial conditions
+    \item Verify singular solutions separately
+    \item State domain of validity
+\end{enumerate}
+\end{method}
+
+\section{Common Errors}
+
+\begin{warning}
+Critical mistakes that cost points:
+\begin{enumerate}
+    \item Forgetting to check for singular solutions
+    \item Losing absolute value signs in logarithms
+    \item Incorrect partial fraction decomposition
+    \item Not including integration constant
+    \item Domain errors (e.g., $\ln(y)$ requires $y > 0$)
+    \item Sign errors when separating
+\end{enumerate}
+\end{warning}
+
+\end{document}

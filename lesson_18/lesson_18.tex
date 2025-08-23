@@ -1,0 +1,173 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{transformation}
+
+\title{Lesson 18: Bernoulli Differential Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Recognition}
+
+\begin{definition}[Bernoulli Equation]
+A Bernoulli differential equation has the form:
+$$\frac{dy}{dx} + p(x)y = q(x)y^n$$
+where $p(x)$ and $q(x)$ are continuous functions and $n \neq 0, 1$.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Why $n \neq 0, 1$?}
+\begin{itemize}
+    \item If $n = 0$: $y' + p(x)y = q(x)$ is already linear
+    \item If $n = 1$: $y' + p(x)y = q(x)y$ gives $y' = y(q(x) - p(x))$, which is separable
+    \item For all other $n$: The equation is genuinely nonlinear and requires the Bernoulli transformation
+\end{itemize}
+\end{keypoint}
+
+\section{The Bernoulli Transformation}
+
+\begin{transformation}
+\textbf{The Power Substitution Method:}
+\begin{enumerate}
+    \item Given: $\frac{dy}{dx} + p(x)y = q(x)y^n$ with $n \neq 0, 1$
+    \item Substitute: $v = y^{1-n}$
+    \item Then: $y = v^{\frac{1}{1-n}}$ and $\frac{dy}{dx} = \frac{1}{1-n}v^{\frac{n}{1-n}} \cdot \frac{dv}{dx}$
+    \item Alternatively: $\frac{dv}{dx} = (1-n)y^{-n} \cdot \frac{dy}{dx}$
+    \item The transformed equation becomes:
+    $$\frac{dv}{dx} + (1-n)p(x)v = (1-n)q(x)$$
+    \item This is linear in $v$! Solve using integrating factor method
+    \item Back-substitute: $y = v^{\frac{1}{1-n}}$
+\end{enumerate}
+\end{transformation}
+
+\begin{warning}
+\textbf{Critical Algebraic Steps:}
+Starting from $v = y^{1-n}$:
+\begin{align}
+\frac{dv}{dx} &= (1-n)y^{-n} \frac{dy}{dx} \\
+\frac{dy}{dx} &= \frac{y^n}{1-n} \frac{dv}{dx} \\
+\end{align}
+Substituting into the original equation and multiplying by $(1-n)y^{-n}$ gives the linear form.
+\end{warning}
+
+\section{Detailed Derivation}
+
+\begin{theorem}[Bernoulli to Linear Transformation]
+The substitution $v = y^{1-n}$ transforms the Bernoulli equation into a linear equation.
+
+\textbf{Proof:}
+\begin{align}
+\text{Given: } & y' + p(x)y = q(x)y^n \\
+\text{Let: } & v = y^{1-n} \\
+\text{Then: } & \frac{dv}{dx} = (1-n)y^{-n}\frac{dy}{dx} \\
+\text{So: } & \frac{dy}{dx} = \frac{y^n}{1-n}\frac{dv}{dx} \\
+\text{Substitute: } & \frac{y^n}{1-n}\frac{dv}{dx} + p(x)y = q(x)y^n \\
+\text{Multiply by } \frac{1-n}{y^n}: & \frac{dv}{dx} + (1-n)p(x)y^{1-n} = (1-n)q(x) \\
+\text{Since } v = y^{1-n}: & \frac{dv}{dx} + (1-n)p(x)v = (1-n)q(x) \quad \square
+\end{align}
+\end{theorem}
+
+\section{Standard Examples}
+
+\begin{example}[Basic Bernoulli]
+Solve: $y' + \frac{2y}{x} = x^2y^3$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Identify: $p(x) = \frac{2}{x}$, $q(x) = x^2$, $n = 3$
+    \item Substitute: $v = y^{1-3} = y^{-2}$
+    \item Transform: $\frac{dv}{dx} + (1-3)\frac{2v}{x} = (1-3)x^2$
+    \item Simplify: $\frac{dv}{dx} - \frac{4v}{x} = -2x^2$
+    \item Integrating factor: $\mu = e^{\int 4/x \, dx} = x^4$
+    \item Multiply: $x^4\frac{dv}{dx} - 4x^3v = -2x^6$
+    \item Integrate: $x^4v = -\frac{2x^7}{7} + C$
+    \item Solve for $v$: $v = -\frac{2x^3}{7} + \frac{C}{x^4}$
+    \item Back-substitute: $y^{-2} = -\frac{2x^3}{7} + \frac{C}{x^4}$
+    \item Final: $y = \pm\left(-\frac{2x^3}{7} + \frac{C}{x^4}\right)^{-1/2}$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Logistic Equation]
+Solve: $\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right)$ where $r, K > 0$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Expand: $\frac{dP}{dt} = rP - \frac{r}{K}P^2$
+    \item Rearrange: $\frac{dP}{dt} - rP = -\frac{r}{K}P^2$ (Bernoulli with $n = 2$)
+    \item Substitute: $v = P^{1-2} = P^{-1} = \frac{1}{P}$
+    \item Transform: $\frac{dv}{dt} + rv = \frac{r}{K}$
+    \item Solve linear equation: $v = \frac{1}{K} + Ce^{-rt}$
+    \item Back-substitute: $P = \frac{1}{v} = \frac{K}{1 + CKe^{-rt}}$
+    \item With initial condition $P(0) = P_0$: $P(t) = \frac{K}{1 + \left(\frac{K - P_0}{P_0}\right)e^{-rt}}$
+\end{enumerate}
+\end{example}
+
+\section{Special Cases and Variations}
+
+\begin{insight}
+\textbf{Common Values of $n$ and Their Applications:}
+\begin{center}
+\begin{tabular}{|c|l|l|}
+\hline
+$n$ & Application & Substitution \\
+\hline
+$2$ & Logistic growth, Riccati connection & $v = y^{-1}$ \\
+$3$ & Certain chemical reactions & $v = y^{-2}$ \\
+$1/2$ & Fluid dynamics, heat transfer & $v = y^{1/2}$ \\
+$-1$ & Inverse relationships & $v = y^2$ \\
+$-2$ & Gravitational problems & $v = y^3$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{insight}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Patterns:}
+\begin{itemize}
+    \item Often disguises Bernoulli equations - practice recognition
+    \item Likes fractional powers: $n = 1/2, 3/2, -1/2$
+    \item May combine with initial conditions
+    \item Tests the connection to logistic growth
+    \item Sometimes asks for qualitative behavior without full solution
+    \item Partial credit for correct substitution identification
+\end{itemize}
+\end{examtip}
+
+\section{Recognition Flowchart}
+
+The key steps for recognizing and solving Bernoulli equations:
+
+\begin{enumerate}
+\item Check if the equation has form $y' + p(x)y = q(x)y^n$
+\item If $n = 0$: Linear equation, use integrating factor
+\item If $n = 1$: Separable equation
+\item Otherwise: Apply Bernoulli substitution $v = y^{1-n}$
+\end{enumerate}
+
+\section{Solution Quality Check}
+
+\begin{keypoint}
+\textbf{Verification Steps:}
+\begin{enumerate}
+    \item Check that your transformed equation is truly linear
+    \item Verify the integrating factor calculation
+    \item Ensure back-substitution is algebraically correct
+    \item Test with initial conditions if given
+    \item Check for lost solutions when $y = 0$
+\end{enumerate}
+\end{keypoint}
+
+\end{document}

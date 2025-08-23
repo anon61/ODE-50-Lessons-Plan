@@ -1,0 +1,244 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{Implicit Solutions and Singular Solutions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{Lesson 13}
+
+\begin{document}
+\maketitle
+
+\section{Implicit Solutions}
+
+\begin{definition}[Implicit Solution]
+An \textbf{implicit solution} of the ODE $\frac{dy}{dx} = f(x,y)$ is a relation $F(x,y) = C$ that:
+\begin{enumerate}
+    \item Defines $y$ as a function of $x$ (possibly multi-valued)
+    \item Satisfies the ODE when differentiated implicitly
+\end{enumerate}
+\end{definition}
+
+\begin{method}[Verifying Implicit Solutions]
+Given $F(x,y) = C$ and ODE $\frac{dy}{dx} = f(x,y)$:
+\begin{enumerate}
+    \item Differentiate $F(x,y) = C$ implicitly: $\frac{\partial F}{\partial x} + \frac{\partial F}{\partial y}\frac{dy}{dx} = 0$
+    \item Solve for $\frac{dy}{dx}$: $\frac{dy}{dx} = -\frac{\partial F/\partial x}{\partial F/\partial y}$
+    \item Verify this equals $f(x,y)$
+\end{enumerate}
+\end{method}
+
+\begin{example}[Implicit Verification]
+Verify that $x^2 + xy + y^2 = C$ solves some ODE and find it.
+
+\textbf{Solution:}
+Differentiating implicitly:
+$$2x + y + x\frac{dy}{dx} + 2y\frac{dy}{dx} = 0$$
+
+Solving for $\frac{dy}{dx}$:
+$$\frac{dy}{dx} = -\frac{2x + y}{x + 2y}$$
+
+Therefore, $x^2 + xy + y^2 = C$ solves $\frac{dy}{dx} = -\frac{2x + y}{x + 2y}$
+\end{example}
+
+\begin{keypoint}
+Implicit solutions are preferable when:
+\begin{itemize}
+    \item Explicit solution involves complex expressions
+    \item Solution curves have vertical tangents
+    \item Multiple branches exist
+    \item The implicit form has geometric meaning
+\end{itemize}
+\end{keypoint}
+
+\section{Singular Solutions}
+
+\begin{definition}[Singular Solution]
+A \textbf{singular solution} is a solution that:
+\begin{enumerate}
+    \item Satisfies the ODE
+    \item Cannot be obtained from the general solution for any value of the arbitrary constant
+    \item Is typically the envelope of the general solution family
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Existence of Singular Solutions]
+Singular solutions may exist when:
+\begin{itemize}
+    \item The ODE is not linear in $y'$
+    \item Uniqueness conditions fail
+    \item The general solution involves parameters nonlinearly
+\end{itemize}
+\end{theorem}
+
+\section{Methods for Finding Singular Solutions}
+
+\subsection{C-Discriminant Method}
+
+\begin{method}[C-Discriminant]
+Given general solution $F(x,y,C) = 0$:
+\begin{enumerate}
+    \item Form the system:
+    \begin{align}
+    F(x,y,C) &= 0\\
+    \frac{\partial F}{\partial C} &= 0
+    \end{align}
+    \item Eliminate $C$ between these equations
+    \item The result is the C-discriminant
+    \item Test if it satisfies the original ODE
+\end{enumerate}
+\end{method}
+
+\begin{example}[C-Discriminant Application]
+For $(y - Cx)^2 = C^2 + 1$ (general solution):
+
+\textbf{Step 1:} Compute $\frac{\partial F}{\partial C} = 0$:
+$$2(y - Cx)(-x) = 2C$$
+$$-x(y - Cx) = C$$
+
+\textbf{Step 2:} Substitute into original:
+From $C = -x(y - Cx) = -xy + Cx^2$, we get $C(1 - x^2) = -xy$
+
+If $x^2 \neq 1$: $C = \frac{-xy}{1 - x^2}$
+
+\textbf{Step 3:} Substituting back gives the singular solution.
+\end{example}
+
+\subsection{p-Discriminant Method}
+
+\begin{method}[p-Discriminant]
+From ODE $F(x,y,y') = 0$:
+\begin{enumerate}
+    \item Let $p = y'$ and write $F(x,y,p) = 0$
+    \item Form the system:
+    \begin{align}
+    F(x,y,p) &= 0\\
+    \frac{\partial F}{\partial p} &= 0
+    \end{align}
+    \item Eliminate $p$ to get the p-discriminant
+    \item Verify it satisfies the ODE
+\end{enumerate}
+\end{method}
+
+\section{Clairaut's Equation}
+
+\begin{definition}[Clairaut's Equation]
+An ODE of the form:
+$$y = xy' + f(y')$$
+where $f$ is a function of $y'$ alone.
+\end{definition}
+
+\begin{theorem}[Solutions of Clairaut's Equation]
+Clairaut's equation $y = xy' + f(y')$ has:
+\begin{enumerate}
+    \item \textbf{General solution:} $y = Cx + f(C)$ (family of straight lines)
+    \item \textbf{Singular solution:} Obtained by eliminating $p$ from:
+    \begin{align}
+    y &= xp + f(p)\\
+    0 &= x + f'(p)
+    \end{align}
+\end{enumerate}
+\end{theorem}
+
+\begin{example}[Complete Clairaut Solution]
+Solve: $y = xy' - (y')^2$
+
+\textbf{General solution:} $y = Cx - C^2$ (family of lines)
+
+\textbf{Singular solution:}
+From $x + f'(p) = 0$: $x - 2p = 0$, so $p = x/2$
+
+Substituting: $y = x(x/2) - (x/2)^2 = x^2/4$
+
+The parabola $y = x^2/4$ is the envelope of all lines.
+\end{example}
+
+\section{Envelope Theory}
+
+\begin{definition}[Envelope]
+The \textbf{envelope} of a family of curves $F(x,y,C) = 0$ is a curve that:
+\begin{enumerate}
+    \item Is tangent to each member of the family
+    \item At each point, is tangent to exactly one family member
+\end{enumerate}
+\end{definition}
+
+\begin{insight}
+Singular solutions are often envelopes of the general solution family. They represent the boundary of the region covered by all general solutions.
+\end{insight}
+
+\begin{method}[Finding Envelopes]
+To find the envelope of $F(x,y,C) = 0$:
+\begin{enumerate}
+    \item Solve simultaneously:
+    $$F(x,y,C) = 0, \quad \frac{\partial F}{\partial C} = 0$$
+    \item Eliminate $C$ to get envelope equation
+    \item Verify tangency conditions
+\end{enumerate}
+\end{method}
+
+\section{Parametric Solutions}
+
+\begin{definition}[Parametric Solution]
+A solution expressed as:
+$$x = x(t), \quad y = y(t)$$
+where $t$ is a parameter.
+\end{definition}
+
+\begin{example}[When Parametric is Better]
+For $(y')^2 + y' = x$:
+
+Let $p = y'$, then $x = p^2 + p$
+
+Differentiating: $dx = (2p + 1)dp$
+
+Since $dy = p\,dx = p(2p + 1)dp$:
+$$y = \int p(2p + 1)dp = \frac{2p^3}{3} + \frac{p^2}{2} + C$$
+
+Parametric solution:
+$$x = p^2 + p, \quad y = \frac{2p^3}{3} + \frac{p^2}{2} + C$$
+\end{example}
+
+\section{Verification Techniques}
+
+\begin{method}[Complete Verification Protocol]
+\begin{enumerate}
+    \item \textbf{For implicit solutions:} Use implicit differentiation
+    \item \textbf{For singular solutions:}
+        \begin{itemize}
+            \item Direct substitution into ODE
+            \item Show it's not in general family
+        \end{itemize}
+    \item \textbf{For parametric solutions:} Use $\frac{dy}{dx} = \frac{dy/dt}{dx/dt}$
+\end{enumerate}
+\end{method}
+
+\begin{examtip}
+Prof. Ditkowski always awards points for proper verification, even if the solution is incorrect. Show all steps!
+\end{examtip}
+
+\section{Common Errors}
+
+\begin{warning}
+Critical mistakes:
+\begin{enumerate}
+    \item Assuming all solutions can be made explicit
+    \item Missing singular solutions in nonlinear ODEs
+    \item Incorrect implicit differentiation
+    \item Confusing singular solutions with particular solutions
+    \item Not checking if p-discriminant satisfies ODE
+\end{enumerate}
+\end{warning}
+
+\end{document}

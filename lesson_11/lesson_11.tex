@@ -1,0 +1,182 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{Direct Integration: The Foundation of ODE Solutions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{Lesson 11}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+\begin{definition}[Directly Integrable ODE]
+An ODE is \textbf{directly integrable} if it can be written in the form:
+$$\frac{d^n y}{dx^n} = f(x)$$
+where $f(x)$ is a function of $x$ only (not involving $y$ or its derivatives).
+\end{definition}
+
+\begin{keypoint}
+Direct integration is the simplest solution method, requiring only antiderivatives. Yet it forms the foundation for all other ODE techniques!
+\end{keypoint}
+
+\section{First-Order Direct Integration}
+
+\subsection{General Method}
+
+\begin{method}[Solving $y' = f(x)$]
+\begin{enumerate}
+    \item Recognize the form: $\frac{dy}{dx} = f(x)$
+    \item Integrate both sides: $y = \int f(x)\,dx + C$
+    \item If initial condition $y(x_0) = y_0$ is given, determine $C$
+    \item Verify the solution by differentiation
+\end{enumerate}
+\end{method}
+
+\begin{example}[Basic Direct Integration]
+Solve: $\frac{dy}{dx} = 3x^2 - 2x + 1$ with $y(0) = 5$
+
+\textbf{Solution:}
+\begin{align}
+y &= \int (3x^2 - 2x + 1)\,dx\\
+&= x^3 - x^2 + x + C
+\end{align}
+
+Using $y(0) = 5$:
+$$5 = 0^3 - 0^2 + 0 + C \implies C = 5$$
+
+Therefore: $y = x^3 - x^2 + x + 5$
+\end{example}
+
+\subsection{Definite Integral Form}
+
+\begin{theorem}[IVP Solution via Definite Integral]
+The solution to $\frac{dy}{dx} = f(x)$ with $y(x_0) = y_0$ is:
+$$y(x) = y_0 + \int_{x_0}^{x} f(t)\,dt$$
+\end{theorem}
+
+\begin{insight}
+The definite integral form automatically incorporates the initial condition - no need to find $C$ separately!
+\end{insight}
+
+\section{Higher-Order Direct Integration}
+
+\subsection{General Pattern}
+
+\begin{theorem}[n-th Order Direct Integration]
+For $\frac{d^n y}{dx^n} = f(x)$, the general solution contains $n$ arbitrary constants:
+$$y(x) = \int^{(n)} f(x)\,dx + C_1 x^{n-1} + C_2 x^{n-2} + \cdots + C_{n-1}x + C_n$$
+where $\int^{(n)}$ denotes $n$-fold integration.
+\end{theorem}
+
+\begin{example}[Second-Order]
+Solve: $y'' = \cos(x)$ with $y(0) = 1$, $y'(0) = 0$
+
+\textbf{First integration:}
+$$y' = \int \cos(x)\,dx = \sin(x) + C_1$$
+
+Using $y'(0) = 0$: $0 = \sin(0) + C_1 \implies C_1 = 0$
+
+\textbf{Second integration:}
+$$y = \int \sin(x)\,dx = -\cos(x) + C_2$$
+
+Using $y(0) = 1$: $1 = -\cos(0) + C_2 = -1 + C_2 \implies C_2 = 2$
+
+\textbf{Solution:} $y = -\cos(x) + 2$
+\end{example}
+
+\section{Special Cases and Common Integrals}
+
+\subsection{Important Antiderivatives for ODEs}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{$f(x)$} & \textbf{$\int f(x)\,dx$} & \textbf{Domain Note} \\
+\hline
+$x^n$ $(n \neq -1)$ & $\frac{x^{n+1}}{n+1} + C$ & All $x$ \\
+\hline
+$\frac{1}{x}$ & $\ln|x| + C$ & $x \neq 0$ \\
+\hline
+$e^{ax}$ & $\frac{1}{a}e^{ax} + C$ & All $x$ \\
+\hline
+$\sin(ax)$ & $-\frac{1}{a}\cos(ax) + C$ & All $x$ \\
+\hline
+$\cos(ax)$ & $\frac{1}{a}\sin(ax) + C$ & All $x$ \\
+\hline
+$\frac{1}{x^2 + a^2}$ & $\frac{1}{a}\arctan\left(\frac{x}{a}\right) + C$ & All $x$ \\
+\hline
+$\frac{1}{\sqrt{a^2 - x^2}}$ & $\arcsin\left(\frac{x}{a}\right) + C$ & $|x| < a$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{warning}
+Always include absolute values in $\ln|x|$ and check domain restrictions!
+\end{warning}
+
+\subsection{The Zero Derivative Case}
+
+\begin{theorem}[Polynomial Solutions]
+If $\frac{d^n y}{dx^n} = 0$, then $y$ is a polynomial of degree at most $n-1$:
+$$y(x) = C_1 x^{n-1} + C_2 x^{n-2} + \cdots + C_{n-1}x + C_n$$
+\end{theorem}
+
+\section{Solution Verification}
+
+\begin{method}[Verification Checklist]
+\begin{enumerate}
+    \item Differentiate your solution $n$ times
+    \item Substitute into the original ODE
+    \item Verify the equation holds identically
+    \item Check initial conditions (if given)
+    \item Verify domain of validity
+\end{enumerate}
+\end{method}
+
+\begin{examtip}
+Prof. Ditkowski awards partial credit for solution verification even if your answer is incorrect. Always show this step!
+\end{examtip}
+
+\section{Common Errors to Avoid}
+
+\begin{warning}
+Critical mistakes that lose points:
+\begin{itemize}
+    \item Forgetting $+C$ in indefinite integrals
+    \item Missing absolute values: $\int \frac{1}{x}dx = \ln|x| + C$
+    \item Wrong number of constants for higher-order equations
+    \item Not checking domain restrictions
+    \item Arithmetic errors in determining constants
+\end{itemize}
+\end{warning}
+
+\section{Physical Applications}
+
+\begin{example}[Free Fall Motion]
+For an object in free fall: $\frac{d^2 y}{dt^2} = -g$
+
+where $y$ is height, $t$ is time, $g$ is gravitational acceleration.
+
+\textbf{Solution:}
+\begin{align}
+v = \frac{dy}{dt} &= -gt + v_0 \quad \text{(velocity)}\\
+y &= -\frac{1}{2}gt^2 + v_0 t + y_0 \quad \text{(position)}
+\end{align}
+
+The constants $v_0$ and $y_0$ represent initial velocity and position.
+\end{example}
+
+\end{document}

@@ -1,0 +1,174 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 17: Practice Problems - Homogeneous Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (5 problems)}
+
+\begin{enumerate}
+    \item Determine if each equation is homogeneous. If yes, identify the degree:
+    \begin{enumerate}
+        \item $\frac{dy}{dx} = \frac{x^2 + 3xy}{2x^2 - y^2}$
+        \item $\frac{dy}{dx} = x + y$
+        \item $(x^2 + y^2)dx - 2xy dy = 0$
+        \item $\frac{dy}{dx} = e^{y/x} + \frac{y}{x}$
+        \item $x\frac{dy}{dx} = y\ln\left(\frac{y}{x}\right)$
+    \end{enumerate}
+
+    \item Show that if $M(x,y)$ and $N(x,y)$ are homogeneous of degree $n$, then $M dx + N dy = 0$ is a homogeneous equation.
+
+    \item Prove that $\frac{dy}{dx} = f\left(\frac{ax + by + c}{dx + ey + f}\right)$ is NOT homogeneous unless $c = f = 0$.
+
+    \item Verify that $(x\sin(y/x) - y\cos(y/x))dx + x\cos(y/x)dy = 0$ is homogeneous.
+
+    \item Transform $\frac{dy}{dx} = \frac{y^3 + 2x^2y}{x^3 - xy^2}$ into the form $F(y/x)$.
+\end{enumerate}
+
+\section*{Part B: Basic Substitution Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve using $v = y/x$ substitution:
+    $$\frac{dy}{dx} = \frac{y}{x} + 1$$
+
+    \item Solve: $(x + y)dx - (x - y)dy = 0$
+
+    \item Find the general solution:
+    $$x\frac{dy}{dx} = y + \sqrt{x^2 + y^2}$$
+
+    \item Solve the IVP:
+    $$\frac{dy}{dx} = \frac{2y^2}{xy - x^2}, \quad y(1) = 2$$
+
+    \item Solve: $xy' = y + x\tan(y/x)$
+
+    \item Find all solutions:
+    $$(x^2 + 2y^2)\frac{dy}{dx} = xy$$
+\end{enumerate}
+
+\section*{Part C: Complete Solution Process (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve and verify your solution:
+    $$\left(y^2 - 2xy\right)dx + x^2 dy = 0$$
+
+    \item Find the solution curve passing through $(1, 1)$:
+    $$\frac{dy}{dx} = \frac{x^2 + xy + y^2}{x^2}$$
+
+    \item Solve using the appropriate substitution:
+    $$x^2y' = y^2 + xy + x^2$$
+
+    \item Find the general solution:
+    $$(3x^2 + y^2)dx - 2xy dy = 0$$
+
+    \item Solve the equation:
+    $$\frac{dy}{dx} = \frac{x + 2y}{2x - y}$$
+\end{enumerate}
+
+\section*{Part D: Tricky Cases and Variations (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve using $u = x/y$ instead of $v = y/x$:
+    $$x\frac{dy}{dx} = 2y + x\sec\left(\frac{x}{y}\right)$$
+
+    \item Find singular solutions if any:
+    $$\frac{dy}{dx} = \frac{y}{x} + \sqrt{1 + \left(\frac{y}{x}\right)^2}$$
+
+    \item Solve the equation with parameter $a$:
+    $$\frac{dy}{dx} = \frac{ax^2 + y^2}{2xy}$$
+
+    \item Transform to homogeneous and solve:
+    $$\frac{dy}{dx} = \frac{2x + 3y - 5}{x + 2y - 3}$$
+    (Hint: Use translation of coordinates)
+
+    \item Solve the implicit homogeneous equation:
+    $$x^3 + y^3 = 3xy(x + y)$$
+\end{enumerate}
+
+\section*{Part E: Mixed Recognition Challenge (4 problems)}
+
+\begin{enumerate}[resume]
+    \item Identify which equations are homogeneous and solve only those:
+    \begin{enumerate}
+        \item $y' = (x^2 + y^2)/(2xy)$
+        \item $y' = x^2 + y^2$
+        \item $y' = (x - y)/(x + y)$
+        \item $y' + y/x = x^2$
+    \end{enumerate}
+
+    \item Show that the substitution $y = vx$ transforms the homogeneous equation into a separable equation in $v$ and $x$.
+
+    \item Find all homogeneous equations of the form:
+    $$\frac{dy}{dx} = \frac{ay + bx}{cy + dx}$$
+
+    \item Prove that if $y_1(x)$ is a solution to a homogeneous equation, then $y_2(x) = ky_1(kx)$ is also a solution for any constant $k$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Complete Problems (5 problems)}
+
+\begin{enumerate}[resume]
+    \item \textbf{[Prof. Ditkowski Style]}
+    Consider the equation: $(x^2 + y^2)dx + (x^2 - 2xy)dy = 0$
+    \begin{enumerate}
+        \item Verify that this is a homogeneous equation
+        \item Find the general solution
+        \item Find the particular solution satisfying $y(1) = 0$
+        \item Determine if there are any singular solutions
+    \end{enumerate}
+
+    \item \textbf{[Comprehensive Problem]}
+    For the equation $\frac{dy}{dx} = \frac{y}{x} + \frac{x}{y}$:
+    \begin{enumerate}
+        \item Show it's homogeneous
+        \item Solve using $v = y/x$
+        \item Find the solution through $(1, 1)$
+        \item Sketch the solution curves
+    \end{enumerate}
+
+    \item \textbf{[Application Problem]}
+    A curve has the property that at any point $(x, y)$, the tangent line passes through the point $(x/2, 0)$. Find the equation of all such curves.
+
+    \item \textbf{[Theory and Computation]}
+    \begin{enumerate}
+        \item Prove that every homogeneous equation has solution curves that are similar under scaling from the origin
+        \item Solve: $x(x + y)dy = y(x - y)dx$
+        \item Explain the geometric meaning of your solution
+    \end{enumerate}
+
+    \item \textbf{[Challenge Problem]}
+    Consider the family of equations: $\frac{dy}{dx} = F(y/x)$ where $F$ is continuous.
+    \begin{enumerate}
+        \item Show that if $F(v) = v$ has solutions $v = v_i$, then $y = v_i x$ are solutions
+        \item For $F(v) = v^2 + v - 2$, find all straight-line solutions
+        \item Solve the complete equation and discuss the behavior near the straight-line solutions
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1(a):} Homogeneous of degree 0. Divide numerator and denominator by $x^2$.
+
+\textbf{Problem 6:} Let $v = y/x$. After substitution: $v + x\frac{dv}{dx} = v + 1$, so $\frac{dv}{dx} = \frac{1}{x}$.
+Integrating: $v = \ln|x| + C$, thus $y = x\ln|x| + Cx$.
+
+\textbf{Problem 11:} After substitution and separation: $\int \frac{v dv}{1 + v^2} = \int \frac{dx}{x}$.
+This gives $\frac{1}{2}\ln(1 + v^2) = \ln|x| + C$, or $(x^2 + y^2) = Ax^2$ where $A = e^{2C}$.
+
+\textbf{Problem 17:} Check $F(v) - v = 0$: $v + \sqrt{1 + v^2} - v = \sqrt{1 + v^2} \neq 0$ for any real $v$. No singular solutions.
+
+\textbf{Problem 20:} Translation: let $X = x - 1$, $Y = y - 1$ to eliminate constants.
+
+\textbf{Key Integration Formulas Needed:}
+\begin{itemize}
+    \item $\int \frac{dv}{1 + v^2} = \arctan(v) + C$
+    \item $\int \frac{v dv}{1 + v^2} = \frac{1}{2}\ln(1 + v^2) + C$
+    \item $\int \frac{dv}{v^2 - 1} = \frac{1}{2}\ln\left|\frac{v-1}{v+1}\right| + C$
+\end{itemize}
+
+\end{document}

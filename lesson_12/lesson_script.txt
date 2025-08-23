@@ -1,0 +1,68 @@
+Episode 12: Separable Equations - Complete Method and Tricks
+
+Alright, so basically, separable equations are THE workhorse of ODE solving! Here's the key insight: if you can write your ODE as dy/dx = g(x)h(y) - where g depends only on x and h depends only on y - you can literally separate the variables to opposite sides and integrate. It's like untangling two ropes that got twisted together!
+
+Let me show you the magic. Take dy/dx = xy. See how the right side is x times y? That's g(x) = x and h(y) = y. Now watch this algebra trick:
+dy/dx = xy
+dy/y = x dx
+
+Boom! All the y's are on the left, all the x's are on the right. Now integrate both sides:
+∫dy/y = ∫x dx
+ln|y| = x²/2 + C
+
+Solving for y: |y| = e^(x²/2 + C) = e^C · e^(x²/2)
+
+Since e^C is just another constant (always positive), we can write: y = Ae^(x²/2) where A can be any non-zero constant.
+
+But WAIT! Here's where students lose points constantly - what if y = 0? Look back at our separation step: we divided by y. If y = 0, we can't do that! Let's check: if y = 0, then dy/dx = 0, and x·0 = 0. It works! So y = 0 is also a solution - we call this a SINGULAR solution because we lost it during separation.
+
+Pro Ditkowski tip number one: ALWAYS check what you divided by! If you divided by h(y), check if h(y) = 0 gives a solution. These singular solutions appear on like 80% of separable equation exam problems!
+
+Let's do another example with a classic trick. Solve dy/dx = (1-y²). Students often mess this up. Watch:
+dy/(1-y²) = dx
+
+Now you need partial fractions! 1/(1-y²) = 1/((1-y)(1+y)) = 1/2 · (1/(1-y) + 1/(1+y))
+
+So: ∫[1/(1-y) + 1/(1+y)]dy = 2∫dx
+-ln|1-y| + ln|1+y| = 2x + C
+ln|(1+y)/(1-y)| = 2x + C
+
+This gives: (1+y)/(1-y) = ±e^(2x+C) = Ae^(2x)
+
+But don't forget - we divided by 1-y², which is zero when y = ±1. Check these: if y = 1, then dy/dx = 0 = 1-1². Yes! If y = -1, then dy/dx = 0 = 1-1². Yes! So y = ±1 are singular solutions.
+
+Here's a memory device I love: "SEPARATE, INTEGRATE, INVESTIGATE" - Separate the variables, Integrate both sides, Investigate what you divided by for lost solutions!
+
+Now let's talk about autonomous equations - these are special separable equations where dy/dx = f(y) only. No x on the right side! These are Prof. Ditkowski's favorites because they connect to phase line analysis.
+
+Example: dy/dx = y(1-y). This is the logistic equation! Separate:
+dy/(y(1-y)) = dx
+
+Partial fractions again: 1/(y(1-y)) = 1/y + 1/(1-y)
+
+Integrate: ln|y| - ln|1-y| = x + C
+ln|y/(1-y)| = x + C
+
+So: y/(1-y) = Ae^x, which gives y = Ae^x/(1 + Ae^x)
+
+And yes, check y = 0 and y = 1 - both are solutions (the equilibria)!
+
+Common mistake alert! When you have dy/dx = y², students write 1/y² dy = dx. After integrating: -1/y = x + C. They then write y = -1/(x+C). But what's the domain? When x = -C, we have division by zero! The solution blows up - we call this finite-time blow-up. Prof. Ditkowski LOVES testing this!
+
+Here's another exam trick: implicit vs explicit solutions. Sometimes after separating and integrating, you can't solve for y nicely. That's okay! Leave it implicit. Example: dy/dx = (x+y)/(x-y). This looks non-separable, but try the substitution v = y/x, so y = vx and dy/dx = v + x(dv/dx). It becomes separable in v and x!
+
+Integration technique reminder: when you get ∫dy/y, it's ln|y| + C. When you get ∫dy/y², it's -1/y + C. When you get ∫dy/√y, it's 2√y + C. Know these cold!
+
+Let me give you the systematic approach for the exam:
+1. Write in form dy/dx = g(x)h(y)
+2. Separate: dy/h(y) = g(x)dx (if h(y) ≠ 0)
+3. Integrate both sides
+4. Solve for y if possible (explicit), otherwise leave implicit
+5. Check where h(y) = 0 for singular solutions
+6. Verify at least one solution by substitution
+
+Physical interpretation helps too! In population models, dy/dt = ky means exponential growth. dy/dt = ky(M-y) is logistic growth with carrying capacity M. Chemical reactions often give dy/dt = k(a-y)(b-y). These are all separable!
+
+One final Pro Ditkowski special: he often gives initial conditions that make the arbitrary constant weird. Like y(1) = e. Don't panic! Just substitute and solve for C algebraically. Sometimes C = 0, sometimes C = ln(2), whatever - just be careful with the algebra.
+
+The absolute key takeaway? Separable equations are everywhere in ODEs. Master the separation algebra, NEVER forget to check for singular solutions (what you divided by), and be comfortable with both implicit and explicit forms. This technique alone will get you through a huge chunk of the exam!

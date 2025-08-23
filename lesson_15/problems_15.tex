@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\usepackage{mdframed, xcolor}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=2pt]{hint}
+\newcommand{\solution}[1]{\textbf{Solution:} #1}
+
+\title{Practice Problems: Integrating Factor Deep Dive}
+\author{Lesson 15 - Prof. Ditkowski's ODE 1}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Theoretical Understanding (5 problems)}
+
+\begin{enumerate}
+\item Prove that if $\mu_1(t)$ and $\mu_2(t)$ are both integrating factors for $y' + p(t)y = g(t)$, then $\mu_2(t) = C\mu_1(t)$ for some constant $C$.
+
+\item Show that the integrating factor $\mu(t) = e^{\int p(t)dt}$ is the unique positive integrating factor with $\mu(t_0) = 1$ for any fixed $t_0$.
+
+\item For the equation $y' + p(t)y = g(t)$, prove that:
+\begin{equation}
+\frac{d}{dt}[\mu(t)W(t)] = 0
+\end{equation}
+where $W(t)$ is the Wronskian of any two solutions and $\mu(t)$ is the integrating factor.
+
+\item Explain why the integrating factor method always produces an exact equation, while not every first-order ODE can be made exact.
+
+\item If $p(t)$ is periodic with period $T$, prove that $\mu(t+T) = \mu(t) \cdot \mu(T)$.
+\end{enumerate}
+
+\section*{Part B: Computing Complex Integrating Factors (6 problems)}
+
+\begin{enumerate}[resume]
+\item Find the integrating factor for: $y' + \frac{2t}{1+t^2}y = e^t$
+
+\item Find the integrating factor for: $y' + (\tan t + \sec t)y = \cos t$
+
+\item Find the integrating factor for: $y' + \frac{1}{t\ln t}y = \frac{1}{t^2}$ for $t > e$
+
+\item Find the integrating factor for: $y' - \frac{3}{2t}y + \frac{1}{2t^2}y = 0$ (Hint: This isn't quite standard form!)
+
+\item For the equation $(t^2 + 1)y' + 2ty = t$, find the integrating factor:
+   a) After converting to standard form
+   b) Directly without converting to standard form
+   Compare your answers.
+
+\item Find the integrating factor for the piecewise coefficient:
+\begin{equation}
+p(t) = \begin{cases}
+2 & 0 \leq t < 1 \\
+\frac{1}{t} & t \geq 1
+\end{cases}
+\end{equation}
+\end{enumerate}
+
+\section*{Part C: Alternative Approaches (5 problems)}
+
+\begin{enumerate}[resume]
+\item Given that $y_h = t^2e^{-t}$ solves the homogeneous equation $y' + p(t)y = 0$, find:
+   a) The function $p(t)$
+   b) The integrating factor $\mu(t)$
+   c) Verify that $\mu(t) = 1/y_h(t)$ up to a constant
+
+\item For the equation $ty' + (2-t)y = t^2e^t$:
+   a) Find the integrating factor without converting to standard form
+   b) Show that multiplying by your integrating factor creates the exact form $d/dt[f(t)y] = h(t)$
+
+\item Consider the equation $y' + p(t)y = p(t)$.
+   a) Show that $y = 1$ is a particular solution
+   b) Use this to find the general solution without computing $\mu(t)$ explicitly
+   c) What does this tell you about the relationship between $p(t)$ and the solution?
+
+\item The equation $(1 + t^2)y' - 2ty = (1 + t^2)^2$ can be solved by substitution. Let $v = y/(1+t^2)$.
+   a) Show that this transforms the equation to $v' = 1 + t^2$
+   b) Solve for $v$ and hence $y$
+   c) Find the integrating factor and verify it gives the same solution
+
+\item For the Bernoulli-like equation $y' + p(t)y = g(t)y^0$ (which is actually linear):
+   a) Explain why the standard integrating factor works
+   b) Show that if we mistakenly treat it as Bernoulli and use substitution $v = y^{1-0} = y$, we get the same equation
+\end{enumerate}
+
+\section*{Part D: Connections to Exact Equations (5 problems)}
+
+\begin{enumerate}[resume]
+\item Show that after multiplying $y' + \frac{2}{t}y = t^2$ by its integrating factor, the resulting equation can be written as an exact equation $M(t,y)dt + N(t,y)dy = 0$. Find $M$ and $N$ and verify exactness.
+
+\item For the general equation $y' + p(t)y = g(t)$:
+   a) After multiplying by $\mu(t)$, express as $M(t,y)dt + N(t,y)dy = 0$
+   b) Find the potential function $F(t,y)$ such that $\partial F/\partial t = M$ and $\partial F/\partial y = N$
+   c) Show that the solution curves are level sets of $F$
+
+\item Consider the exact equation $(2ty + t^2)dt + t^2dy = 0$.
+   a) Verify it's exact
+   b) Find an integrating factor that would convert $y' + (2/t)y = -1$ to this exact form
+   c) Solve both ways and verify you get the same answer
+
+\item The equation $(\sin t)y' + (\cos t)y = 1$ becomes exact after multiplication by $\mu(t)$.
+   a) Find $\mu(t)$
+   b) Write the exact form and find the potential function
+   c) Solve using both the integrating factor method and the exact equation method
+
+\item Prove that if an equation is already exact, then $\mu(t) = 1$ is an integrating factor, and any other integrating factor must be a constant.
+\end{enumerate}
+
+\section*{Part E: Advanced Theory and Applications (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Adjoint Equation) For $L[y] = y' + p(t)y$:
+   a) Show that the adjoint operator is $L^*[v] = -v' + p(t)v$
+   b) Prove that if $\mu$ satisfies $L^*[\mu] = 0$, then $\mu$ is an integrating factor
+   c) Find the relationship between solutions of $L[y] = 0$ and $L^*[v] = 0$
+
+\item (Green's Function Preview) For the equation $y' + p(t)y = g(t)$ with $y(0) = 0$:
+   a) Show that the solution can be written as $y(t) = \int_0^t G(t,s)g(s)ds$
+   b) Find $G(t,s)$ in terms of the integrating factor $\mu(t)$
+   c) Verify that $G(t,s) = \mu(s)/\mu(t)$ for $s \leq t$
+
+\item (Numerical Analysis) Consider $y' + 100y = e^{-t}$ on $[0, 10]$.
+   a) Find the integrating factor $\mu(t)$
+   b) Estimate $\mu(10)$ and discuss potential numerical overflow
+   c) Suggest a reformulation to avoid numerical issues
+
+\item (Discontinuous Coefficients) For:
+\begin{equation}
+y' + p(t)y = 1, \quad p(t) = \begin{cases} 1 & t < 1 \\ 2 & t \geq 1 \end{cases}
+\end{equation}
+   a) Find the integrating factor on each interval
+   b) Solve on each interval with arbitrary constants
+   c) Find conditions for $C^0$ continuity at $t = 1$
+   d) Can the solution be $C^1$ at $t = 1$?
+
+\item (Generalized Integrating Factors) Sometimes we seek $\mu(t,y)$ for non-linear equations.
+   a) For $(y^2 + 2ty)dt + t^2dy = 0$, show that $\mu = 1/y^2$ makes it exact
+   b) Explain why this doesn't contradict the uniqueness theorem for linear equations
+   c) Find the general solution using this integrating factor
+\end{enumerate}
+
+\section*{Part F: Exam-Style Comprehensive Problems (4 problems)}
+
+\begin{enumerate}[resume]
+\item Consider the family of equations $y' + p_n(t)y = t^n$ where $p_n(t) = n/t$.
+   a) Find the integrating factor $\mu_n(t)$
+   b) Solve the equation for general $n$
+   c) For which values of $n$ does the solution remain bounded as $t \to \infty$?
+   d) For which values of $n$ is the solution continuous at $t = 0$?
+
+\item The equation $y' + (\cot t)y = \csc t$ on $(0, \pi)$:
+   a) Find two different forms of the integrating factor using different antiderivatives
+   b) Show both lead to the same general solution
+   c) Find the solution satisfying $y(\pi/2) = 1$
+   d) Determine the behavior as $t \to 0^+$ and $t \to \pi^-$
+
+\item For the equation $ty' + y = te^t$:
+   a) Explain why you cannot use the standard form on $(-\infty, \infty)$
+   b) Solve separately for $t > 0$ and $t < 0$
+   c) Show that no solution exists that is continuous at $t = 0$ unless it satisfies a specific condition
+   d) Find the integrating factor directly without converting to standard form
+
+\item (Comprehensive Theory) Let $y' + p(t)y = g(t)$ where $p(t) = 2\alpha\cos(2t)$ and $g(t) = \sin(t)$.
+   a) Find the integrating factor (Hint: Use the identity $\int \cos(2t)dt = \sin(2t)/2$)
+   b) Show that if $\alpha = 0$, the solution is periodic
+   c) For $\alpha \neq 0$, find the general solution
+   d) Prove that no periodic solution exists when $\alpha \neq 0$
+   e) Discuss the physical interpretation if this represents a driven oscillator
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\begin{hint}
+For Problem 1: Use the fact that both $\mu_1$ and $\mu_2$ satisfy $\mu' = p(t)\mu$.
+\end{hint}
+
+\begin{hint}
+For Problem 6: Remember that $\int \sec t \, dt = \ln|\sec t + \tan t|$.
+\end{hint}
+
+\begin{hint}
+For Problem 11: After converting to standard form, $p(t) = 2t/(t^2+1)$. For the direct approach, look for $\mu$ such that $d/dt[\mu(t^2+1)y] = \mu \cdot t$.
+\end{hint}
+
+\begin{hint}
+For Problem 22: The Green's function represents the influence of the forcing at time $s$ on the solution at time $t > s$.
+\end{hint}
+
+\textit{[Complete solutions would be provided showing multiple approaches where applicable, emphasizing the deep connections between different concepts.]}
+
+\end{document}

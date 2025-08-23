@@ -1,0 +1,137 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{transformation}
+
+\title{Lesson 17: Homogeneous First-Order Differential Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Recognition and Definition}
+
+\begin{definition}[Homogeneous Function]
+A function $f(x,y)$ is homogeneous of degree $n$ if:
+$$f(tx, ty) = t^n f(x,y) \quad \text{for all } t > 0$$
+\end{definition}
+
+\begin{definition}[Homogeneous Differential Equation]
+A first-order ODE is homogeneous if it can be written as:
+$$\frac{dy}{dx} = F\left(\frac{y}{x}\right)$$
+or equivalently, if $M(x,y)dx + N(x,y)dy = 0$ where $M$ and $N$ are homogeneous functions of the same degree.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Quick Recognition Tests:}
+\begin{enumerate}
+    \item Check if all terms have the same total degree in $x$ and $y$
+    \item Try to factor out powers to write as $F(y/x)$
+    \item Apply the scaling test: $f(tx, ty) = t^n f(x,y)$
+\end{enumerate}
+\end{keypoint}
+
+\section{The Substitution Method}
+
+\begin{transformation}
+\textbf{The $v = y/x$ Substitution Algorithm:}
+\begin{enumerate}
+    \item Set $v = \frac{y}{x}$, so $y = vx$
+    \item Differentiate: $\frac{dy}{dx} = v + x\frac{dv}{dx}$ \textcolor{red}{(Product Rule!)}
+    \item Substitute into the original equation
+    \item Simplify to get: $x\frac{dv}{dx} = F(v) - v$
+    \item Separate variables: $\frac{dv}{F(v) - v} = \frac{dx}{x}$
+    \item Integrate both sides
+    \item Back-substitute $v = y/x$
+\end{enumerate}
+\end{transformation}
+
+\begin{warning}
+\textbf{Critical Points:}
+\begin{itemize}
+    \item The derivative $\frac{dy}{dx} = v + x\frac{dv}{dx}$ comes from the product rule
+    \item Check for singular solutions where $F(v) - v = 0$
+    \item The substitution fails along $x = 0$ (use $u = x/y$ instead if needed)
+\end{itemize}
+\end{warning}
+
+\section{Detailed Examples}
+
+\begin{example}[Standard Homogeneous]
+Solve: $\frac{dy}{dx} = \frac{x^2 + xy + y^2}{x^2}$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Verify homogeneity: $\frac{dy}{dx} = 1 + \frac{y}{x} + \left(\frac{y}{x}\right)^2 = F(y/x)$ \checkmark
+    \item Let $v = y/x$, then $y = vx$ and $\frac{dy}{dx} = v + x\frac{dv}{dx}$
+    \item Substitute: $v + x\frac{dv}{dx} = 1 + v + v^2$
+    \item Simplify: $x\frac{dv}{dx} = 1 + v^2$
+    \item Separate: $\frac{dv}{1 + v^2} = \frac{dx}{x}$
+    \item Integrate: $\arctan(v) = \ln|x| + C$
+    \item Back-substitute: $\arctan\left(\frac{y}{x}\right) = \ln|x| + C$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Disguised Homogeneous]
+Solve: $(x - y)\frac{dy}{dx} = x + y$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Rewrite: $\frac{dy}{dx} = \frac{x + y}{x - y} = \frac{1 + y/x}{1 - y/x}$ (homogeneous!)
+    \item Let $v = y/x$: $v + x\frac{dv}{dx} = \frac{1 + v}{1 - v}$
+    \item Simplify: $x\frac{dv}{dx} = \frac{1 + v}{1 - v} - v = \frac{1 + v - v(1 - v)}{1 - v} = \frac{1 + v^2}{1 - v}$
+    \item Separate: $\frac{1 - v}{1 + v^2}dv = \frac{dx}{x}$
+    \item Use partial fractions on the left side
+    \item Final solution involves $\arctan$ and $\ln$ terms
+\end{enumerate}
+\end{example}
+
+\section{Special Cases and Variations}
+
+\begin{insight}
+\textbf{Alternative Substitution:}
+When the equation has more $y$ terms, try $u = \frac{x}{y}$:
+\begin{itemize}
+    \item $x = uy$ implies $\frac{dx}{dy} = u + y\frac{du}{dy}$
+    \item The equation becomes separable in $u$ and $y$
+\end{itemize}
+\end{insight}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Patterns:}
+\begin{itemize}
+    \item Often combines homogeneous with initial conditions
+    \item May ask to verify homogeneity before solving
+    \item Likes equations of the form $(ax + by)dx + (cx + dy)dy = 0$
+    \item Tests recognition with trigonometric terms like $\sin(y/x)$
+    \item Partial credit for correct substitution setup
+\end{itemize}
+\end{examtip}
+
+\section{Geometric Interpretation}
+
+Solution curves of homogeneous equations have the property that they look similar under scaling from the origin. If $(x,y)$ is on a solution curve, then $(kx, ky)$ is on a geometrically similar curve.
+
+\section{Recognition Flowchart}
+
+The key steps for recognition are:
+\begin{enumerate}
+\item Check if the equation can be written as $\frac{dy}{dx} = F\left(\frac{y}{x}\right)$
+\item Verify that all terms have the same total degree in $x$ and $y$
+\item Apply the scaling test: $f(tx, ty) = t^n f(x,y)$
+\end{enumerate}
+
+If any test confirms homogeneity, proceed with the $v = y/x$ substitution.
+
+\end{document}
