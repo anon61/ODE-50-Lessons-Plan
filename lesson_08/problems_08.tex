@@ -1,0 +1,233 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem}
+\usepackage{geometry, tikz}
+\geometry{margin=1in}
+
+\title{Practice Problems: Lesson 8 - Parameter-Dependent Problems}
+\author{Master parametric analysis for the exam!}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Parameter Analysis}
+
+For each parametric ODE, identify critical parameter values:
+
+\begin{enumerate}
+    \item $y' = \mu y + 1$, $y(0) = 0$
+    
+    \item $y' = y^2 - \mu^2$, $y(0) = 0$
+    
+    \item $y' = \frac{\mu y}{1 + x^2}$, $y(0) = 1$
+    
+    \item $y' = |y|^\mu$, $y(0) = 0$
+    
+    \item $y' = \sin(\mu y)$, $y(0) = \pi/2$
+\end{enumerate}
+
+\section*{Part B: Existence and Uniqueness}
+
+\begin{enumerate}[start=6]
+    \item For $y' = \frac{y}{x + \mu}$, $y(0) = 1$:
+    \begin{enumerate}[label=(\alph*)]
+        \item For which $\mu$ does no solution exist?
+        \item For which $\mu$ does the solution blow up?
+        \item Find the general solution when it exists
+    \end{enumerate}
+    
+    \item Consider $y' = \mu \sqrt{|y|}$, $y(0) = 0$:
+    \begin{enumerate}[label=(\alph*)]
+        \item For which $\mu$ is the solution unique?
+        \item Describe all solutions when $\mu \neq 0$
+        \item What happens as $|\mu| \to \infty$?
+    \end{enumerate}
+    
+    \item For $y' = y^2 + \mu$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Find all equilibria as functions of $\mu$
+        \item For which $\mu$ do real equilibria exist?
+        \item When do all solutions blow up in finite time?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Bifurcation Analysis}
+
+\begin{enumerate}[start=9]
+    \item Analyze the saddle-node bifurcation: $y' = \mu - y^2$
+    \begin{enumerate}[label=(\alph*)]
+        \item Find equilibria for all $\mu$
+        \item Determine stability of each equilibrium
+        \item Sketch the bifurcation diagram
+        \item What happens at $\mu = 0$?
+    \end{enumerate}
+    
+    \item For the transcritical bifurcation: $y' = \mu y - y^2$
+    \begin{enumerate}[label=(\alph*)]
+        \item Find all equilibria
+        \item Determine where equilibria exchange stability
+        \item Sketch solutions for $\mu = -1, 0, 1$
+    \end{enumerate}
+    
+    \item Study the pitchfork: $y' = \mu y - y^3 + \epsilon y^2$
+    \begin{enumerate}[label=(\alph*)]
+        \item What happens when $\epsilon = 0$?
+        \item How does $\epsilon \neq 0$ break the symmetry?
+        \item Find the bifurcation point(s)
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part D: Global Existence}
+
+\begin{enumerate}[start=12]
+    \item For $y' = -y^3 + \mu y$, determine:
+    \begin{enumerate}[label=(\alph*)]
+        \item All values of $\mu$ for which every solution exists globally
+        \item Values where some solutions blow up
+        \item The critical value of $\mu$
+    \end{enumerate}
+    
+    \item Consider $y' = e^{\mu y} - 1$:
+    \begin{enumerate}[label=(\alph*)]
+        \item For which $\mu$ does an equilibrium exist?
+        \item When do solutions exist globally?
+        \item Find the equilibrium when it exists
+    \end{enumerate}
+    
+    \item For the Bernoulli equation $y' + y = \mu y^2$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Transform to linear form
+        \item Find conditions on $\mu$ for global existence
+        \item What happens as $\mu \to 0$?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Riccati with Parameters}
+
+\begin{enumerate}[start=15]
+    \item Analyze $y' = y^2 - 2\mu y + \mu^2 - 1$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Simplify using substitution $z = y - \mu$
+        \item Find equilibria
+        \item Determine blow-up conditions
+    \end{enumerate}
+    
+    \item For $y' = \mu y^2 + y + 1$:
+    \begin{enumerate}[label=(\alph*)]
+        \item When does this have real equilibria?
+        \item Find the discriminant condition
+        \item For which $\mu$ do all solutions blow up?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Asymptotic Behavior}
+
+\begin{enumerate}[start=17]
+    \item For $y' = y(1 - y/\mu)$ with $\mu > 0$ (logistic):
+    \begin{enumerate}[label=(\alph*)]
+        \item Find equilibria
+        \item Determine $\lim_{t \to \infty} y(t)$ for various $y(0)$
+        \item What happens as $\mu \to \infty$?
+        \item What happens as $\mu \to 0^+$?
+    \end{enumerate}
+    
+    \item Consider $y' = -y + \mu \sin(y)$:
+    \begin{enumerate}[label=(\alph*)]
+        \item For small $|\mu|$, how many equilibria exist?
+        \item Find the critical value where new equilibria appear
+        \item Describe the bifurcation type
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part G: Singular Perturbations}
+
+\begin{enumerate}[start=19]
+    \item For $\epsilon y' = -y + \mu$ with $y(0) = y_0$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Find the exact solution
+        \item What happens as $\epsilon \to 0^+$?
+        \item Identify the fast time scale
+        \item Sketch solutions for $\epsilon = 1, 0.1, 0.01$
+    \end{enumerate}
+    
+    \item Consider $\epsilon y'' + y' + y = \mu$:
+    \begin{enumerate}[label=(\alph*)]
+        \item What's the reduced problem when $\epsilon = 0$?
+        \item Find boundary layers if they exist
+        \item Compare orders of the full and reduced problems
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part H: Parameter Identification}
+
+\begin{enumerate}[start=21]
+    \item Given observations that a solution to $y' = \mu y - y^3$ starts at $y(0) = 0.1$ and approaches 2 as $t \to \infty$:
+    \begin{enumerate}[label=(\alph*)]
+        \item What can you deduce about $\mu$?
+        \item Find the exact value of $\mu$
+        \item Are there other equilibria?
+    \end{enumerate}
+    
+    \item You know that $y' = y^2 + ay + b$ has exactly one equilibrium at $y = -1$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Find the relationship between $a$ and $b$
+        \item What's the discriminant condition?
+        \item Give specific values of $a$ and $b$
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part I: Exam-Style Problems}
+
+\begin{enumerate}[start=23]
+    \item Professor Ditkowski asks: "For the equation $y' = \mu \sin(y) - y$, determine all $\mu$ such that there exists a non-zero equilibrium."
+    \begin{enumerate}[label=(\alph*)]
+        \item Set up the equilibrium equation
+        \item Analyze graphically
+        \item Find the critical value of $\mu$
+        \item How many equilibria exist for various $\mu$?
+    \end{enumerate}
+    
+    \item Consider the competition model: $y' = y(1 - y)(\mu - y)$
+    \begin{enumerate}[label=(\alph*)]
+        \item Find all equilibria for arbitrary $\mu$
+        \item Classify stability for each equilibrium
+        \item Sketch the phase line for $\mu = -1, 0.5, 2$
+        \item Identify all bifurcation points
+    \end{enumerate}
+    
+    \item For the delay equation approximation $y'(t) = \mu[y(t-1) - y(t)]$, approximate as $y' = -\mu(y - y_0e^{-\mu})$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Find equilibria as functions of $\mu$
+        \item When do oscillations appear?
+        \item Analyze stability for small $\mu$
+        \item What happens as $\mu \to \infty$?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part J: Advanced Theory}
+
+\begin{enumerate}[start=26]
+    \item Prove that for $y' = f(y; \mu)$ where $f$ is smooth, if $\frac{\partial f}{\partial y}(y_0; \mu_0) = 0$ and $\frac{\partial^2 f}{\partial y^2}(y_0; \mu_0) \neq 0$, then a saddle-node bifurcation occurs.
+    
+    \item Show that the solution to $y' = \mu y + g(x)$ depends continuously on $\mu$ for any continuous $g$.
+    
+    \item For the general Riccati $y' = p(x; \mu) + q(x; \mu)y + r(x; \mu)y^2$:
+    \begin{enumerate}[label=(\alph*)]
+        \item When is global existence guaranteed?
+        \item How do zeros of $r(x; \mu)$ affect the solution?
+        \item Give conditions on $\mu$ for bounded solutions
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Key Insights for Solutions}
+
+\textbf{Remember:}
+\begin{itemize}
+    \item Critical parameters occur where: equilibria appear/vanish, Lipschitz fails, singularities arise
+    \item Bifurcations change solution structure
+    \item $\mu$ in denominator $\Rightarrow$ watch for singularities
+    \item $\mu$ in exponent $\Rightarrow$ check Lipschitz
+    \item Always sketch bifurcation diagrams!
+\end{itemize}
+
+\end{document}

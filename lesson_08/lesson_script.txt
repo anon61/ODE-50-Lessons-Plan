@@ -1,0 +1,131 @@
+Episode 8: Parameter-Dependent Existence Problems
+"Now let's tackle parameter-dependent problems - these are huge on exams! So basically, when your ODE contains parameters, the existence and uniqueness can depend on those parameter values. Here's the key insight: parameters can make or break the Lipschitz condition, create or destroy singularities, and fundamentally change the solution behavior.
+Consider the parametric IVP:
+y' = f(x, y; μ) with y(x₀) = y₀(μ)
+The big questions:
+
+For which μ does a solution exist?
+For which μ is it unique?
+How does the solution depend on μ?
+
+Let me show you a systematic approach:
+Example 1: Linear parameter dependence
+y' = μy with y(0) = 1
+For ALL μ, we have existence and uniqueness (linear equations are always nice!)
+Solution: y = e^(μx)
+But notice: behavior changes dramatically with μ!
+
+μ < 0: exponential decay
+μ = 0: constant solution
+μ > 0: exponential growth
+
+Example 2: Parameter in the denominator
+y' = y/(x - μ) with y(0) = 1
+Existence and uniqueness everywhere EXCEPT x = μ!
+
+If μ < 0: solution exists for all x ≥ 0
+If μ = 0: no solution through (0,1)
+If μ > 0: solution exists until x = μ, then blows up
+
+This is a removable singularity that moves with the parameter!
+Example 3: Parameter affects Lipschitz
+y' = μ|y|^(1/2) with y(0) = 0
+Lipschitz analysis:
+
+μ = 0: y' = 0, unique solution y = 0
+μ ≠ 0: Not Lipschitz at y = 0, infinitely many solutions!
+
+The parameter acts like an on/off switch for uniqueness!
+Here's the general strategy for parameter problems:
+Step 1: Identify parameter locations
+
+In coefficients? Usually safe
+In denominators? Watch for zeros
+In exponents? Check Lipschitz
+In domain restrictions? Check boundaries
+
+Step 2: Find critical parameter values
+These are values where:
+
+Denominators vanish
+Lipschitz constant becomes infinite
+Domain of definition changes
+Equilibria appear or disappear
+
+Step 3: Analyze each parameter regime separately
+Let me demonstrate with a comprehensive example:
+The Parametric Riccati Equation:
+y' = y² - μ with y(0) = y₀
+Analysis by parameter:
+Case μ < 0:
+
+No real equilibria
+All solutions blow up in finite time
+Unique solution exists until blow-up
+
+Case μ = 0:
+
+y' = y²
+Solutions: y = 1/(c - x) blow up at x = c
+If y₀ = 0: unique solution y = 0
+If y₀ ≠ 0: solution blows up at x = 1/y₀
+
+Case μ > 0:
+
+Two equilibria: y = ±√μ
+Solutions exist globally if |y₀| < √μ
+Solutions blow up if |y₀| > √μ
+Critical case |y₀| = √μ: solution approaches equilibrium
+
+Continuous Dependence on Parameters:
+Theorem: If f and ∂f/∂y are continuous in (x, y, μ), then the solution y(x, μ) is continuous in μ.
+But beware! Continuous doesn't mean smooth. Small parameter changes can cause:
+
+Bifurcations (solution structure changes)
+Blow-up time shifts
+Stability switches
+
+Classic exam example - the pitchfork bifurcation:
+y' = μy - y³ with y(0) = y₀
+Equilibria:
+
+μ ≤ 0: Only y = 0
+μ > 0: Three equilibria y = 0, ±√μ
+
+The solution structure completely changes at μ = 0!
+Parameter identification problems:
+'Find all μ such that the solution exists globally.'
+Example: y' = y² + μy + 1 with y(0) = 0
+This is Riccati. When does it not blow up?
+Analyze discriminant of y² + μy + 1:
+
+Δ = μ² - 4
+Need Δ ≥ 0 for real roots (equilibria)
+So |μ| ≥ 2 for bounded solutions
+For |μ| < 2, all solutions blow up!
+
+Asymptotic behavior depending on parameters:
+Consider: y' = y(μ - y) with y(0) = y₀ > 0
+Long-term behavior:
+
+μ ≤ 0: y → 0 (extinction)
+μ > 0: y → μ (convergence to carrying capacity)
+
+The parameter μ determines the entire fate of the solution!
+Here's an exam goldmine - singular perturbations:
+εy' = -y + μ with y(0) = 1, where ε is small
+For ε > 0: Solution exists uniquely
+As ε → 0: Rapid transition to y ≈ μ
+This models fast transients in physics!
+Common exam traps with parameters:
+
+'For which α does y' = |y|^α have unique solutions?'
+Answer: α ≥ 1 (Lipschitz requirement)
+'Find μ such that all solutions are periodic.'
+Often requires μ to make the system conservative
+'When does the solution exist for all time?'
+Check for blow-up conditions depending on μ
+
+Memory device: 'PARAMETER checks: Position (where is μ?), Anomalies (singularities), Regimes (different cases), Analysis (each case separately), Monotonicity (how solution changes with μ), Equilibria, Transitions, Existence, Rate of growth.'
+Pro tip for exams: Always sketch a bifurcation diagram! Draw μ on horizontal axis, equilibria on vertical. Show stable (solid) and unstable (dashed) branches. Prof. Ditkowski loves these because they show you understand the global parameter dependence.
+Final warning: When μ appears in initial conditions y(0) = g(μ), check if this creates additional constraints. Sometimes certain parameter values make the initial condition undefined or place it at a non-Lipschitz point!"
