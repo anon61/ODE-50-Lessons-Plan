@@ -1,0 +1,238 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{construction}
+
+\title{Lesson 42: Lyapunov Functions and Global Stability\\
+\large ODE 1 - Prof. Adi Ditkowski}
+\author{Nonlinear Systems Analysis}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Lyapunov Stability Concepts}
+
+\begin{definition}[Lyapunov Stability]
+The equilibrium point $\mathbf{x} = \mathbf{0}$ of $\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})$ is:
+\begin{itemize}
+    \item \textbf{Lyapunov stable} if for every $\epsilon > 0$, there exists $\delta > 0$ such that:
+    $$||\mathbf{x}(0)|| < \delta \implies ||\mathbf{x}(t)|| < \epsilon \text{ for all } t \geq 0$$
+
+    \item \textbf{Asymptotically stable} if it is Lyapunov stable AND there exists $\delta_0 > 0$ such that:
+    $$||\mathbf{x}(0)|| < \delta_0 \implies \lim_{t \to \infty} \mathbf{x}(t) = \mathbf{0}$$
+
+    \item \textbf{Globally asymptotically stable} if it is asymptotically stable for ALL initial conditions:
+    $$\lim_{t \to \infty} \mathbf{x}(t) = \mathbf{0} \text{ for all } \mathbf{x}(0) \in \mathbb{R}^2$$
+\end{itemize}
+\end{definition}
+
+\begin{keypoint}
+\textbf{Intuitive Understanding:}
+\begin{itemize}
+    \item Lyapunov stable: "Stay nearby forever"
+    \item Asymptotically stable: "Stay nearby and converge"
+    \item Globally asymptotically stable: "Converge from anywhere"
+\end{itemize}
+\end{keypoint}
+
+\section{Lyapunov Functions}
+
+\begin{definition}[Lyapunov Function]
+A continuously differentiable function $V: \mathbb{R}^2 \to \mathbb{R}$ is a \textbf{Lyapunov function} for the system $\dot{x} = f(x,y)$, $\dot{y} = g(x,y)$ at the origin if:
+\begin{enumerate}
+    \item $V(0,0) = 0$
+    \item $V(x,y) > 0$ for all $(x,y) \neq (0,0)$ in some neighborhood
+    \item $\dot{V}(x,y) \leq 0$ along trajectories in that neighborhood
+\end{enumerate}
+where the derivative along trajectories is:
+$$\dot{V} = \frac{\partial V}{\partial x}f(x,y) + \frac{\partial V}{\partial y}g(x,y) = \nabla V \cdot \mathbf{f}$$
+\end{definition}
+
+\begin{warning}
+\textbf{Critical Distinction:}
+$$\dot{V} \neq \frac{\partial V}{\partial t}$$
+Since $V$ doesn't explicitly depend on time, $\frac{\partial V}{\partial t} = 0$. Instead:
+$$\dot{V} = \frac{dV}{dt}\bigg|_{\text{along trajectories}} = \nabla V \cdot \mathbf{f}$$
+\end{warning}
+
+\section{Main Stability Theorems}
+
+\begin{theorem}[Lyapunov's Direct Method]
+For the equilibrium at the origin:
+\begin{enumerate}
+    \item If there exists a Lyapunov function with $\dot{V} \leq 0$, then the origin is \textbf{Lyapunov stable}
+    \item If additionally $\dot{V} < 0$ for $(x,y) \neq (0,0)$, then the origin is \textbf{asymptotically stable}
+    \item If additionally $V(x,y) \to \infty$ as $||(x,y)|| \to \infty$ (radial unboundedness), then the origin is \textbf{globally asymptotically stable}
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Instability Theorem]
+If there exists a function $V$ with $V(0,0) = 0$ and:
+\begin{itemize}
+    \item $V$ can take positive values arbitrarily close to the origin
+    \item $\dot{V} > 0$ where $V > 0$
+\end{itemize}
+then the origin is \textbf{unstable}.
+\end{theorem}
+
+\section{LaSalle's Invariance Principle}
+
+\begin{theorem}[LaSalle's Principle]
+Let $V$ be a Lyapunov function with $\dot{V} \leq 0$. Define:
+$$E = \{(x,y) : \dot{V}(x,y) = 0\}$$
+Let $M$ be the largest invariant set contained in $E$. Then all trajectories starting in a neighborhood of the origin approach $M$ as $t \to \infty$.
+\end{theorem}
+
+\begin{insight}
+LaSalle's principle often upgrades Lyapunov stability to asymptotic stability! If the only invariant set in $E$ is the origin itself, then we have asymptotic stability even when $\dot{V} \leq 0$ (not strictly negative).
+\end{insight}
+
+\section{Construction Methods}
+
+\begin{construction}
+\textbf{Standard Approaches for Finding Lyapunov Functions:}
+
+\begin{enumerate}
+    \item \textbf{Quadratic Forms:} Try $V = ax^2 + cy^2$ with $a, c > 0$
+
+    \item \textbf{General Quadratic:} Try $V = ax^2 + bxy + cy^2$ with:
+    $$a > 0, \quad c > 0, \quad ac - b^2/4 > 0$$
+
+    \item \textbf{Energy Methods:} For mechanical systems, use:
+    $$V = \text{kinetic energy} + \text{potential energy}$$
+
+    \item \textbf{Gradient Systems:} If $\dot{\mathbf{x}} = -\nabla U(\mathbf{x})$, use $V = U$
+
+    \item \textbf{First Integrals:} If $H(x,y)$ is conserved, modifications of $H$ often work
+
+    \item \textbf{Trial and Error:} Combine terms based on system structure
+\end{enumerate}
+\end{construction}
+
+\section{Complete Examples}
+
+\begin{example}[Quadratic Lyapunov Function]
+Consider the system:
+$$\dot{x} = -x^3 + xy^2, \quad \dot{y} = -y^3 + x^2y$$
+
+Try $V(x,y) = x^2 + y^2$:
+
+\textbf{Check conditions:}
+\begin{enumerate}
+    \item $V(0,0) = 0$ \checkmark
+    \item $V(x,y) = x^2 + y^2 > 0$ for $(x,y) \neq (0,0)$ \checkmark
+    \item Compute $\dot{V}$:
+    \begin{align}
+    \dot{V} &= 2x\dot{x} + 2y\dot{y}\\
+    &= 2x(-x^3 + xy^2) + 2y(-y^3 + x^2y)\\
+    &= -2x^4 + 2x^2y^2 - 2y^4 + 2x^2y^2\\
+    &= -2(x^4 + y^4) + 4x^2y^2\\
+    &= -2(x^4 + y^4 - 2x^2y^2)\\
+    &= -2(x^2 - y^2)^2 \leq 0
+    \end{align}
+\end{enumerate}
+
+So the origin is Lyapunov stable. For asymptotic stability, apply LaSalle:
+$\dot{V} = 0$ only when $x^2 = y^2$, i.e., $x = \pm y$.
+
+On the line $x = y$: $\dot{x} = 0$, $\dot{y} = 0$ only at origin.
+On the line $x = -y$: $\dot{x} = -2x^3$, $\dot{y} = 2y^3$, so trajectories leave unless at origin.
+
+Therefore, $M = \{(0,0)\}$ and the origin is asymptotically stable.
+\end{example}
+
+\begin{example}[Energy Function for Pendulum]
+Damped pendulum: $\ddot{\theta} + c\dot{\theta} + \sin\theta = 0$
+
+As a system: $\dot{x} = y$, $\dot{y} = -\sin x - cy$ (where $x = \theta$, $y = \dot{\theta}$)
+
+Energy function: $V(x,y) = \frac{1}{2}y^2 + (1 - \cos x)$
+
+\textbf{Analysis:}
+\begin{enumerate}
+    \item $V(0,0) = 0$ \checkmark
+    \item For small $x$: $1 - \cos x \approx \frac{x^2}{2} > 0$, so $V > 0$ near origin \checkmark
+    \item $\dot{V} = y\dot{y} + \sin x \cdot \dot{x} = y(-\sin x - cy) + \sin x \cdot y = -cy^2 \leq 0$
+\end{enumerate}
+
+By LaSalle: $\dot{V} = 0$ when $y = 0$. The invariant set on $\{y = 0\}$ is just the equilibria. Near the origin, this is only $(0,0)$, giving asymptotic stability.
+\end{example}
+
+\section{Basin of Attraction}
+
+\begin{definition}[Basin of Attraction]
+The basin of attraction of an asymptotically stable equilibrium $\mathbf{x}^*$ is:
+$$\mathcal{B}(\mathbf{x}^*) = \{\mathbf{x}_0 : \lim_{t \to \infty} \phi(t, \mathbf{x}_0) = \mathbf{x}^*\}$$
+where $\phi(t, \mathbf{x}_0)$ is the solution starting at $\mathbf{x}_0$.
+\end{definition}
+
+\begin{method}[Estimating Basins with Lyapunov Functions]
+If $V$ is a Lyapunov function with $\dot{V} < 0$ for $\mathbf{x} \neq \mathbf{0}$, and $\Omega_c = \{\mathbf{x} : V(\mathbf{x}) \leq c\}$ is bounded and contains only the origin as an equilibrium, then $\Omega_c \subseteq \mathcal{B}(\mathbf{0})$.
+\end{method}
+
+\section{Comparison: Linearization vs Lyapunov}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Aspect} & \textbf{Linearization} & \textbf{Lyapunov} \\
+\hline
+Scope & Local only & Local or global \\
+Applicability & Hyperbolic equilibria & Any equilibrium \\
+Information & Qualitative behavior & Stability + basin \\
+Construction & Automatic (Jacobian) & Requires creativity \\
+Limitations & Fails at centers & May not exist/find \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Strategy:}
+\begin{enumerate}
+    \item If given $V$, just verify conditions and compute $\dot{V}$
+    \item If asked to find $V$:
+    \begin{itemize}
+        \item Start with $V = x^2 + y^2$
+        \item Try $V = ax^2 + cy^2$ with suitable $a,c$
+        \item Look for physical energy if mechanical system
+        \item Check if gradient system
+    \end{itemize}
+    \item Always apply LaSalle when $\dot{V} \leq 0$ (not strictly negative)
+    \item State stability conclusion explicitly
+\end{enumerate}
+\end{examtip}
+
+\section{Summary Algorithm}
+
+\begin{mdframed}[linecolor=black, linewidth=1pt]
+\textbf{Lyapunov Analysis Procedure:}
+\begin{enumerate}
+    \item Identify/construct candidate $V(x,y)$
+    \item Verify $V(0,0) = 0$
+    \item Check $V(x,y) > 0$ for $(x,y) \neq (0,0)$ nearby
+    \item Compute $\dot{V} = \frac{\partial V}{\partial x}f + \frac{\partial V}{\partial y}g$
+    \item Analyze sign of $\dot{V}$:
+    \begin{itemize}
+        \item $\dot{V} \leq 0$: Lyapunov stable
+        \item $\dot{V} < 0$ (except origin): Asymptotically stable
+        \item $\dot{V} > 0$ somewhere: Check instability theorem
+    \end{itemize}
+    \item If $\dot{V} \leq 0$, apply LaSalle's principle
+    \item Check radial unboundedness for global stability
+\end{enumerate}
+\end{mdframed}
+
+\end{document}

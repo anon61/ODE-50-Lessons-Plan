@@ -1,0 +1,207 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\usepackage{mdframed, xcolor}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newcommand{\solution}[1]{\textcolor{blue}{\textbf{Solution Hint:} #1}}
+
+\title{Lesson 40: Practice Problems\\
+\large Critical Points and Linearization}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Finding Critical Points (5 problems)}
+
+\begin{enumerate}
+\item Find all critical points of the system:
+$$\dot{x} = x - y, \quad \dot{y} = x^2 - 4$$
+\solution{Set both equal to zero: $y = x$ and $x^2 = 4$, giving two critical points.}
+
+\item Find all critical points of:
+$$\dot{x} = y(1-x^2), \quad \dot{y} = x - y$$
+\solution{Consider cases: either $y = 0$ or $x^2 = 1$. Check all combinations.}
+
+\item Determine the critical points of:
+$$\dot{x} = \sin(x), \quad \dot{y} = y - \cos(x)$$
+\solution{From $\sin(x) = 0$, we get $x = n\pi$. Then find corresponding $y$ values.}
+
+\item Find all equilibria of the predator-prey system:
+$$\dot{x} = x(2 - x - y), \quad \dot{y} = y(x - 1)$$
+\solution{Factor first, then consider cases systematically.}
+
+\item For what values of $a$ does the system have exactly one critical point?
+$$\dot{x} = ax - y, \quad \dot{y} = x^2 + y^2 - 1$$
+\solution{Analyze when the system $ax - y = 0$ and $x^2 + y^2 = 1$ has unique solution.}
+\end{enumerate}
+
+\section*{Part B: Jacobian and Linearization (6 problems)}
+
+\begin{enumerate}[resume]
+\item Compute the Jacobian matrix for:
+$$\dot{x} = x^2 - y + 1, \quad \dot{y} = xy$$
+\solution{$J = \begin{pmatrix} 2x & -1 \\ y & x \end{pmatrix}$}
+
+\item Find the Jacobian at the origin for:
+$$\dot{x} = \sin(x) + y, \quad \dot{y} = e^x - e^y$$
+\solution{Remember: $\frac{d}{dx}\sin(x)|_{x=0} = \cos(0) = 1$ and $\frac{d}{dx}e^x|_{x=0} = 1$}
+
+\item Linearize the pendulum equation at $(0, 0)$:
+$$\dot{x} = y, \quad \dot{y} = -\sin(x) - 0.5y$$
+\solution{Use $\sin(x) \approx x$ near origin.}
+
+\item Find the linearization of the following system at $(1, 1)$:
+$$\dot{x} = y - x^3, \quad \dot{y} = -x + y^3$$
+\solution{First verify $(1,1)$ is a critical point, then compute $J(1,1)$.}
+
+\item Compute the Jacobian for the Lotka-Volterra system:
+$$\dot{x} = x(\alpha - \beta y), \quad \dot{y} = y(-\gamma + \delta x)$$
+at the coexistence equilibrium.
+\solution{First find the equilibrium: $x = \gamma/\delta$, $y = \alpha/\beta$.}
+
+\item For the system $\dot{x} = y + x^2$, $\dot{y} = -x + y^2$, find all critical points and compute the Jacobian at each.
+\solution{From first equation: $y = -x^2$. Substitute into second.}
+\end{enumerate}
+
+\section*{Part C: Stability Classification (5 problems)}
+
+\begin{enumerate}[resume]
+\item Classify the critical point $(0,0)$ for:
+$$\dot{x} = -2x + y, \quad \dot{y} = x - 3y$$
+\solution{Find eigenvalues of $J = \begin{pmatrix} -2 & 1 \\ 1 & -3 \end{pmatrix}$}
+
+\item Determine the stability of all critical points:
+$$\dot{x} = y, \quad \dot{y} = x - x^3$$
+\solution{Three critical points: $(0,0)$, $(1,0)$, $(-1,0)$. Classify each.}
+
+\item For what values of $\mu$ is the origin stable?
+$$\dot{x} = -x + \mu y, \quad \dot{y} = -\mu x - y$$
+\solution{Eigenvalues depend on $\mu$. Find stability condition.}
+
+\item Classify the critical point $(1, 0)$ for:
+$$\dot{x} = x(1-x) - xy, \quad \dot{y} = y(x-2)$$
+\solution{Compute $J(1,0)$ carefully.}
+
+\item Determine the type and stability of the origin for:
+$$\dot{x} = y + x^3, \quad \dot{y} = -2x - 3y + xy$$
+\solution{Nonlinear terms vanish at origin, so linearization is exact there.}
+\end{enumerate}
+
+\section*{Part D: Hartman-Grobman Applications (4 problems)}
+
+\begin{enumerate}[resume]
+\item For which critical points does linearization determine the local behavior?
+$$\dot{x} = y, \quad \dot{y} = \sin(x) - y$$
+\solution{Check if eigenvalues have non-zero real parts (hyperbolic condition).}
+
+\item Consider the system $\dot{x} = -y + x^2$, $\dot{y} = x + y^2$.
+At which critical point(s) might linearization fail to determine stability?
+\solution{Find where eigenvalues are purely imaginary.}
+
+\item For the system:
+$$\dot{x} = y^2 - x, \quad \dot{y} = x^2 - y$$
+Identify all hyperbolic equilibria.
+\solution{Check each critical point for zero real parts in eigenvalues.}
+
+\item Given that linearization at $(0,0)$ yields eigenvalues $\lambda = \pm i$, what can you conclude about the nonlinear system's behavior near the origin?
+\solution{Linearization inconclusive; could be center, spiral, or more complex.}
+\end{enumerate}
+
+\section*{Part E: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Style]} Consider the competing species model:
+$$\dot{x} = x(3 - x - 2y), \quad \dot{y} = y(2 - x - y)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find ALL critical points
+    \item Compute the Jacobian at each critical point
+    \item Classify each equilibrium and state its stability
+    \item Which equilibria are biologically meaningful?
+\end{enumerate}
+\solution{Four critical points expected. Check axes and interior.}
+
+\item \textbf{[Comprehensive]} For the system:
+$$\dot{x} = y - x^2, \quad \dot{y} = -x - y + 2$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $(1, 1)$ is a critical point
+    \item Find any other critical points
+    \item Linearize at each critical point
+    \item Sketch the expected behavior near each equilibrium
+\end{enumerate}
+\solution{Quadratic in $x$ means at most 2 critical points.}
+
+\item \textbf{[Bifurcation Preview]} Consider:
+$$\dot{x} = \mu x - y - x^3, \quad \dot{y} = x + \mu y - y^3$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show $(0,0)$ is always a critical point
+    \item Find the linearization at the origin
+    \item For what values of $\mu$ is the origin stable?
+    \item What happens at $\mu = 0$?
+\end{enumerate}
+\solution{Eigenvalues are $\lambda = \mu \pm i$.}
+
+\item \textbf{[Physical System]} A nonlinear oscillator satisfies:
+$$\ddot{x} + \dot{x} - x + x^3 = 0$$
+\begin{enumerate}[label=(\alph*)]
+    \item Rewrite as a first-order system
+    \item Find all equilibria
+    \item Determine stability of each equilibrium
+    \item Interpret physically
+\end{enumerate}
+\solution{Let $y = \dot{x}$ to get system form.}
+
+\item \textbf{[Mixed Techniques]} For the gradient system:
+$$\dot{x} = -\frac{\partial V}{\partial x}, \quad \dot{y} = -\frac{\partial V}{\partial y}$$
+where $V(x,y) = x^4 + y^4 - 2x^2 - 2y^2 + xy$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all critical points
+    \item Classify each using linearization
+    \item What can you say about stability using $V$ directly?
+\end{enumerate}
+\solution{Critical points occur where $\nabla V = 0$. Use second derivative test.}
+\end{enumerate}
+
+\section*{Part F: Additional Practice (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find and classify all equilibria of:
+$$\dot{x} = x - x^3, \quad \dot{y} = -y$$
+
+\item For the Hamiltonian system with $H(x,y) = \frac{1}{2}y^2 + \frac{1}{2}x^2 - \frac{1}{3}x^3$:
+$$\dot{x} = \frac{\partial H}{\partial y}, \quad \dot{y} = -\frac{\partial H}{\partial x}$$
+Find and classify all critical points.
+
+\item Consider the chemical reaction system:
+$$\dot{x} = 1 - xy^2, \quad \dot{y} = xy^2 - y$$
+Find the unique positive equilibrium and determine its stability.
+
+\item For what values of $a$ and $b$ is the origin an asymptotically stable spiral?
+$$\dot{x} = ax + y, \quad \dot{y} = -x + by$$
+
+\item \textbf{[Challenge]} Consider the system:
+$$\dot{x} = y + x(1 - x^2 - y^2), \quad \dot{y} = -x + y(1 - x^2 - y^2)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show that the origin is the only critical point inside $x^2 + y^2 < 1$
+    \item Classify the origin using linearization
+    \item Show that $x^2 + y^2 = 1$ is an invariant circle
+    \item Describe the global behavior
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Strategies for Prof. Ditkowski's Exam:}
+\begin{itemize}
+    \item Always find ALL critical points - check systematically
+    \item Show Jacobian computation explicitly - no shortcuts
+    \item State both type AND stability clearly
+    \item When eigenvalues have zero real part, state "linearization inconclusive"
+    \item For transcendental equations, graphical analysis is acceptable
+    \item Double-check arithmetic - especially signs in the Jacobian
+\end{itemize}
+\end{hint}
+
+\end{document}

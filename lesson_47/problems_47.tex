@@ -1,0 +1,341 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 47: Practice Problems\\Euler-Cauchy Equations}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+
+\maketitle
+
+\section*{Part A: Basic Euler Equations (5 problems)}
+
+\begin{enumerate}
+\item Solve: $t$^{2y}$'' - 2ty' + 2y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' + 3ty' + y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' - ty' - 3y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' + 4ty' + 2y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' - 3ty' + 4y = 0$ for $t > 0$
+\end{enumerate}
+
+\section*{Part B: Repeated Roots Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $t$^{2y}$'' - 3ty' + 4y = 0$ for $t > 0$ (verify repeated root)
+
+\item Solve: $t$^{2y}$'' + 5ty' + 4y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' - ty' + y = 0$ for $t > 0$
+
+\item Solve: $4t$^{2y}$'' + 8ty' + y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' + 3ty' + y = 0$ for $t > 0$
+\end{enumerate}
+
+\section*{Part C: Complex Roots Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $t$^{2y}$'' - ty' + 5y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' + ty' + y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' - 3ty' + 13y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' + ty' + 4y = 0$ for $t > 0$
+
+\item Solve: $t$^{2y}$'' + 3ty' + 5y = 0$ for $t > 0$
+\end{enumerate}
+
+\section*{Part D: Using the Transform Method (5 problems)}
+
+\begin{enumerate}[resume]
+\item Using $x = \ln t$, transform and solve: $t$^{2y}$'' - 4ty' + 6y = 0$
+
+\item Transform and solve: $t$^{2y}$'' + 2ty' - 2y = 0$
+
+\item Show that the transform method gives the same solution as the direct method for: $t$^{2y}$'' - ty' - 8y = 0$
+
+\item Use the transform to solve: $t$^{2y}$'' + 5ty' + 3y = 0$
+
+\item Transform the third-order equation: $t$^{3y}$''' + 3t$^{2y}$'' - 2ty' + 2y = 0$
+\end{enumerate}
+
+\section*{Part E: Initial Value Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $t$^{2y}$'' - 2ty' + 2y = 0$, $y(1) = 3$, $y'(1) = 5$
+
+\item Solve: $t$^{2y}$'' + 3ty' + y = 0$, $y(1) = 2$, $y'(1) = -1$
+
+\item Solve: $t$^{2y}$'' - ty' + y = 0$, $y(1) = 0$, $y'(1) = 1$
+
+\item Solve: $t$^{2y}$'' - ty' + 5y = 0$, $y(1) = 1$, $y'(1) = 2$
+
+\item Solve: $t$^{2y}$'' - 3ty' + 4y = 0$, $y(2) = 8$, $y'(2) = 12$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Consider the equation $t$^{2y}$'' + aty' + by = 0$.
+\begin{enumerate}[label=(\alph*)]
+    \item For what values of $a$ and $b$ are all solutions bounded as $t \to \infty$?
+    \item For what values do solutions oscillate on a logarithmic scale?
+    \item Find conditions for polynomial solutions.
+\end{enumerate}
+
+\item The equation $t$^{2y}$'' - 2\alpha ty' + \alpha(\alpha+1)y = 0$ has $y$_{1}$ = t^\alpha$ as a solution.
+\begin{enumerate}[label=(\alph*)]
+    \item Verify this directly.
+    \item Find the second solution.
+    \item What is special about this equation?
+\end{enumerate}
+
+\item Transform the equation $(t+1)$^{2y}$'' + 3(t+1)y' + y = 0$ to an Euler equation and solve.
+
+\item For the equation $t$^{2y}$'' + ty' + (t$^{2}$ - \nu$^{2}$)y = 0$ (Bessel's equation of order $\nu$):
+\begin{enumerate}[label=(\alph*)]
+    \item Show this is NOT a pure Euler equation.
+    \item Find the indicial equation at $t = 0$.
+    \item What are the indices?
+\end{enumerate}
+
+\item Consider the system of Euler equations:
+$$\begin{cases}
+t$^{2y}$'' - 2ty' + 2y = z \\
+t$^{2z}$'' - 4tz' + 6z = y
+\end{cases}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the general solution for $y$ and $z$.
+    \item Determine if solutions can remain bounded as $t \to 0^+$.
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\section*{Solutions}
+
+\subsection*{Part A: Basic Euler Equations}
+
+\begin{enumerate}
+\item Characteristic equation: $r(r-1) - 2r + 2 = 0$\\
+$r$^{2}$ - 3r + 2 = 0$\\
+$(r-1)(r-2) = 0$\\
+Roots: $r = 1, 2$\\
+General solution: $y = c$_{1t}$ + c$_{2t}$^2$
+
+\item Characteristic equation: $r(r-1) + 3r + 1 = 0$\\
+$r$^{2}$ + 2r + 1 = 0$\\
+$(r+1)$^{2}$ = 0$\\
+Repeated root: $r = -1$\\
+General solution: $y = \frac{c$_{1}$ + c$_{2}$\ln t}{t}$
+
+\item Characteristic equation: $r(r-1) - r - 3 = 0$\\
+$r$^{2}$ - 2r - 3 = 0$\\
+$(r-3)(r+1) = 0$\\
+Roots: $r = 3, -1$\\
+General solution: $y = c$_{1t}$^3 + \frac{c$_{2}$}{t}$
+
+\item Characteristic equation: $r(r-1) + 4r + 2 = 0$\\
+$r$^{2}$ + 3r + 2 = 0$\\
+$(r+1)(r+2) = 0$\\
+Roots: $r = -1, -2$\\
+General solution: $y = \frac{c$_{1}$}{t} + \frac{c$_{2}$}{t$^{2}$}$
+
+\item Characteristic equation: $r(r-1) - 3r + 4 = 0$\\
+$r$^{2}$ - 4r + 4 = 0$\\
+$(r-2)$^{2}$ = 0$\\
+Repeated root: $r = 2$\\
+General solution: $y = (c$_{1}$ + c$_{2}$\ln t)t$^{2}$$
+\end{enumerate}
+
+\subsection*{Part B: Repeated Roots Cases}
+
+\begin{enumerate}[resume]
+\item Already solved in Part A, #5:\\
+$r = 2$ (double root)\\
+General solution: $y = (c$_{1}$ + c$_{2}$\ln t)t$^{2}$$
+
+\item Characteristic equation: $r$^{2}$ + 4r + 4 = 0$\\
+$(r+2)$^{2}$ = 0$\\
+Repeated root: $r = -2$\\
+General solution: $y = \frac{c$_{1}$ + c$_{2}$\ln t}{t$^{2}$}$
+
+\item Characteristic equation: $r$^{2}$ - 2r + 1 = 0$\\
+$(r-1)$^{2}$ = 0$\\
+Repeated root: $r = 1$\\
+General solution: $y = (c$_{1}$ + c$_{2}$\ln t)t$
+
+\item Divide by 4: $t$^{2y}$'' + 2ty' + \frac{1}{4}y = 0$\\
+Characteristic equation: $r$^{2}$ + r + \frac{1}{4} = 0$\\
+$(r + \frac{1}{2})$^{2}$ = 0$\\
+Repeated root: $r = -\frac{1}{2}$\\
+General solution: $y = \frac{c$_{1}$ + c$_{2}$\ln t}{\sqrt{t}}$
+
+\item Characteristic equation: $r$^{2}$ + 2r + 1 = 0$\\
+$(r+1)$^{2}$ = 0$\\
+Repeated root: $r = -1$\\
+General solution: $y = \frac{c$_{1}$ + c$_{2}$\ln t}{t}$
+\end{enumerate}
+
+\subsection*{Part C: Complex Roots Cases}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r$^{2}$ - 2r + 5 = 0$\\
+$r = \frac{2 \pm \sqrt{4-20}}{2} = 1 \pm 2i$\\
+General solution: $y = t[c$_{1}$\cos(2\ln t) + c$_{2}$\sin(2\ln t)]$
+
+\item Characteristic equation: $r$^{2}$ + 1 = 0$\\
+$r = \pm i$\\
+General solution: $y = c$_{1}$\cos(\ln t) + c$_{2}$\sin(\ln t)$
+
+\item Characteristic equation: $r$^{2}$ - 4r + 13 = 0$\\
+$r = \frac{4 \pm \sqrt{16-52}}{2} = 2 \pm 3i$\\
+General solution: $y = t$^{2}$[c$_{1}$\cos(3\ln t) + c$_{2}$\sin(3\ln t)]$
+
+\item Characteristic equation: $r$^{2}$ + 4 = 0$\\
+$r = \pm 2i$\\
+General solution: $y = c$_{1}$\cos(2\ln t) + c$_{2}$\sin(2\ln t)$
+
+\item Characteristic equation: $r$^{2}$ + 2r + 5 = 0$\\
+$r = \frac{-2 \pm \sqrt{4-20}}{2} = -1 \pm 2i$\\
+General solution: $y = \frac{1}{t}[c$_{1}$\cos(2\ln t) + c$_{2}$\sin(2\ln t)]$
+\end{enumerate}
+
+\subsection*{Part D: Using the Transform Method}
+
+\begin{enumerate}[resume]
+\item Let $x = \ln t$, $v(x) = y(t)$\\
+Transform: $v'' - 5v' + 6v = 0$\\
+Characteristic: $\lambda$^{2}$ - 5\lambda + 6 = 0$\\
+$(\lambda - 2)(\lambda - 3) = 0$\\
+$v = c$_{1e}$^{2x} + c$_{2e}$^{3x}$\\
+Back-transform: $y = c$_{1t}$^2 + c$_{2t}$^3$
+
+\item Transform: $v'' + v' - 2v = 0$\\
+Characteristic: $\lambda$^{2}$ + \lambda - 2 = 0$\\
+$(\lambda + 2)(\lambda - 1) = 0$\\
+$v = c$_{1e}$^{-2x} + c$_{2e}$^x$\\
+Back-transform: $y = \frac{c$_{1}$}{t$^{2}$} + c$_{2t}$$
+
+\item Direct method: $r$^{2}$ - 2r - 8 = 0 \Rightarrow r = 4, -2$\\
+Transform method: $v'' - 2v' - 8v = 0$\\
+Same characteristic equation!\\
+Solution: $y = c$_{1t}$^4 + \frac{c$_{2}$}{t$^{2}$}$
+
+\item Transform: $v'' + 4v' + 3v = 0$\\
+$(\lambda + 1)(\lambda + 3) = 0$\\
+$v = c$_{1e}$^{-x} + c$_{2e}$^{-3x}$\\
+Back-transform: $y = \frac{c$_{1}$}{t} + \frac{c$_{2}$}{t$^{3}$}$
+
+\item Let $D = d/dx$. Transform gives:\\
+$(D$^{3}$ - 3D$^{2}$ + 2D) + 3(D$^{2}$ - D) - 2D + 2 = 0$\\
+$D$^{3}$ - D - 2D + 2 = D$^{3}$ - 3D + 2 = 0$\\
+Characteristic: $\lambda$^{3}$ - 3\lambda + 2 = 0$\\
+$(\lambda - 1)$^{2}$(\lambda + 2) = 0$\\
+$v = (c$_{1}$ + c$_{2x}$)e$^{x}$ + c$_{3e}$^{-2x}$\\
+$y = (c$_{1}$ + c$_{2}$\ln t)t + \frac{c$_{3}$}{t$^{2}$}$
+\end{enumerate}
+
+\subsection*{Part E: Initial Value Problems}
+
+\begin{enumerate}[resume]
+\item From Part A #1: $y = c$_{1t}$ + c$_{2t}$^2$\\
+$y(1) = c$_{1}$ + c$_{2}$ = 3$\\
+$y'(t) = c$_{1}$ + 2c$_{2t}$$\\
+$y'(1) = c$_{1}$ + 2c$_{2}$ = 5$\\
+Solving: $c$_{2}$ = 2$, $c$_{1}$ = 1$\\
+Solution: $y = t + 2t$^{2}$$
+
+\item From Part A #2: $y = \frac{c$_{1}$ + c$_{2}$\ln t}{t}$\\
+$y(1) = c$_{1}$ = 2$\\
+$y'(t) = \frac{c$_{2}$ - c$_{1}$ - c$_{2}$\ln t}{t$^{2}$}$\\
+$y'(1) = c$_{2}$ - c$_{1}$ = -1$\\
+$c$_{2}$ = 1$\\
+Solution: $y = \frac{2 + \ln t}{t}$
+
+\item From Part B #8: $y = (c$_{1}$ + c$_{2}$\ln t)t$\\
+$y(1) = c$_{1}$ = 0$\\
+$y'(t) = c$_{1}$ + c$_{2}$(1 + \ln t)$\\
+$y'(1) = c$_{2}$ = 1$\\
+Solution: $y = t\ln t$
+
+\item From Part C #11: $y = t[c$_{1}$\cos(2\ln t) + c$_{2}$\sin(2\ln t)]$\\
+$y(1) = c$_{1}$ = 1$\\
+$y'(t) = [c$_{1}$\cos(2\ln t) + c$_{2}$\sin(2\ln t)] + t[-2c$_{1}$\sin(2\ln t)/t + 2c$_{2}$\cos(2\ln t)/t]$\\
+$y'(1) = 1 + 2c$_{2}$ = 2$\\
+$c$_{2}$ = \frac{1}{2}$\\
+Solution: $y = t[\cos(2\ln t) + \frac{1}{2}\sin(2\ln t)]$
+
+\item From Part A #5: $y = (c$_{1}$ + c$_{2}$\ln t)t$^{2}$$\\
+$y(2) = 4c$_{1}$ + 4c$_{2}$\ln 2 = 8$\\
+$y'(t) = 2(c$_{1}$ + c$_{2}$\ln t)t + c$_{2t}$$\\
+$y'(2) = 8c$_{1}$ + 8c$_{2}$\ln 2 + 2c$_{2}$ = 12$\\
+From first: $c$_{1}$ + c$_{2}$\ln 2 = 2$\\
+From second: $4c$_{1}$ + 4c$_{2}$\ln 2 + c$_{2}$ = 6$\\
+$c$_{2}$ = -2$, $c$_{1}$ = 2 + 2\ln 2$\\
+Solution: $y = [2 + 2\ln 2 - 2\ln t]t$^{2}$ = 2t$^{2}$[1 + \ln(4/t)]$
+\end{enumerate}
+
+\subsection*{Part F: Exam-Style Problems}
+
+\begin{enumerate}[resume]
+\item
+\begin{enumerate}[label=(\alph*)]
+\item Bounded as $t \to \infty$: Need both roots to have negative real parts.\\
+From $r$^{2}$ + (a-1)r + b = 0$: Need $a > 1$ and $b > 0$ (and $(a-1)$^{2}$ > 4b$ for real roots).
+
+\item Oscillation: Need complex roots, so $(a-1)$^{2}$ < 4b$.
+
+\item Polynomial solutions: Need positive integer roots. For example, $r = n$ requires $n$^{2}$ + (a-1)n + b = 0$.
+\end{enumerate}
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item $y$_{1}$' = \alpha t^{\alpha-1}$, $y$_{1}$'' = \alpha(\alpha-1)t^{\alpha-2}$\\
+Substitute: $\alpha(\alpha-1) - 2\alpha \cdot \alpha + \alpha(\alpha+1) = 0$ \checkmark
+
+\item Characteristic equation: $r$^{2}$ - (2\alpha+1)r + \alpha(\alpha+1) = 0$\\
+$(r-\alpha)(r-(\alpha+1)) = 0$\\
+Second solution: $y$_{2}$ = t^{\alpha+1}$
+
+\item This is the Euler equation whose solutions are consecutive powers of $t$.
+\end{enumerate}
+
+\item Let $s = t + 1$, then the equation becomes:\\
+$s$^{2y}$'' + 3sy' + y = 0$ (standard Euler in $s$)\\
+Characteristic: $r$^{2}$ + 2r + 1 = (r+1)$^{2}$ = 0$\\
+$y = \frac{c$_{1}$ + c$_{2}$\ln(t+1)}{t+1}$
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item The $t$^{2}$$ in the last term makes this NOT a pure Euler equation.
+
+\item For the indicial equation, consider $y = t$^{r}$(1 + a$_{1t}$ + \ldots)$\\
+Leading terms give: $r(r-1) + r - \nu$^{2}$ = 0$\\
+$r$^{2}$ - \nu$^{2}$ = 0$
+
+\item Indices: $r = \pm\nu$
+\end{enumerate}
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item Decouple: Fourth-order equations result.\\
+For $y$: $(t$^{2D}$^2 - 2tD + 2)(t$^{2D}$^2 - 4tD + 6) - 1 = 0$\\
+This gives $t$^{4y}$^{(4)} - 6t$^{3y}$''' + 15t$^{2y}$'' - 15ty' + (12-1)y = 0$\\
+Complex calculation yields general solutions.
+
+\item As $t \to 0^+$: Solutions behave like $t$^{r}$$ where $r$ are the characteristic roots. Bounded only if all $\text{Re}(r) \geq 0$.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

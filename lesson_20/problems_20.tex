@@ -1,0 +1,223 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 20: Practice Problems - Riccati to Second-Order Transformation}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Transformations (5 problems)}
+
+\begin{enumerate}
+    \item Transform each Riccati equation to second-order linear form:
+    \begin{enumerate}[label=(\alph*)]
+        \item $y' = 1 + y$^{2}$$
+        \item $y' = x$^{2}$ - y$^{2}$$
+        \item $y' = \frac{1}{x$^{2}$} + \frac{2y}{x} + y$^{2}$$
+        \item $y' = e$^{x}$ + y$^{2}$$
+        \item $y' = 1 - 2y + y$^{2}$$
+    \end{enumerate}
+
+    \item For the equation $y' = q$_{0}$(x) + y$^{2}$$, show that the transformation $y = -u'/u$ gives $u'' = q$_{0}$(x)u$.
+
+    \item Verify that if $u$_{1}$$ and $u$_{2}$$ solve the second-order equation, then $y = -\frac{u$_{1}$' u$_{2}$ - u$_{1}$ u$_{2}$'}{u$_{1}$ u$_{2}$}$ solves the associated Riccati.
+
+    \item Show that the transformation $y = \tan(\theta)$ converts $y' = a(x)(1 + y$^{2}$)$ into $\theta' = a(x)$.
+
+    \item Prove that if the Riccati has constant coefficients, the transformed second-order equation also has constant coefficients.
+\end{enumerate}
+
+\section*{Part B: Complete Solutions via Transformation (6 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve $y' = 1 - y$^{2}$$ by transforming to second-order form.
+
+    \item Find the general solution of $y' = \frac{2}{x$^{2}$} + y$^{2}$$ using the second-order approach.
+
+    \item Solve $y' = 4 + y$^{2}$$ and express the answer in terms of hyperbolic functions.
+
+    \item Transform and solve: $y' = \cos$^{2}$(x) + y$^{2}$$.
+
+    \item Find all solutions of $y' = e^{2x} - y$^{2}$$.
+
+    \item Solve the equation $y' = \frac{1 - n$^{2}$}{x$^{2}$} + y$^{2}$$ where $n$ is an integer.
+\end{enumerate}
+
+\section*{Part C: Reverse Transformation (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Given $u'' + u = 0$, find the associated Riccati equation and solve it.
+
+    \item Transform $u'' - 4u = 0$ to Riccati form and find all solutions.
+
+    \item Convert the Airy equation $u'' - xu = 0$ to its Riccati form.
+
+    \item Show that the Bessel equation $x$^{2u}$'' + xu' + (x$^{2}$ - n$^{2}$)u = 0$ corresponds to a specific Riccati equation.
+
+    \item Given $u'' + p(x)u' + q(x)u = 0$ with known solution $u$_{1}$$, find the Riccati solution.
+\end{enumerate}
+
+\section*{Part D: Special Cases and Applications (5 problems)}
+
+\begin{enumerate}[resume]
+    \item The Riccati equation $y' = ax^{2n} + by$^{2}$$ where $a, b$ are constants:
+    \begin{enumerate}[label=(\alph*)]
+        \item Transform to second-order form
+        \item Identify when elementary solutions exist
+        \item Solve for $n = 0, 1$
+    \end{enumerate}
+
+    \item Consider $y' = \frac{A}{x$^{2}$} + \frac{B}{x}y + Cy$^{2}$$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Show this transforms to an Euler equation
+        \item Find conditions on $A, B, C$ for real solutions
+        \item Solve when $B = 0$, $C = 1$
+    \end{enumerate}
+
+    \item The equation $y' = \sec$^{2}$(x) + y$^{2}$$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Transform to second-order form
+        \item Explain why elementary solutions don't exist
+        \item Find series solution near $x = 0$
+    \end{enumerate}
+
+    \item For the parametric family $y' = \lambda + y$^{2}$$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Find the second-order form for each $\lambda$
+        \item Determine solution behavior as $\lambda$ varies
+        \item Identify bifurcation at $\lambda = 0$
+    \end{enumerate}
+
+    \item The Schwarzian derivative connection:
+    \begin{enumerate}[label=(\alph*)]
+        \item Show that $y' = -\frac{1}{2}S[f](x) + y$^{2}$$ where $S[f]$ is the Schwarzian
+        \item Find the second-order form
+        \item Discuss invariance properties
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Theoretical Problems (4 problems)}
+
+\begin{enumerate}[resume]
+    \item Prove that the transformation $y = -\frac{1}{q$_{2}$}\frac{u'}{u}$ is invertible: given $y(x)$, we can recover $u(x)$ up to a constant multiple.
+
+    \item Show that if the Riccati equation has $n$ particular solutions $y$_{1}$, \ldots, y$_{n}$$, the second-order equation has $n$ corresponding solutions $u$_{i}$$ with $y$_{i}$ = -u$_{i}$'/u$_{i}$$.
+
+    \item Prove that the Wronskian $W(u$_{1}$, u$_{2}$) = u$_{1u}$_2' - u$_{1}$'u$_{2}$$ of two solutions of the second-order equation satisfies $W' = -p(x)W$.
+
+    \item Establish the connection: If $y$_{1}$$ and $y$_{2}$$ are two Riccati solutions, then $(y$_{1}$ - y$_{2}$)^{-1}$ satisfies a first-order linear equation.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Complete Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item \textbf{[Prof. Ditkowski Style]}
+    Consider the Riccati equation: $y' = \frac{4}{x$^{2}$} - y$^{2}$$
+    \begin{enumerate}[label=(\alph*)]
+        \item Transform to second-order linear form using $y = u'/u$
+        \item Identify the type of second-order equation obtained
+        \item Solve the second-order equation
+        \item Find the general solution of the original Riccati
+        \item Verify your solution satisfies the original equation
+        \item Find the solution with $y(1) = 2$
+    \end{enumerate}
+
+    \item \textbf{[Multiple Methods]}
+    For $y' = 1 + y$^{2}$$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Solve using the known particular solution $y$_{p}$ = \tan(x)$
+        \item Solve by transforming to second-order form
+        \item Verify both methods give the same general solution
+        \item Discuss the solution's periodicity and singularities
+    \end{enumerate}
+
+    \item \textbf{[Comparison Problem]}
+    Given the two equations:
+    \begin{itemize}
+        \item[(i)] $y' = 1 + y$^{2}$$
+        \item[(ii)] $y' = 1 - y$^{2}$$
+    \end{itemize}
+    \begin{enumerate}[label=(\alph*)]
+        \item Transform both to second-order form
+        \item Solve both completely
+        \item Compare the qualitative behavior of solutions
+        \item Explain the difference using phase portraits
+    \end{enumerate}
+
+    \item \textbf{[Application to Quantum Mechanics]}
+    The radial Schrödinger equation can yield the Riccati:
+    $$y' = \frac{l(l+1)}{x$^{2}$} - k$^{2}$ + \frac{2m}{\hbar$^{2}$}V(x) + y$^{2}$$$
+    \begin{enumerate}[label=(\alph*)]
+        \item For $V(x) = 0$ (free particle), transform to second-order
+        \item Solve for $l = 0$
+        \item Discuss bound states vs scattering states
+    \end{enumerate}
+
+    \item \textbf{[Comprehensive Problem]}
+    Consider $y' = x$^{2}$ + y$^{2}$$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Show no elementary particular solution exists
+        \item Transform to second-order form
+        \item Identify this as an Airy-type equation
+        \item Write the solution in terms of Airy functions
+        \item Analyze asymptotic behavior as $x \to \pm\infty$
+    \end{enumerate}
+
+    \item \textbf{[Challenge: Connection to Painlevé]}
+    The equation $y' = x + y$^{2}$$ is related to Painlevé II.
+    \begin{enumerate}[label=(\alph*)]
+        \item Transform to second-order form
+        \item Show the second-order equation has no elementary solutions
+        \item Prove solutions exist for all $x$
+        \item Find the asymptotic behavior as $x \to -\infty$
+        \item Explain why this is called a "Painlevé transcendent"
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1(a):} Using $y = -u'/u$ with $q$_{2}$ = 1$:
+Second-order form: $u'' + u = 0$
+Solution: $u = c$_{1}$\cos x + c$_{2}$\sin x$
+Riccati solution: $y = \tan(x - \phi)$
+
+\textbf{Problem 6:} $y' = 1 - y$^{2}$$ transforms to $u'' - u = 0$.
+Solution: $u = c$_{1e}$^x + c$_{2e}$^{-x}$
+Therefore: $y = -\frac{c$_{1e}$^x - c$_{2e}$^{-x}}{c$_{1e}$^x + c$_{2e}$^{-x}} = \tanh(x + C)$
+
+\textbf{Problem 7:} $y' = \frac{2}{x$^{2}$} + y$^{2}$$ gives $x$^{2u}$'' + 2u = 0$.
+This is Euler with $m(m-1) + 2 = 0$, so $m = \frac{1 \pm \sqrt{1-8}}{2} = \frac{1 \pm i\sqrt{7}}{2}$.
+Solutions involve $x^{1/2}\cos(\frac{\sqrt{7}}{2}\ln x)$ and $x^{1/2}\sin(\frac{\sqrt{7}}{2}\ln x)$.
+
+\textbf{Problem 12:} From $u'' + u = 0$, the Riccati is $y' = -1 - y$^{2}$$.
+This is $y' = 1 + y$^{2}$$ with $y \to iy$, giving $y = -\tan(x - C)$.
+
+\textbf{Problem 25:} For $y' = \frac{4}{x$^{2}$} - y$^{2}$$:
+Second-order: $x$^{2u}$'' - 4u = 0$ (Euler equation)
+With $u = x$^{m}$$: $m(m-1) = 4$, so $m = \frac{1 \pm \sqrt{1+16}}{2} = \frac{1 \pm \sqrt{17}}{2}$
+
+\textbf{Key Transformation Formulas:}
+\begin{itemize}
+    \item Forward: $y = -\frac{1}{q$_{2}$} \cdot \frac{u'}{u}$
+    \item Resulting 2nd-order: $u'' + p(x)u' + r(x)u = 0$
+    \item Where: $p = -q$_{1}$ - q$_{2}$'/q$_{2}$$, $r = q$_{0q}$_2$
+    \item Reverse: Given $u'' + p(x)u' + q(x)u = 0$, get $y' = -q - py - y$^{2}$$
+\end{itemize}
+
+\textbf{Common Second-Order Results:}
+\begin{itemize}
+    \item $y' = a + y$^{2}$ \to u'' + au = 0$
+    \item $y' = a - y$^{2}$ \to u'' - au = 0$
+    \item $y' = \frac{a}{x$^{2}$} + y$^{2}$ \to x$^{2u}$'' + au = 0$
+    \item $y' = ax$^{n}$ + y$^{2}$ \to u'' + ax$^{nu}$ = 0$
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,227 @@
+Episode 47: Euler-Cauchy Equations - The t^n Coefficients**
+
+Audio Lesson Script**
+*[Duration: 15-20 minutes when read aloud]*
+
+---
+
+**Opening**
+
+So basically, we've saved the best for last in this block. Euler-Cauchy equations - also called equidimensional equations - are the perfect bridge between constant and variable coefficient ODEs. They look scary with all those t's multiplying derivatives, but here's the secret: they're just constant coefficient equations in disguise. Today I'll show you two methods to solve them, and you'll see why Prof. Ditkowski loves putting these on exams.
+
+The beautiful thing about Euler equations is their scaling property. If you stretch or compress the independent variable by a factor, the equation maintains its form. This makes them natural for problems with geometric similarity - like heat flow in circular regions, vibrations of conical structures, or any problem where the physics scales with distance from a point.
+
+**The Euler-Cauchy Equation**
+
+The general n-th order Euler equation looks like:
+t^n y^(n) + a_(n-1) t^(n-1) y^(n-1) + ... + a_1 t y' + a_0 y = 0
+
+For second-order (the most common):
+t²y'' + aty' + by = 0
+
+where a and b are constants. Notice how the power of t matches the order of the derivative? That's the key pattern.
+
+**Method 1: The Power Solution (Direct Approach)**
+
+Here's the insight that makes everything work: Try y = t^r for some constant r.
+
+Why? Because:
+- y = t^r
+- y' = rt^(r-1)
+- y'' = r(r-1)t^(r-2)
+
+Substituting into t²y'' + aty' + by = 0:
+t² · r(r-1)t^(r-2) + at · rt^(r-1) + b · t^r = 0
+r(r-1)t^r + art^r + bt^r = 0
+t^r[r(r-1) + ar + b] = 0
+
+Since t^r ≠ 0 (for t > 0), we need:
+r(r-1) + ar + b = 0
+r² + (a-1)r + b = 0
+
+This is the characteristic equation for the Euler equation! It's algebraic, just like for constant coefficients.
+
+**Example 1: Distinct Real Roots**
+
+Solve: t²y'' - 3ty' + 4y = 0 for t > 0.
+
+Assuming y = t^r:
+r(r-1) - 3r + 4 = 0
+r² - r - 3r + 4 = 0
+r² - 4r + 4 = 0
+(r - 2)² = 0
+
+Wait, that's a repeated root! Let me redo with a better example.
+
+Actually, let's do: t²y'' - 3ty' + 3y = 0
+
+r(r-1) - 3r + 3 = 0
+r² - r - 3r + 3 = 0
+r² - 4r + 3 = 0
+(r - 1)(r - 3) = 0
+
+So r₁ = 1 and r₂ = 3.
+
+General solution: y = c₁t + c₂t³
+
+See how clean that is? Powers of t, just like we guessed!
+
+**Case 2: Repeated Roots**
+
+Now let's go back to t²y'' - 3ty' + 4y = 0.
+
+We got (r - 2)² = 0, so r = 2 is a double root.
+
+Just like with constant coefficients and repeated roots, we need a second solution. By analogy (or by reduction of order), the second solution is t²ln(t).
+
+General solution: y = (c₁ + c₂ln(t))t²
+
+The pattern is:
+- Single root r: solution is t^r
+- Double root r: solutions are t^r and t^r ln(t)
+- Triple root r: solutions are t^r, t^r ln(t), and t^r (ln(t))²
+
+**Case 3: Complex Roots**
+
+Solve: t²y'' - ty' + 5y = 0
+
+Characteristic equation:
+r(r-1) - r + 5 = 0
+r² - 2r + 5 = 0
+r = (2 ± √(4-20))/2 = (2 ± 4i)/2 = 1 ± 2i
+
+For complex roots α ± iβ, the real solutions are:
+t^α cos(β ln(t)) and t^α sin(β ln(t))
+
+So our solution is:
+y = t[c₁cos(2ln(t)) + c₂sin(2ln(t))]
+
+This represents oscillation on a logarithmic scale - pretty wild!
+
+**Method 2: Change of Variables (The Transform Method)**
+
+Here's the elegant approach that reveals the deep structure. Let x = ln(t), so t = e^x.
+
+If y is a function of t, and we define v(x) = y(t) = y(e^x), then:
+
+dy/dt = (dy/dx)(dx/dt) = (1/t)(dv/dx)
+
+So: t(dy/dt) = dv/dx
+
+For the second derivative (this is trickier):
+d²y/dt² = d/dt[(1/t)(dv/dx)]
+= -(1/t²)(dv/dx) + (1/t²)(d²v/dx²)
+= (1/t²)[d²v/dx² - dv/dx]
+
+So: t²(d²y/dt²) = d²v/dx² - dv/dx
+
+**The Magic Transformation**
+
+For the Euler equation t²y'' + aty' + by = 0:
+- Replace t²y'' with v'' - v'
+- Replace ty' with v'
+- Replace y with v
+
+We get:
+(v'' - v') + av' + bv = 0
+v'' + (a-1)v' + bv = 0
+
+That's a constant coefficient equation in v(x)!
+
+**Example: Using the Transform**
+
+Consider t²y'' + 2ty' - 6y = 0.
+
+After transformation: v'' + (2-1)v' - 6v = 0
+So: v'' + v' - 6v = 0
+
+Characteristic equation: λ² + λ - 6 = 0
+Factor: (λ + 3)(λ - 2) = 0
+Roots: λ = -3, 2
+
+Solution in x: v(x) = c₁e^(-3x) + c₂e^(2x)
+
+Transform back using x = ln(t):
+y(t) = c₁e^(-3ln(t)) + c₂e^(2ln(t))
+= c₁t^(-3) + c₂t²
+
+Same answer as the direct method!
+
+**Why Prof. Ditkowski Loves These**
+
+Euler equations appear everywhere in physics and engineering:
+
+1. **Radial problems in cylindrical/spherical coordinates**: The radial part of Laplace's equation becomes an Euler equation.
+
+2. **Self-similar solutions**: Any PDE that admits scaling symmetry often reduces to an Euler ODE.
+
+3. **Financial mathematics**: The Black-Scholes equation for options pricing transforms to an Euler equation.
+
+**Example: The Full Treatment**
+
+Let's solve t²y'' + 3ty' + y = 0 completely.
+
+Method 1 (Direct):
+r(r-1) + 3r + 1 = 0
+r² - r + 3r + 1 = 0
+r² + 2r + 1 = 0
+(r + 1)² = 0
+
+Double root at r = -1.
+Solution: y = (c₁ + c₂ln(t))/t
+
+Method 2 (Transform):
+v'' + (3-1)v' + v = 0
+v'' + 2v' + v = 0
+(λ + 1)² = 0
+
+Double root at λ = -1.
+v = (c₁ + c₂x)e^(-x)
+y = (c₁ + c₂ln(t))e^(-ln(t)) = (c₁ + c₂ln(t))/t
+
+Perfect match!
+
+**Common Mistakes**
+
+1. **Domain issues**: Euler equations behave differently for t > 0 and t < 0. Usually, we work with t > 0.
+
+2. **Forgetting the ln(t) for repeated roots**: Just like constant coefficients need t for repeated roots, Euler equations need ln(t).
+
+3. **Complex roots formula**: Remember it's t^α[cos(β ln t), sin(β ln t)], not regular trig functions.
+
+4. **Wrong characteristic equation**: The equation is r(r-1) + ar + b = 0, not r² + ar + b = 0. That (r-1) is crucial!
+
+**Memory Technique**
+
+Think "powers match powers":
+- t² with y'' → power 2 matches order 2
+- t with y' → power 1 matches order 1
+- No t with y → power 0 matches order 0
+
+For the characteristic equation: "r chooses r-1" (like combinations) plus the obvious terms.
+
+**Connection to Series Solutions**
+
+Here's something beautiful: Euler equations are exactly the equations where the Frobenius method gives you a simple indicial equation. The roots of our characteristic equation are the indices in the series solution!
+
+This is why Euler equations are the gateway to more general series methods - they're the simplest equations with a regular singular point (at t = 0).
+
+**Exam Strategy**
+
+When you see an Euler equation:
+
+1. **Quick identification**: Powers of t match derivative orders
+2. **Choose method**:
+   - Direct (t^r) for simple cases
+   - Transform (x = ln t) if you prefer constant coefficients
+3. **Write characteristic equation carefully**: r(r-1) + ar + b = 0
+4. **Handle all cases**:
+   - Distinct real → t^(r₁), t^(r₂)
+   - Repeated → t^r, t^r ln(t)
+   - Complex → t^α cos(β ln t), t^α sin(β ln t)
+
+**Closing**
+
+So basically, Euler equations look intimidating but they're sheep in wolves' clothing - just constant coefficient equations wearing a logarithmic disguise. Master both methods - the direct power approach for speed, and the transformation for understanding. Prof. Ditkowski will definitely include at least one on your exam, often combined with initial conditions or as part of a larger problem. They're the perfect test of whether you really understand the structure underlying all our solution methods.
+
+---

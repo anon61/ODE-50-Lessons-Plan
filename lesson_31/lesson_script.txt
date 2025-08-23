@@ -1,0 +1,96 @@
+Episode 31: Repeated Eigenvalues and Jordan Forms**
+
+Audio Lesson Script**
+
+Alright, welcome to Lesson 31! This is where things get a bit trickier - we're dealing with repeated eigenvalues and the infamous Jordan forms. So basically, last lesson we had the nice case where all eigenvalues were distinct. But what happens when eigenvalues repeat? That's today's adventure!
+
+Here's the key insight: when an eigenvalue repeats, we might not have enough eigenvectors to form a complete solution. Think about it - if λ = 2 appears twice as an eigenvalue, we need two linearly independent solutions involving e^(2t), but we might only find one eigenvector! This is called a "defective" eigenvalue.
+
+Let me show you what's going on with a concrete example. Consider the matrix:
+```
+A = [3  1]
+    [0  3]
+```
+
+The characteristic equation is (3-λ)² = 0, so λ = 3 is a double eigenvalue. Now let's find eigenvectors:
+(A - 3I)v = [0  1][v₁] = [0]
+            [0  0][v₂]   [0]
+
+This gives us v₂ = 0, so our eigenvector is v = [1, 0]ᵀ. But wait - we only got ONE eigenvector for a double eigenvalue! We're missing a solution!
+
+Here's where generalized eigenvectors save the day. The idea is brilliant: if (A - λI)v = 0 gives us regular eigenvectors, then (A - λI)²w = 0 gives us generalized eigenvectors. We're looking for vectors that become eigenvectors after one application of (A - λI).
+
+For our example, we need to solve (A - 3I)w = v, where v is our eigenvector:
+[0  1][w₁] = [1]
+[0  0][w₂]   [0]
+
+This gives w₂ = 1, and w₁ is free. Choose w₁ = 0, so w = [0, 1]ᵀ.
+
+Now here's the magic - our second solution is:
+**x₂(t) = e^(3t)(tw + v) = e^(3t)(t[0,1]ᵀ + [1,0]ᵀ)**
+
+See that t in there? That's the signature of a repeated eigenvalue! The general solution becomes:
+**x(t) = c₁e^(3t)[1,0]ᵀ + c₂e^(3t)(t[0,1]ᵀ + [1,0]ᵀ)**
+
+Let me explain why this works. When you differentiate e^(λt)(tv + w), you get:
+- The e^(λt) brings down a factor of λ
+- The t differentiation gives you just e^(λt)v
+- Combined: λe^(λt)(tv + w) + e^(λt)v
+
+For this to equal A times our solution, we need:
+A(tv + w) = λ(tv + w) + v
+
+This is exactly what our generalized eigenvector satisfies!
+
+Now, let's tackle a 3×3 example with a triple eigenvalue - this is exam gold for Prof. Ditkowski:
+```
+A = [2  1  0]
+    [0  2  1]
+    [0  0  2]
+```
+
+This is already in Jordan form! The eigenvalue λ = 2 has multiplicity 3. Finding eigenvectors:
+(A - 2I) = [0  1  0]
+           [0  0  1]
+           [0  0  0]
+
+Only one eigenvector: v₁ = [1, 0, 0]ᵀ.
+
+For the first generalized eigenvector, solve (A - 2I)v₂ = v₁:
+[0  1  0][x]   [1]
+[0  0  1][y] = [0]
+[0  0  0][z]   [0]
+
+This gives y = 1, z = 0, so v₂ = [0, 1, 0]ᵀ.
+
+For the second generalized eigenvector, solve (A - 2I)v₃ = v₂:
+[0  1  0][x]   [0]
+[0  0  1][y] = [1]
+[0  0  0][z]   [0]
+
+This gives y = 0, z = 1, so v₃ = [0, 0, 1]ᵀ.
+
+The general solution is:
+**x(t) = e^(2t)[c₁v₁ + c₂(tv₁ + v₂) + c₃(t²/2·v₁ + tv₂ + v₃)]**
+
+Notice the pattern: t⁰, t¹, t² terms appear! Each generalized eigenvector adds another power of t.
+
+Here's my memory trick for Jordan chains: "CAGE"
+- **C**heck multiplicity vs number of eigenvectors
+- **A**dd generalized eigenvectors if defective
+- **G**enerate solutions with polynomial terms
+- **E**xpand carefully with all t-powers
+
+Common mistakes to avoid:
+1. **Assuming you always get enough eigenvectors** - Always check!
+2. **Wrong generalized eigenvector equation** - It's (A-λI)w = v, not (A-λI)w = 0
+3. **Forgetting the t² terms** for triple eigenvalues - Each level adds a power
+4. **Not maintaining the chain order** - v₃ depends on v₂ which depends on v₁
+
+Prof. Ditkowski loves to test this with upper triangular matrices because the eigenvalues are obvious (diagonal entries) but the Jordan structure requires work. If you see an upper triangular matrix with repeated diagonal entries, immediately think "Jordan form incoming!"
+
+The physical interpretation: imagine a critically damped system. Regular eigenvectors give pure exponential decay, but generalized eigenvectors add polynomial growth that fights the exponential - that's why you get those t·e^(λt) terms that peak before decaying.
+
+Quick diagnostic: If an eigenvalue λ has algebraic multiplicity m (appears m times) but geometric multiplicity k (gives k independent eigenvectors), you need m - k generalized eigenvectors. This difference is called the defect.
+
+For initial value problems with Jordan forms, the algebra gets messy but the process is the same: expand your general solution, apply x(0) = x₀, and solve for the constants. The key is keeping track of all those t-terms!

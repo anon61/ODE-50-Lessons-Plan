@@ -1,0 +1,115 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry, mdframed, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 25: Orthogonal Trajectories and Applications}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Geometric Interpretation}
+
+\begin{definition}[Orthogonal Trajectories]
+Given a one-parameter family of curves $F(x,y,c) = 0$, the \textbf{orthogonal trajectories} are curves that intersect each member of the family at right angles (90°).
+\end{definition}
+
+\begin{keypoint}
+At any point of intersection, the product of the slopes of two orthogonal curves equals $-1$:
+\[m_1 \cdot m_2 = -1\]
+This is the fundamental principle behind finding orthogonal trajectories.
+\end{keypoint}
+
+\section{The Systematic Method}
+
+\begin{algorithm}
+\textbf{Finding Orthogonal Trajectories:}
+\begin{enumerate}
+    \item Start with family $F(x,y,c) = 0$
+    \item Differentiate to eliminate parameter $c$:
+    \[\frac{\partial F}{\partial x} + \frac{\partial F}{\partial y}\frac{dy}{dx} = 0\]
+    \item Express as differential equation: $\frac{dy}{dx} = f(x,y)$
+    \item Replace $\frac{dy}{dx}$ with $-\frac{dx}{dy}$ to get orthogonal equation:
+    \[-\frac{dx}{dy} = f(x,y)\]
+    \item Solve the new differential equation
+    \item The solution gives the orthogonal trajectories
+\end{enumerate}
+\end{algorithm}
+
+\begin{warning}
+You MUST eliminate the parameter $c$ before forming the differential equation. Failing to do so is the most common error and leads to incorrect results!
+\end{warning}
+
+\section{Classic Examples}
+
+\begin{example}[Straight Lines Through Origin]
+Find orthogonal trajectories of $y = cx$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Differentiate: $\frac{dy}{dx} = c$
+    \item Eliminate $c$: Since $c = \frac{y}{x}$, we have $\frac{dy}{dx} = \frac{y}{x}$
+    \item Orthogonal equation: $-\frac{dx}{dy} = \frac{y}{x}$ or $\frac{dx}{dy} = -\frac{y}{x}$
+    \item Rearrange: $x dx = -y dy$
+    \item Integrate: $\frac{x^2}{2} = -\frac{y^2}{2} + C$
+    \item Simplify: $x^2 + y^2 = K$
+\end{enumerate}
+The orthogonal trajectories are circles centered at the origin!
+\end{example}
+
+\begin{example}[Exponential Curves]
+Find orthogonal trajectories of $y = ce^{2x}$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Differentiate: $\frac{dy}{dx} = 2ce^{2x}$
+    \item Eliminate $c$: From original, $c = ye^{-2x}$, so $\frac{dy}{dx} = 2y$
+    \item Orthogonal equation: $-\frac{dx}{dy} = 2y$ or $\frac{dx}{dy} = -2y$
+    \item Integrate: $x = -y^2 + C$
+    \item Result: $x + y^2 = K$ (parabolas opening left)
+\end{enumerate}
+\end{example}
+
+\section{Physical Applications}
+
+\begin{keypoint}
+\textbf{Common Physical Interpretations:}
+\begin{itemize}
+    \item \textbf{Electrostatics:} Electric field lines $\perp$ equipotential curves
+    \item \textbf{Heat Transfer:} Heat flow lines $\perp$ isothermal curves  
+    \item \textbf{Fluid Dynamics:} Streamlines $\perp$ velocity potential curves
+    \item \textbf{Magnetism:} Magnetic field lines $\perp$ magnetic potential curves
+\end{itemize}
+\end{keypoint}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Patterns:}
+\begin{itemize}
+    \item Always asks to sketch both families and verify they're perpendicular
+    \item Loves self-orthogonal families (like $xy = c$)
+    \item Tests elimination of parameters carefully
+    \item May provide physical context and ask for interpretation
+    \item Often combines with initial/boundary conditions
+\end{itemize}
+\end{examtip}
+
+\section{Special Cases}
+
+\begin{insight}
+\textbf{Self-Orthogonal Families:}
+Some families are orthogonal to themselves! 
+Example: The rectangular hyperbolas $xy = c$ have orthogonal trajectories $xy = k$, belonging to the same family with different parameter values.
+\end{insight}
+
+\end{document}

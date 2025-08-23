@@ -1,0 +1,228 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\usepackage{mdframed, xcolor}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newcommand{\solution}[1]{\textcolor{blue}{\textbf{Solution Hint:} #1}}
+
+\title{Lesson 41: Practice Problems\\
+\large Hartman-Grobman Theorem Applications}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Identifying Hyperbolic Equilibria (5 problems)}
+
+\begin{enumerate}
+\item For the system $\dot{x} = x - y$, $\dot{y} = x^2 - 1$, determine which critical points are hyperbolic.
+\solution{Find critical points at $(1,1)$ and $(-1,-1)$. Check eigenvalues at each.}
+
+\item Consider $\dot{x} = y$, $\dot{y} = -\sin(x)$. Which equilibria at $x = n\pi$ are hyperbolic?
+\solution{Check $\cos(n\pi) = (-1)^n$ in the Jacobian. Different behavior for even/odd $n$.}
+
+\item For what values of $a$ is the origin a hyperbolic equilibrium?
+$$\dot{x} = ax - y, \quad \dot{y} = x + ay$$
+\solution{Find when eigenvalues $\lambda = a \pm i$ have non-zero real parts.}
+
+\item Determine all hyperbolic critical points of:
+$$\dot{x} = x(1 - x - y), \quad \dot{y} = y(2 - 3x - y)$$
+\solution{Four critical points to check. Compute eigenvalues at each.}
+
+\item For the gradient system with $V(x,y) = x^4 - 2x^2 + y^2$, identify hyperbolic equilibria.
+\solution{Critical points where $\nabla V = 0$. Use Hessian for eigenvalues.}
+\end{enumerate}
+
+\section*{Part B: Applying Hartman-Grobman (6 problems)}
+
+\begin{enumerate}[resume]
+\item Given the system:
+$$\dot{x} = -x + y^2, \quad \dot{y} = -2y + x^2$$
+Can linearization at the origin determine the local behavior? Justify using Hartman-Grobman.
+\solution{Check eigenvalues of $J(0,0)$. Both negative implies hyperbolic stable node.}
+
+\item For the system $\dot{x} = y + x^3$, $\dot{y} = -x + y^3$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is non-hyperbolic
+    \item Explain why Hartman-Grobman doesn't apply
+    \item What additional analysis would be needed?
+\end{enumerate}
+\solution{Eigenvalues are $\pm i$. Need Lyapunov function or normal form analysis.}
+
+\item Consider the damped Duffing oscillator:
+$$\dot{x} = y, \quad \dot{y} = x - x^3 - \delta y$$
+For $\delta > 0$, determine which equilibria have behavior determined by linearization.
+\solution{Three equilibria. Check hyperbolicity at each.}
+
+\item A system has Jacobian at equilibrium:
+$$J = \begin{pmatrix} -1 & 2 \\ 3 & -1 \end{pmatrix}$$
+What does Hartman-Grobman tell us about the nonlinear behavior near this point?
+\solution{Compute eigenvalues. Check if both have non-zero real parts.}
+
+\item For the predator-prey system:
+$$\dot{x} = x(1 - x) - \frac{xy}{1 + x}, \quad \dot{y} = ry\left(1 - \frac{y}{x}\right)$$
+Under what conditions on $r > 0$ is the coexistence equilibrium hyperbolic?
+\solution{Find the equilibrium, compute Jacobian, determine eigenvalue conditions.}
+
+\item Given that a system's linearization at $(1,2)$ has eigenvalues $\lambda = 2 \pm 3i$, what can you conclude about:
+\begin{enumerate}[label=(\alph*)]
+    \item The validity of linearization?
+    \item The type of equilibrium?
+    \item The stability?
+\end{enumerate}
+\solution{Positive real parts mean hyperbolic unstable spiral.}
+\end{enumerate}
+
+\section*{Part C: Non-Hyperbolic Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Show that the origin is non-hyperbolic for:
+$$\dot{x} = y + ax^3, \quad \dot{y} = -x + by^3$$
+What does this mean for stability analysis?
+\solution{$J(0,0)$ has purely imaginary eigenvalues. Linearization fails.}
+
+\item Consider the Hamiltonian system:
+$$\dot{x} = \frac{\partial H}{\partial y}, \quad \dot{y} = -\frac{\partial H}{\partial x}$$
+where $H(x,y) = \frac{1}{2}(x^2 + y^2) + \frac{1}{4}(x^4 + y^4)$.
+Why doesn't Hartman-Grobman apply at the origin?
+\solution{Hamiltonian systems have centers; eigenvalues are purely imaginary.}
+
+\item For the system:
+$$\dot{x} = -y + \mu x(x^2 + y^2), \quad \dot{y} = x + \mu y(x^2 + y^2)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is non-hyperbolic for all $\mu$
+    \item Determine stability using polar coordinates
+    \item Compare with linearization prediction
+\end{enumerate}
+\solution{In polar: $\dot{r} = \mu r^3$. Sign of $\mu$ determines stability.}
+
+\item A system has a line of equilibria $y = 0$. Can Hartman-Grobman apply at any point on this line?
+\solution{Zero eigenvalue guaranteed, so non-hyperbolic everywhere.}
+
+\item For what parameter values does Hartman-Grobman fail?
+$$\dot{x} = \alpha x - y, \quad \dot{y} = x + \alpha y$$
+\solution{Eigenvalues $\lambda = \alpha \pm i$. Fails when $\alpha = 0$.}
+\end{enumerate}
+
+\section*{Part D: Structural Stability (4 problems)}
+
+\begin{enumerate}[resume]
+\item If a system has a hyperbolic saddle at the origin, what happens under small perturbations $\epsilon f_1(x,y)$ and $\epsilon g_1(x,y)$?
+\solution{Saddle persists but may shift location slightly.}
+
+\item Consider the perturbed system:
+$$\dot{x} = -x + \epsilon xy, \quad \dot{y} = -2y + \epsilon x^2$$
+For small $\epsilon$, does the qualitative behavior near the origin change?
+\solution{Origin remains hyperbolic stable node for small $\epsilon$.}
+
+\item A system undergoes a Hopf bifurcation at $\mu = 0$:
+$$\dot{x} = \mu x - y + x(x^2 + y^2), \quad \dot{y} = x + \mu y + y(x^2 + y^2)$$
+Explain using Hartman-Grobman why the behavior changes at $\mu = 0$.
+\solution{Eigenvalues cross imaginary axis; hyperbolicity lost.}
+
+\item Two systems have the same linearization at their respective equilibria, with eigenvalues $-1 \pm 2i$. What can you conclude about their local phase portraits?
+\solution{Both have topologically equivalent stable spirals near equilibrium.}
+\end{enumerate}
+
+\section*{Part E: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Comprehensive]} Consider the system:
+$$\dot{x} = y^2 - x, \quad \dot{y} = x^2 - y$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all critical points
+    \item Determine which are hyperbolic
+    \item For hyperbolic equilibria, state the type and stability
+    \item For non-hyperbolic equilibria, explain why Hartman-Grobman fails
+\end{enumerate}
+\solution{Critical points at $(0,0)$, $(1,1)$, and two others. Check each.}
+
+\item \textbf{[Prof. Ditkowski Style]} The van der Pol oscillator:
+$$\dot{x} = y, \quad \dot{y} = -x + \epsilon(1 - x^2)y$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is the only equilibrium
+    \item For what values of $\epsilon > 0$ can we use linearization?
+    \item Classify the origin for small $\epsilon > 0$
+    \item What happens as $\epsilon \to 0$?
+\end{enumerate}
+\solution{Always hyperbolic for $\epsilon > 0$, non-hyperbolic at $\epsilon = 0$.}
+
+\item \textbf{[Application]} A chemical reaction system:
+$$\dot{x} = 1 - x - xy^2, \quad \dot{y} = \alpha(xy^2 - y)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the equilibrium with $x, y > 0$
+    \item Determine conditions on $\alpha > 0$ for hyperbolicity
+    \item When hyperbolic, what does linearization tell us?
+    \item Interpret chemically
+\end{enumerate}
+\solution{Steady state exists. Check when Jacobian eigenvalues have non-zero real parts.}
+
+\item \textbf{[Multiple Equilibria]} For the system:
+$$\dot{x} = x(1 - x^2 - y^2), \quad \dot{y} = y(1 - x^2 - y^2) + x$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show there are exactly two equilibria
+    \item Determine which (if any) are hyperbolic
+    \item Apply Hartman-Grobman where valid
+    \item Sketch the expected phase portrait
+\end{enumerate}
+\solution{One at origin, another on unit circle. Check hyperbolicity of each.}
+
+\item \textbf{[Theory and Application]} Consider:
+$$\dot{x} = f(x,y), \quad \dot{y} = g(x,y)$$
+where $f(1,2) = g(1,2) = 0$ and the Jacobian at $(1,2)$ is:
+$$J(1,2) = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Is $(1,2)$ hyperbolic? Explain.
+    \item What does linearization predict?
+    \item Why might this prediction be wrong?
+    \item Give an example of $f$ and $g$ where linearization fails
+\end{enumerate}
+\solution{Purely imaginary eigenvalues. Could be center, spiral, or more complex.}
+\end{enumerate}
+
+\section*{Part F: Advanced Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Prove that all equilibria of a gradient system $\dot{x} = -\nabla V(x)$ with non-degenerate critical points are hyperbolic.
+\solution{Hessian eigenvalues are real; non-degenerate means non-zero.}
+
+\item For the Lorenz system restricted to the $x$-$y$ plane (setting $z = 0$):
+$$\dot{x} = \sigma(y - x), \quad \dot{y} = rx - y$$
+Determine for which values of $\sigma, r > 0$ the origin is hyperbolic.
+
+\item Consider a system where the Jacobian at an equilibrium has characteristic polynomial $\lambda^2 + p\lambda + q = 0$. Give conditions on $p$ and $q$ for:
+\begin{enumerate}[label=(\alph*)]
+    \item Hyperbolic node
+    \item Hyperbolic saddle
+    \item Hyperbolic spiral
+    \item Non-hyperbolic equilibrium
+\end{enumerate}
+
+\item \textbf{[Challenge]} Show that if a 2D system has a homoclinic orbit (trajectory connecting a saddle to itself), then the saddle must be hyperbolic.
+
+\item \textbf{[Research Preview]} Consider the system:
+$$\dot{x} = y + \delta x - x^3, \quad \dot{y} = -x$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find critical points as functions of $\delta$
+    \item Determine hyperbolicity conditions
+    \item Show that bifurcations occur when hyperbolicity is lost
+    \item Sketch the bifurcation diagram
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Exam Strategies:}
+\begin{itemize}
+    \item Always check $\text{Re}(\lambda) \neq 0$ for ALL eigenvalues
+    \item State explicitly whether Hartman-Grobman applies
+    \item If it applies, conclude definitively about behavior
+    \item If it doesn't apply, state that additional analysis is needed
+    \item Remember: "hyperbolic" = "linearization works"
+    \item Common error: Forgetting that BOTH eigenvalues need non-zero real parts
+\end{itemize}
+\end{hint}
+
+\end{document}

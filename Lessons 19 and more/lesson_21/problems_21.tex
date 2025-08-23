@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry, xcolor}
+\geometry{margin=1in}
+
+\title{Lesson 21: Practice Problems - Exact Equations Recognition}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Exactness Testing (Problems 1-5)}
+
+\begin{enumerate}
+\item Test for exactness: $(2x + 3y)dx + (3x + 4y)dy = 0$
+
+\item Test for exactness: $(y^2 + 2xy)dx + (2xy - x^2)dy = 0$
+
+\item Test for exactness: $(e^x\sin y + 2x)dx + (e^x\cos y + 2y)dy = 0$
+
+\item Test for exactness: $(3x^2y^2 + 2x)dx + (2x^3y + 3y^2)dy = 0$
+
+\item Test for exactness: $\frac{2xy - y^2}{x^2}dx + \frac{1 - \frac{y}{x}}{1}dy = 0$
+\end{enumerate}
+
+\section*{Part B: Standard Form Conversion (Problems 6-10)}
+
+\begin{enumerate}[start=6]
+\item Convert to standard form and test: $\frac{dy}{dx} = -\frac{2xy + 1}{x^2 + 2y}$
+
+\item Convert and test: $(x + y)dy = (x - y)dx$
+
+\item Convert and test: $x dy - y dx = x^2 dx$
+
+\item Convert and test: $\frac{dy}{dx} = \frac{y\cos x - \sin x \cos x}{-\sin x + y\sin x}$
+
+\item Convert and test: $y' = \frac{3x^2 + y^2}{2xy - x^2}$
+\end{enumerate}
+
+\section*{Part C: Polynomial Exact Equations (Problems 11-15)}
+
+\begin{enumerate}[start=11]
+\item Test for exactness: $(x^3 + 3xy^2)dx + (3x^2y + y^3)dy = 0$
+
+\item Test for exactness: $(4x^3y - 2xy^3)dx + (x^4 - 3x^2y^2 + 2y)dy = 0$
+
+\item Test for exactness: $(2x^3 - xy^2 + 2y)dx + (x^2y - 2xy + 3)dy = 0$
+
+\item Test for exactness: $(6xy^2 + 4x^3)dx + (6x^2y - 3y^2)dy = 0$
+
+\item Determine the value of $k$ that makes the equation exact:
+$(kxy + y^3)dx + (x^2 + 3xy^2)dy = 0$
+\end{enumerate}
+
+\section*{Part D: Transcendental Functions (Problems 16-20)}
+
+\begin{enumerate}[start=16]
+\item Test: $(e^{2x} + y\cos(xy))dx + (2ye^y + x\cos(xy))dy = 0$
+
+\item Test: $(\ln y + 2x)dx + \left(\frac{x}{y} + \ln x\right)dy = 0$
+
+\item Test: $(ye^{xy} + \sin x)dx + (xe^{xy} + 2y)dy = 0$
+
+\item Test: $\left(\frac{1}{x} + \frac{1}{y}\right)dx + \left(\frac{x}{y^2} - \frac{1}{y}\right)dy = 0$
+
+\item Test: $(\tan y + 2xy)dx + (x\sec^2 y + x^2 + 1)dy = 0$
+\end{enumerate}
+
+\section*{Part E: Domain Issues (Problems 21-23)}
+
+\begin{enumerate}[start=21]
+\item Consider $\frac{-y dx + x dy}{x^2 + y^2} = 0$. Test for exactness and discuss domain.
+
+\item Test exactness of $\frac{x dx + y dy}{\sqrt{x^2 + y^2}} = 0$ in appropriate domains.
+
+\item For what values of $(x,y)$ is $(x-1)^{-1}dx + (y+2)^{-1}dy = 0$ exact?
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 24-28)}
+
+\begin{enumerate}[start=24]
+\item (Prof. Ditkowski, 2023) Test for exactness and explain physical meaning:
+$(2xy + y^2\cos x)dx + (x^2 + 2y\sin x)dy = 0$
+
+\item Find all values of $a$ and $b$ such that
+$(ax^2y + 2xy^2)dx + (x^3 + bx^2y)dy = 0$ is exact.
+
+\item Show that if $M(x,y) = f(x)g(y)$ and $N(x,y) = p(x)q(y)$, the equation
+$Mdx + Ndy = 0$ is exact if and only if $f'(x)q(y) = g'(y)p(x)$.
+
+\item Given that $(P(x) + Q(y))dx + (R(x) + S(y))dy = 0$ is exact, what can you conclude about $P, Q, R, S$?
+
+\item Prove that if both $M_1dx + N_1dy = 0$ and $M_2dx + N_2dy = 0$ are exact, then $(aM_1 + bM_2)dx + (aN_1 + bN_2)dy = 0$ is exact for any constants $a, b$.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $M = 2x + 3y$, $N = 3x + 4y$.
+$\frac{\partial M}{\partial y} = 3$, $\frac{\partial N}{\partial x} = 3$.
+Equal $\Rightarrow$ Exact!
+
+\textbf{Problem 2:} $M = y^2 + 2xy$, $N = 2xy - x^2$.
+$\frac{\partial M}{\partial y} = 2y + 2x$, $\frac{\partial N}{\partial x} = 2y - 2x$.
+Not equal $\Rightarrow$ Not exact.
+
+\textbf{Problem 6:} Multiply by denominator: $(2xy + 1)dx + (x^2 + 2y)dy = 0$.
+$M = 2xy + 1$, $N = x^2 + 2y$.
+$\frac{\partial M}{\partial y} = 2x$, $\frac{\partial N}{\partial x} = 2x$.
+Equal $\Rightarrow$ Exact!
+
+\textbf{Problem 15:} For exactness: $\frac{\partial M}{\partial y} = kx + 3y^2 = \frac{\partial N}{\partial x} = 2x + 3y^2$.
+Therefore $k = 2$.
+
+\textbf{Problem 21:} $M = -y/(x^2+y^2)$, $N = x/(x^2+y^2)$.
+$\frac{\partial M}{\partial y} = \frac{y^2-x^2}{(x^2+y^2)^2}$,
+$\frac{\partial N}{\partial x} = \frac{y^2-x^2}{(x^2+y^2)^2}$.
+Exact everywhere except origin! But no single-valued potential on punctured plane.
+
+\textbf{Key Insight for Problem 27:} $Q'(y) = 0$ and $R'(x) = 0$.
+
+\end{document}

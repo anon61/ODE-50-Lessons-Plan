@@ -1,0 +1,77 @@
+Episode 49: Frobenius Method - Regular Singular Points**
+
+Alright, so last lesson we handled ordinary points with power series - that was the "nice" case. But here's the thing: many of the most important ODEs in physics and engineering have singular points, and we need to solve around them! Today, I'm going to show you the Frobenius method, which is like power series on steroids.
+
+Let me start with why this matters. Remember Bessel's equation? It shows up in heat conduction in cylinders, vibrating drums, electromagnetic waves in cylindrical waveguides - basically anywhere with circular symmetry. The equation is:
+x²y'' + xy' + (x² - ν²)y = 0
+
+Try using regular power series at x = 0... it fails! Why? Because when we put it in standard form, we get y'' + (1/x)y' + (1 - ν²/x²)y = 0. See those denominators? Both p(x) = 1/x and q(x) = 1 - ν²/x² blow up at x = 0. That's a singular point!
+
+But here's the key insight: not all singular points are equally bad. We classify them:
+- **Regular singular point**: xp(x) and x²q(x) are both analytic at x₀
+- **Irregular singular point**: At least one of these is still singular
+
+For regular singular points, Frobenius discovered we can still find series solutions, but with a twist - we need to multiply by a power of x first!
+
+The Frobenius method assumes:
+y = xʳ Σ(n=0 to ∞) aₙxⁿ = Σ(n=0 to ∞) aₙx^(n+r)
+
+where r might not be an integer! This r is determined by something called the indicial equation.
+
+Let me walk you through the method with a concrete example:
+xy'' + 2y' - xy = 0
+
+Step 1: Check that x = 0 is a regular singular point. In standard form: y'' + (2/x)y' - y = 0. So p(x) = 2/x and q(x) = -1. Check: xp(x) = 2 ✓ and x²q(x) = -x² ✓. Both analytic at 0, so it's regular singular!
+
+Step 2: Assume y = Σ(n=0 to ∞) aₙx^(n+r) with a₀ ≠ 0.
+
+Step 3: Find derivatives:
+- y' = Σ(n=0 to ∞) (n+r)aₙx^(n+r-1)
+- y'' = Σ(n=0 to ∞) (n+r)(n+r-1)aₙx^(n+r-2)
+
+Step 4: Substitute into the ODE. After multiplying xy'' by x, we get:
+Σ(n=0 to ∞) (n+r)(n+r-1)aₙx^(n+r-1) + 2Σ(n=0 to ∞) (n+r)aₙx^(n+r-1) - Σ(n=0 to ∞) aₙx^(n+r+1) = 0
+
+Step 5: Here's the crucial part - the lowest power of x is x^(r-1), and its coefficient must be zero:
+[r(r-1) + 2r]a₀ = 0
+
+Since a₀ ≠ 0, we get: r² + r = r(r+1) = 0
+This is the **indicial equation**! Its roots are r₁ = 0 and r₂ = -1.
+
+Now here's where it gets interesting. The nature of the solution depends on the roots:
+
+**Case 1: Roots differ by a non-integer** (like r₁ = 1/2, r₂ = -1/3)
+You get two independent solutions, one for each root:
+y₁ = x^(r₁) Σ aₙxⁿ and y₂ = x^(r₂) Σ bₙxⁿ
+
+**Case 2: Repeated roots** (r₁ = r₂)
+One solution is y₁ = x^r Σ aₙxⁿ
+Second solution includes a logarithm: y₂ = y₁ ln(x) + x^r Σ bₙxⁿ
+
+**Case 3: Roots differ by an integer** (like r₁ = 2, r₂ = -1)
+This is the tricky case! Sometimes you get two Frobenius series, sometimes the second solution needs a logarithm. You have to try and see!
+
+Back to our example: r₁ = 0, r₂ = -1 differ by 1 (integer!). For r₁ = 0:
+y₁ = Σ aₙxⁿ
+
+Setting up the recurrence by matching coefficients of x^(n+r-1):
+[(n+1)n + 2(n+1)]a_(n+1) = a_(n-1) for n ≥ 1
+
+This gives: a_(n+1) = a_(n-1)/[(n+1)(n+2)]
+
+Computing: a₁ = 0 (from n=0 case), a₂ = a₀/(2·3) = a₀/6, a₃ = 0, a₄ = a₂/(4·5) = a₀/120...
+
+For the second solution with r₂ = -1, we'd need to check if we can find a pure Frobenius series or if we need logarithms.
+
+Here's a common mistake: forgetting that the indicial equation comes from the LOWEST power of x, not just setting n = 0! Always identify the lowest power first.
+
+Prof. Ditkowski loves Bessel's equation on exams. For Bessel with parameter ν:
+- Indicial equation: r² - ν² = 0, so r = ±ν
+- If ν is not an integer or half-integer, you get two Frobenius series
+- If ν is an integer, the second solution involves logarithms
+
+Exam tip: You usually only need to find the indicial equation and state which case applies. Full series computation is rare unless specifically asked. If you see "find the form of the solution," just identify the roots and write y₁ = x^(r₁)(a₀ + a₁x + ...) without computing coefficients.
+
+Another key point: Regular singular points often appear at x = 0, but they can be anywhere. For (x-2)²y'' + (x-2)y' + y = 0, the regular singular point is at x = 2. You'd assume y = (x-2)^r Σ aₙ(x-2)ⁿ.
+
+So basically, the Frobenius method extends power series to handle singular points by adding that crucial x^r factor. The indicial equation tells us what r should be, and the difference between roots determines the form of solutions. Master this, and you can tackle Bessel, Legendre, and all sorts of important physics equations!

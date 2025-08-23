@@ -1,0 +1,214 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{contour}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=brown,linewidth=2pt]{jacobian}
+
+\title{Lesson 40: Critical Points and Linearization\\
+\large ODE 1 - Prof. Adi Ditkowski}
+\author{Nonlinear Systems Analysis}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction to Nonlinear Systems}
+
+\begin{definition}[Nonlinear Autonomous System]
+A two-dimensional nonlinear autonomous system has the form:
+\begin{align}
+\dot{x} &= f(x,y) \\
+\dot{y} &= g(x,y)
+\end{align}
+where $f$ and $g$ are continuously differentiable nonlinear functions.
+\end{definition}
+
+\begin{keypoint}
+Unlike linear systems where solutions can be found explicitly using eigenvalues and eigenvectors, nonlinear systems generally cannot be solved in closed form. Linearization provides a powerful tool to understand local behavior.
+\end{keypoint}
+
+\section{Critical Points}
+
+\begin{definition}[Critical Point/Equilibrium]
+A point $(x_0, y_0)$ is a critical point (or equilibrium point) of the system if:
+$$f(x_0, y_0) = 0 \quad \text{and} \quad g(x_0, y_0) = 0$$
+\end{definition}
+
+\begin{method}[Finding Critical Points]
+\begin{enumerate}
+    \item Set $f(x,y) = 0$ and $g(x,y) = 0$
+    \item Solve the resulting algebraic system
+    \item Check each solution for validity
+    \item List all critical points systematically
+\end{enumerate}
+\end{method}
+
+\begin{warning}
+Nonlinear systems can have:
+\begin{itemize}
+    \item No critical points
+    \item Finitely many critical points (most common)
+    \item Infinitely many critical points (degenerate cases)
+\end{itemize}
+Always verify you've found ALL critical points!
+\end{warning}
+
+\section{The Jacobian Matrix}
+
+\begin{definition}[Jacobian Matrix]
+For the system $\dot{x} = f(x,y)$, $\dot{y} = g(x,y)$, the Jacobian matrix is:
+$$J(x,y) = \begin{pmatrix}
+\frac{\partial f}{\partial x} & \frac{\partial f}{\partial y} \\[8pt]
+\frac{\partial g}{\partial x} & \frac{\partial g}{\partial y}
+\end{pmatrix}$$
+\end{definition}
+
+\begin{jacobian}
+\textbf{Critical Computation Rule:}
+\begin{enumerate}
+    \item Compute partial derivatives \textit{symbolically}
+    \item \textit{Then} evaluate at the critical point $(x_0, y_0)$
+    \item The result $J(x_0, y_0)$ is a constant matrix
+\end{enumerate}
+\end{jacobian}
+
+\section{Linearization Process}
+
+\begin{theorem}[Linearization near Equilibrium]
+Near a critical point $(x_0, y_0)$, the nonlinear system can be approximated by the linear system:
+$$\begin{pmatrix} \dot{\xi} \\ \dot{\eta} \end{pmatrix} = J(x_0, y_0) \begin{pmatrix} \xi \\ \eta \end{pmatrix}$$
+where $\xi = x - x_0$ and $\eta = y - y_0$ represent small deviations from equilibrium.
+\end{theorem}
+
+\begin{insight}
+The linearization is derived from the Taylor expansion:
+\begin{align}
+f(x,y) &= f(x_0,y_0) + \frac{\partial f}{\partial x}\bigg|_{(x_0,y_0)}(x-x_0) + \frac{\partial f}{\partial y}\bigg|_{(x_0,y_0)}(y-y_0) + \text{h.o.t.} \\
+&= 0 + \text{linear terms} + \text{higher order terms}
+\end{align}
+Near the critical point, higher order terms are negligible!
+\end{insight}
+
+\section{Classification of Critical Points}
+
+\begin{method}[Classification Procedure]
+Given a critical point $(x_0, y_0)$:
+\begin{enumerate}
+    \item Compute $J(x_0, y_0)$
+    \item Find eigenvalues $\lambda_1, \lambda_2$ of $J(x_0, y_0)$
+    \item Classify using:
+\end{enumerate}
+\end{method}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Eigenvalues} & \textbf{Type} & \textbf{Stability} \\
+\hline
+$\lambda_1, \lambda_2 < 0$ (real) & Node & Asymptotically stable \\
+$\lambda_1, \lambda_2 > 0$ (real) & Node & Unstable \\
+$\lambda_1 < 0 < \lambda_2$ (real) & Saddle & Unstable \\
+$\lambda = \alpha \pm i\beta$, $\alpha < 0$ & Spiral & Asymptotically stable \\
+$\lambda = \alpha \pm i\beta$, $\alpha > 0$ & Spiral & Unstable \\
+$\lambda = \pm i\beta$ (pure imaginary) & Center & Linearization inconclusive \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{examtip}
+Prof. Ditkowski expects you to:
+\begin{itemize}
+    \item State the type (node, saddle, spiral, center)
+    \item State stability (stable, unstable, or inconclusive)
+    \item Show eigenvalue computation explicitly
+\end{itemize}
+\end{examtip}
+
+\section{Complete Examples}
+
+\begin{example}[Van der Pol Oscillator]
+Consider the system:
+\begin{align}
+\dot{x} &= y \\
+\dot{y} &= -x + \mu(1-x^2)y
+\end{align}
+where $\mu > 0$ is a parameter.
+
+\textbf{Step 1:} Find critical points\\
+Setting $y = 0$ and $-x + \mu(1-x^2) \cdot 0 = -x = 0$ gives $(0,0)$ as the only critical point.
+
+\textbf{Step 2:} Compute Jacobian
+$$J(x,y) = \begin{pmatrix} 0 & 1 \\ -1 - 2\mu xy & \mu(1-x^2) \end{pmatrix}$$
+
+\textbf{Step 3:} Evaluate at $(0,0)$
+$$J(0,0) = \begin{pmatrix} 0 & 1 \\ -1 & \mu \end{pmatrix}$$
+
+\textbf{Step 4:} Find eigenvalues\\
+Characteristic equation: $\lambda^2 - \mu\lambda + 1 = 0$\\
+Eigenvalues: $\lambda = \frac{\mu \pm \sqrt{\mu^2 - 4}}{2}$
+
+\textbf{Step 5:} Classification
+\begin{itemize}
+    \item If $0 < \mu < 2$: Complex with positive real part $\Rightarrow$ Unstable spiral
+    \item If $\mu = 2$: Repeated positive eigenvalue $\Rightarrow$ Unstable node
+    \item If $\mu > 2$: Two positive real eigenvalues $\Rightarrow$ Unstable node
+\end{itemize}
+\end{example}
+
+\section{Validity of Linearization}
+
+\begin{warning}
+Linearization provides accurate local behavior EXCEPT when:
+\begin{itemize}
+    \item Eigenvalues have zero real part (centers, degenerate nodes)
+    \item The system has special symmetries
+    \item Nonlinear terms dominate near the critical point
+\end{itemize}
+\end{warning}
+
+\begin{insight}
+The region where linearization is valid shrinks as:
+\begin{itemize}
+    \item Eigenvalues approach the imaginary axis
+    \item Nonlinearity becomes stronger
+    \item Other critical points are nearby
+\end{itemize}
+\end{insight}
+
+\section{Summary Flowchart}
+
+\begin{center}
+\tikzset{
+    block/.style = {draw, rectangle, minimum height=2em, minimum width=8em},
+    decision/.style = {draw, diamond, aspect=2},
+    arrow/.style = {->, thick}
+}
+
+\begin{tikzpicture}[node distance=2cm]
+    \node[block] (start) {Nonlinear System};
+    \node[block, below of=start] (critical) {Find Critical Points};
+    \node[block, below of=critical] (jacobian) {Compute Jacobian};
+    \node[block, below of=jacobian] (evaluate) {Evaluate at $(x_0,y_0)$};
+    \node[block, below of=evaluate] (eigen) {Find Eigenvalues};
+    \node[block, below of=eigen] (classify) {Classify \& State Stability};
+
+    \draw[arrow] (start) -- (critical);
+    \draw[arrow] (critical) -- (jacobian);
+    \draw[arrow] (jacobian) -- (evaluate);
+    \draw[arrow] (evaluate) -- (eigen);
+    \draw[arrow] (eigen) -- (classify);
+\end{tikzpicture}
+\end{center}
+
+\end{document}

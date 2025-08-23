@@ -1,0 +1,177 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{Phase Space and Trajectories: Geometric Theory of ODEs}
+\author{ODE 1 - Lesson 36}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Phase Space Fundamentals}
+
+\begin{definition}[Phase Space]
+For a system of $n$ first-order ODEs:
+$$\frac{d\mathbf{x}}{dt} = \mathbf{f}(\mathbf{x}, t)$$
+where $\mathbf{x} = (x_1, x_2, \ldots, x_n)^T$, the \textbf{phase space} is the $n$-dimensional space with coordinates $(x_1, x_2, \ldots, x_n)$.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Key Insight:} Phase space represents all possible states of the system. Each point corresponds to a unique state, regardless of time.
+\end{keypoint}
+
+\begin{definition}[Trajectory/Orbit]
+A \textbf{trajectory} (or \textbf{orbit}) is the curve traced out in phase space by a solution $\mathbf{x}(t)$ as $t$ varies. Formally, it is the set:
+$$\Gamma = \{\mathbf{x}(t) : t \in I\}$$
+where $I$ is the interval of existence.
+\end{definition}
+
+\begin{warning}
+\textbf{Critical Distinction:}
+\begin{itemize}
+    \item \textbf{Solution:} $\mathbf{x}(t)$ - includes time parametrization
+    \item \textbf{Trajectory:} The geometric curve - no time information
+\end{itemize}
+Multiple solutions can give the same trajectory (time-shifted solutions)!
+\end{warning}
+
+\section{Direction Fields and Flow}
+
+\begin{definition}[Direction Field]
+The \textbf{direction field} (or \textbf{vector field}) of the system $\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})$ assigns to each point $\mathbf{x}$ the vector $\mathbf{f}(\mathbf{x})$, indicating the instantaneous direction and speed of motion.
+\end{definition}
+
+\begin{theorem}[Non-Intersection of Trajectories]
+If $\mathbf{f}(\mathbf{x})$ satisfies the conditions for existence and uniqueness, then trajectories cannot intersect except at equilibrium points.
+\end{theorem}
+
+\begin{proof}
+Suppose two trajectories $\Gamma_1$ and $\Gamma_2$ intersect at point $\mathbf{x}_0$ which is not an equilibrium. By uniqueness, the solution starting at $\mathbf{x}_0$ is unique, so $\Gamma_1 = \Gamma_2$. Contradiction.
+\end{proof}
+
+\section{Equilibrium Points and Invariant Sets}
+
+\begin{definition}[Equilibrium Point]
+A point $\mathbf{x}^*$ is an \textbf{equilibrium point} (or \textbf{critical point}, \textbf{fixed point}) if:
+$$\mathbf{f}(\mathbf{x}^*) = \mathbf{0}$$
+\end{definition}
+
+\begin{examtip}
+\textbf{Finding Equilibria - Prof. Ditkowski's Method:}
+\begin{enumerate}
+    \item Set all derivatives equal to zero
+    \item Solve the resulting algebraic system
+    \item Check each solution carefully
+    \item State coordinates explicitly: "Equilibrium at $(x^*, y^*) = (a, b)$"
+\end{enumerate}
+\end{examtip}
+
+\begin{definition}[Invariant Set]
+A set $S \subset \mathbb{R}^n$ is \textbf{invariant} under the flow if:
+$$\mathbf{x}(0) \in S \implies \mathbf{x}(t) \in S \text{ for all } t$$
+\end{definition}
+
+\section{Special Types of Trajectories}
+
+\begin{definition}[Closed Orbit]
+A trajectory $\Gamma$ is a \textbf{closed orbit} if it is homeomorphic to a circle and the solution is periodic:
+$$\exists T > 0 : \mathbf{x}(t + T) = \mathbf{x}(t) \text{ for all } t$$
+\end{definition}
+
+\begin{insight}
+\textbf{Dimension Restriction:} Closed orbits cannot exist in 1D phase space! In 1D, trajectories are confined to the real line and cannot loop back without violating uniqueness.
+\end{insight}
+
+\begin{definition}[Heteroclinic and Homoclinic Orbits]
+\begin{itemize}
+    \item \textbf{Heteroclinic orbit:} Connects two different equilibria
+    \item \textbf{Homoclinic orbit:} Starts and ends at the same equilibrium
+\end{itemize}
+\end{definition}
+
+\section{Phase Portraits for 2D Systems}
+
+For a 2D autonomous system:
+\begin{align}
+\frac{dx}{dt} &= f(x, y) \\
+\frac{dy}{dt} &= g(x, y)
+\end{align}
+
+\begin{keypoint}
+\textbf{Construction Steps:}
+\begin{enumerate}
+    \item Find all equilibria: solve $f(x,y) = 0$ and $g(x,y) = 0$
+    \item Compute the direction field at selected points
+    \item Identify special trajectories (if any)
+    \item Sketch trajectories following the direction field
+    \item Add arrows indicating flow direction
+\end{enumerate}
+\end{keypoint}
+
+\section{Converting Higher-Order Equations}
+
+\begin{example}[Second-Order to First-Order System]
+Convert $\ddot{x} + p(x)\dot{x} + q(x) = 0$ to phase space form:
+
+Let $x_1 = x$ and $x_2 = \dot{x}$. Then:
+\begin{align}
+\dot{x}_1 &= x_2 \\
+\dot{x}_2 &= -p(x_1)x_2 - q(x_1)
+\end{align}
+Phase space is the $(x_1, x_2)$-plane, often relabeled as $(x, \dot{x})$-plane.
+\end{example}
+
+\section{Nullclines Method}
+
+\begin{definition}[Nullclines]
+The \textbf{nullclines} are curves where one component of the vector field vanishes:
+\begin{itemize}
+    \item \textbf{$x$-nullcline:} $f(x,y) = 0$ (vertical flow)
+    \item \textbf{$y$-nullcline:} $g(x,y) = 0$ (horizontal flow)
+\end{itemize}
+\end{definition}
+
+\begin{insight}
+\textbf{Using Nullclines:}
+\begin{itemize}
+    \item Equilibria occur at nullcline intersections
+    \item Trajectories cross nullclines vertically or horizontally
+    \item Nullclines divide phase space into regions with consistent flow direction
+\end{itemize}
+\end{insight}
+
+\section{Exam-Critical Formulas}
+
+\begin{examtip}
+\textbf{Must-Know for Prof. Ditkowski's Exam:}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Concept} & \textbf{Formula/Property} \\
+\hline
+Equilibrium condition & $\mathbf{f}(\mathbf{x}^*) = \mathbf{0}$ \\
+\hline
+Trajectory uniqueness & No intersections except at equilibria \\
+\hline
+Closed orbit period & $\mathbf{x}(t+T) = \mathbf{x}(t)$ \\
+\hline
+Direction at point $(x,y)$ & Vector $(f(x,y), g(x,y))$ \\
+\hline
+Speed along trajectory & $|\mathbf{f}(\mathbf{x})| = \sqrt{f^2 + g^2}$ \\
+\hline
+\end{tabular}
+\end{examtip}
+
+\end{document}

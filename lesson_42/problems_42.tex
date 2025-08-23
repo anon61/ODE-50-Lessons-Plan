@@ -1,0 +1,252 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\usepackage{mdframed, xcolor}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newcommand{\solution}[1]{\textcolor{blue}{\textbf{Solution Hint:} #1}}
+
+\title{Lesson 42: Practice Problems\\
+\large Lyapunov Functions and Global Stability}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Verifying Lyapunov Functions (5 problems)}
+
+\begin{enumerate}
+\item Verify that $V(x,y) = x^2 + 2y^2$ is a Lyapunov function for:
+$$\dot{x} = -x + y^2, \quad \dot{y} = -x - y$$
+What can you conclude about stability?
+\solution{Compute $\dot{V} = 2x\dot{x} + 4y\dot{y}$. Check sign near origin.}
+
+\item Given $V(x,y) = x^4 + y^4$, determine if it's a valid Lyapunov function for:
+$$\dot{x} = -x^3, \quad \dot{y} = -y^3$$
+\solution{Check all three conditions. Note $\dot{V} = -4(x^6 + y^6)$.}
+
+\item For the system $\dot{x} = y$, $\dot{y} = -x - y$, show that $V = x^2 + xy + y^2$ is a Lyapunov function.
+\solution{First verify $V > 0$ using completing the square.}
+
+\item Consider $V(x,y) = \frac{1}{2}(x^2 + y^2) + x^2y^2$. For what systems could this be a Lyapunov function?
+\solution{Work backwards: what $f,g$ make $\dot{V} \leq 0$?}
+
+\item Verify whether $V = e^{x^2+y^2} - 1$ satisfies the conditions for a Lyapunov function near the origin for:
+$$\dot{x} = -x, \quad \dot{y} = -y$$
+\solution{Check $V(0,0) = 0$ and positivity. Compute $\dot{V}$ carefully.}
+\end{enumerate}
+
+\section*{Part B: Computing $\dot{V}$ (6 problems)}
+
+\begin{enumerate}[resume]
+\item For $V = x^2 + y^2$ and the system:
+$$\dot{x} = -x + x^2y, \quad \dot{y} = -2y + xy^2$$
+compute $\dot{V}$ and determine stability.
+\solution{$\dot{V} = 2x\dot{x} + 2y\dot{y}$. Factor carefully.}
+
+\item Given $V = ax^2 + cy^2$, find conditions on $a,c$ for stability of:
+$$\dot{x} = -x + y, \quad \dot{y} = -x - y$$
+\solution{Compute $\dot{V}$ in terms of $a,c$. When is it negative definite?}
+
+\item For the Van der Pol oscillator with $\mu > 0$:
+$$\dot{x} = y, \quad \dot{y} = -x + \mu(1-x^2)y$$
+Show that $V = x^2 + y^2$ gives $\dot{V} = 2\mu(1-x^2)y^2$.
+\solution{Direct computation. Note sign depends on $x^2$ vs 1.}
+
+\item Compute $\dot{V}$ for $V = \frac{1}{2}y^2 + (1-\cos x)$ along trajectories of:
+$$\dot{x} = y, \quad \dot{y} = -\sin x$$
+\solution{This is the undamped pendulum. What does $\dot{V} = 0$ mean?}
+
+\item For $V = x^2 - 2xy + 2y^2$ and:
+$$\dot{x} = -x + y, \quad \dot{y} = -x - y$$
+compute $\dot{V}$ and interpret.
+\solution{Careful with the cross term $-2xy$.}
+
+\item Given a general quadratic $V = ax^2 + bxy + cy^2$, derive the formula for $\dot{V}$ in terms of $f(x,y)$ and $g(x,y)$.
+\solution{$\dot{V} = (2ax + by)f + (bx + 2cy)g$.}
+\end{enumerate}
+
+\section*{Part C: Constructing Lyapunov Functions (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find a Lyapunov function for:
+$$\dot{x} = -x^3, \quad \dot{y} = -y^3$$
+\solution{Try $V = x^{2n} + y^{2n}$ for appropriate $n$.}
+
+\item Construct a Lyapunov function to prove stability of:
+$$\dot{x} = -x + y^2, \quad \dot{y} = -y + x^2$$
+when $x,y$ are small.
+\solution{Try $V = ax^2 + cy^2$ with $a \neq c$.}
+
+\item For the gradient system with potential $U = x^4 + y^4 - x^2 - y^2$:
+$$\dot{x} = -\frac{\partial U}{\partial x}, \quad \dot{y} = -\frac{\partial U}{\partial y}$$
+find a Lyapunov function for the equilibrium at origin.
+\solution{Shift $U$ so minimum is at origin.}
+
+\item Find a Lyapunov function for the damped oscillator:
+$$\dot{x} = y, \quad \dot{y} = -\omega^2 x - 2\zeta\omega y$$
+with $\omega > 0$ and $\zeta > 0$.
+\solution{Try energy-like: $V = \frac{1}{2}(\omega^2x^2 + y^2)$.}
+
+\item Construct a Lyapunov function for:
+$$\dot{x} = y - x^3, \quad \dot{y} = -x - y^3$$
+\solution{Try $V = x^2 + y^2$ first. If that fails, try $V = ax^2 + y^2$.}
+\end{enumerate}
+
+\section*{Part D: LaSalle's Principle (4 problems)}
+
+\begin{enumerate}[resume]
+\item For the system:
+$$\dot{x} = -y^3, \quad \dot{y} = x^3$$
+with $V = x^4 + y^4$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show $\dot{V} = 0$
+    \item Apply LaSalle's principle
+    \item What can you conclude about stability?
+\end{enumerate}
+\solution{$E = \mathbb{R}^2$. Check invariant sets.}
+
+\item Consider:
+$$\dot{x} = y, \quad \dot{y} = -x - y^3$$
+with $V = x^2 + y^2$:
+\begin{enumerate}[label=(\alph*)]
+    \item Compute $\dot{V}$
+    \item Find the set $E$ where $\dot{V} = 0$
+    \item Determine the largest invariant set in $E$
+    \item State stability conclusion
+\end{enumerate}
+\solution{$\dot{V} = -2y^4 \leq 0$. $E = \{y = 0\}$.}
+
+\item For the pendulum with friction:
+$$\dot{x} = y, \quad \dot{y} = -\sin x - cy$$
+Use energy $V = (1-\cos x) + \frac{1}{2}y^2$ and LaSalle to prove asymptotic stability.
+\solution{$\dot{V} = -cy^2$. On $\{y=0\}$, only equilibria are invariant.}
+
+\item Apply LaSalle to:
+$$\dot{x} = -x^3 + xy^2, \quad \dot{y} = -y^3 + x^2y$$
+with $V = x^2 + y^2$.
+\solution{Find where $(x^2-y^2)^2 = 0$.}
+\end{enumerate}
+
+\section*{Part E: Global Stability (5 problems)}
+
+\begin{enumerate}[resume]
+\item Show that the origin is globally asymptotically stable for:
+$$\dot{x} = -x - x^3, \quad \dot{y} = -y - y^3$$
+\solution{Use $V = x^2 + y^2$. Check radial unboundedness.}
+
+\item For the system:
+$$\dot{x} = -x + y^2, \quad \dot{y} = -y + x^2$$
+determine if the origin is globally asymptotically stable.
+\solution{Check if other equilibria exist. Can't be global if there are others.}
+
+\item Prove global asymptotic stability for:
+$$\dot{x} = -x^3 - xy^2, \quad \dot{y} = -x^2y - y^3$$
+\solution{Try $V = x^2 + y^2$. Show $\dot{V} < 0$ except at origin.}
+
+\item Consider the scaled system:
+$$\dot{x} = -f(x), \quad \dot{y} = -g(y)$$
+where $f,g$ are odd functions with $xf(x) > 0$ for $x \neq 0$. Prove global stability.
+\solution{Use $V = \int_0^x f(s)ds + \int_0^y g(s)ds$.}
+
+\item Determine the basin of attraction for:
+$$\dot{x} = -x + x^3, \quad \dot{y} = -y$$
+using $V = x^2 + y^2$.
+\solution{Find where $\dot{V} < 0$. Note $x^2 < 1$ needed.}
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Style]} Consider the system:
+$$\dot{x} = -x^3 + 2xy^2, \quad \dot{y} = -2x^2y - y^3$$
+\begin{enumerate}[label=(\alph*)]
+    \item Verify that $V = x^2 + y^2$ is a Lyapunov function
+    \item Compute $\dot{V}$ explicitly
+    \item Is the origin locally or globally asymptotically stable?
+    \item Find the basin of attraction
+\end{enumerate}
+\solution{$\dot{V} = -2(x^2+y^2)^2 < 0$. Global stability follows.}
+
+\item \textbf{[Comprehensive]} For the nonlinear oscillator:
+$$\ddot{x} + (x^2 + \dot{x}^2 - 1)\dot{x} + x = 0$$
+\begin{enumerate}[label=(\alph*)]
+    \item Rewrite as a first-order system
+    \item Show the origin is the only equilibrium
+    \item Using $V = x^2 + y^2$, determine stability
+    \item What happens on the unit circle $x^2 + y^2 = 1$?
+\end{enumerate}
+\solution{This is a Van der Pol type equation. Check $\dot{V}$ sign.}
+
+\item \textbf{[Method Comparison]} Consider:
+$$\dot{x} = y + x^3, \quad \dot{y} = -x + y^3$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show linearization is inconclusive
+    \item Try $V = x^2 + y^2$ as a Lyapunov function
+    \item What does this tell us about stability?
+    \item Find a different $V$ that proves instability
+\end{enumerate}
+\solution{Linearization gives $\pm i$. First $V$ gives $\dot{V} = 2(x^4+y^4) > 0$.}
+
+\item \textbf{[Physical System]} A particle moves according to:
+$$\dot{x} = y, \quad \dot{y} = -\nabla U(x)$$
+where $U(x) = \frac{1}{4}x^4 - \frac{1}{2}x^2$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria
+    \item Classify each using linearization where possible
+    \item Use energy methods to determine stability
+    \item Sketch the phase portrait
+\end{enumerate}
+\solution{Three equilibria. Use $V = \frac{1}{2}y^2 + U(x)$ shifted appropriately.}
+
+\item \textbf{[Challenge]} Consider the coupled system:
+$$\dot{x} = y - x^3, \quad \dot{y} = -x - y + y^2$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria
+    \item For the origin, try to construct a Lyapunov function
+    \item If $V = ax^2 + bxy + cy^2$, find conditions for stability
+    \item Can you prove global results?
+\end{enumerate}
+\solution{Need to handle the $y^2$ term carefully. Try $V = x^2 + \alpha xy + \beta y^2$.}
+\end{enumerate}
+
+\section*{Part G: Additional Practice (5 problems)}
+
+\begin{enumerate}[resume]
+\item Show that for any positive definite matrix $P$, $V = \mathbf{x}^T P \mathbf{x}$ is a valid Lyapunov function form.
+
+\item For the Lorenz system restricted to the $x$-$y$ plane:
+$$\dot{x} = \sigma(y-x), \quad \dot{y} = rx - y$$
+find a Lyapunov function when $0 < r < 1$.
+
+\item Consider the "reversed" gradient system:
+$$\dot{x} = \frac{\partial H}{\partial y}, \quad \dot{y} = -\frac{\partial H}{\partial x}$$
+Show that $H$ is constant along trajectories. What does this mean for stability?
+
+\item Prove that if $V$ is a Lyapunov function with $\dot{V} < -\alpha V$ for some $\alpha > 0$, then the origin is exponentially stable.
+
+\item \textbf{[Research Connection]} For the system:
+$$\dot{x} = -x + y^2, \quad \dot{y} = -y + x^2$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show there are exactly 3 equilibria
+    \item Find a common Lyapunov function for all three
+    \item What does this imply about basins of attraction?
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Strategies for Prof. Ditkowski's Exam:}
+\begin{itemize}
+    \item If given $V$, always verify ALL three conditions
+    \item Remember: $\dot{V} = \nabla V \cdot \mathbf{f}$, NOT $\partial V/\partial t$
+    \item When $\dot{V} \leq 0$, always apply LaSalle
+    \item For global stability, check for other equilibria first
+    \item Standard forms: $V = x^2 + y^2$ or $V = ax^2 + cy^2$
+    \item Energy/gradient systems have natural Lyapunov functions
+    \item State conclusions explicitly: "locally/globally asymptotically stable"
+\end{itemize}
+\end{hint}
+
+\end{document}

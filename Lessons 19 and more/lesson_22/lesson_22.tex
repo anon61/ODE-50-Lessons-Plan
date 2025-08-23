@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry, mdframed, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 22: Finding Potential Functions - Systematic Approach}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Potential Function}
+
+\begin{definition}[Potential Function]
+For an exact equation $M(x,y)dx + N(x,y)dy = 0$, the \textbf{potential function} $H(x,y)$ satisfies:
+\begin{align}
+\frac{\partial H}{\partial x} &= M(x,y) \\
+\frac{\partial H}{\partial y} &= N(x,y)
+\end{align}
+The general solution is then given by $H(x,y) = C$.
+\end{definition}
+
+\section{Method 1: Integration with Respect to $x$}
+
+\begin{algorithm}
+\textbf{Method 1 - Integrate $M$ with respect to $x$:}
+\begin{enumerate}
+    \item Since $\frac{\partial H}{\partial x} = M(x,y)$, integrate:
+    \[H(x,y) = \int M(x,y)\,dx + g(y)\]
+    where $g(y)$ is an arbitrary function of $y$ alone.
+
+    \item Differentiate the result with respect to $y$:
+    \[\frac{\partial H}{\partial y} = \frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right] + g'(y)\]
+
+    \item Set this equal to $N(x,y)$ and solve for $g'(y)$:
+    \[g'(y) = N(x,y) - \frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right]\]
+
+    \item Integrate to find $g(y)$ and write the complete potential function.
+\end{enumerate}
+\end{algorithm}
+
+\section{Method 2: Integration with Respect to $y$}
+
+\begin{algorithm}
+\textbf{Method 2 - Integrate $N$ with respect to $y$:}
+\begin{enumerate}
+    \item Since $\frac{\partial H}{\partial y} = N(x,y)$, integrate:
+    \[H(x,y) = \int N(x,y)\,dy + f(x)\]
+    where $f(x)$ is an arbitrary function of $x$ alone.
+
+    \item Differentiate with respect to $x$, set equal to $M(x,y)$, and solve for $f'(x)$.
+    \item Integrate to find $f(x)$ and write the complete potential function.
+\end{enumerate}
+\end{algorithm}
+
+\section{Method 3: Line Integral}
+
+\begin{algorithm}
+\textbf{Method 3 - Line Integral Approach:}
+Choose a convenient base point $(x_0, y_0)$ and integrate along any path to $(x,y)$:
+\[H(x,y) = \int_{(x_0,y_0)}^{(x,y)} M\,dx + N\,dy\]
+
+Common choice: Use path $(0,0) \to (x,0) \to (x,y)$:
+\[H(x,y) = \int_0^x M(t,0)\,dt + \int_0^y N(x,s)\,ds\]
+\end{algorithm}
+
+\begin{keypoint}
+\textbf{Method Selection Guidelines:}
+\begin{itemize}
+    \item Use Method 1 if $M(x,y)$ is easier to integrate
+    \item Use Method 2 if $N(x,y)$ is easier to integrate  
+    \item Use Method 3 if both $M$ and $N$ simplify when one variable equals zero
+\end{itemize}
+\end{keypoint}
+
+\section{Examples}
+
+\begin{example}[Basic Potential Function]
+Solve $(2xy + 3x^2)dx + (x^2 + 2y)dy = 0$.
+
+\textbf{Method 1:} $H = \int (2xy + 3x^2)dx = x^2y + x^3 + g(y)$
+
+$\frac{\partial H}{\partial y} = x^2 + g'(y) = x^2 + 2y$, so $g'(y) = 2y$, $g(y) = y^2$
+
+$H(x,y) = x^2y + x^3 + y^2$
+
+\textbf{Solution:} $x^2y + x^3 + y^2 = C$
+\end{example}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Tips:}
+\begin{itemize}
+    \item Always verify your answer: check $\frac{\partial H}{\partial x} = M$ and $\frac{\partial H}{\partial y} = N$
+    \item For initial value problems, substitute the given point to find $C$
+    \item Show all integration steps clearly for partial credit
+    \item State your final answer in the form $H(x,y) = C$
+\end{itemize}
+\end{examtip}
+
+\end{document}

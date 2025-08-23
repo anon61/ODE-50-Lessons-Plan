@@ -1,0 +1,51 @@
+Episode 36: Phase Space and Trajectories - Basic Concepts**
+
+Audio Lesson Script**
+
+Hey there! Welcome to Lesson 36, where we're diving into one of the most beautiful and intuitive topics in differential equations - phase portraits! I'm super excited about this because, honestly, this is where ODEs come alive visually.
+
+So basically, up until now, we've been thinking about solutions as functions of time - you know, x(t), y(t), curves on a graph with time on the horizontal axis. But here's the key insight: what if we forget about time for a moment and just look at how our variables relate to each other? That's exactly what phase space does!
+
+Let me show you what I mean. Imagine you're tracking a pendulum. Sure, you could plot angle versus time and angular velocity versus time separately. But phase space says, "Hey, let's plot angle on the x-axis and angular velocity on the y-axis, and watch the point (θ, θ') move around!" Each point in this space represents a complete state of the system. Cool, right?
+
+Here's the fundamental idea: In phase space, every possible state of your system is a point. For a system with n first-order equations, you need n dimensions. Got a second-order equation? Convert it to two first-order equations, boom - 2D phase space! This is why we spent so much time on that conversion process earlier.
+
+Now, when we solve an ODE and get x(t), y(t), these solutions trace out a curve in phase space as time goes forward. We call this curve a trajectory or an orbit. And here's something crucial for Prof. Ditkowski's exam - trajectories can NEVER cross! Why? Because of uniqueness! If two trajectories crossed at a point, that would mean from that initial condition, the system could evolve in two different ways. That violates the uniqueness theorem we learned way back.
+
+Let me walk through a simple example. Consider the system:
+dx/dt = y
+dy/dt = -x
+
+If we start at point (1, 0), what happens? Well, at t=0, we're moving in the positive y direction (since dx/dt = 0, dy/dt = -1). As time goes on, this traces out a circle! The solution is x(t) = cos(t), y(t) = -sin(t), but in phase space, we just see a circle - we've lost the time information, but gained geometric insight!
+
+Here's a common mistake students make: they think the trajectory shows speed. Nope! A trajectory just shows the path. A particle could move along that path fast or slow - the phase portrait doesn't tell us that directly. Though we can figure it out from the vector field magnitude.
+
+Speaking of vector fields - at each point (x,y) in phase space, we can draw a little arrow showing (dx/dt, dy/dt). This is the direction field or vector field. It tells us which way trajectories flow at each point. Think of it like a weather map showing wind directions - trajectories follow these arrows like leaves in the wind!
+
+Critical points, or equilibrium points, are super important. These are points where dx/dt = 0 AND dy/dt = 0 simultaneously. At these points, if you place a particle there, it stays there forever! No movement! In our pendulum example, these would be the pendulum hanging straight down (stable) or balanced upside-down (unstable).
+
+Let me give you another example that always shows up on exams. Consider:
+dx/dt = x - y
+dy/dt = x + y
+
+To find equilibria, set both equal to zero:
+x - y = 0, so x = y
+x + y = 0, so x = -y
+
+The only solution is x = 0, y = 0. So we have one equilibrium at the origin.
+
+Now, Prof. Ditkowski loves asking about closed orbits - these are trajectories that loop back on themselves, representing periodic solutions. Remember our circle example? That's a closed orbit! The system repeats itself periodically. But here's an exam tip: closed orbits can only exist in 2D or higher. In 1D, you can only go left or right - no loops possible!
+
+There's also this concept of invariant sets. Basically, if trajectories start in some region and stay in that region forever, that region is invariant. The equilibrium points are the simplest invariant sets - just single points! But you can have invariant lines (like eigenvector directions for linear systems), invariant planes, or even stranger sets.
+
+One more thing that trips students up: the difference between a solution and a trajectory. The solution includes time: (x(t), y(t)). The trajectory is just the geometric curve, no time stamps. Multiple solutions can have the same trajectory if they differ by a time shift. Think about it - if I start on a circular orbit but at a different point, I trace the same circle, just starting at a different "time."
+
+For Prof. Ditkowski's exam, always remember to:
+1. Identify ALL equilibrium points first
+2. Check that trajectories don't cross (except at equilibria)
+3. Use arrows to show flow direction
+4. Label your axes clearly
+
+Oh, and here's a memory trick: think of phase space as a map and trajectories as roads. Cars (solutions) drive on these roads at different speeds, but the roads (trajectories) stay the same. Equilibria are like parking spots - once you're there, you don't move!
+
+The power of this geometric view is that we can understand system behavior without solving the equations explicitly. We'll build on this next lesson when we classify all possible behaviors of 2D linear systems. Get ready - it's about to get even more visual!

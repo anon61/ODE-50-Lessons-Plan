@@ -1,0 +1,113 @@
+Episode 35: Duhamel's Principle - The Complete Method**
+
+Audio Lesson Script**
+
+Welcome to Lesson 35, our grand finale for solving linear systems! Today we're putting it all together with Duhamel's Principle. So basically, this gives us THE complete formula for solving any linear system with initial conditions AND forcing. This is the master equation that unifies everything we've learned!
+
+Here's the key insight: Duhamel's Principle says that the complete solution to x' = Ax + f(t) with x(0) = x₀ is:
+**x(t) = e^(At)x₀ + ∫₀ᵗ e^(A(t-s))f(s)ds**
+
+Look at that beautiful formula! The first term is the homogeneous solution with our initial condition, and the second term is the particular solution from variation of parameters. It's all there in one elegant expression!
+
+Let me explain the physical meaning. Think of it this way:
+- The term e^(At)x₀ evolves the initial condition forward in time
+- Each bit of forcing f(s)ds at time s creates an impulse
+- That impulse then evolves from time s to time t via e^(A(t-s))
+- The integral sums up all these evolved impulses
+
+It's literally superposition in action! Every input creates a response that propagates forward according to the system dynamics.
+
+Let's work through a complete example:
+```
+x' = [1  2] x + [e^t]  with x(0) = [1]
+     [0  3]     [0 ]              [2]
+```
+
+Step 1: Find the eigenvalues and eigenvectors.
+λ₁ = 1 with v₁ = [1, 0]ᵀ
+λ₂ = 3 with v₂ = [1, 1]ᵀ
+
+Step 2: Construct e^(At).
+Using P = [1  1] and D = [1  0]
+         [0  1]         [0  3]
+
+We get: e^(At) = [e^t      2(e^(3t) - e^t)]
+                 [0        e^(3t)         ]
+
+Hmm, let me recalculate that. P^(-1) = [1  -1]
+                                       [0   1]
+
+So: e^(At) = [1  1][e^t   0  ][1  -1]
+             [0  1][0   e^(3t)][0   1]
+           = [e^t   e^(3t) - e^t]
+             [0     e^(3t)      ]
+
+Step 3: Apply to initial condition.
+e^(At)x₀ = [e^t   e^(3t) - e^t][1] = [e^t + 2(e^(3t) - e^t)]
+           [0     e^(3t)      ][2]   [2e^(3t)            ]
+         = [2e^(3t) - e^t]
+           [2e^(3t)      ]
+
+Step 4: Compute the convolution integral.
+∫₀ᵗ e^(A(t-s))f(s)ds = ∫₀ᵗ [e^(t-s)   e^(3(t-s)) - e^(t-s)][e^s]ds
+                             [0         e^(3(t-s))        ][0  ]
+
+The first component: ∫₀ᵗ e^(t-s)·e^s ds = ∫₀ᵗ e^t ds = te^t
+The second component: 0
+
+So the particular solution is [te^t, 0]ᵀ.
+
+Step 5: Complete solution.
+x(t) = [2e^(3t) - e^t] + [te^t] = [2e^(3t) - e^t + te^t]
+       [2e^(3t)      ]   [0   ]   [2e^(3t)            ]
+
+Actually, let me be more careful with that calculation. The matrix e^(A(t-s)) operating on [e^s, 0]ᵀ gives:
+[e^(t-s)·e^s] = [e^t]
+[0          ]   [0  ]
+
+Wait, that's not right either. Let me recalculate e^(A(t-s))f(s):
+e^(A(t-s)) = [e^(t-s)   e^(3(t-s)) - e^(t-s)]
+             [0         e^(3(t-s))          ]
+
+So: e^(A(t-s))[e^s] = [e^(t-s)·e^s + 0] = [e^t]
+              [0  ]   [0            ]   [0  ]
+
+Therefore: ∫₀ᵗ [e^t]ds = [te^t]
+               [0  ]     [0   ]
+
+Final answer: x(t) = [2e^(3t) - e^t + te^t]
+                     [2e^(3t)            ]
+
+The beauty of Duhamel's Principle is that it works for ANY forcing function - discontinuous, impulsive, whatever! The formula handles everything.
+
+Here's my memory trick for Duhamel: "HIPE" - **H**omogeneous solution, **I**mpulse response, **P**articular via convolution, **E**verything combined!
+
+Common mistakes to avoid:
+1. **Forgetting the (t-s) in the exponential** - It's e^(A(t-s)), not e^(At)e^(-As)
+2. **Wrong integration variable** - Integrate with respect to s, not t
+3. **Missing the initial condition term** - Don't forget e^(At)x₀
+4. **Sign errors in (t-s)** - The delay is always positive
+
+Prof. Ditkowski loves to test Duhamel with:
+- Step functions: f(t) = H(t-a)b (Heaviside)
+- Impulses: f(t) = δ(t-a)b (Dirac delta)
+- Piecewise functions
+- Initial conditions that simplify nicely
+
+For impulse forcing f(t) = δ(t-a)b, Duhamel gives:
+x(t) = e^(At)x₀ + H(t-a)e^(A(t-a))b
+
+This shows that an impulse at time a creates a response that evolves from that moment forward!
+
+The connection to engineering is profound. In control theory, e^(A(t-s)) is called the state transition matrix. In signal processing, the convolution integral represents the system's response to an input signal. Duhamel's Principle is everywhere!
+
+Quick exam strategy: If Prof. Ditkowski asks for the complete solution to a non-homogeneous system with initial conditions, immediately write down Duhamel's formula. Then systematically compute each piece. Even if you make computational errors, showing you know the principle gets you major points!
+
+Remember, this formula encapsulates everything:
+- Eigenvalues and eigenvectors (to find e^(At))
+- Matrix exponential
+- Variation of parameters
+- Initial value problems
+- Superposition principle
+
+It's the crown jewel of linear ODE theory!

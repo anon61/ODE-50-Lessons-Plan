@@ -1,0 +1,188 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 49: Practice Problems - Frobenius Method}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Classifying Singular Points (6 problems)}
+
+\begin{enumerate}
+\item Classify all singular points (regular or irregular) for:
+$$x$^{2}$(x-1)y'' + 2xy' + y = 0$$
+
+\item For Bessel's equation $x$^{2y}$'' + xy' + (x$^{2}$-4)y = 0$, verify that $x = 0$ is a regular singular point.
+
+\item Determine the nature of $x = 0$ for:
+$$x$^{3y}$'' + xy' + y = 0$$
+
+\item Show that both $x = 0$ and $x = 1$ are regular singular points of:
+$$x(1-x)y'' + [c-(a+b+1)x]y' - aby = 0$$
+(This is the hypergeometric equation)
+
+\item Classify the singular point at $x = 0$ for:
+$$x$^{2y}$'' + \sin(x)y' + xy = 0$$
+
+\item Find and classify all singular points:
+$$(x$^{2}$-1)$^{2y}$'' + (x-1)y' + y = 0$$
+\end{enumerate}
+
+\section*{Part B: Finding Indicial Equations (6 problems)}
+
+\begin{enumerate}[resume]
+\item Find the indicial equation at $x = 0$ for:
+$$xy'' + y' - y = 0$$
+
+\item Determine the indicial equation for:
+$$x$^{2y}$'' + x(1+x)y' - y = 0$$
+
+\item Find the indicial equation and its roots for:
+$$2x$^{2y}$'' + xy' - (1+x)y = 0$$
+
+\item For the equation $x$^{2y}$'' + 3xy' + (1-x)y = 0$, find the indicial equation and identify which case applies.
+
+\item Find the indicial equation at $x = 1$ for:
+$$(x-1)$^{2y}$'' + (x-1)y' + y = 0$$
+
+\item Determine the indicial equation for Laguerre's equation:
+$$xy'' + (1-x)y' + ny = 0$$
+\end{enumerate}
+
+\section*{Part C: Determining Solution Forms (5 problems)}
+
+\begin{enumerate}[resume]
+\item For $x$^{2y}$'' + xy' + (x$^{2}$-1/4)y = 0$, find the roots of the indicial equation and state the form of the general solution.
+
+\item Given the indicial roots $r$_{1}$ = 3$ and $r$_{2}$ = -2$, write the general form of the solution.
+
+\item If the indicial equation has repeated root $r = 1/2$, write the form of both linearly independent solutions.
+
+\item For Bessel's equation of order 2, explain why the second solution must contain $\ln(x)$.
+
+\item Given roots $r$_{1}$ = 1$ and $r$_{2}$ = 0$, determine whether a logarithmic term is needed by checking the recurrence at $n = 1$.
+\end{enumerate}
+
+\section*{Part D: Computing Frobenius Series (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find the first three non-zero terms of the Frobenius series solution for:
+$$xy'' + 2y' + xy = 0$$ using the larger root.
+
+\item For $x$^{2y}$'' + xy' + (x$^{2}$-1)y = 0$, find the recurrence relation for the root $r = 1$.
+
+\item Solve using Frobenius method:
+$$2xy'' + (1+2x)y' + y = 0$$
+Find coefficients $a$_{0}$, a$_{1}$, a$_{2}$$ for the larger root.
+
+\item For the equation $x$^{2y}$'' + x$^{2y}$' - 2y = 0$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the indicial equation
+\item Find the recurrence relation for $r = 2$
+\item Compute the first four coefficients
+\end{enumerate}
+
+\item Apply Frobenius method to find one solution of:
+$$x$^{2y}$'' + x(x+1)y' - y = 0$$
+\end{enumerate}
+
+\section*{Part E: Special Cases and Logarithmic Solutions (3 problems)}
+
+\begin{enumerate}[resume]
+\item Show that for $x$^{2y}$'' + 3xy' + (1+x)y = 0$ with repeated root $r = -1$, the second solution must contain $\ln(x)$.
+
+\item For the equation with roots differing by an integer:
+$$x$^{2y}$'' + xy' - y = 0$$
+Determine if both solutions can be pure Frobenius series or if logarithms are needed.
+
+\item Verify that Euler's equation $x$^{2y}$'' - xy' + y = 0$ has solutions $y$_{1}$ = x$ and $y$_{2}$ = x\ln(x)$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[10 points]} Consider the modified Bessel equation:
+$$x$^{2y}$'' + xy' - (x$^{2}$ + n$^{2}$)y = 0$$ where $n = 2$.
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Show that $x = 0$ is a regular singular point
+\item [3 pts] Find the indicial equation and its roots
+\item [2 pts] Which case applies for the general solution?
+\item [3 pts] Write the form of both linearly independent solutions
+\end{enumerate}
+
+\item \textbf{[9 points]} For the equation:
+$$x(x-1)y'' + 3y' + y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find and classify all singular points
+\item [3 pts] Find the indicial equation at $x = 0$
+\item [3 pts] Find the first three terms of the Frobenius series for the larger root
+\end{enumerate}
+
+\item \textbf{[8 points]} Given:
+$$2x$^{2y}$'' + x(1+x)y' - 2y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find the indicial equation and roots
+\item [2 pts] Set up the recurrence relation
+\item [3 pts] Determine if the second solution requires logarithms
+\end{enumerate}
+
+\item \textbf{[10 points]} \textit{Comprehensive Problem}
+$$x$^{2y}$'' + x(1-x)y' - (1+3x)y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Verify $x = 0$ is a regular singular point
+\item [3 pts] Find the indicial equation and solve for $r$
+\item [3 pts] Find the recurrence relation for the larger root
+\item [2 pts] State the form of the general solution
+\end{enumerate}
+
+\item \textbf{[12 points]} \textit{Prof. Ditkowski Special - Hypergeometric Type}
+Consider: $x(1-x)y'' + [2-(3+x)]y' - y = 0$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Show both $x = 0$ and $x = 1$ are regular singular points
+\item [3 pts] Find the indicial equation at $x = 0$
+\item [3 pts] Find the indicial equation at $x = 1$
+\item [3 pts] Around which point would you prefer to expand and why?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:}
+- $x = 0$: Check $xp(x) = 2x$^{2}$/(x(x-1))$ and $x$^{2q}$(x) = x$^{2}$/(x(x-1))$ at $x = 0$ \rightarrow Regular
+- $x = 1$: Check $(x-1)p(x)$ and $(x-1)$^{2q}$(x)$ at $x = 1$ \rightarrow Regular
+
+\textbf{Problem 7:}
+Standard form: $y'' + (1/x)y' - (1/x)y = 0$
+- $p$_{0}$ = 1$, $q$_{0}$ = 0$
+- Indicial equation: $r(r-1) + r = 0$ \rightarrow $r$^{2}$ = 0$ \rightarrow $r = 0$ (repeated)
+
+\textbf{Problem 13:}
+- Indicial equation: $r$^{2}$ - 1/4 = 0$
+- Roots: $r$_{1}$ = 1/2$, $r$_{2}$ = -1/2$ (differ by 1)
+- Form: Check if pure Frobenius works for $r$_{2}$$ or needs log term
+
+\textbf{Problem 18:}
+For larger root $r = 0$:
+- $y = a$_{0}$(1 - x$^{2}$/2 + x$^{4}$/24 - \cdots)$
+- This gives the Bessel function $J$_{0}$(x)$ series
+
+\textbf{Problem 26:}
+- Indicial roots: $r = 2, -1$ (differ by 3)
+- At $x = 0$: Regular singular point
+- Second solution likely needs no logarithm (check recurrence)
+
+\textbf{Key Insights:}
+- Always check $r$_{1}$ - r$_{2}$$ first
+- Integer differences require careful analysis
+- Bessel-type equations are exam favorites
+- When $r = 0$ appears, one solution is a regular power series
+
+\end{document}

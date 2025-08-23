@@ -1,0 +1,110 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 24: Practice Problems - Special Integrating Factors}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Testing for $\mu(xy)$ (Problems 1-5)}
+
+\begin{enumerate}
+\item Test for $\mu(xy)$: $(2xy + y^2)dx + (x^2 + 2xy)dy = 0$
+
+\item Check if $\mu(xy)$ exists: $(y - x^2y)dx + (x - xy^2)dy = 0$
+
+\item Test the $\mu(xy)$ condition: $(xy^2 + y)dx + (x^2y + x)dy = 0$
+
+\item Determine if $\mu(xy)$ works: $(3xy + y^3)dx + (x^3 + 3xy)dy = 0$
+
+\item Check for $\mu(xy)$: $(y\cos(xy) + 1)dx + (x\cos(xy) + 1)dy = 0$
+\end{enumerate}
+
+\section*{Part B: Power Form $\mu = x^a y^b$ (Problems 6-10)}
+
+\begin{enumerate}[start=6]
+\item Find $\mu = x^a y^b$ for: $(y^3)dx + (xy^2)dy = 0$
+
+\item Determine powers: $(x^2y)dx + (xy^2)dy = 0$
+
+\item Find $a,b$: $(y + x^2y^3)dx + (x + x^3y^2)dy = 0$
+
+\item Power integrating factor: $(2xy^2)dx + (3x^2y)dy = 0$
+
+\item Find $\mu = x^a y^b$: $(y^2 + 2xy^3)dx + (xy + x^2y^2)dy = 0$
+\end{enumerate}
+
+\section*{Part C: Linear Combination $\mu = (ax + by)^n$ (Problems 11-15)}
+
+\begin{enumerate}[start=11]
+\item Try $\mu = (x + y)^n$: $(x + 2y)dx + (2x + y)dy = 0$
+
+\item Find $n$ for $\mu = (x - y)^n$: $(x - y + 1)dx + (x - y - 1)dy = 0$
+
+\item Linear combination form: $(2x + y + 1)dx + (x + 2y + 1)dy = 0$
+
+\item Test $\mu = (ax + by)^n$: $(3x + 2y)dx + (2x + 3y)dy = 0$
+
+\item Find appropriate linear $\mu$: $(x + y + xy)dx + (x + y - xy)dy = 0$
+\end{enumerate}
+
+\section*{Part D: Mixed Special Forms (Problems 16-20)}
+
+\begin{enumerate}[start=16]
+\item Given $\mu = \frac{1}{xy}$, solve: $(y^2 - x^2)dx + (2xy)dy = 0$
+
+\item Verify $\mu = e^{x+y}$ works: $(e^{-x-y} + y)dx + (x + e^{-x-y})dy = 0$
+
+\item Use $\mu = \frac{1}{x+y}$: $(x+y)^2dx + (x+y)^2dy = 0$
+
+\item Try $\mu = xy$: $\left(\frac{y}{x^2} + \frac{1}{y}\right)dx + \left(\frac{x}{y^2} - \frac{1}{x}\right)dy = 0$
+
+\item Given hint $\mu = (x^2 + y^2)^{-1}$: $(x + y^3)dx + (y - x^3)dy = 0$
+\end{enumerate}
+
+\section*{Part E: Complete Problem Solving (Problems 21-25)}
+
+\begin{enumerate}[start=21]
+\item Full analysis and solution: $(2y)dx + (3x + xy)dy = 0$
+
+\item Systematic approach: $(xy + y^2)dx + (x^2 + xy)dy = 0$
+
+\item Find any integrating factor and solve: $(x^2 + y^2)dx - (2xy)dy = 0$
+
+\item Complete solution: $(y^2\cos x + y)dx + (2y\sin x + x)dy = 0$
+
+\item Challenge problem: $(y + x^2y^3)dx + (x - x^3y^2)dy = 0$
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $(M_y - N_x)/(xN - yM) = \frac{(2x + 2y) - (2x + 2y)}{x(x^2 + 2xy) - y(2xy + y^2)} = \frac{0}{x^3 + 2x^2y - 2xy^2 - y^3}$
+Since numerator is 0, this suggests the equation may already be exact.
+
+\textbf{Problem 6:} For $\mu = x^a y^b$ with $(y^3)dx + (xy^2)dy = 0$:
+$(x^a y^{b+3})dx + (x^{a+1} y^{b+2})dy = 0$
+Exactness: $x^a(b+3)y^{b+2} = x^a(a+1)y^{b+2}$
+So $b+3 = a+1$, giving $a = b+2$
+Try $b = -1$: $a = 1$, so $\mu = \frac{x}{y}$
+
+\textbf{Problem 11:} For $\mu = (x+y)^n$ with $(x + 2y)dx + (2x + y)dy = 0$:
+After multiplication: $[(x+y)^n(x+2y)]dx + [(x+y)^n(2x+y)]dy = 0$
+The algebra becomes complex, but often $n = 1$ or $n = -1$ work.
+
+\textbf{Problem 16:} With $\mu = \frac{1}{xy}$:
+$\left(\frac{y^2-x^2}{xy}\right)dx + \left(\frac{2xy}{xy}\right)dy = 0$
+$\left(\frac{y}{x} - \frac{x}{y}\right)dx + 2dy = 0$
+
+\textbf{Key Strategy Tips:}
+\begin{itemize}
+    \item Always check exactness first
+    \item Try simple cases: $\mu(x)$, $\mu(y)$ before special forms
+    \item For power forms, work systematically with small integer values
+    \item Verification is essential - substitute back into exactness condition
+    \item If hint is given, use it! Prof. Ditkowski usually provides guidance for special forms
+\end{itemize}
+
+\end{document}

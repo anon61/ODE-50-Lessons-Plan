@@ -1,0 +1,230 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 50: Practice Problems - Numerical Methods}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Euler's Method (6 problems)}
+
+\begin{enumerate}
+\item Apply Euler's method with $h = 0.1$ to solve:
+$$y' = x - y, \quad y(0) = 1$$
+Find $y(0.3)$ (show all steps).
+
+\item Use Euler's method with $h = 0.25$ for:
+$$y' = y + e$^{x}$, \quad y(0) = 0$$
+Compute approximations at $x = 0.25, 0.5, 0.75, 1$.
+
+\item For the IVP $y' = -2y$, $y(0) = 1$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the exact solution
+\item Apply Euler with $h = 0.5$ to find $y(1)$
+\item Compare with the exact value
+\end{enumerate}
+
+\item Determine the maximum stable step size for Euler's method applied to:
+$$y' = -10y$$
+
+\item Use Euler's method with $h = 0.2$ for the system:
+$$x' = y, \quad y' = -x, \quad x(0) = 1, \quad y(0) = 0$$
+Find $(x(0.4), y(0.4))$.
+
+\item Backward Euler for $y' = -100y$, $y(0) = 1$. Show that with $h = 0.1$:
+$$y$_{1}$ = \frac{y$_{0}$}{1 + 100h}$$
+\end{enumerate}
+
+\section*{Part B: Runge-Kutta Methods (6 problems)}
+
+\begin{enumerate}[resume]
+\item Apply the improved Euler method (Heun) with $h = 0.5$ to:
+$$y' = xy, \quad y(0) = 1$$
+Find $y(1)$.
+
+\item Use the midpoint method (RK2) with $h = 0.25$ for:
+$$y' = \sin(x) + y, \quad y(0) = 0$$
+Compute $y(0.5)$.
+
+\item Apply RK4 with $h = 0.5$ to solve:
+$$y' = x$^{2}$ + y$^{2}$, \quad y(0) = 0$$
+Find $y(0.5)$ (show all $k$_{i}$$ values).
+
+\item For $y' = -y + x + 1$, $y(0) = 1$:
+\begin{enumerate}[label=(\alph*)]
+\item Apply one step of RK4 with $h = 1$
+\item Find the exact solution and compare
+\end{enumerate}
+
+\item Use RK4 with $h = 0.2$ for the system:
+$$\begin{cases}
+x' = x - y \\
+y' = x + y
+\end{cases}, \quad x(0) = 1, \quad y(0) = 0$$
+Find $(x(0.2), y(0.2))$.
+
+\item Compare Euler and RK4 for $y' = y$, $y(0) = 1$ with $h = 0.5$. Find $y(0.5)$ using both methods and the exact solution.
+\end{enumerate}
+
+\section*{Part C: Error Analysis (5 problems)}
+
+\begin{enumerate}[resume]
+\item For $y' = y$, $y(0) = 1$ on $[0,1]$:
+\begin{enumerate}[label=(\alph*)]
+\item If we want global error $< 10^{-4}$ using Euler, estimate required $h$
+\item Repeat for RK4
+\item How many steps does each method need?
+\end{enumerate}
+
+\item The local truncation error for Euler is $\frac{h$^{2}$}{2}y''(\xi)$. For $y' = x$^{2}$$, $y(0) = 0$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the exact local error at $x = h$
+\item Verify it's $O(h$^{2}$)$
+\end{enumerate}
+
+\item Given that RK4 has local error $O(h$^{5}$)$, if halving the step size reduces the error by factor $F$, what is $F$?
+
+\item For $y' = -1000y + 1000$, $y(0) = 2$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the exact solution
+\item Is this equation stiff? Why?
+\item What happens if you use Euler with $h = 0.01$?
+\end{enumerate}
+
+\item Richardson extrapolation: If $y$_{h}$$ is the Euler approximation with step $h$ and $y_{h/2}$ with step $h/2$, show that:
+$$y_{improved} = 2y_{h/2} - y$_{h}$$$
+has error $O(h$^{2}$)$.
+\end{enumerate}
+
+\section*{Part D: Stability Analysis (5 problems)}
+
+\begin{enumerate}[resume]
+\item For the test equation $y' = \lambda y$ with $\lambda = -5$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the stability condition for Euler
+\item Find the stability condition for RK4
+\item Which method allows larger steps?
+\end{enumerate}
+
+\item Show that backward Euler is unconditionally stable for $y' = \lambda y$ with $\operatorname{Re}(\lambda) < 0$.
+
+\item For the system:
+$$\mathbf{y}' = \begin{pmatrix} -1 & 10 \\ 0 & -100 \end{pmatrix} \mathbf{y}$$
+\begin{enumerate}[label=(\alph*)]
+\item Find the eigenvalues
+\item What step size does Euler need for stability?
+\item Is this system stiff?
+\end{enumerate}
+
+\item The stability function for RK4 is:
+$$R(z) = 1 + z + \frac{z$^{2}$}{2} + \frac{z$^{3}$}{6} + \frac{z$^{4}$}{24}$$
+Find $|R(-2)|$ and determine if $h\lambda = -2$ is stable.
+
+\item Compare stability regions: sketch the stability boundary in the complex $h\lambda$ plane for:
+\begin{enumerate}[label=(\alph*)]
+\item Euler's method
+\item Backward Euler
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Implementation Considerations (3 problems)}
+
+\begin{enumerate}[resume]
+\item Write pseudocode for adaptive step size control using error estimation.
+
+\item For solving to tolerance $\epsilon = 10^{-6}$ on $[0,10]$:
+\begin{enumerate}[label=(\alph*)]
+\item Estimate steps needed for Euler
+\item Estimate steps needed for RK4
+\item Which is more efficient?
+\end{enumerate}
+
+\item Higher-order ODEs: Convert $y'' + 2y' + y = e$^{x}$$, $y(0) = 1$, $y'(0) = 0$ to a system and show first Euler step with $h = 0.1$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[10 points]} Consider $y' = x + y$, $y(0) = 1$.
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Apply two steps of Euler's method with $h = 0.5$
+\item [4 pts] Apply one step of RK4 with $h = 1$
+\item [3 pts] The exact solution is $y = 2e$^{x}$ - x - 1$. Compare errors.
+\end{enumerate}
+
+\item \textbf{[8 points]} For the pendulum equation (small angle):
+$$\theta'' + \theta = 0, \quad \theta(0) = 0.1, \quad \theta'(0) = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Convert to a first-order system
+\item [4 pts] Apply one step of RK4 with $h = 0.1$
+\item [2 pts] Is the total energy conserved numerically?
+\end{enumerate}
+
+\item \textbf{[9 points]} Stability analysis for $y' = -50y$:
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Find maximum stable $h$ for Euler
+\item [2 pts] Find maximum stable $h$ for RK4 (given stability limit $|h\lambda| < 2.78$)
+\item [2 pts] If you need to solve on $[0, 10]$, how many steps for each?
+\item [3 pts] Which method is more efficient and why?
+\end{enumerate}
+
+\item \textbf{[10 points]} Method comparison:
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Explain why RK4 is more accurate than Euler
+\item [3 pts] When would you prefer implicit over explicit methods?
+\item [2 pts] What is the trade-off in choosing step size?
+\item [2 pts] How do adaptive methods work?
+\end{enumerate}
+
+\item \textbf{[12 points]} \textit{Prof. Ditkowski Special}
+The chemical reaction $A \to B \to C$ has rate equations:
+$$\begin{cases}
+A' = -100A \\
+B' = 100A - B \\
+C' = B
+\end{cases}$$
+with $A(0) = 1$, $B(0) = C(0) = 0$.
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Is this system stiff? Explain.
+\item [3 pts] Apply one Euler step with $h = 0.001$
+\item [3 pts] What happens with $h = 0.1$?
+\item [3 pts] Suggest an appropriate numerical method
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:}
+- $y$_{1}$ = 1 + 0.1(0 - 1) = 0.9$
+- $y$_{2}$ = 0.9 + 0.1(0.1 - 0.9) = 0.82$
+- $y$_{3}$ = 0.82 + 0.1(0.2 - 0.82) = 0.758$
+
+\textbf{Problem 4:} For stability: $|1 - 10h| < 1$, so $h < 0.2$
+
+\textbf{Problem 9:} RK4 for $y' = x$^{2}$ + y$^{2}$$:
+- $k$_{1}$ = 0$
+- $k$_{2}$ = 0.5(0.25)$^{2}$ = 0.03125$
+- $k$_{3}$ = 0.5[(0.25)$^{2}$ + (0.0156)$^{2}$] \approx 0.0312$
+- $k$_{4}$ = 0.5[(0.5)$^{2}$ + (0.0312)$^{2}$] \approx 0.125$
+- $y$_{1}$ \approx 0.031$
+
+\textbf{Problem 13:} For Euler: $h \sim \sqrt{10^{-4}} = 0.01$, need 100 steps
+For RK4: $h \sim (10^{-4})^{1/4} \approx 0.1$, need 10 steps
+
+\textbf{Problem 18:} Eigenvalues: $-1, -100$. Need $h < 2/100 = 0.02$ for stability. Yes, stiff!
+
+\textbf{Key Insights:}
+- RK4 typically 10-100\times more efficient than Euler
+- Stiffness determined by eigenvalue ratio
+- Implicit methods trade computation per step for stability
+- Energy conservation tests numerical accuracy
+
+\end{document}

@@ -1,0 +1,91 @@
+Episode 42: Lyapunov Functions and Global Stability**
+
+Audio Lesson Script**
+
+Welcome to Lesson 42, our final lesson on nonlinear systems! Today we're learning about Lyapunov functions - one of the most powerful tools in stability analysis. This technique is absolutely crucial for Prof. Ditkowski's exam because it works even when linearization fails!
+
+So basically, here's the brilliant idea: instead of solving the differential equations (which is usually impossible for nonlinear systems), we find a special function V(x,y) that decreases along trajectories. Think of it like this - imagine a ball rolling in a bowl. You don't need to solve for the exact path; you just need to know the bowl shape (that's V) and that the ball rolls downhill (V decreases). If the bowl has a minimum at the bottom, the ball will end up there!
+
+Let me show you the formal setup. A Lyapunov function V(x,y) for a system ẋ = f(x,y), ẏ = g(x,y) near an equilibrium at the origin must satisfy:
+1. V(0,0) = 0 (the function equals zero at equilibrium)
+2. V(x,y) > 0 for all (x,y) ≠ (0,0) nearby (positive elsewhere)
+3. V̇(x,y) ≤ 0 along trajectories (decreases or stays constant)
+
+Here's the key insight - V̇ is NOT the partial derivative! It's the rate of change along trajectories:
+V̇ = ∂V/∂x · ẋ + ∂V/∂y · ẏ = ∂V/∂x · f(x,y) + ∂V/∂y · g(x,y)
+
+This is what students mess up most with Prof. Ditkowski - you compute V̇ by taking the gradient of V and dotting it with the vector field (f,g)!
+
+Let's work through a concrete example. Consider:
+ẋ = -x + y²
+ẏ = -y + x²
+
+Let's try V(x,y) = x² + y² (the standard quadratic form). First, check conditions 1 and 2: V(0,0) = 0 ✓, and V > 0 elsewhere ✓.
+
+Now the crucial part - compute V̇:
+V̇ = 2x·ẋ + 2y·ẏ
+   = 2x(-x + y²) + 2y(-y + x²)
+   = -2x² + 2xy² - 2y² + 2x²y
+   = -2(x² + y²) + 2xy(x + y)
+
+Near the origin where x,y are small, the quadratic terms dominate: V̇ ≈ -2(x² + y²) < 0. So the origin is asymptotically stable!
+
+But wait - here's where Lyapunov really shines. Remember from Lesson 41 that if we have purely imaginary eigenvalues, Hartman-Grobman fails? Lyapunov functions can still work! Consider:
+ẋ = -y + x³
+ẏ = x + y³
+
+The linearization has eigenvalues ±i (non-hyperbolic). But try V = x² + y²:
+V̇ = 2x(-y + x³) + 2y(x + y³)
+   = -2xy + 2x⁴ + 2xy + 2y⁴
+   = 2(x⁴ + y⁴) > 0 for (x,y) ≠ (0,0)
+
+Since V̇ > 0, the origin is actually UNSTABLE! Linearization would have been inconclusive, but Lyapunov gives us the definitive answer.
+
+Now, here's a pro tip for constructing Lyapunov functions. For most problems Prof. Ditkowski gives, try these in order:
+1. V = ax² + cy² (quadratic form)
+2. V = ax² + bxy + cy² (general quadratic)
+3. V = x² + y² + higher order terms
+4. For gradient systems, use the potential function itself!
+
+Let me show you that last one - it's a gift when you recognize it! If the system is:
+ẋ = -∂U/∂x
+ẏ = -∂U/∂y
+
+Then V = U is automatically a Lyapunov function because:
+V̇ = ∂U/∂x · ẋ + ∂U/∂y · ẏ = -（∂U/∂x)² - (∂U/∂y)² ≤ 0
+
+Physical interpretation? U is the potential energy, and the system always moves to decrease energy!
+
+Here's another crucial concept - the difference between Lyapunov stable and asymptotically stable:
+- If V̇ ≤ 0: Lyapunov stable (trajectories don't escape)
+- If V̇ < 0 for (x,y) ≠ (0,0): Asymptotically stable (trajectories converge)
+
+The equality case V̇ = 0 is subtle. That's where LaSalle's principle comes in! It says trajectories approach the largest invariant set where V̇ = 0. Often, this is just the equilibrium itself, upgrading stability to asymptotic stability.
+
+Let's do a classic example - the damped pendulum:
+ẋ = y
+ẏ = -sin(x) - cy (with c > 0)
+
+Try the energy function V = (1-cos(x)) + y²/2:
+- V(0,0) = 0 ✓
+- V > 0 for small (x,y) ≠ (0,0) ✓
+- V̇ = sin(x)·y + y(-sin(x) - cy) = -cy² ≤ 0
+
+So we have Lyapunov stability. But LaSalle says more! Where does V̇ = 0? Only when y = 0. On the x-axis with y = 0, we have ẋ = 0 and ẏ = -sin(x), so trajectories leave immediately unless sin(x) = 0. The only invariant set is the origin itself, so we actually have asymptotic stability!
+
+Now, let's talk about global versus local stability. So far, we've been checking stability near the origin. But if V(x,y) → ∞ as ||(x,y)|| → ∞ (called radial unboundedness) and V̇ < 0 everywhere except the origin, then we have GLOBAL asymptotic stability. Every trajectory, no matter where it starts, converges to the origin!
+
+Here's an exam strategy: when Prof. Ditkowski says "Using the Lyapunov function V = ...", he's giving you a gift! Just verify the three conditions and compute V̇. But when he says "Find a Lyapunov function," start with simple quadratics and work up.
+
+Common mistakes to avoid:
+1. Forgetting V must be positive away from equilibrium
+2. Computing ∂V/∂t instead of V̇ along trajectories
+3. Missing that V̇ = 0 doesn't mean unstable
+4. Not checking V(0,0) = 0
+5. Using V̇ < 0 at origin (it's always zero there!)
+
+The memory device I use: "PD-Negative" - Positive Definite V, Negative (semi)Definite V̇.
+
+One more powerful application - estimating basins of attraction! If V ≤ c defines a closed curve around the origin and V̇ < 0 inside except at origin, then that region is contained in the basin of attraction. This gives guaranteed convergence regions!
+
+Remember, Lyapunov functions are your secret weapon when linearization fails or when you need global information. Master this technique - it's worth big points on the exam!

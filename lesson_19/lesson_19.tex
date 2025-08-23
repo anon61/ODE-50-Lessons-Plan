@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{transformation}
+
+\title{Lesson 19: Riccati Equations with Known Particular Solution}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Recognition}
+
+\begin{definition}[Riccati Equation]
+A Riccati differential equation has the form:
+$$\frac{dy}{dx} = q_0(x) + q_1(x)y + q_2(x)y^2$$
+where $q_0(x)$, $q_1(x)$, and $q_2(x)$ are continuous functions and $q_2(x) \not\equiv 0$.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Special Cases:}
+\begin{itemize}
+    \item If $q_2(x) \equiv 0$: Linear equation
+    \item If $q_0(x) \equiv 0$: Bernoulli equation with $n = 2$
+    \item If $q_1(x) \equiv 0$: Separable after substitution
+    \item General case: Requires particular solution or transformation to second-order
+\end{itemize}
+\end{keypoint}
+
+\section{The Fundamental Transformation}
+
+\begin{theorem}[Riccati to Bernoulli Reduction]
+If $y_p(x)$ is a particular solution of the Riccati equation, then the substitution
+$$y = y_p + v$$
+transforms the Riccati equation into the Bernoulli equation:
+$$\frac{dv}{dx} = (q_1 + 2q_2y_p)v + q_2v^2$$
+\end{theorem}
+
+\begin{proof}
+Given: $y' = q_0 + q_1y + q_2y^2$ and $y_p' = q_0 + q_1y_p + q_2y_p^2$
+
+Substitute $y = y_p + v$:
+\begin{align}
+y_p' + v' &= q_0 + q_1(y_p + v) + q_2(y_p + v)^2 \\
+y_p' + v' &= q_0 + q_1y_p + q_1v + q_2y_p^2 + 2q_2y_pv + q_2v^2 \\
+v' &= q_1v + 2q_2y_pv + q_2v^2 \quad \text{(using } y_p' = q_0 + q_1y_p + q_2y_p^2\text{)} \\
+v' &= (q_1 + 2q_2y_p)v + q_2v^2 \quad \square
+\end{align}
+\end{proof}
+
+\begin{transformation}
+\textbf{Complete Solution Algorithm:}
+\begin{enumerate}
+    \item Find or verify particular solution $y_p$
+    \item Substitute $y = y_p + v$
+    \item Obtain Bernoulli equation: $v' = (q_1 + 2q_2y_p)v + q_2v^2$
+    \item Use substitution $w = v^{-1}$ (since $n = 2$)
+    \item Solve linear equation: $w' = -(q_1 + 2q_2y_p)w - q_2$
+    \item Back-substitute: $v = 1/w$, then $y = y_p + v$
+\end{enumerate}
+\end{transformation}
+
+\section{Finding Particular Solutions}
+
+\begin{method}[Inspection Techniques]
+\textbf{Common forms to try:}
+\begin{enumerate}
+    \item \textbf{Constants:} Try $y_p = c$ when coefficients allow
+    \item \textbf{Linear:} Try $y_p = ax + b$ for polynomial coefficients
+    \item \textbf{Rational:} Try $y_p = a/x$ or $y_p = a/(x+b)$
+    \item \textbf{Exponential:} Try $y_p = ae^{bx}$ for constant coefficients
+    \item \textbf{Trigonometric:} Try $y_p = a\tan(bx)$ or $a\cot(bx)$
+    \item \textbf{Special:} $y_p = -q_1/(2q_2)$ when this ratio is constant
+\end{enumerate}
+\end{method}
+
+\begin{example}[Polynomial Particular Solution]
+Solve: $y' = \frac{2}{x^2} - \frac{2y}{x} + y^2$
+
+\textbf{Finding $y_p$:} Try $y_p = \frac{a}{x}$
+$$-\frac{a}{x^2} = \frac{2}{x^2} - \frac{2a}{x^2} + \frac{a^2}{x^2}$$
+$$-a = 2 - 2a + a^2 \implies a^2 - a + 2 = 0$$
+
+This gives $a = 2$ or $a = -1$. Use $y_p = \frac{2}{x}$.
+
+\textbf{Transformation:} Let $y = \frac{2}{x} + v$
+$$v' = -\frac{2v}{x} + \frac{4v}{x} + v^2 = \frac{2v}{x} + v^2$$
+
+\textbf{Bernoulli to Linear:} Let $w = v^{-1}$
+$$w' = -\frac{2w}{x} - 1$$
+
+\textbf{Solution:} $w = \frac{C}{x^2} - \frac{x}{3}$
+
+\textbf{Final Answer:} $y = \frac{2}{x} + \frac{1}{C/x^2 - x/3}$
+\end{example}
+
+\section{Special Riccati Forms}
+
+\begin{insight}
+\textbf{Constant Coefficient Riccati:} $y' = a + by + cy^2$
+\begin{itemize}
+    \item If $b^2 - 4ac > 0$: Two constant particular solutions
+    \item If $b^2 - 4ac = 0$: One constant particular solution
+    \item If $b^2 - 4ac < 0$: No real constant solutions
+\end{itemize}
+For $b^2 - 4ac < 0$, try $y_p = \alpha \tan(\beta x)$ where $\beta = \sqrt{4ac - b^2}/(2c)$
+\end{insight}
+
+\begin{example}[Trigonometric Particular Solution]
+Solve: $y' = 1 + y^2$
+
+\textbf{Observation:} This matches $\frac{d}{dx}[\tan x] = \sec^2 x = 1 + \tan^2 x$
+
+\textbf{Particular solution:} $y_p = \tan x$
+
+\textbf{General solution:} Let $y = \tan x + v$
+$$v' = 2\tan x \cdot v + v^2$$
+
+After solving the Bernoulli equation:
+$$y = \tan x + \frac{\sin x}{C - \cos x}$$
+\end{example}
+
+\section{Connection to Linear Second-Order}
+
+\begin{theorem}[Riccati-Linear Duality]
+The Riccati equation $y' = q_0 + q_1y + q_2y^2$ is equivalent to the second-order linear equation:
+$$u'' - (q_1 + \frac{q_2'}{q_2})u' + q_0q_2 \cdot u = 0$$
+via the transformation $y = -\frac{1}{q_2} \cdot \frac{u'}{u}$
+\end{theorem}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Patterns:}
+\begin{itemize}
+    \item Often provides $y_p$ or strong hints ("verify that...")
+    \item Tests connection to Bernoulli reduction
+    \item Likes rational particular solutions $y_p = a/x$
+    \item May ask for multiple particular solutions
+    \item Tests the second-order connection
+    \item Partial credit for correct transformation setup
+\end{itemize}
+\end{examtip}
+
+\section{Geometric Interpretation}
+
+\begin{lemma}[Cross-Ratio Property]
+If $y_1, y_2, y_3, y_4$ are four solutions of a Riccati equation, their cross-ratio:
+$$\frac{(y_1 - y_3)(y_2 - y_4)}{(y_1 - y_4)(y_2 - y_3)}$$
+is constant (independent of $x$).
+\end{lemma}
+
+\begin{warning}
+\textbf{Common Pitfalls:}
+\begin{itemize}
+    \item Not verifying that $y_p$ satisfies the equation
+    \item Sign errors in the transformation to Bernoulli
+    \item Forgetting that Bernoulli with $n = 2$ needs $w = v^{-1}$
+    \item Missing singular solutions when $v = 0$
+\end{itemize}
+\end{warning}
+
+\section{Solution Structure}
+
+\begin{keypoint}
+\textbf{General Solution Form:}
+$$y = y_p + \frac{1}{w(x)}$$
+where $w(x)$ satisfies the linear equation:
+$$w' + (q_1 + 2q_2y_p)w = -q_2$$
+
+The general solution has the structure:
+$$y = y_p + \frac{1}{\phi(x) + C\psi(x)}$$
+where $\phi$ and $\psi$ depend on the particular solution chosen.
+\end{keypoint}
+
+\end{document}

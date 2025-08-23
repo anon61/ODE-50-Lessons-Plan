@@ -1,0 +1,69 @@
+Episode 30: Constant Coefficient Systems - Distinct Eigenvalues**
+
+Audio Lesson Script**
+
+Hey there! Welcome to Lesson 30, where we're diving into one of the most important topics in ODEs - solving systems of linear differential equations with constant coefficients. This is absolutely crucial for Prof. Ditkowski's exam, so let's really nail this down.
+
+So basically, we're looking at systems that look like this: **x' = Ax**, where x is a vector of unknown functions, and A is a constant matrix. Think of it like this - instead of having one differential equation with one unknown function, we now have multiple equations all tangled together. The key insight here is that linear algebra is going to save the day!
+
+Here's the game plan: we're going to find special directions called eigenvectors where the system behaves really simply - just exponential growth or decay. Once we find these special directions and their corresponding growth rates (eigenvalues), we can build the complete solution.
+
+Let me show you the systematic approach. First, we find eigenvalues by solving the characteristic equation: **det(A - λI) = 0**. This gives us a polynomial equation. For a 2×2 matrix, it's a quadratic; for 3×3, it's cubic. The roots of this polynomial are our eigenvalues.
+
+Now here's where students often mess up - after finding eigenvalues, you need to find eigenvectors by solving **(A - λI)v = 0** for EACH eigenvalue separately. This is a homogeneous linear system, and we're looking for non-zero solutions.
+
+Let's work through a concrete 2×2 example. Say we have:
+```
+x' = [3  1] x
+     [1  3]
+```
+
+Step 1: Find eigenvalues. The characteristic equation is:
+det([3-λ  1  ]) = (3-λ)² - 1 = λ² - 6λ + 8 = 0
+   ([1    3-λ])
+
+Factoring: (λ - 4)(λ - 2) = 0, so λ₁ = 4 and λ₂ = 2.
+
+Step 2: Find eigenvectors. For λ₁ = 4:
+(A - 4I)v = [-1  1] [v₁] = [0]
+            [1  -1] [v₂]   [0]
+
+This gives us -v₁ + v₂ = 0, so v₂ = v₁. Taking v₁ = 1, we get v₁ = [1, 1]ᵀ.
+
+For λ₂ = 2:
+(A - 2I)v = [1  1] [v₁] = [0]
+            [1  1] [v₂]   [0]
+
+This gives v₁ + v₂ = 0, so v₂ = -v₁. Taking v₁ = 1, we get v₂ = [1, -1]ᵀ.
+
+Step 3: Build the general solution:
+**x(t) = c₁e^(4t)[1, 1]ᵀ + c₂e^(2t)[1, -1]ᵀ**
+
+That's it! The solution is a linear combination of exponential solutions along each eigenvector direction.
+
+Now, let's tackle a 3×3 system - these show up on exams too. Consider:
+```
+x' = [2  1  0]
+     [0  2  1] x
+     [0  0  3]
+```
+
+This is upper triangular, so eigenvalues are just the diagonal entries: λ₁ = 2 (with multiplicity 2) and λ₂ = 3. Wait, that's a repeated eigenvalue! But for this lesson, let's assume we can find enough eigenvectors (we'll handle the defective case in Lesson 31).
+
+Here's a key exam tip: Prof. Ditkowski loves to test whether you can identify the behavior from eigenvalues. If all eigenvalues are negative, solutions decay to zero. If any eigenvalue is positive, you have exponential growth. Mixed signs mean a saddle behavior.
+
+Common mistakes to avoid:
+1. **Arithmetic errors** - Double-check your characteristic polynomial!
+2. **Wrong eigenvector calculation** - Always verify by computing Av and checking if it equals λv
+3. **Forgetting to normalize** - While any scalar multiple works, choosing simple forms helps
+4. **Sign errors** - Be super careful with negative eigenvalues
+
+Here's my memory trick for the process: "DAVE" - Determinant (for eigenvalues), Algebra (solve for eigenvectors), Verify (check your work), Exponentials (build the solution).
+
+The physical interpretation is beautiful: each eigenvector defines an invariant direction where solutions just scale exponentially. The eigenvalue tells you the rate. Positive means growth along that direction, negative means decay. The general solution is just a superposition of these basic motions.
+
+For initial value problems, you apply x(0) = x₀ to find the constants. This becomes a linear algebra problem: write x₀ as a linear combination of eigenvectors.
+
+Remember, this distinct eigenvalue case is the "nice" case - it works smoothly because we have enough independent eigenvectors to span the space. Next lesson, we'll see what happens when we don't have enough eigenvectors (repeated eigenvalues with defect), and then we'll handle complex eigenvalues which give us oscillatory behavior.
+
+Practice tip: Start with 2×2 systems until the process is automatic, then move to 3×3. Prof. Ditkowski rarely goes beyond 3×3 on exams, but the process scales to any dimension.

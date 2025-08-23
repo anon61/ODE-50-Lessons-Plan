@@ -1,0 +1,206 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 24: Special Integrating Factors - $\mu(xy)$ and Beyond}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Beyond Simple Integrating Factors}
+
+When neither $\mu(x)$ nor $\mu(y)$ exists, we look for integrating factors of special forms:
+\begin{itemize}
+    \item $\mu(xy)$ - depends on the product $xy$
+    \item $\mu(x^2 + y^2)$ - depends on radial distance
+    \item $\mu = x^a y^b$ - power form
+    \item $\mu = 1/(xM + yN)$ - for homogeneous equations
+\end{itemize}
+
+\begin{keypoint}
+Each special form has its own existence test. Master the tests to quickly identify which form to use!
+\end{keypoint}
+
+\section{Case 3: Integrating Factor $\mu(xy)$}
+
+\begin{theorem}[Existence of $\mu(xy)$]
+An integrating factor depending only on $z = xy$ exists if and only if
+\[\frac{1}{xN - yM}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = F(xy)\]
+where $F$ is a function of $xy$ alone. The integrating factor is:
+\[\mu(xy) = e^{\int F(z)\,dz} \text{ where } z = xy\]
+\end{theorem}
+
+\begin{proof}[Proof Sketch]
+If $\mu = \mu(z)$ where $z = xy$, then:
+\[\frac{\partial \mu}{\partial x} = \frac{d\mu}{dz} \cdot y, \quad \frac{\partial \mu}{\partial y} = \frac{d\mu}{dz} \cdot x\]
+
+Substituting into the exactness condition:
+\[M \cdot \frac{d\mu}{dz} \cdot x - N \cdot \frac{d\mu}{dz} \cdot y = \mu(N_x - M_y)\]
+\[\frac{1}{\mu}\frac{d\mu}{dz} = \frac{M_y - N_x}{xN - yM}\]
+
+This requires the right side to be a function of $z = xy$ only.
+\end{proof}
+
+\begin{algorithm}
+\textbf{Testing for $\mu(xy)$:}
+\begin{enumerate}
+    \item Compute $M_y - N_x$ (numerator)
+    \item Compute $xN - yM$ (denominator - note the pattern!)
+    \item Form the ratio $\frac{M_y - N_x}{xN - yM}$
+    \item Check if this can be expressed as $F(xy)$
+    \item If yes, solve $\frac{d\mu}{dz} = \mu \cdot F(z)$ where $z = xy$
+\end{enumerate}
+\end{algorithm}
+
+\begin{example}[$\mu(xy)$ Application]
+Solve $(2y^2 + 3xy)dx + (2xy + x^2)dy = 0$
+
+\textbf{Step 1:} Check exactness: $M_y = 4y + 3x$, $N_x = 2y + 2x$. Not exact.
+
+\textbf{Step 2:} Test $\mu(x)$: $\frac{M_y - N_x}{N} = \frac{2y + x}{2xy + x^2} = \frac{2y + x}{x(2y + x)} = \frac{1}{x}$
+
+Actually, $\mu(x) = x$ works here! But let's continue for illustration...
+
+\textbf{Step 3:} Test $\mu(xy)$:
+\[\frac{M_y - N_x}{xN - yM} = \frac{2y + x}{x(2xy + x^2) - y(2y^2 + 3xy)}\]
+\[= \frac{2y + x}{2x^2y + x^3 - 2y^3 - 3xy^2}\]
+
+This expression is complex and not a clear function of $xy$.
+\end{example}
+
+\section{Case 4: Integrating Factor $\mu(x^2 + y^2)$}
+
+\begin{theorem}[Existence of $\mu(x^2 + y^2)$]
+An integrating factor depending only on $r^2 = x^2 + y^2$ exists if and only if
+\[\frac{1}{xM + yN}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = G(x^2 + y^2)\]
+where $G$ is a function of $x^2 + y^2$ alone.
+\end{theorem}
+
+\begin{insight}
+The denominator $xM + yN$ appears naturally in polar coordinate transformations. This test often succeeds for equations with circular symmetry.
+\end{insight}
+
+\begin{example}[Radial Integrating Factor]
+Consider $(x^2 + y^2 + x)dx + (x^2 + y^2 + y)dy = 0$
+
+Let's test for $\mu(x^2 + y^2)$:
+\[M_y - N_x = 2y - 2x\]
+\[xM + yN = x(x^2 + y^2 + x) + y(x^2 + y^2 + y) = (x^2 + y^2)(x + y) + x^2 + y^2\]
+\[= (x^2 + y^2)(x + y + 1)\]
+
+The ratio doesn't simplify to a function of $x^2 + y^2$ easily, but if we had $(x^2 + y^2)$ as a common factor throughout, it would work.
+\end{example}
+
+\section{Case 5: Power Form $\mu = x^a y^b$}
+
+\begin{method}[Finding $\mu = x^a y^b$]
+To find an integrating factor of the form $\mu = x^a y^b$:
+\begin{enumerate}
+    \item Multiply the equation by $x^a y^b$
+    \item Apply the exactness condition
+    \item Compare powers of $x$ and $y$ on both sides
+    \item Solve the resulting system for $a$ and $b$
+\end{enumerate}
+\end{method}
+
+\begin{example}[Power Form]
+Find $\mu = x^a y^b$ for $y dx + 2x dy = 0$
+
+After multiplication: $x^a y^{b+1} dx + 2x^{a+1} y^b dy = 0$
+
+Exactness requires:
+\[\frac{\partial}{\partial y}(x^a y^{b+1}) = \frac{\partial}{\partial x}(2x^{a+1} y^b)\]
+\[(b+1)x^a y^b = 2(a+1)x^a y^b\]
+\[b + 1 = 2(a + 1)\]
+\[b = 2a + 1\]
+
+Choosing $a = -1$ gives $b = -1$, so $\mu = \frac{1}{xy}$ works.
+\end{example}
+
+\section{Case 6: Homogeneous Equations}
+
+\begin{theorem}[Integrating Factor for Homogeneous Equations]
+If $M(x,y)$ and $N(x,y)$ are homogeneous functions of the same degree $n$, then
+\[\mu = \frac{1}{xM + yN}\]
+is an integrating factor (provided $xM + yN \neq 0$).
+\end{theorem}
+
+\begin{proof}[Proof Outline]
+Using Euler's theorem for homogeneous functions of degree $n$:
+\[x\frac{\partial M}{\partial x} + y\frac{\partial M}{\partial y} = nM\]
+\[x\frac{\partial N}{\partial x} + y\frac{\partial N}{\partial y} = nN\]
+
+The exactness condition with $\mu = 1/(xM + yN)$ can be verified using these relations.
+\end{proof}
+
+\begin{keypoint}
+\textbf{Quick Recognition of Homogeneous Equations:}
+\begin{itemize}
+    \item All terms have the same total degree in $x$ and $y$
+    \item $M(tx, ty) = t^n M(x,y)$ for some $n$
+    \item Common forms: rational functions where numerator and denominator have same degree
+\end{itemize}
+\end{keypoint}
+
+\section{Strategy Flowchart}
+
+\begin{algorithm}
+\textbf{Complete Integrating Factor Strategy:}
+\begin{enumerate}
+    \item Test for exactness - if exact, solve directly
+    \item Test for $\mu(x)$: Is $(M_y - N_x)/N$ a function of $x$ only?
+    \item Test for $\mu(y)$: Is $(N_x - M_y)/M$ a function of $y$ only?
+    \item Check for homogeneity - if yes, use $\mu = 1/(xM + yN)$
+    \item Test for $\mu(xy)$: Is $(M_y - N_x)/(xN - yM)$ a function of $xy$?
+    \item Test for $\mu(x^2+y^2)$: Is $(M_y - N_x)/(xM + yN)$ a function of $x^2+y^2$?
+    \item Try $\mu = x^a y^b$ by comparing powers
+    \item Look for patterns or use inspection
+\end{enumerate}
+\end{algorithm}
+
+\section{Memory Aids and Patterns}
+
+\begin{examtip}
+\textbf{Denominator Patterns:}
+\begin{center}
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Form} & \textbf{Test Denominator} & \textbf{Mnemonic} \\
+\hline
+$\mu(x)$ & $N$ & "N for x" \\
+$\mu(y)$ & $M$ & "M for y" \\
+$\mu(xy)$ & $xN - yM$ & "Cross product" \\
+$\mu(x^2+y^2)$ & $xM + yN$ & "Dot product" \\
+Homogeneous & $xM + yN$ & "Euler's friend" \\
+\hline
+\end{tabular}
+\end{center}
+\end{examtip}
+
+\section{Common Exam Patterns}
+
+\begin{warning}
+Prof. Ditkowski often gives hints about the form:
+\begin{itemize}
+    \item "Find an integrating factor of the form $x^a y^b$"
+    \item "Show that the equation has an integrating factor depending on $xy$"
+    \item "Find $\mu$ assuming it depends only on $x^2 + y^2$"
+\end{itemize}
+When you see these hints, skip the testing phase and work directly with the given form!
+\end{warning}
+
+\end{document}

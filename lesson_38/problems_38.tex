@@ -1,0 +1,311 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz}
+\usepackage{geometry, enumitem, mdframed}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newmdenv[linecolor=green,linewidth=1pt]{technique}
+
+\title{Practice Problems - Lesson 38: Drawing Phase Portraits}
+\author{ODE 1 Course}
+\date{}
+
+\usepackage{xcolor}
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Portrait Construction (Problems 1-6)}
+
+\begin{enumerate}
+\item Draw complete phase portraits for:
+\begin{enumerate}[label=(\alph*)]
+    \item $\dot{x} = x, \dot{y} = -y$ (saddle)
+    \item $\dot{x} = -2x, \dot{y} = -3y$ (stable node)
+    \item $\dot{x} = y, \dot{y} = -x$ (center)
+    \item $\dot{x} = x + y, \dot{y} = -x + y$ (spiral)
+\end{enumerate}
+
+\item For the system $\dot{x} = 3x - 2y$, $\dot{y} = 2x - y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues and eigenvectors
+    \item Draw eigenvector lines with correct arrows
+    \item Add at least 4 trajectories
+    \item Verify no trajectories cross
+\end{enumerate}
+
+\item Given eigenvalues $\lambda$_{1}$ = 2$, $\lambda$_{2}$ = -3$ with eigenvectors $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{v}$_{2}$ = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Classify the equilibrium
+    \item Draw the phase portrait
+    \item Find the matrix $A$
+    \item Verify your portrait using nullclines
+\end{enumerate}
+
+\item For $\dot{x} = x - y$, $\dot{y} = 2x - y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find and draw both nullclines
+    \item Mark flow direction in each region
+    \item Find eigenvalues
+    \item Complete the phase portrait
+\end{enumerate}
+
+\item Draw a phase portrait for:
+$$A = \begin{pmatrix} -1 & 2 \\ -1 & -1 \end{pmatrix}$$
+Show all five steps explicitly.
+
+\item Create phase portraits with:
+\begin{enumerate}[label=(\alph*)]
+    \item Clockwise spiral, stable
+    \item Counterclockwise center
+    \item Improper node, unstable
+    \item Saddle with horizontal stable manifold
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Nullcline Method (Problems 7-11)}
+
+\begin{enumerate}[resume]
+\item For $\dot{x} = y - x$^{2}$$, $\dot{y} = x - 2$ (nonlinear):
+\begin{enumerate}[label=(\alph*)]
+    \item Find nullclines
+    \item Locate equilibria
+    \item Determine flow in each region
+    \item Linearize at each equilibrium
+    \item Sketch the global portrait
+\end{enumerate}
+
+\item Use nullclines to draw $\dot{x} = 2x - y + 1$, $\dot{y} = x - 2y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find where $\dot{x} = 0$ and $\dot{y} = 0$
+    \item Find equilibrium (not at origin!)
+    \item Shift coordinates to equilibrium
+    \item Draw the portrait
+\end{enumerate}
+
+\item For the competing species model:
+$$\dot{x} = x(1 - x - 0.5y), \quad \dot{y} = y(1 - 0.5x - y)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all four equilibria
+    \item Draw nullclines (they're not straight!)
+    \item Classify each equilibrium
+    \item Sketch the first quadrant portrait
+\end{enumerate}
+
+\item Given nullclines are the lines $x + y = 0$ and $x - 2y = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find possible systems with these nullclines
+    \item Draw flow directions
+    \item Complete a phase portrait
+\end{enumerate}
+
+\item For $\dot{x} = \sin(y)$, $\dot{y} = x$:
+\begin{enumerate}[label=(\alph*)]
+    \item Sketch nullclines
+    \item Find equilibria in $[-\pi, \pi] \times \mathbb{R}$
+    \item Linearize at $(0, 0)$
+    \item Draw local portrait near origin
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Direction Fields (Problems 12-16)}
+
+\begin{enumerate}[resume]
+\item Draw direction field arrows at the 8 points $(\pm1, 0)$, $(0, \pm1)$, $(\pm1, \pm1)$ for:
+\begin{enumerate}[label=(\alph*)]
+    \item $\dot{x} = y$, $\dot{y} = -x - y$
+    \item $\dot{x} = x + 2y$, $\dot{y} = 3x + 2y$
+    \item $\dot{x} = -y + x(x$^{2}$ + y$^{2}$)$, $\dot{y} = x + y(x$^{2}$ + y$^{2}$)$
+\end{enumerate}
+
+\item For the system $\dot{x} = ax + y$, $\dot{y} = x + ay$ with $a = 0.5$:
+\begin{enumerate}[label=(\alph*)]
+    \item Compute direction vectors at 6 points
+    \item Identify spiral rotation direction
+    \item Estimate spiral pitch
+    \item Draw complete portrait
+\end{enumerate}
+
+\item Given the direction field:
+- At $(1,0)$: arrow points to $(1,1)$
+- At $(0,1)$: arrow points to $(-1,1)$
+- At $(-1,0)$: arrow points to $(-1,-1)$
+- At $(0,-1)$: arrow points to $(1,-1)$
+\begin{enumerate}[label=(\alph*)]
+    \item What type of equilibrium is at origin?
+    \item Find a compatible linear system
+    \item Complete the portrait
+\end{enumerate}
+
+\item Use isoclines to draw $\dot{x} = y$, $\dot{y} = -\sin(x)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find curves where $dy/dx = 0, 1, -1, \infty$
+    \item Mark trajectory slopes on each isocline
+    \item Draw the phase portrait
+\end{enumerate}
+
+\item For a system with spiral trajectories:
+\begin{enumerate}[label=(\alph*)]
+    \item How many direction arrows minimum to determine rotation?
+    \item Where should you place test points?
+    \item Draw example with 3 arrows showing clockwise spiral
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part D: Special Cases (Problems 17-21)}
+
+\begin{enumerate}[resume]
+\item Draw phase portraits for repeated eigenvalue cases:
+\begin{enumerate}[label=(\alph*)]
+    \item $A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$ (improper node)
+    \item $A = \begin{pmatrix} 3 & 0 \\ 0 & 3 \end{pmatrix}$ (star node)
+    \item $A = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}$ (stable improper)
+\end{enumerate}
+
+\item For the degenerate system $A = \begin{pmatrix} 1 & 2 \\ 2 & 4 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show $\det(A) = 0$
+    \item Find the line of equilibria
+    \item Find the non-zero eigenvalue
+    \item Draw parallel trajectories
+\end{enumerate}
+
+\item Draw accurate ellipses for the center:
+$$\dot{x} = -2y, \quad \dot{y} = 0.5x$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the period
+    \item Determine ellipse aspect ratio
+    \item Draw 3 nested closed orbits
+\end{enumerate}
+
+\item For a stable spiral with eigenvalues $-1 \pm 3i$:
+\begin{enumerate}[label=(\alph*)]
+    \item How many rotations before amplitude halves?
+    \item Draw showing at least 2 complete rotations
+    \item Mark points at $t = 0, \pi/3, 2\pi/3, \pi$
+\end{enumerate}
+
+\item Draw the portrait for the shear flow:
+$$\dot{x} = y, \quad \dot{y} = 0$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues
+    \item Identify all equilibria
+    \item Draw the unusual portrait
+    \item What physical system does this represent?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Portrait Verification (Problems 22-26)}
+
+\begin{enumerate}[resume]
+\item Check these portraits for errors (each has one mistake):
+\begin{enumerate}[label=(\alph*)]
+    \item Saddle with both manifolds attracting
+    \item Node with trajectories crossing
+    \item Spiral that changes rotation direction
+    \item Center with touching ellipses
+\end{enumerate}
+
+\item Verify portrait consistency:
+\begin{enumerate}[label=(\alph*)]
+    \item Do trajectories respect uniqueness?
+    \item Are arrow directions consistent?
+    \item Do eigenvalue signs match portrait?
+    \item Is tangency behavior correct for nodes?
+\end{enumerate}
+
+\item For the portrait you drew in Problem 2:
+\begin{enumerate}[label=(\alph*)]
+    \item Check using 3 additional test points
+    \item Verify nullcline crossings
+    \item Confirm no trajectory intersections
+    \item Test symmetry if applicable
+\end{enumerate}
+
+\item Quality assessment checklist:
+\begin{enumerate}[label=(\alph*)]
+    \item Are at least 4 trajectories shown?
+    \item Are arrows indicating flow present?
+    \item Are axes and origin labeled?
+    \item Is classification stated?
+    \item Are special features marked?
+\end{enumerate}
+
+\item Compare hand-drawn vs computer-generated portraits:
+\begin{enumerate}[label=(\alph*)]
+    \item What details does computer miss?
+    \item What does hand-drawing emphasize?
+    \item How to combine both approaches?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 27-30)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Complete Portrait - Prof. Ditkowski Style]}
+For the system:
+$$\dot{x} = 4x - 5y, \quad \dot{y} = 2x - 2y$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria
+    \item Calculate eigenvalues and eigenvectors
+    \item Classify the equilibrium type
+    \item Find and draw nullclines
+    \item Draw eigenvector directions with arrows
+    \item Test flow at points $(1,0)$ and $(0,1)$
+    \item Complete phase portrait with 6 trajectories
+    \item Verify using trace-determinant
+    \item State stability
+\end{enumerate}
+
+\item \textbf{[Nonlinear with Multiple Equilibria]}
+Consider:
+$$\dot{x} = y, \quad \dot{y} = x - x$^{3}$$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria
+    \item Linearize at each equilibrium
+    \item Classify each equilibrium
+    \item Find the energy function $E(x,y)$
+    \item Use energy contours to draw portrait
+    \item Identify separatrices
+    \item Describe physical interpretation
+\end{enumerate}
+
+\item \textbf{[Parameter-Dependent Portrait]}
+For the system depending on parameter $\mu$:
+$$\dot{x} = \mu x + y, \quad \dot{y} = -x + \mu y$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues in terms of $\mu$
+    \item Determine portrait type for:
+        - $\mu = -1$
+        - $\mu = 0$
+        - $\mu = 0.5$
+    \item Draw all three portraits
+    \item What happens as $\mu$ passes through 0?
+    \item Is this a bifurcation? What type?
+\end{enumerate}
+
+\item \textbf{[Advanced Drawing Challenge]}
+Without computing eigenvalues explicitly, draw the portrait for:
+$$A = \begin{pmatrix} -3 & 4 \\ -2 & 1 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Use trace-determinant to classify
+    \item Use nullclines to structure portrait
+    \item Test 6 direction field points
+    \item Draw complete portrait
+    \item Then verify by computing eigenvalues
+    \item Compare your sketch to exact solution
+\end{enumerate}
+\end{enumerate}
+
+\begin{technique}
+\textbf{Pro Tips for Drawing:}
+\begin{itemize}
+    \item Start with eigenvectors (the skeleton)
+    \item Add nullclines (the grid)
+    \item Sample direction field (the flow)
+    \item Draw smooth curves following all three
+    \item Check: no crossings, correct arrows, proper tangency
+    \item Time limit: 5 minutes per portrait on exam!
+\end{itemize}
+\end{technique}
+
+\end{document}

@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 22: Finding Potential Functions - Systematic Approach}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Potential Function}
+
+\begin{definition}[Potential Function]
+For an exact equation $M(x,y)dx + N(x,y)dy = 0$, the \textbf{potential function} $H(x,y)$ satisfies:
+\begin{align}
+\frac{\partial H}{\partial x} &= M(x,y) \\
+\frac{\partial H}{\partial y} &= N(x,y)
+\end{align}
+The general solution is then given by $H(x,y) = C$.
+\end{definition}
+
+\begin{keypoint}
+The potential function is unique up to an additive constant. All methods for finding $H$ yield the same result.
+\end{keypoint}
+
+\section{Method 1: Integration with Respect to $x$}
+
+\begin{algorithm}
+\textbf{Method 1 - Integrate $M$ with respect to $x$:}
+\begin{enumerate}
+    \item Since $\frac{\partial H}{\partial x} = M(x,y)$, integrate:
+    \[H(x,y) = \int M(x,y)\,dx + g(y)\]
+    where $g(y)$ is an arbitrary function of $y$ alone.
+
+    \item Differentiate the result with respect to $y$:
+    \[\frac{\partial H}{\partial y} = \frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right] + g'(y)\]
+
+    \item Set this equal to $N(x,y)$:
+    \[\frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right] + g'(y) = N(x,y)\]
+
+    \item Solve for $g'(y)$:
+    \[g'(y) = N(x,y) - \frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right]\]
+
+    \item Integrate to find $g(y)$:
+    \[g(y) = \int g'(y)\,dy\]
+
+    \item Write the complete potential function:
+    \[H(x,y) = \int M(x,y)\,dx + g(y)\]
+\end{enumerate}
+\end{algorithm}
+
+\begin{example}[Method 1 Application]
+Solve $(3x$^{2y}$ + y$^{3}$)dx + (x$^{3}$ + 3xy$^{2}$)dy = 0$
+
+\textbf{Step 1:} Verify exactness (assumed done): $\frac{\partial M}{\partial y} = 3x$^{2}$ + 3y$^{2}$ = \frac{\partial N}{\partial x}$ \checkmark
+
+\textbf{Step 2:} Integrate $M = 3x$^{2y}$ + y$^{3}$$ with respect to $x$:
+\[H = x$^{3y}$ + xy$^{3}$ + g(y)\]
+
+\textbf{Step 3:} Differentiate with respect to $y$:
+\[\frac{\partial H}{\partial y} = x$^{3}$ + 3xy$^{2}$ + g'(y)\]
+
+\textbf{Step 4:} Set equal to $N = x$^{3}$ + 3xy$^{2}$$:
+\[x$^{3}$ + 3xy$^{2}$ + g'(y) = x$^{3}$ + 3xy$^{2}$\]
+
+\textbf{Step 5:} Therefore $g'(y) = 0$, so $g(y) = 0$ (we can choose the constant to be 0).
+
+\textbf{Solution:} $H(x,y) = x$^{3y}$ + xy$^{3}$$, so the general solution is $x$^{3y}$ + xy$^{3}$ = C$.
+\end{example}
+
+\section{Method 2: Integration with Respect to $y$}
+
+\begin{algorithm}
+\textbf{Method 2 - Integrate $N$ with respect to $y$:}
+\begin{enumerate}
+    \item Since $\frac{\partial H}{\partial y} = N(x,y)$, integrate:
+    \[H(x,y) = \int N(x,y)\,dy + f(x)\]
+    where $f(x)$ is an arbitrary function of $x$ alone.
+
+    \item Differentiate with respect to $x$:
+    \[\frac{\partial H}{\partial x} = \frac{\partial}{\partial x}\left[\int N(x,y)\,dy\right] + f'(x)\]
+
+    \item Set equal to $M(x,y)$ and solve for $f'(x)$:
+    \[f'(x) = M(x,y) - \frac{\partial}{\partial x}\left[\int N(x,y)\,dy\right]\]
+
+    \item Integrate to find $f(x)$ and write complete $H(x,y)$.
+\end{enumerate}
+\end{algorithm}
+
+\begin{insight}
+Choose Method 1 when $M$ is simpler to integrate. Choose Method 2 when $N$ is simpler. The choice can significantly reduce computation time on exams!
+\end{insight}
+
+\section{Method 3: Line Integral Approach}
+
+\begin{algorithm}
+\textbf{Method 3 - Path Integration:}
+
+Since the equation is exact, the line integral is path-independent:
+\[H(x,y) = \int_{(x$_{0}$,y$_{0}$)}^{(x,y)} M\,dx + N\,dy\]
+
+Common choice: Use path from $(0,0) \to (x,0) \to (x,y)$:
+\[H(x,y) = \int$_{0}$^x M(t,0)\,dt + \int$_{0}$^y N(x,s)\,ds\]
+\end{algorithm}
+
+\begin{examtip}
+Prof. Ditkowski often asks: "Solve using two different methods and verify they give the same result." This tests your understanding that the potential function is unique.
+\end{examtip}
+
+\section{Verification Process}
+
+\begin{warning}
+Always verify your solution! Check that:
+\begin{enumerate}
+    \item $\frac{\partial H}{\partial x} = M(x,y)$ \checkmark
+    \item $\frac{\partial H}{\partial y} = N(x,y)$ \checkmark
+\end{enumerate}
+This catches errors and ensures partial credit.
+\end{warning}
+
+\section{Common Integration Patterns}
+
+\begin{keypoint}
+\textbf{Memorize these common potential functions:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{If you see} & \textbf{Think potential} \\
+\hline
+$y\,dx + x\,dy$ & $H = xy$ \\
+$2xy\,dx + x$^{2}$\,dy$ & $H = x$^{2y}$$ \\
+$\frac{y}{x$^{2}$}\,dx - \frac{1}{x}\,dy$ & $H = -\frac{y}{x}$ \\
+$e$^{x}$\sin y\,dx + e$^{x}$\cos y\,dy$ & $H = e$^{x}$\sin y$ \\
+$\frac{x}{\sqrt{x$^{2}$+y$^{2}$}}\,dx + \frac{y}{\sqrt{x$^{2}$+y$^{2}$}}\,dy$ & $H = \sqrt{x$^{2}$+y$^{2}$}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{keypoint}
+
+\section{Initial Value Problems}
+
+\begin{method}[Solving IVPs with Exact Equations]
+\begin{enumerate}
+    \item Find the potential function $H(x,y)$
+    \item Use initial condition $(x$_{0}$, y$_{0}$)$ to find $C$:
+    \[H(x$_{0}$, y$_{0}$) = C\]
+    \item Write particular solution: $H(x,y) = C$
+\end{enumerate}
+\end{method}
+
+\begin{example}[IVP Example]
+Solve $(2xy + 1)dx + (x$^{2}$ + 2y)dy = 0$ with $y(1) = 2$.
+
+\textbf{Solution:} From Method 1: $H = x$^{2y}$ + x + y$^{2}$$
+
+Using $y(1) = 2$: $H(1,2) = (1)$^{2}$(2) + 1 + (2)$^{2}$ = 7$
+
+Particular solution: $x$^{2y}$ + x + y$^{2}$ = 7$
+\end{example}
+
+\section{Efficiency Tips}
+
+\begin{insight}
+\textbf{Strategic Integration Choices:}
+\begin{itemize}
+    \item If $M$ contains $\ln$, $\arctan$, or complex expressions in $y$ \rightarrow Use Method 2
+    \item If $N$ contains $\ln$, $\arctan$, or complex expressions in $x$ \rightarrow Use Method 1
+    \item If both are complex but simplify when one variable is 0 \rightarrow Use Method 3
+    \item For polynomials, choose based on lower degree
+\end{itemize}
+\end{insight}
+
+\end{document}

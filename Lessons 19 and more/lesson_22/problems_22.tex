@@ -1,0 +1,100 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 22: Practice Problems - Finding Potential Functions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Method 1 - Integration with respect to x (Problems 1-5)}
+
+\begin{enumerate}
+\item Find the potential function and solve: $(2x + 3y)dx + (3x + 4y)dy = 0$
+
+\item Solve using Method 1: $(y^2 + 2xy + 1)dx + (x^2 + 2xy + 2y)dy = 0$
+
+\item Find H(x,y) for: $(3x^2y + 2x)dx + (x^3 + y^2)dy = 0$
+
+\item Solve: $(e^x \sin y + 2x)dx + (e^x \cos y + 2y)dy = 0$
+
+\item Find the solution passing through (1,0): $(2xy + y^2)dx + (x^2 + 2xy)dy = 0$
+\end{enumerate}
+
+\section*{Part B: Method 2 - Integration with respect to y (Problems 6-10)}
+
+\begin{enumerate}[start=6]
+\item Solve using Method 2: $(2x + 3y)dx + (3x + 4y)dy = 0$
+
+\item Find H(x,y): $(x^2 + y^2)dx + (2xy + 3y^2)dy = 0$
+
+\item Solve: $(ye^{xy} + 2x)dx + (xe^{xy} + y)dy = 0$
+
+\item Find the potential function: $(\ln y + x)dx + \left(\frac{x}{y} + 2y\right)dy = 0$
+
+\item Solve with initial condition y(0) = 1: $(2x + y)dx + (x + 2y)dy = 0$
+\end{enumerate}
+
+\section*{Part C: Method 3 - Line Integral Approach (Problems 11-15)}
+
+\begin{enumerate}[start=11]
+\item Use line integral method: $(2xy)dx + (x^2 + 1)dy = 0$
+
+\item Solve using path integration: $(y + 1)dx + (x + y)dy = 0$
+
+\item Find H(x,y) by line integral: $\left(\frac{x}{\sqrt{x^2+y^2}}\right)dx + \left(\frac{y}{\sqrt{x^2+y^2}}\right)dy = 0$
+
+\item Use Method 3: $(2x + y^2)dx + (2xy + 3y^2)dy = 0$
+
+\item Compare all three methods for: $(3x^2 + 2y)dx + (2x + 4y)dy = 0$
+\end{enumerate}
+
+\section*{Part D: Mixed Practice (Problems 16-20)}
+
+\begin{enumerate}[start=16]
+\item Choose the best method and solve: $(y^2 e^{xy} + 2x)dx + (2ye^{xy} + xy^2e^{xy})dy = 0$
+
+\item Find the solution through (1,1): $(2xy + x^2)dx + (x^2 + 2y)dy = 0$
+
+\item Solve: $\left(\frac{y}{x^2} + \frac{1}{y}\right)dx + \left(-\frac{1}{x} + \frac{x}{y^2}\right)dy = 0$
+
+\item Find H(x,y): $(\cos(x+y) + y)dx + (\cos(x+y) + x)dy = 0$
+
+\item Verify and solve: $(2x\sin y + y^2)dx + (x^2\cos y + 2xy)dy = 0$
+\end{enumerate}
+
+\section*{Part E: Initial Value Problems (Problems 21-25)}
+
+\begin{enumerate}[start=21]
+\item Solve the IVP: $(2xy + 1)dx + (x^2 + 2y)dy = 0$, $y(1) = 2$
+
+\item Find the particular solution: $(e^x + y)dx + (x + e^y)dy = 0$, $y(0) = 0$
+
+\item Solve: $(3x^2 + 2y)dx + (2x + 4y)dy = 0$, $y(0) = -1$
+
+\item Find the curve: $(2x + 3y^2)dx + (6xy + 4y^3)dy = 0$ through $(1,-1)$
+
+\item Solve the IVP: $\left(\frac{1}{x} + y\right)dx + (x + \ln x)dy = 0$, $y(1) = 0$
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} Method 1: $H = \int(2x + 3y)dx = x^2 + 3xy + g(y)$
+$\frac{\partial H}{\partial y} = 3x + g'(y) = 3x + 4y$, so $g'(y) = 4y$, $g(y) = 2y^2$
+Solution: $x^2 + 3xy + 2y^2 = C$
+
+\textbf{Problem 6:} Method 2: $H = \int(3x + 4y)dy = 3xy + 2y^2 + f(x)$
+$\frac{\partial H}{\partial x} = 3y + f'(x) = 2x + 3y$, so $f'(x) = 2x$, $f(x) = x^2$
+Same result: $x^2 + 3xy + 2y^2 = C$
+
+\textbf{Problem 11:} Using path $(0,0) \to (x,0) \to (x,y)$:
+$H = \int_0^x 0 \, dt + \int_0^y (x^2 + 1)ds = (x^2 + 1)y$
+Solution: $(x^2 + 1)y = C$
+
+\textbf{Problem 21:} First find $H = x^2y + x + y^2$
+At $(1,2)$: $C = (1)^2(2) + 1 + (2)^2 = 7$
+Particular solution: $x^2y + x + y^2 = 7$
+
+\end{document}

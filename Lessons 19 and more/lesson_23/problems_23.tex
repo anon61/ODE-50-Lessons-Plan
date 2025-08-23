@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 23: Practice Problems - Integrating Factors $\mu(x)$ and $\mu(y)$}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Testing for $\mu(x)$ (Problems 1-5)}
+
+\begin{enumerate}
+\item Test if $\mu(x)$ exists and find it: $(y + xy^2)dx + (2x + x^2y)dy = 0$
+
+\item Check for $\mu(x)$: $(2xy + y^3)dx + (x^2 + xy^2)dy = 0$
+
+\item Find $\mu(x)$ if it exists: $(y^2 + xy)dx + (xy - x^2)dy = 0$
+
+\item Test and find: $(3xy + 2y^2)dx + (x^2 + 2xy)dy = 0$
+
+\item Determine $\mu(x)$: $(y\cos x + 2ye^x)dx + (\sin x + e^x)dy = 0$
+\end{enumerate}
+
+\section*{Part B: Testing for $\mu(y)$ (Problems 6-10)}
+
+\begin{enumerate}[start=6]
+\item Test if $\mu(y)$ exists: $(2xy^3 + y)dx + (3x + x^2y^2)dy = 0$
+
+\item Find $\mu(y)$: $(y + x^2y^3)dx + (x + 2xy^2)dy = 0$
+
+\item Check for $\mu(y)$: $(x^2 + xy^2)dx + (2xy + y^3)dy = 0$
+
+\item Test and determine: $(3x + 2xy)dx + (y + x^2)dy = 0$
+
+\item Find $\mu(y)$: $(\frac{x}{y^2} + \frac{1}{y})dx + (\frac{1}{y} - \frac{x}{y^2})dy = 0$
+\end{enumerate}
+
+\section*{Part C: Complete Solutions (Problems 11-15)}
+
+\begin{enumerate}[start=11]
+\item Solve completely: $(3xy + y^2)dx + (x^2 + xy)dy = 0$
+
+\item Find general solution: $(y + 2xy^2)dx + (x + x^2y)dy = 0$
+
+\item Solve: $(2y)dx + (3x)dy = 0$
+
+\item Complete solution: $(x^2y + y)dx + (x^3 + x - y^2)dy = 0$
+
+\item Solve with initial condition $y(1) = 2$: $(xy + y^2)dx + (x^2 + 2xy)dy = 0$
+\end{enumerate}
+
+\section*{Part D: Both Types Exist (Problems 16-20)}
+
+\begin{enumerate}[start=16]
+\item Show both $\mu(x)$ and $\mu(y)$ exist, find both: $(2xy)dx + (x^2)dy = 0$
+
+\item Find both integrating factors: $(y^2)dx + (2xy)dy = 0$
+
+\item Compare solutions using different $\mu$: $(3y)dx + (2x)dy = 0$
+
+\item Choose the simpler $\mu$ and solve: $(xy^3)dx + (x^2y^2)dy = 0$
+
+\item Both exist - solve using each: $(4xy)dx + (2x^2)dy = 0$
+\end{enumerate}
+
+\section*{Part E: Mixed Recognition (Problems 21-25)}
+
+\begin{enumerate}[start=21]
+\item Determine the best approach: $(x^2 + y^2)dx + (2xy)dy = 0$
+
+\item Check exactness first, then integrating factors: $(e^x + ye^x)dx + (xe^x + 1)dy = 0$
+
+\item Full analysis: $(2x + 3y^2)dx + (6xy + 4y^3)dy = 0$
+
+\item Complete classification: $(xy + y^3)dx + (x^2 + 3xy^2)dy = 0$
+
+\item Strategy decision: $(\sin y + y\cos x)dx + (x\cos y + \sin x)dy = 0$
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} Check $(M_y - N_x)/N = \frac{(1 + 2xy) - (2 + 2xy)}{2x + x^2y} = \frac{-1}{x(2 + xy)}$
+This is not a function of $x$ alone, so $\mu(x)$ doesn't exist in this form.
+
+\textbf{Problem 3:} $(M_y - N_x)/N = \frac{(2y + x) - (-2x)}{xy - x^2} = \frac{2y + 3x}{x(y - x)}$
+Not a function of $x$ alone.
+
+\textbf{Problem 6:} $(N_x - M_y)/M = \frac{(3 + 2xy^2) - (6xy^2 + 1)}{2xy^3 + y} = \frac{2 - 4xy^2}{y(2xy^2 + 1)}$
+Not a function of $y$ alone.
+
+\textbf{Problem 11:} From Example in theory: $\mu(x) = x$ gives solution $x^3y + \frac{x^2y^2}{2} = C$
+
+\textbf{Problem 13:} Both $\mu(x) = x^{1/2}$ and $\mu(y) = y^{1/3}$ work.
+Using $\mu(y) = y^{1/3}$: Solution is $xy^{4/3} = C$
+
+\textbf{Problem 16:} 
+$\mu(x) = x$ (from $(M_y - N_x)/N = 2/x^2 \cdot x = 2/x$)
+$\mu(y) = y$ (from $(N_x - M_y)/M = (2x - 2x)/2xy = 0$... check calculation)
+
+\textbf{Key Test Formulas:}
+\begin{itemize}
+    \item For $\mu(x)$: $(M_y - N_x)/N$ must depend only on $x$
+    \item For $\mu(y)$: $(N_x - M_y)/M$ must depend only on $y$
+    \item If neither works, equation may not have $\mu(x)$ or $\mu(y)$
+\end{itemize}
+
+\end{document}

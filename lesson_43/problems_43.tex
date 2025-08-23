@@ -1,0 +1,286 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 43: Practice Problems\\Characteristic Equation Method}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+
+\maketitle
+
+\section*{Part A: Characteristic Equation Setup (5 problems)}
+
+\begin{enumerate}
+\item Write the characteristic equation for: $y''' - 6y'' + 11y' - 6y = 0$
+
+\item Write the characteristic equation for: $2y^{(4)} + 3y'' - y = 0$
+
+\item Write the characteristic equation for: $y'' + 4y' + 4y = 0$
+
+\item Write the characteristic equation for: $y''' + y' = 0$
+
+\item Write the characteristic equation for: $y^{(4)} + 2y'' + y = 0$
+\end{enumerate}
+
+\section*{Part B: Distinct Real Roots (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 7y' + 12y = 0$
+
+\item Solve: $y''' - 6y'' + 11y' - 6y = 0$
+
+\item Solve the IVP: $y'' - y' - 2y = 0$, $y(0) = 3$, $y'(0) = 1$
+
+\item Solve: $y^{(4)} - 5y'' + 4y = 0$
+
+\item Find the solution of $y'' - 9y = 0$ that satisfies $y(0) = 2$ and remains bounded as $t \to -\infty$.
+\end{enumerate}
+
+\section*{Part C: Repeated Roots (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 4y' + 4y = 0$
+
+\item Solve: $y''' - 3y'' + 3y' - y = 0$
+
+\item Solve the IVP: $y'' + 6y' + 9y = 0$, $y(0) = 1$, $y'(0) = -2$
+
+\item Solve: $y^{(4)} - 4y''' + 6y'' - 4y' + y = 0$
+
+\item Find all solutions of $y''' - 6y'' + 12y' - 8y = 0$ that satisfy $\lim_{t \to \infty} e^{-2t}y(t) = L$ for some finite $L \neq 0$.
+\end{enumerate}
+
+\section*{Part D: Complex Roots (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' + y = 0$
+
+\item Solve: $y'' - 2y' + 2y = 0$
+
+\item Solve the IVP: $y'' + 4y' + 13y = 0$, $y(0) = 1$, $y'(0) = -2$
+
+\item Solve: $y^{(4)} + 4y'' = 0$
+
+\item Find the solution of $y'' + 2y' + 5y = 0$ with $y(0) = 0$ that has maximum amplitude.
+\end{enumerate}
+
+\section*{Part E: Mixed Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y''' - y'' + y' - y = 0$
+
+\item Solve: $y^{(4)} + y''' - y' - y = 0$
+
+\item Solve: $y^{(4)} + 8y'' + 16y = 0$
+
+\item Find all solutions of $y''' + y'' - y' - y = 0$ that are periodic.
+
+\item Solve the IVP: $y^{(4)} - y = 0$, $y(0) = 1$, $y'(0) = 0$, $y''(0) = 1$, $y'''(0) = 0$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Consider the equation $y'' + py' + qy = 0$ where $p, q \in \mathbb{R}$.
+\begin{enumerate}[label=(\alph*)]
+    \item For what values of $p$ and $q$ are all solutions bounded as $t \to \infty$?
+    \item For what values do all solutions oscillate?
+    \item When do all non-zero solutions tend to infinity as $t \to \infty$?
+\end{enumerate}
+
+\item Let $y'' + ay' + by = 0$ have solutions $y_1(t) = e^{2t}$ and $y_2(t) = e^{-3t}$. Find $a$ and $b$.
+
+\item The characteristic equation of a third-order ODE has roots $r_1 = 2$, $r_2 = 3$, and $r_3 = -1$. If $y(0) = 1$, $y'(0) = 5$, and $y''(0) = 7$, find the solution.
+
+\item A fourth-order equation has characteristic polynomial $(r^2 + 4)(r - 1)^2 = 0$. Write the general real-valued solution.
+
+\item Show that if $y(t)$ is a solution of $y'' + py' + qy = 0$ with constant coefficients, then $z(t) = y(at + b)$ is a solution of a similar equation. Find the new equation.
+\end{enumerate}
+
+\newpage
+
+\section*{Solutions}
+
+\subsection*{Part A: Characteristic Equation Setup}
+
+\begin{enumerate}
+\item $r^3 - 6r^2 + 11r - 6 = 0$
+
+\item $2r^4 + 3r^2 - 1 = 0$
+
+\item $r^2 + 4r + 4 = 0$
+
+\item $r^3 + r = 0$
+
+\item $r^4 + 2r^2 + 1 = 0$
+\end{enumerate}
+
+\subsection*{Part B: Distinct Real Roots}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 - 7r + 12 = 0$\\
+Factor: $(r-3)(r-4) = 0$\\
+Roots: $r_1 = 3, r_2 = 4$\\
+General solution: $y(t) = c_1e^{3t} + c_2e^{4t}$
+
+\item Characteristic equation: $r^3 - 6r^2 + 11r - 6 = 0$\\
+Factor: $(r-1)(r-2)(r-3) = 0$\\
+Roots: $r_1 = 1, r_2 = 2, r_3 = 3$\\
+General solution: $y(t) = c_1e^t + c_2e^{2t} + c_3e^{3t}$
+
+\item Characteristic equation: $r^2 - r - 2 = 0$\\
+Factor: $(r-2)(r+1) = 0$\\
+Roots: $r_1 = 2, r_2 = -1$\\
+General solution: $y(t) = c_1e^{2t} + c_2e^{-t}$\\
+Apply ICs: $c_1 + c_2 = 3$, $2c_1 - c_2 = 1$\\
+Solving: $c_1 = 4/3$, $c_2 = 5/3$\\
+Solution: $y(t) = \frac{4}{3}e^{2t} + \frac{5}{3}e^{-t}$
+
+\item Characteristic equation: $r^4 - 5r^2 + 4 = 0$\\
+Let $s = r^2$: $s^2 - 5s + 4 = 0$\\
+Factor: $(s-1)(s-4) = 0$, so $s = 1$ or $s = 4$\\
+Thus $r^2 = 1$ or $r^2 = 4$\\
+Roots: $r = \pm 1, \pm 2$\\
+General solution: $y(t) = c_1e^{-2t} + c_2e^{-t} + c_3e^t + c_4e^{2t}$
+
+\item Characteristic equation: $r^2 - 9 = 0$\\
+Roots: $r = \pm 3$\\
+General solution: $y(t) = c_1e^{3t} + c_2e^{-3t}$\\
+For boundedness as $t \to -\infty$, need $c_1 = 0$\\
+Apply $y(0) = 2$: $c_2 = 2$\\
+Solution: $y(t) = 2e^{-3t}$
+\end{enumerate}
+
+\subsection*{Part C: Repeated Roots}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 - 4r + 4 = 0$\\
+Factor: $(r-2)^2 = 0$\\
+Root: $r = 2$ (multiplicity 2)\\
+General solution: $y(t) = (c_1 + c_2t)e^{2t}$
+
+\item Characteristic equation: $r^3 - 3r^2 + 3r - 1 = 0$\\
+Factor: $(r-1)^3 = 0$\\
+Root: $r = 1$ (multiplicity 3)\\
+General solution: $y(t) = (c_1 + c_2t + c_3t^2)e^t$
+
+\item Characteristic equation: $r^2 + 6r + 9 = 0$\\
+Factor: $(r+3)^2 = 0$\\
+Root: $r = -3$ (multiplicity 2)\\
+General solution: $y(t) = (c_1 + c_2t)e^{-3t}$\\
+Apply ICs: $c_1 = 1$, $c_2 - 3c_1 = -2$\\
+Thus $c_2 = 1$\\
+Solution: $y(t) = (1 + t)e^{-3t}$
+
+\item Characteristic equation: $r^4 - 4r^3 + 6r^2 - 4r + 1 = 0$\\
+This is $(r-1)^4 = 0$\\
+Root: $r = 1$ (multiplicity 4)\\
+General solution: $y(t) = (c_1 + c_2t + c_3t^2 + c_4t^3)e^t$
+
+\item Characteristic equation: $r^3 - 6r^2 + 12r - 8 = 0$\\
+Factor: $(r-2)^3 = 0$\\
+Root: $r = 2$ (multiplicity 3)\\
+General solution: $y(t) = (c_1 + c_2t + c_3t^2)e^{2t}$\\
+For finite limit, need $c_3 = 0$ and $c_2 = 0$\\
+Solution: $y(t) = c_1e^{2t}$ for any $c_1 \neq 0$
+\end{enumerate}
+
+\subsection*{Part D: Complex Roots}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 + 1 = 0$\\
+Roots: $r = \pm i$\\
+General solution: $y(t) = c_1\cos(t) + c_2\sin(t)$
+
+\item Characteristic equation: $r^2 - 2r + 2 = 0$\\
+Roots: $r = 1 \pm i$\\
+General solution: $y(t) = e^t(c_1\cos(t) + c_2\sin(t))$
+
+\item Characteristic equation: $r^2 + 4r + 13 = 0$\\
+Roots: $r = -2 \pm 3i$\\
+General solution: $y(t) = e^{-2t}(c_1\cos(3t) + c_2\sin(3t))$\\
+Apply ICs: $c_1 = 1$, $-2c_1 + 3c_2 = -2$\\
+Thus $c_2 = 0$\\
+Solution: $y(t) = e^{-2t}\cos(3t)$
+
+\item Characteristic equation: $r^4 + 4r^2 = 0$\\
+Factor: $r^2(r^2 + 4) = 0$\\
+Roots: $r = 0$ (multiplicity 2), $r = \pm 2i$\\
+General solution: $y(t) = c_1 + c_2t + c_3\cos(2t) + c_4\sin(2t)$
+
+\item Characteristic equation: $r^2 + 2r + 5 = 0$\\
+Roots: $r = -1 \pm 2i$\\
+General solution: $y(t) = e^{-t}(c_1\cos(2t) + c_2\sin(2t))$\\
+Apply $y(0) = 0$: $c_1 = 0$\\
+For maximum amplitude, choose $c_2$ as large as needed\\
+Solution: $y(t) = Ae^{-t}\sin(2t)$ for any $A \neq 0$
+\end{enumerate}
+
+\subsection*{Part E: Mixed Cases}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^3 - r^2 + r - 1 = 0$\\
+Factor: $r^2(r-1) + (r-1) = (r^2+1)(r-1) = 0$\\
+Roots: $r = 1, r = \pm i$\\
+General solution: $y(t) = c_1e^t + c_2\cos(t) + c_3\sin(t)$
+
+\item Characteristic equation: $r^4 + r^3 - r - 1 = 0$\\
+Factor: $r^3(r+1) - (r+1) = (r^3-1)(r+1) = (r-1)(r^2+r+1)(r+1) = 0$\\
+Roots: $r = 1, -1, \frac{-1 \pm i\sqrt{3}}{2}$\\
+General solution: $y(t) = c_1e^t + c_2e^{-t} + e^{-t/2}(c_3\cos(\frac{\sqrt{3}}{2}t) + c_4\sin(\frac{\sqrt{3}}{2}t))$
+
+\item Characteristic equation: $r^4 + 8r^2 + 16 = 0$\\
+This is $(r^2 + 4)^2 = 0$\\
+Roots: $r = \pm 2i$ (each with multiplicity 2)\\
+General solution: $y(t) = (c_1 + c_2t)\cos(2t) + (c_3 + c_4t)\sin(2t)$
+
+\item Characteristic equation: $r^3 + r^2 - r - 1 = 0$\\
+Factor: $(r+1)^2(r-1) = 0$\\
+Roots: $r = -1$ (multiplicity 2), $r = 1$\\
+No periodic solutions (all involve exponentials)
+
+\item Characteristic equation: $r^4 - 1 = 0$\\
+Roots: $r = \pm 1, \pm i$\\
+General solution: $y(t) = c_1e^t + c_2e^{-t} + c_3\cos(t) + c_4\sin(t)$\\
+Apply ICs: System gives $c_1 = c_2 = c_3 = 1/2$, $c_4 = 0$\\
+Solution: $y(t) = \frac{1}{2}(e^t + e^{-t} + \cos(t))$
+\end{enumerate}
+
+\subsection*{Part F: Exam-Style Problems}
+
+\begin{enumerate}[resume]
+\item
+\begin{enumerate}[label=(\alph*)]
+    \item All solutions bounded: Need both roots to have negative real parts. This occurs when $p > 0$ and $q > 0$ (by Routh-Hurwitz).
+    \item Solutions oscillate: Need complex roots, so discriminant $p^2 - 4q < 0$, i.e., $q > p^2/4$.
+    \item Solutions tend to infinity: At least one root has positive real part. This occurs when either $p < 0$ or $q < 0$.
+\end{enumerate}
+
+\item The characteristic equation must be $(r-2)(r+3) = r^2 + r - 6 = 0$\\
+Thus $a = 1$ and $b = -6$.
+
+\item Characteristic equation: $(r-2)(r-3)(r+1) = r^3 - 4r^2 + r + 6 = 0$\\
+General solution: $y(t) = c_1e^{2t} + c_2e^{3t} + c_3e^{-t}$\\
+Apply ICs to get system:\\
+$c_1 + c_2 + c_3 = 1$\\
+$2c_1 + 3c_2 - c_3 = 5$\\
+$4c_1 + 9c_2 + c_3 = 7$\\
+Solving: $c_1 = 3/2$, $c_2 = 0$, $c_3 = -1/2$\\
+Solution: $y(t) = \frac{3}{2}e^{2t} - \frac{1}{2}e^{-t}$
+
+\item Roots: $r = \pm 2i, r = 1$ (multiplicity 2)\\
+General solution: $y(t) = c_1\cos(2t) + c_2\sin(2t) + (c_3 + c_4t)e^t$
+
+\item Let $s = at + b$, so $t = (s-b)/a$.\\
+Then $\frac{dy}{dt} = a\frac{dy}{ds}$ and $\frac{d^2y}{dt^2} = a^2\frac{d^2y}{ds^2}$\\
+Substituting: $a^2y'' + apy' + qy = 0$\\
+Dividing by $a^2$: $y'' + \frac{p}{a}y' + \frac{q}{a^2}y = 0$\\
+New equation has coefficients $p' = p/a$ and $q' = q/a^2$.
+\end{enumerate}
+
+\end{document}

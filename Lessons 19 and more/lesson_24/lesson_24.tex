@@ -1,0 +1,149 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry, mdframed, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 24: Special Integrating Factors - $\mu(xy)$ and Beyond}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Beyond Simple Integrating Factors}
+
+When neither $\mu(x)$ nor $\mu(y)$ exists, we need to consider more sophisticated integrating factors.
+
+\section{Integrating Factor of the Form $\mu(xy)$}
+
+\begin{theorem}[Test for $\mu(xy)$]
+If $\frac{\partial M/\partial y - \partial N/\partial x}{xN - yM}$ depends only on the product $xy$, then there exists an integrating factor $\mu(xy)$ where $z = xy$.
+\end{theorem}
+
+\begin{algorithm}
+\textbf{Finding $\mu(xy)$:}
+\begin{enumerate}
+    \item Calculate $R = \frac{M_y - N_x}{xN - yM}$
+    \item Check if $R$ depends only on $xy$ (substitute $z = xy$)
+    \item If yes, solve $\frac{d\mu}{dz} = \mu \cdot R(z)$
+    \item The integrating factor is $\mu(xy)$
+\end{enumerate}
+\end{algorithm}
+
+\section{Other Special Forms}
+
+\begin{keypoint}
+\textbf{Common Special Integrating Factors:}
+\begin{enumerate}
+    \item $\mu = x^a y^b$ (power form)
+    \item $\mu = (ax + by)^n$ (linear combination)
+    \item $\mu = e^{f(x,y)}$ (exponential form)
+    \item $\mu = f(x \pm y)$ (sum/difference)
+    \item $\mu = g(x/y)$ (ratio form)
+\end{enumerate}
+\end{keypoint}
+
+\section{Power Form: $\mu = x^a y^b$}
+
+\begin{method}[Finding Powers]
+For $\mu = x^a y^b$, multiply the original equation and apply exactness:
+$$\frac{\partial}{\partial y}(x^a y^b M) = \frac{\partial}{\partial x}(x^a y^b N)$$
+
+This gives:
+$$x^a y^{b-1}(bM + y M_y) = x^{a-1} y^b (aN + x N_x)$$
+
+Solve for $a$ and $b$ by comparing coefficients.
+\end{method}
+
+\begin{example}[Power Form]
+Find an integrating factor for: $(y^2)dx + (xy)dy = 0$
+
+Try $\mu = x^a y^b$:
+$$(x^a y^{b+2})dx + (x^{a+1} y^{b+1})dy = 0$$
+
+For exactness:
+$\frac{\partial}{\partial y}(x^a y^{b+2}) = x^a(b+2)y^{b+1}$
+$\frac{\partial}{\partial x}(x^{a+1} y^{b+1}) = (a+1)x^a y^{b+1}$
+
+Setting equal: $b+2 = a+1$, so $a = b+1$
+
+Choose $b = -1$, then $a = 0$: $\mu = y^{-1} = \frac{1}{y}$
+
+Result: $(y)dx + (x)dy = 0$, which gives $d(xy) = 0$, so $xy = C$.
+\end{example}
+
+\section{Linear Combination: $\mu = (ax + by)^n$}
+
+\begin{insight}
+This form is useful when the equation has homogeneous-like properties or when $M$ and $N$ have similar structures involving linear combinations of $x$ and $y$.
+\end{insight}
+
+\section{Systematic Approach}
+
+\begin{algorithm}
+\textbf{Complete Strategy for Finding Integrating Factors:}
+\begin{enumerate}
+    \item Check if equation is already exact
+    \item Test for $\mu(x)$: $(M_y - N_x)/N$ function of $x$ only
+    \item Test for $\mu(y)$: $(N_x - M_y)/M$ function of $y$ only  
+    \item Test for $\mu(xy)$: $(M_y - N_x)/(xN - yM)$ function of $xy$ only
+    \item Try special forms:
+    \begin{itemize}
+        \item $\mu = x^a y^b$ (solve system for $a,b$)
+        \item $\mu = (x \pm y)^n$ 
+        \item $\mu = e^{f(x,y)}$ for simple $f$
+    \end{itemize}
+    \item Use inspection/physical intuition
+\end{enumerate}
+\end{algorithm}
+
+\begin{warning}
+\textbf{Common Challenges:}
+\begin{itemize}
+    \item Calculations become increasingly complex
+    \item Multiple forms may work - choose the simplest
+    \item Not all equations have elementary integrating factors
+    \item Verification is crucial after finding $\mu$
+\end{itemize}
+\end{warning}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Hints:}
+\begin{itemize}
+    \item Often provides hints: ``Try $\mu = \ldots$''
+    \item Looks for recognition of standard patterns
+    \item Partial credit for systematic approach
+    \item May give the integrating factor and ask you to solve
+    \item Sometimes asks for verification rather than derivation
+\end{itemize}
+\end{examtip}
+
+\section{Special Cases Summary}
+
+\begin{keypoint}
+\textbf{Quick Reference Guide:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{If you see...} & \textbf{Try...} \\
+\hline
+$M, N$ with same powers of $x,y$ & $\mu = x^a y^b$ \\
+Linear terms dominate & $\mu = (ax + by)^n$ \\
+Exponential structure & $\mu = e^{f(x,y)}$ \\
+Symmetric in $x,y$ & $\mu = f(xy)$ or $\mu = g(x \pm y)$ \\
+Rational functions & $\mu = \frac{x^a y^b}{(x^c + y^c)^n}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{keypoint}
+
+\end{document}

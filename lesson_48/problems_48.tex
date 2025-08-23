@@ -1,0 +1,155 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 48: Practice Problems - Power Series Solutions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Identifying Ordinary Points (6 problems)}
+
+\begin{enumerate}
+\item Classify all points as ordinary or singular for:
+$$y'' + \frac{1}{x}y' + y = 0$$
+
+\item For the equation $(x$^{2}$-4)y'' + xy' + y = 0$, identify all singular points and classify them.
+
+\item Show that $x = 0$ is an ordinary point of:
+$$y'' + e$^{x}$ y' + \sin(x) y = 0$$
+
+\item Determine the ordinary points of:
+$$y'' + \frac{2x}{1-x$^{2}$}y' + \frac{1}{1-x$^{2}$}y = 0$$
+
+\item For Bessel's equation $x$^{2y}$'' + xy' + (x$^{2}$-n$^{2}$)y = 0$, explain why $x = 0$ is NOT an ordinary point.
+
+\item Find all ordinary points in the complex plane for:
+$$y'' + \frac{1}{x$^{2}$+1}y = 0$$
+\end{enumerate}
+
+\section*{Part B: Setting Up Power Series (6 problems)}
+
+\begin{enumerate}[resume]
+\item Set up (but don't solve) the power series solution around $x = 0$ for:
+$$y'' - xy' + 2y = 0$$
+
+\item Write the first four terms of $y$, $y'$, and $y''$ if:
+$$y = \sum_{n=0}^{\infty} a$_{n}$ x$^{n}$$$
+
+\item Express $xy'$ and $x$^{2y}$''$ in summation form if $y = \sum_{n=0}^{\infty} a$_{n}$ x$^{n}$$.
+
+\item For the series $y = \sum_{n=0}^{\infty} a$_{n}$(x-1)$^{n}$$, write $y''$ and $(x-1)y'$ in summation notation.
+
+\item Show how to shift indices to combine:
+$$\sum_{n=2}^{\infty} n(n-1)a$_{n}$ x^{n-2} + \sum_{n=0}^{\infty} a$_{n}$ x$^{n}$$$
+
+\item Rewrite with common powers of $x$:
+$$\sum_{n=3}^{\infty} a$_{n}$ x^{n-3} - 2\sum_{n=1}^{\infty} na$_{n}$ x^{n+1}$$
+\end{enumerate}
+
+\section*{Part C: Finding Recurrence Relations (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find the recurrence relation for:
+$$y'' + xy = 0$$
+
+\item Derive the recurrence relation for:
+$$y'' - 2xy' + 4y = 0$$
+
+\item Find the recurrence for the Hermite equation:
+$$y'' - 2xy' + 6y = 0$$
+
+\item Determine the recurrence relation for:
+$$(1+x)y'' + y' - y = 0$$ around $x = 0$.
+
+\item Find the three-term recurrence for:
+$$y'' + xy' + y = 0$$
+\end{enumerate}
+
+\section*{Part D: Computing Series Coefficients (5 problems)}
+
+\begin{enumerate}[resume]
+\item Given $y'' - xy = 0$ with $y(0) = 1$, $y'(0) = 0$, find $a$_{0}$$ through $a$_{6}$$.
+
+\item For $y'' + y = 0$ with initial conditions $y(0) = 1$, $y'(0) = 1$, compute the first 5 non-zero terms and identify the solution.
+
+\item Solve $y'' - 2xy' + 4y = 0$ with $y(0) = 2$, $y'(0) = 0$. Find coefficients up to $x$^{4}$$.
+
+\item For the Airy equation $y'' - xy = 0$, express $a$_{6}$$ and $a$_{7}$$ in terms of $a$_{0}$$ and $a$_{1}$$.
+
+\item Given the recurrence $a_{n+2} = \frac{n-2}{(n+2)(n+1)}a$_{n}$$ with $a$_{0}$ = 1$, $a$_{1}$ = 0$, find which coefficients are zero.
+\end{enumerate}
+
+\section*{Part E: Convergence Analysis (3 problems)}
+
+\begin{enumerate}[resume]
+\item Find the radius of convergence for the series solution of:
+$$y'' + \frac{1}{x$^{2}$-1}y = 0$$ around $x = 0$.
+
+\item Determine the convergence region for:
+$$(x$^{2}$+2x+5)y'' + xy' + y = 0$$ around $x = 0$.
+
+\item Explain why the series solution of $y'' + y = 0$ around any point converges everywhere.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[10 points]} Consider the equation:
+$$y'' - 2xy' + (\lambda - 1)y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Verify that $x = 0$ is an ordinary point
+\item [4 pts] Find the recurrence relation
+\item [3 pts] Find the first four non-zero terms when $\lambda = 5$
+\item [1 pt] What is the radius of convergence?
+\end{enumerate}
+
+\item \textbf{[8 points]} For the modified Airy equation:
+$$y'' + (x-1)y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find the recurrence relation for solutions around $x = 1$
+\item [3 pts] Express $a$_{3}$, a$_{4}$, a$_{5}$$ in terms of $a$_{0}$$ and $a$_{1}$$
+\item [2 pts] Which pattern do you observe?
+\end{enumerate}
+
+\item \textbf{[9 points]} Solve using power series:
+$$y'' + x$^{2y}$ = 0, \quad y(0) = 1, \quad y'(0) = -1$$
+Find coefficients through $x$^{6}$$.
+
+\item \textbf{[7 points]} The equation $y'' - 2xy' + 2ny = 0$ has polynomial solutions when $n \in \mathbb{N}$.
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find the recurrence relation
+\item [2 pts] Show that $a_{n+1} = 0$ when $n$ is a positive integer
+\item [2 pts] Find the polynomial solution for $n = 3$
+\end{enumerate}
+
+\item \textbf{[10 points]} \textit{Challenge - Prof. Ditkowski Special}
+Consider: $(1-x$^{2}$)y'' - xy' + \alpha$^{2}$ y = 0$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Find all singular points
+\item [3 pts] Derive the recurrence around $x = 0$
+\item [3 pts] Show the series has only even or odd powers
+\item [2 pts] Find radius of convergence
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:} $x = 0$ is a singular point (p(x) = 1/x not analytic at 0)
+
+\textbf{Problem 13:} Recurrence: $(n+2)(n+1)a_{n+2} + a$_{n}$ = 0$, so $a_{n+2} = -\frac{a$_{n}$}{(n+2)(n+1)}$
+
+\textbf{Problem 18:} With $y(0) = 1, y'(0) = 0$: $a$_{0}$ = 1, a$_{1}$ = 0, a$_{2}$ = 0, a$_{3}$ = 1/6, a$_{4}$ = 0, a$_{5}$ = 0, a$_{6}$ = 1/180$
+
+\textbf{Problem 23:} Radius = 1 (singular points at $x = \pm 1$)
+
+\textbf{Key Insight for Problem 28:} When $(1-x$^{2}$)$ appears, expect Legendre-type behavior with $R = 1$.
+
+\end{document}

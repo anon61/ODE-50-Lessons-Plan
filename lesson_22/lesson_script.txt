@@ -1,0 +1,33 @@
+Episode 22: Finding Potential Functions - Systematic Approach**
+
+Audio Lesson Script**
+
+*[Opening with engaging tone]*
+
+Alright, so you've mastered recognizing exact equations - fantastic! Now comes the fun part: actually solving them. Here's the key insight that'll make everything click: when we know an equation is exact, we're guaranteed that some function H(x,y) exists where the solution curves are just H(x,y) = C. Our job? Find that H!
+
+So basically, we have three methods to find H, and I'm going to show you all three because Prof. Ditkowski loves asking you to solve the same problem multiple ways. But here's the secret - they all give the same answer, so you can use whichever feels easiest for the specific problem.
+
+Let me show you Method 1: Integrate M with respect to x. Since we know M = ∂H/∂x, we can write H = ∫M dx, treating y as a constant. But wait - when you integrate a partial derivative with respect to x, you don't get a regular constant, you get a function of y! So we write H = ∫M dx + g(y), where g(y) is our "constant of integration" that might depend on y.
+
+Here's where students mess up - they forget to find g(y)! Don't worry, there's a systematic way. After integrating M, take the partial derivative of your result with respect to y. This should equal N. The difference between N and what you get tells you what g'(y) must be. Integrate that, and boom - you've got your complete H!
+
+Let's work through an example. Consider (2xy + 3x²)dx + (x² + 2y)dy = 0. We already verified this is exact in the last lesson. Using Method 1, integrate M = 2xy + 3x² with respect to x: H = x²y + x³ + g(y). Now differentiate with respect to y: ∂H/∂y = x² + g'(y). But we need this to equal N = x² + 2y. So g'(y) = 2y, which means g(y) = y². Therefore, H = x²y + x³ + y², and our solution is x²y + x³ + y² = C.
+
+Method 2 flips the script - integrate N with respect to y! Since N = ∂H/∂y, we get H = ∫N dy + f(x), where now f(x) is our "constant" that depends on x. Same process: differentiate with respect to x, compare to M, find f'(x), integrate, done!
+
+Using our same example with Method 2: integrate N = x² + 2y with respect to y to get H = x²y + y² + f(x). Differentiate with respect to x: ∂H/∂x = 2xy + f'(x). This must equal M = 2xy + 3x². So f'(x) = 3x², giving f(x) = x³. We get H = x²y + y² + x³ - same answer! The order doesn't matter, which is exactly what we'd expect from a state function.
+
+Now here's Method 3, the line integral approach - this one's elegant but takes more setup. Pick any point (x₀, y₀) and integrate from there to (x, y). The path doesn't matter because the equation is exact! I usually pick (0,0) if it's in the domain, and use the path from (0,0) to (x,0) to (x,y). This gives H = ∫₀ˣ M(t,0)dt + ∫₀ʸ N(x,s)ds.
+
+Prof. Ditkowski's pro tip: Choose your method based on the problem! If M is simpler, use Method 1. If N is simpler, use Method 2. If both are messy but become simple when one variable is zero, use Method 3.
+
+Here's a trickier example that shows why method choice matters: (y²eˣ + 2x)dx + (2yeˣ + 3y²)dy = 0. First, verify exactness: ∂M/∂y = 2yeˣ and ∂N/∂x = 2yeˣ - exact! Now, integrating M = y²eˣ + 2x with respect to x gives H = y²eˣ + x² + g(y). But look at N = 2yeˣ + 3y² - integrating this with respect to y is actually easier! We get H = y²eˣ + y³ + f(x). Taking ∂H/∂x = y²eˣ + f'(x) = M = y²eˣ + 2x, so f'(x) = 2x and f(x) = x². Final answer: H = y²eˣ + y³ + x².
+
+Common exam trap: Prof. Ditkowski sometimes gives you an exact equation and asks for the solution passing through a specific point. After finding H, plug in the point to find C! If the solution passes through (1,2), and H = x²y + y², then C = (1)²(2) + (2)² = 6, so your particular solution is x²y + y² = 6.
+
+Verification is crucial! Whatever method you use, always check that ∂H/∂x = M and ∂H/∂y = N. This catches arithmetic errors and gets you partial credit even if you made a mistake somewhere.
+
+Remember: finding H is like reverse engineering a gradient. You're asking "what function has this gradient field?" The beauty is that exactness guarantees a unique answer up to a constant. Master these techniques, and you'll solve exact equations in your sleep!
+
+*[Word count: 896]*

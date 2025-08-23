@@ -1,0 +1,60 @@
+Episode 48: Power Series Solutions - Ordinary Points**
+
+Hey there! So basically, we've reached a really fascinating part of ODEs - what do we do when our usual methods just... don't work? You know how we've been solving linear ODEs with constant coefficients, finding nice exponential solutions? Well, here's the thing - most ODEs in the real world don't have these neat closed-form solutions. But don't worry! Today, I'm going to show you an incredibly powerful technique: power series solutions.
+
+Let me paint you a picture. Imagine you're trying to solve y'' + xy = 0. This is called the Airy equation, and it shows up everywhere in physics - quantum mechanics, optics, you name it. Try solving this with our usual methods... yeah, doesn't work, right? There's no combination of exponentials, sines, or cosines that satisfies this. That's where power series come in!
+
+Here's the key insight: even though we can't write the solution in terms of elementary functions, we CAN express it as an infinite series. Think of it like this - remember Taylor series from calculus? We're basically saying "Hey, the solution is some function that has a Taylor series, so let's assume y = a₀ + a₁x + a₂x² + a₃x³ + ..." and then figure out what those coefficients need to be.
+
+Now, when can we use this method? We need what's called an **ordinary point**. For a second-order ODE in standard form:
+y'' + p(x)y' + q(x)y = 0
+
+The point x = x₀ is ordinary if both p(x) and q(x) are analytic at x₀ - meaning they have convergent power series there. If either p or q blows up or has other bad behavior, that's a singular point, and we need different methods (that's next lesson!).
+
+Let me walk you through the method with a concrete example. Consider:
+y'' - 2xy' + 4y = 0
+
+First, check x = 0: both p(x) = -2x and q(x) = 4 are perfectly nice at x = 0, so it's an ordinary point. Great!
+
+Step 1: Assume the solution has the form y = Σ(n=0 to ∞) aₙxⁿ
+
+Step 2: Find the derivatives:
+- y' = Σ(n=1 to ∞) naₙxⁿ⁻¹
+- y'' = Σ(n=2 to ∞) n(n-1)aₙxⁿ⁻²
+
+Step 3: Substitute into the ODE. Here's where it gets interesting! We get:
+Σ(n=2 to ∞) n(n-1)aₙxⁿ⁻² - 2x·Σ(n=1 to ∞) naₙxⁿ⁻¹ + 4·Σ(n=0 to ∞) aₙxⁿ = 0
+
+Step 4: Now here's the tricky part - index shifting! We need all terms to have the same power of x. For the first sum, let m = n-2, so n = m+2:
+Σ(m=0 to ∞) (m+2)(m+1)aₘ₊₂xᵐ
+
+For the middle term, that x multiplies the sum, giving:
+-2Σ(n=1 to ∞) naₙxⁿ
+
+See what I'm doing? We're aligning all the powers of x so we can combine terms.
+
+Step 5: After combining and setting coefficients of each power of x to zero, we get a **recurrence relation**:
+(n+2)(n+1)aₙ₊₂ - 2naₙ + 4aₙ = 0
+
+Solving for aₙ₊₂:
+aₙ₊₂ = (2n-4)aₙ / [(n+2)(n+1)]
+
+This is golden! This relation lets us find all coefficients in terms of a₀ and a₁ (which come from initial conditions).
+
+Let's compute a few:
+- n=0: a₂ = -4a₀/(2·1) = -2a₀
+- n=1: a₃ = -2a₁/(3·2) = -a₁/3
+- n=2: a₄ = 0·a₂/(4·3) = 0
+- n=3: a₅ = 2a₃/(5·4) = -a₁/30
+
+Notice something cool? All even coefficients after a₄ are zero! The solution splits into two independent parts - one with even powers (related to a₀) and one with odd powers (related to a₁).
+
+Here's a common mistake students make: forgetting to shift indices properly. Always, ALWAYS check that your indices match up correctly. Prof. Ditkowski loves testing this - he'll give you an ODE where the index shifting is slightly tricky, and if you mess it up, your whole recurrence relation is wrong.
+
+Another exam tip: You usually only need to find the first 3-4 non-zero coefficients. Don't waste time computing 10 terms unless specifically asked!
+
+For convergence, here's the key theorem: if x₀ is an ordinary point, the series solution converges at least in |x-x₀| < R, where R is the distance to the nearest singular point in the complex plane. For our example, since there are no singular points, the series converges everywhere!
+
+One more quick example - the Hermite equation: y'' - 2xy' + 2ny = 0. This appears in quantum mechanics for the harmonic oscillator. Using our method, you'd find that when n is a non-negative integer, one solution becomes a polynomial - these are the famous Hermite polynomials!
+
+So basically, power series methods turn unsolvable ODEs into a systematic process: assume a series, substitute, shift indices, find recurrence relations, compute coefficients. It's like building the solution piece by piece. Remember - this works for ordinary points. Next lesson, we'll tackle the trickier case of singular points with the Frobenius method!

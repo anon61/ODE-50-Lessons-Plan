@@ -1,0 +1,172 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 29: Practice Problems}
+\author{Liouville's Formula and Applications}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Liouville Calculations (6 problems)}
+
+\begin{enumerate}
+\item Use Liouville's formula to find $W(t)$ for $\mathbf{x}' = \begin{bmatrix} 3 & 1 \\ 0 & -2 \end{bmatrix}\mathbf{x}$ with $W(0) = 5$.
+
+\item Calculate the Wronskian at $t = 2$ for the system $\mathbf{x}' = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & -3 \end{bmatrix}\mathbf{x}$ if $W(0) = 1$.
+
+\item Find $W(t)$ for solutions of $y''' - 3y'' + 2y' - y = 0$ with $W(0) = 2$.
+
+\item Given $\mathbf{x}' = \begin{bmatrix} \cos t & \sin t \\ -\sin t & \cos t \end{bmatrix}\mathbf{x}$, find $W(t)$ using Liouville.
+
+\item For the harmonic oscillator $\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -\omega$^{2}$ & 0 \end{bmatrix}\mathbf{x}$, verify that volume is preserved.
+
+\item Calculate $W(\pi)$ for $\mathbf{x}' = \begin{bmatrix} \sin t & 0 \\ 0 & \cos t \end{bmatrix}\mathbf{x}$ with $W(0) = 3$.
+\end{enumerate}
+
+\section*{Part B: Trace and Eigenvalue Connections (5 problems)}
+
+\begin{enumerate}[resume]
+\item A $3 \times 3$ system has eigenvalues $\lambda$_{1}$ = 2$, $\lambda$_{2}$ = -1$, $\lambda$_{3}$ = -4$. Find $W(t)/W(0)$.
+
+\item If $\text{tr}(A) = -5$ for a constant matrix, and $W(1) = e^{-5}$, find $W(3)$.
+
+\item The characteristic polynomial is $\lambda$^{3}$ - 2\lambda$^{2}$ - 5\lambda + 6 = 0$. Find $\text{tr}(A)$ and describe $W(t)$ behavior.
+
+\item Given eigenvalues $1 \pm 2i$, find the trace and Wronskian evolution for the $2 \times 2$ system.
+
+\item A system has $W(t) = 3e^{-6t}$. If two eigenvalues are $-1$ and $-2$, find the third.
+\end{enumerate}
+
+\section*{Part C: Stability Analysis (5 problems)}
+
+\begin{enumerate}[resume]
+\item Determine stability of $\mathbf{x}' = \begin{bmatrix} -2 & 1 \\ 3 & -4 \end{bmatrix}\mathbf{x}$ using Liouville's formula.
+
+\item For what values of $a$ is the system $\mathbf{x}' = \begin{bmatrix} a & 1 \\ -1 & -a \end{bmatrix}\mathbf{x}$ volume-preserving?
+
+\item Analyze stability of $y'' + 3y' + 2y = 0$ using the trace of its companion matrix.
+
+\item Given $\ddot{x} + b\dot{x} + 4x = 0$, find $b$ values for which the Wronskian decays.
+
+\item Determine long-term behavior of $W(t)$ for $\mathbf{x}' = \begin{bmatrix} t & 1 \\ 0 & -t \end{bmatrix}\mathbf{x}$.
+\end{enumerate}
+
+\section*{Part D: Special Systems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Show that the system $\mathbf{x}' = \begin{bmatrix} 0 & 1 & 0 \\ -1 & 0 & 1 \\ 0 & -1 & 0 \end{bmatrix}\mathbf{x}$ preserves volume.
+
+\item For the Hamiltonian system with $H = \frac{1}{2}(p$^{2}$ + q$^{2}$)$, verify Liouville's theorem.
+
+\item Find all $2 \times 2$ matrices $A$ with $\text{tr}(A) = 0$ and $\det(A) = 1$.
+
+\item Prove that skew-symmetric matrices ($A$^{T}$ = -A$) always have trace zero.
+
+\item For the periodic system $\mathbf{x}' = \begin{bmatrix} \cos(2t) & 0 \\ 0 & -\cos(2t) \end{bmatrix}\mathbf{x}$, find $W(2\pi)/W(0)$.
+\end{enumerate}
+
+\section*{Part E: Applications and Theory (4 problems)}
+
+\begin{enumerate}[resume]
+\item Use Liouville to prove that if all eigenvalues have negative real parts, then $W(t) \to 0$ as $t \to \infty$.
+
+\item Show that for the equation $y^{(n)} + a_{n-1}y^{(n-1)} + \cdots + a$_{0y}$ = 0$, the Wronskian satisfies $W(t) = W(0)e^{-a_{n-1}t}$.
+
+\item If two solutions have Wronskian $W_{12}(t) = e^{3t}$, what can you conclude about the trace of the system matrix?
+
+\item Prove that similar matrices have the same trace, hence the same Wronskian evolution.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Consider $\mathbf{x}' = \begin{bmatrix} 1 & 2 & 0 \\ 0 & -1 & 3 \\ 0 & 0 & 2 \end{bmatrix}\mathbf{x}$:
+\begin{enumerate}[label=(\alph*)]
+\item Find $\text{tr}(A)$ and all eigenvalues
+\item Use Liouville to find $W(t)$ with $W(0) = 1$
+\item Verify using direct eigenvalue sum
+\item Determine stability of the origin
+\item Find $\lim_{t \to \infty} W(t)$
+\end{enumerate}
+
+\item The damped oscillator $\ddot{x} + 2\zeta\omega\dot{x} + \omega$^{2x}$ = 0$ has parameters $\omega = 2$, $\zeta = 0.5$.
+\begin{enumerate}[label=(\alph*)]
+\item Write as a first-order system
+\item Find the trace
+\item Calculate $W(t)/W(0)$
+\item How long until the Wronskian decreases by factor of $e$?
+\end{enumerate}
+
+\item Given that solutions to a third-order system have $W(t) = 5e^{-3t}$:
+\begin{enumerate}[label=(\alph*)]
+\item Find $\text{tr}(A)$
+\item If $\lambda$_{1}$ = 2$ is an eigenvalue, and the other two are complex conjugates, find them
+\item Write a possible matrix $A$
+\item Analyze stability
+\end{enumerate}
+
+\item For the time-dependent system $\mathbf{x}' = \begin{bmatrix} e$^{t}$ & 0 \\ 0 & -e$^{t}$ \end{bmatrix}\mathbf{x}$:
+\begin{enumerate}[label=(\alph*)]
+\item Compute $\text{tr}(A(t))$
+\item Find $W(t)$ using Liouville with $W(0) = 2$
+\item Determine if volume is preserved
+\item Find $\lim_{t \to \infty} W(t)$
+\end{enumerate}
+
+\item (Comprehensive) Consider the fourth-order equation $y^{(4)} - 2y''' - 3y'' + 4y' + 4y = 0$.
+\begin{enumerate}[label=(\alph*)]
+\item Convert to a system and find $\text{tr}(A)$
+\item Use Liouville to express $W(t)$
+\item Given that $\lambda$_{1}$ = 2$ and $\lambda$_{2}$ = -1$ are eigenvalues, find the others
+\item Verify $\sum \lambda$_{i}$ = \text{tr}(A)$
+\item Determine the long-term behavior of solutions
+\item Is the zero solution stable?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:} $\text{tr}(A) = 3 + (-2) = 1$, so $W(t) = 5e$^{t}$$
+
+\textbf{Problem 2:} $\text{tr}(A) = 1 + 2 + (-3) = 0$, so $W(2) = W(0) = 1$
+
+\textbf{Problem 5:} $\text{tr}(A) = 0 + 0 = 0$, volume preserved!
+
+\textbf{Problem 7:} $W(t) = W(0) \cdot e^{(2-1-4)t} = W(0) \cdot e^{-3t}$
+
+\textbf{Problem 12:} $\text{tr}(A) = -2 + (-4) = -6 < 0$, system is stable
+
+\textbf{Problem 13:} Need $a + (-a) = 0$ for all $a$, so always volume-preserving
+
+\textbf{Problem 17:} $\text{tr}(A) = 0 + 0 + 0 = 0$, confirms volume preservation
+
+\textbf{Problem 22:} Average trace over period is zero, so $W(2\pi) = W(0)$
+
+\textbf{Problem 26:} $\text{tr}(A) = 1 + (-1) + 2 = 2$, so $W(t) = e^{2t}$, unstable
+
+\textbf{Problem 29:} $\text{tr}(A) = -3$, so $\lambda$_{2}$ + \lambda$_{3}$ = -5$. With conjugates $a \pm bi$: $2a = -5$, so $\lambda_{2,3} = -2.5 \pm bi$
+
+\textbf{Key Formulas:}
+\begin{itemize}
+\item Liouville: $W(t) = W(t$_{0}$)e^{\int_{t$_{0}$}$^{t}$ \text{tr}(A(s))ds}$
+\item Constant case: $W(t) = W(0)e^{\text{tr}(A) \cdot t}$
+\item Trace-eigenvalue: $\text{tr}(A) = \sum \lambda$_{i}$$
+\item Scalar $n$th-order: trace = $-a_{n-1}$
+\item Volume preserved $\Leftrightarrow \text{tr}(A) = 0$
+\end{itemize}
+
+\textbf{Stability Quick Check:}
+\begin{itemize}
+\item $\text{tr}(A) < 0 \Rightarrow W(t) \to 0$ (stable tendency)
+\item $\text{tr}(A) > 0 \Rightarrow W(t) \to \infty$ (unstable)
+\item $\text{tr}(A) = 0 \Rightarrow W(t) = $ constant (neutral)
+\end{itemize}
+
+\end{document}

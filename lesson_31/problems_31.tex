@@ -1,0 +1,129 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 31: Practice Problems - Repeated Eigenvalues and Jordan Forms}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Identifying Defective Eigenvalues}
+
+\begin{enumerate}
+\item Determine the algebraic and geometric multiplicities of each eigenvalue for:
+$A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$
+
+\item Find the defect of each eigenvalue for:
+$A = \begin{pmatrix} 3 & 1 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 3 \end{pmatrix}$
+
+\item Show that $A = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}$ is defective and find its Jordan form.
+
+\item Determine which of these matrices are diagonalizable:
+a) $\begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$
+b) $\begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}$
+c) $\begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$
+
+\item For $A = \begin{pmatrix} 4 & 1 & 0 \\ 0 & 4 & 1 \\ 0 & 0 & 4 \end{pmatrix}$, find the size of the largest Jordan block.
+\end{enumerate}
+
+\section*{Part B: Finding Generalized Eigenvectors}
+
+\begin{enumerate}[start=6]
+\item Find all eigenvectors and generalized eigenvectors for:
+$A = \begin{pmatrix} 3 & 1 \\ 0 & 3 \end{pmatrix}$
+
+\item Construct a complete Jordan chain for:
+$A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}$
+
+\item Find the Jordan basis for:
+$A = \begin{pmatrix} 5 & 4 \\ -1 & 1 \end{pmatrix}$
+
+\item Determine all generalized eigenvectors for:
+$A = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}$
+
+\item Find a matrix $P$ such that $P^{-1}AP$ is in Jordan form for:
+$A = \begin{pmatrix} 4 & 1 \\ -4 & 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part C: 2\times2 Systems with Repeated Eigenvalues}
+
+\begin{enumerate}[start=11]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 3 & 1 \\ -1 & 1 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 4 & 2 \\ -2 & 0 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 3 \\ -1 \end{pmatrix}$
+
+\item Find all solutions that remain bounded as $t \to \infty$ for:
+$\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 0 & -2 \end{pmatrix}\mathbf{x}$
+\end{enumerate}
+
+\section*{Part D: 3\times3 Systems with Jordan Blocks}
+
+\begin{enumerate}[start=16]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}\mathbf{x}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+
+\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 3 & 1 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x}$ with $x$_{1}$(0) = 1, x$_{2}$(0) = 0, x$_{3}$(0) = 0$
+
+\item Determine the Jordan form and solve: $\mathbf{x}' = \begin{pmatrix} 2 & 0 & 1 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$
+\end{enumerate}
+
+\section*{Part E: Mixed Eigenvalue Problems}
+
+\begin{enumerate}[start=21]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$ (repeated and distinct eigenvalues)
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 3 & 1 & 0 & 0 \\ 0 & 3 & 0 & 0 \\ 0 & 0 & -1 & 1 \\ 0 & 0 & 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+
+\item Analyze stability for: $\mathbf{x}' = \begin{pmatrix} -2 & 1 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -2 \end{pmatrix}\mathbf{x}$
+
+\item Find the fundamental matrix: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}\mathbf{x}$
+\end{enumerate}
+
+\section*{Part F: Theory and Applications}
+
+\begin{enumerate}[start=26]
+\item Prove that if $\lambda$ is a repeated eigenvalue with full defect $n-1$, then the solutions contain terms up to $t^{n-1}e^{\lambda t}$.
+
+\item Show that for a 2\times2 matrix with repeated eigenvalue $\lambda$, the trace equals $2\lambda$ and the determinant equals $\lambda$^{2}$$.
+
+\item A coupled system has matrix $A = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}$. Find the time when the solution with $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$ reaches its maximum norm.
+
+\item For the radioactive decay chain with matrix $A = \begin{pmatrix} -k & 0 & 0 \\ k & -k & 0 \\ 0 & k & -k \end{pmatrix}$, solve for the amounts of each isotope over time.
+
+\item \textbf{Challenge:} Prove that $e^{Jt}$ for a Jordan block $J$ can be computed as:
+$e^{Jt} = e^{\lambda t}\sum_{k=0}^{n-1} \frac{t$^{k}$}{k!}N$^{k}$$ where $N = J - \lambda I$.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} Algebraic multiplicity = 2, geometric multiplicity = 1, defect = 1.
+
+\textbf{Problem 6:} Eigenvector: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, Generalized: $\mathbf{v}$_{2}$ = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\textbf{Problem 11:} $\mathbf{x}(t) = e^{2t}[c$_{1}$\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c$_{2}$(t\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix})]$
+
+\textbf{Problem 16:} Use the standard basis vectors as the Jordan chain.
+
+\textbf{Problem 24:} All solutions decay to zero since $\lambda = -2 < 0$ despite the $t$ and $t$^{2}$$ terms.
+
+\textbf{Problem 28:} Maximum occurs at $t = 1$ (derivative of $te^{-t}$ equals zero).
+
+\textbf{Key Strategy:} Always check the defect first! If geometric multiplicity equals algebraic multiplicity, use standard eigenvector methods. Otherwise, build Jordan chains systematically.
+
+\textbf{Verification:} For generalized eigenvector $\mathbf{v}$_{2}$$ satisfying $(A-\lambda I)\mathbf{v}$_{2}$ = \mathbf{v}$_{1}$$, verify that $\mathbf{x}(t) = e^{\lambda t}(t\mathbf{v}$_{1}$ + \mathbf{v}$_{2}$)$ satisfies $\mathbf{x}' = A\mathbf{x}$.
+
+\end{document}

@@ -1,0 +1,79 @@
+Episode 37: 2D Linear Systems - Complete Classification**
+
+Audio Lesson Script**
+
+Alright, welcome to Lesson 37! This is where phase portraits get really systematic and beautiful. We're going to classify EVERY possible behavior of 2D linear systems. And here's the amazing part - there are only a handful of different types! Prof. Ditkowski absolutely loves this topic because it connects everything: eigenvalues, stability, and geometry.
+
+So basically, we're looking at systems of the form:
+dx/dt = ax + by
+dy/dt = cx + dy
+
+Or in matrix form: ẋ = Ax, where A is a 2×2 matrix.
+
+Here's the key insight that makes everything click: the eigenvalues of A completely determine the phase portrait! Just from two numbers (or complex numbers), we can predict exactly how every trajectory behaves. How cool is that?
+
+Let me show you the magic formula that Prof. Ditkowski always emphasizes. For any 2×2 matrix, we can compute:
+- Trace: tr(A) = a + d (sum of diagonal elements)
+- Determinant: det(A) = ad - bc
+- Discriminant: Δ = tr²(A) - 4det(A)
+
+These three numbers tell us EVERYTHING about the phase portrait!
+
+Now, let's go through each type systematically. First up - the saddle point. This happens when det(A) < 0, which means the eigenvalues are real with opposite signs. Picture this: one eigenvalue is positive, say λ₁ = 2, and the other is negative, λ₂ = -3. Trajectories approach along the stable eigenvector direction (corresponding to λ₂ < 0) and fly away along the unstable direction (λ₁ > 0). It looks like a horse saddle - hence the name!
+
+Here's a classic example:
+A = [1, 2; 3, -1]
+det(A) = -1 - 6 = -7 < 0
+So it's definitely a saddle! The origin is unstable because trajectories that start nearby (except exactly on the stable manifold) will eventually escape.
+
+Next, let's talk about nodes. These occur when both eigenvalues are real and have the same sign. If both are negative (λ₁, λ₂ < 0), we get a stable node - all trajectories converge to the origin. If both are positive, unstable node - everything flies away!
+
+But here's where it gets subtle - nodes come in two flavors. If the eigenvalues are different (λ₁ ≠ λ₂), we get a "proper node." Trajectories come in along both eigenvector directions, but faster along the direction of the larger magnitude eigenvalue.
+
+Example time! Consider:
+A = [-3, 1; 0, -1]
+Eigenvalues: λ₁ = -3, λ₂ = -1
+Both negative, different values → stable proper node!
+Trajectories approach faster along the λ₁ = -3 direction.
+
+Now, if eigenvalues are equal (λ₁ = λ₂), we might get an "improper node" or a "star node." If there are two independent eigenvectors (A = λI), every direction is an eigenvector - that's a star! If there's only one eigenvector (A is not diagonalizable), trajectories curve as they approach - improper node.
+
+Moving on to the really fun stuff - spirals and centers! When eigenvalues are complex conjugates (α ± iβ), trajectories rotate. The real part α determines stability:
+- α < 0: stable spiral (trajectories spiral inward)
+- α > 0: unstable spiral (spiral outward)
+- α = 0: center (closed circular/elliptical orbits)
+
+Here's how to spot them quickly:
+- Complex eigenvalues occur when Δ = tr²(A) - 4det(A) < 0
+- This means det(A) > tr²(A)/4
+- Also requires det(A) > 0
+
+Example of a stable spiral:
+A = [-1, 2; -2, -1]
+tr(A) = -2, det(A) = 1 + 4 = 5
+Δ = 4 - 20 = -16 < 0 → complex eigenvalues
+tr(A) < 0 → stable spiral!
+
+Centers are special - they're the borderline between stable and unstable spirals. They occur when tr(A) = 0 but det(A) > 0. Conservation of energy often gives us centers!
+
+Oh, and here's a memory trick I love: Think "SAD" for Saddle (det < 0), "NODS" for Nodes (Δ > 0, det > 0), "SPINS" for Spirals (Δ < 0, det > 0).
+
+Prof. Ditkowski's favorite exam question: "Classify the system without computing eigenvalues explicitly." Just use trace and determinant!
+
+Let me give you the complete classification chart:
+1. det(A) < 0 → Saddle (always unstable)
+2. det(A) > 0, Δ > 0, tr(A) < 0 → Stable node
+3. det(A) > 0, Δ > 0, tr(A) > 0 → Unstable node
+4. det(A) > 0, Δ < 0, tr(A) < 0 → Stable spiral
+5. det(A) > 0, Δ < 0, tr(A) > 0 → Unstable spiral
+6. det(A) > 0, tr(A) = 0 → Center
+
+Degenerate cases (det(A) = 0) are tricky. If one eigenvalue is zero, we get a line of equilibria. If both are zero (A = 0), every point is an equilibrium!
+
+Here's an exam warning: ALWAYS CHECK YOUR CLASSIFICATION! Compute eigenvalues if you have time to verify. Prof. Ditkowski deducts heavily for misclassification.
+
+The physical interpretation matters too. Saddles appear at mountain passes, nodes at sinks or sources, spirals in damped oscillators, and centers in conservative systems. Always connect the math to the physics!
+
+One more pro tip: The trace-determinant diagram is your best friend. Draw det on the vertical axis, tr on horizontal. The parabola det = tr²/4 separates nodes from spirals/centers. The horizontal line det = 0 separates saddles from everything else. Practice sketching this!
+
+Remember, this classification is complete - every 2×2 linear system falls into one of these categories. Master this, and you've got a huge chunk of the phase portrait problems solved!

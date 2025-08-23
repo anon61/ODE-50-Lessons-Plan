@@ -1,0 +1,299 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry, enumitem, mdframed}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newmdenv[linecolor=green,linewidth=1pt]{threedtip}
+
+\title{Practice Problems - Lesson 39: 3D Systems and Higher Dimensions}
+\author{ODE 1 Course}
+\date{}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: 3D Classification (Problems 1-6)}
+
+\begin{enumerate}
+\item Classify the 3D equilibrium at the origin for:
+\begin{enumerate}[label=(\alph*)]
+    \item $A = \begin{pmatrix} -1 & 0 & 0 \\ 0 & -2 & 0 \\ 0 & 0 & -3 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 2 & 0 & 0 \\ 0 & -1 & 3 \\ 0 & -3 & -1 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 0 & 1 & 0 \\ -4 & 0 & 0 \\ 0 & 0 & -2 \end{pmatrix}$
+\end{enumerate}
+
+\item For each set of eigenvalues, classify the 3D equilibrium:
+\begin{enumerate}[label=(\alph*)]
+    \item $\lambda = -1, -2, -3$
+    \item $\lambda = 2, -1 \pm 3i$
+    \item $\lambda = 0, \pm 2i$
+    \item $\lambda = 1, 1, 1$ (repeated)
+\end{enumerate}
+
+\item Find the dimensions of stable and unstable manifolds for:
+\begin{enumerate}[label=(\alph*)]
+    \item $\lambda = -2, 1, 3$
+    \item $\lambda = -1, -2 \pm i$
+    \item $\lambda = 0, -1, 2$
+    \item $\lambda = \pm 2i, 3$
+\end{enumerate}
+
+\item For the system with $A = \begin{pmatrix} -1 & 2 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 3 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all eigenvalues and eigenvectors
+    \item Classify the equilibrium
+    \item Identify stable and unstable manifolds
+    \item Describe the behavior near origin
+\end{enumerate}
+
+\item Given a 3D system has one eigenvalue $\lambda$_{1}$ = -2$ and a complex pair with $\text{Re}(\lambda_{2,3}) = 1$:
+\begin{enumerate}[label=(\alph*)]
+    \item What type of equilibrium is this?
+    \item What are the manifold dimensions?
+    \item Is the origin stable?
+    \item Describe trajectory behavior
+\end{enumerate}
+
+\item For the block diagonal system:
+$$A = \begin{pmatrix} -3 & 0 & 0 \\ 0 & 1 & -2 \\ 0 & 2 & 1 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues without full calculation
+    \item Classify the equilibrium
+    \item Which coordinate decouples?
+    \item Describe motion in each subspace
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Manifold Analysis (Problems 7-11)}
+
+\begin{enumerate}[resume]
+\item For $A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & -1 & 1 \\ 0 & 0 & -2 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all eigenvalues
+    \item Find eigenvectors
+    \item Determine $E$^{s}$$ and $E$^{u}$$ explicitly
+    \item Write parametric equations for each manifold
+\end{enumerate}
+
+\item Given eigenvalues $\lambda$_{1}$ = -3$, $\lambda$_{2}$ = 2$, $\lambda$_{3}$ = 1$ with eigenvectors:
+$$v$_{1}$ = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}, \quad v$_{2}$ = \begin{pmatrix} 0 \\ 1 \\ 1 \end{pmatrix}, \quad v$_{3}$ = \begin{pmatrix} 0 \\ 1 \\ -1 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the stable manifold equation
+    \item Find the unstable manifold equation
+    \item Describe trajectories starting in $E$^{u}$$
+\end{enumerate}
+
+\item For a system with 2D stable manifold in the xy-plane:
+\begin{enumerate}[label=(\alph*)]
+    \item What can you say about eigenvalues?
+    \item What happens to trajectories starting at $(0,0,1)$?
+    \item Sketch behavior in xz-projection
+\end{enumerate}
+
+\item Consider the saddle with $\lambda = -2, -1, 3$:
+\begin{enumerate}[label=(\alph*)]
+    \item What type of saddle is this?
+    \item If $v$_{3}$ = (1,1,1)$^{T}$$, describe escape direction
+    \item How fast do trajectories approach $E$^{s}$$?
+\end{enumerate}
+
+\item For a spiral-saddle system:
+\begin{enumerate}[label=(\alph*)]
+    \item What are possible eigenvalue configurations?
+    \item Describe motion in the spiral plane
+    \item What determines overall stability?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Projections (Problems 12-16)}
+
+\begin{enumerate}[resume]
+\item For the system $\dot{x} = -x$, $\dot{y} = -2y + z$, $\dot{z} = -y - 2z$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues
+    \item Sketch xy-projection
+    \item Sketch xz-projection
+    \item Sketch yz-projection
+    \item Which projection best shows the spiral?
+\end{enumerate}
+
+\item Given a 3D center-line with eigenvalues $0, \pm 3i$:
+\begin{enumerate}[label=(\alph*)]
+    \item Which variable corresponds to the zero eigenvalue?
+    \item What do trajectories look like?
+    \item Draw the three projections
+\end{enumerate}
+
+\item For a stable spiral-node with spiral in xy-plane:
+\begin{enumerate}[label=(\alph*)]
+    \item What does xz-projection show?
+    \item What does yz-projection show?
+    \item Which projection shows spiral clearly?
+\end{enumerate}
+
+\item Project the trajectory of:
+$$\dot{x} = -x, \quad \dot{y} = y, \quad \dot{z} = -2z$$
+starting at $(1,1,1)$ onto all three coordinate planes.
+
+\item For the system with solution:
+$$\mathbf{x}(t) = e^{-t}\begin{pmatrix} \cos(2t) \\ \sin(2t) \\ 1 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the system matrix $A$
+    \item Draw xy-projection
+    \item Draw xz-projection
+    \item What type of equilibrium?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part D: Poincaré Sections (Problems 17-20)}
+
+\begin{enumerate}[resume]
+\item For periodic motion in 3D with period $T = 2\pi$:
+\begin{enumerate}[label=(\alph*)]
+    \item What does Poincaré section show?
+    \item How many points for one trajectory?
+    \item What if period doubles?
+\end{enumerate}
+
+\item Consider the plane $z = 0$ as Poincaré section for:
+$$\dot{x} = y, \quad \dot{y} = -x, \quad \dot{z} = -z + x$^{2}$$$
+\begin{enumerate}[label=(\alph*)]
+    \item When do trajectories cross $z = 0$?
+    \item What pattern emerges?
+    \item Is motion periodic?
+\end{enumerate}
+
+\item For quasi-periodic motion on a torus:
+\begin{enumerate}[label=(\alph*)]
+    \item What does Poincaré section look like?
+    \item How to distinguish from periodic?
+    \item What if frequencies are rational?
+\end{enumerate}
+
+\item Design a Poincaré section to best reveal:
+\begin{enumerate}[label=(\alph*)]
+    \item Periodic orbits
+    \item Chaotic trajectories
+    \item Quasi-periodic motion
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Higher Dimensions (Problems 21-24)}
+
+\begin{enumerate}[resume]
+\item For a 4D system with eigenvalues $-1, -2, 3, 4$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find dimensions of invariant manifolds
+    \item Is the origin stable?
+    \item What's the dominant behavior?
+\end{enumerate}
+
+\item In 5D with eigenvalues $-1 \pm i, -2, 3 \pm 2i$:
+\begin{enumerate}[label=(\alph*)]
+    \item Classify stability
+    \item Find $\dim(E$^{s}$)$ and $\dim(E$^{u}$)$
+    \item How many rotation planes?
+\end{enumerate}
+
+\item For an n-dimensional system:
+\begin{enumerate}[label=(\alph*)]
+    \item Maximum number of complex eigenvalues?
+    \item When is origin globally stable?
+    \item When do all trajectories escape?
+\end{enumerate}
+
+\item Given a 10D system with 8 negative and 2 positive eigenvalues:
+\begin{enumerate}[label=(\alph*)]
+    \item What are manifold dimensions?
+    \item Describe long-term behavior
+    \item What's the "most likely" outcome?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Special 3D Phenomena (Problems 25-27)}
+
+\begin{enumerate}[resume]
+\item For the Rössler system:
+$$\dot{x} = -y - z, \quad \dot{y} = x + ay, \quad \dot{z} = b + z(x - c)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria when $a = b = 0.2$, $c = 5.7$
+    \item Linearize at equilibria
+    \item What type of attractor exists?
+\end{enumerate}
+
+\item Consider a 3D system with a stable limit cycle:
+\begin{enumerate}[label=(\alph*)]
+    \item Can this happen in a linear system?
+    \item What do nearby trajectories do?
+    \item How would you detect this numerically?
+\end{enumerate}
+
+\item For motion on a 2-torus in 3D:
+\begin{enumerate}[label=(\alph*)]
+    \item What are the two frequencies?
+    \item When is motion periodic?
+    \item When is trajectory dense on torus?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part G: Exam-Style Problems (Problems 28-30)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Style - 3D Complete Analysis]}
+For the system:
+$$A = \begin{pmatrix} -1 & 0 & 1 \\ 2 & -2 & 0 \\ 0 & 0 & -3 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all eigenvalues (show characteristic polynomial)
+    \item Verify using trace and determinant
+    \item Classify the equilibrium type
+    \item Find eigenvectors for all eigenvalues
+    \item Identify and state dimensions of $E$^{s}$$ and $E$^{u}$$
+    \item Describe behavior in each invariant subspace
+    \item Sketch the xy-projection
+    \item Sketch the xz-projection
+    \item Which trajectories approach origin fastest?
+    \item Write the general solution
+\end{enumerate}
+
+\item \textbf{[Higher-D Application]}
+A 6D linear system models coupled oscillators with eigenvalues:
+$$\lambda_{1,2} = -0.1 \pm 2i, \quad \lambda_{3,4} = -0.2 \pm 3i, \quad \lambda_{5,6} = 0.1 \pm i$$
+\begin{enumerate}[label=(\alph*)]
+    \item Is the system stable? Why?
+    \item How many oscillation frequencies?
+    \item Find dimensions of stable/unstable manifolds
+    \item Which oscillator damps fastest?
+    \item What happens as $t \to \infty$?
+    \item Describe the attractor type
+\end{enumerate}
+
+\item \textbf{[Conceptual Understanding]}
+\begin{enumerate}[label=(\alph*)]
+    \item Prove: A 3D linear system cannot have all complex eigenvalues
+    \item Show: If two eigenvalues are complex conjugates, the third must be real
+    \item Explain: Why can 4D systems have two pairs of complex eigenvalues?
+    \item True/False: A 3D saddle is always unstable
+    \item Can a 3D linear system have a limit cycle?
+    \item What's the minimum dimension for quasi-periodic motion?
+    \item In 3D, if $\det(A) < 0$, what can you conclude?
+    \item How many types of 3D saddles exist?
+\end{enumerate}
+\end{enumerate}
+
+\begin{threedtip}
+\textbf{3D Visualization Strategy:}
+\begin{itemize}
+    \item Don't try to draw full 3D portraits
+    \item Use projections to show key features
+    \item Describe behavior verbally
+    \item State manifold dimensions explicitly
+    \item Use computer tools when possible
+    \item Focus on eigenvalue analysis
+\end{itemize}
+\end{threedtip}
+
+\end{document}

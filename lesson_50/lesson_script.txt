@@ -1,0 +1,83 @@
+Episode 50: Numerical Methods - Euler, RK, and Stability**
+
+Alright, so we've covered series solutions for when we can't find closed-form solutions. But here's the reality check - even series solutions can be impractical! What if you need the solution at x = 100? You're not going to compute 100 terms of a series! That's where numerical methods come in. These are the workhorses of real-world ODE solving.
+
+Let me give you the big picture. When engineers design aircraft, when meteorologists predict weather, when biologists model populations - they're using numerical methods. The idea is simple but powerful: instead of finding y(x) as a formula, we approximate it at discrete points: y₀, y₁, y₂, ... separated by a step size h.
+
+Let's start with the simplest method - Euler's method. Consider the IVP:
+y' = f(x,y), y(x₀) = y₀
+
+Here's the key insight: from calculus, y'(x₀) ≈ [y(x₀+h) - y(x₀)]/h for small h. Rearranging:
+y(x₀+h) ≈ y(x₀) + h·y'(x₀) = y₀ + h·f(x₀,y₀)
+
+This gives us Euler's formula:
+yₙ₊₁ = yₙ + h·f(xₙ,yₙ)
+
+Let me show you with a concrete example. Solve y' = x + y, y(0) = 1 on [0,1] with h = 0.25.
+
+- Start: x₀ = 0, y₀ = 1
+- Step 1: y₁ = y₀ + h(x₀ + y₀) = 1 + 0.25(0 + 1) = 1.25
+- Step 2: y₂ = y₁ + h(x₁ + y₁) = 1.25 + 0.25(0.25 + 1.25) = 1.625
+- Step 3: y₃ = y₂ + h(x₂ + y₂) = 1.625 + 0.25(0.5 + 1.625) = 2.156
+- Step 4: y₄ = y₃ + h(x₃ + y₃) = 2.156 + 0.25(0.75 + 2.156) = 2.883
+
+The exact solution is y = 2e^x - x - 1, so y(1) = 2e - 2 ≈ 3.437. Our approximation gives 2.883. Not great, right? That's because Euler has local truncation error O(h²) and global error O(h).
+
+Now, here's where it gets interesting - improved methods! The problem with Euler is we're using the slope at the beginning of the interval for the whole step. What if we're smarter about it?
+
+Improved Euler (Heun's method) uses the average of slopes at the beginning and end:
+- Predict: ỹₙ₊₁ = yₙ + h·f(xₙ,yₙ)
+- Correct: yₙ₊₁ = yₙ + (h/2)[f(xₙ,yₙ) + f(xₙ₊₁,ỹₙ₊₁)]
+
+This is a second-order method - local error O(h³), global error O(h²). Much better!
+
+But the crown jewel is the fourth-order Runge-Kutta (RK4). This is what Prof. Ditkowski really wants you to understand:
+
+k₁ = h·f(xₙ, yₙ)
+k₂ = h·f(xₙ + h/2, yₙ + k₁/2)
+k₃ = h·f(xₙ + h/2, yₙ + k₂/2)
+k₄ = h·f(xₙ + h, yₙ + k₃)
+
+yₙ₊₁ = yₙ + (k₁ + 2k₂ + 2k₃ + k₄)/6
+
+The idea is genius - we sample the slope at the beginning (k₁), twice at the midpoint (k₂, k₃), and once at the end (k₄), then take a weighted average. The weights 1-2-2-1 are carefully chosen to cancel error terms up to O(h⁴).
+
+Let's apply RK4 to our example with h = 0.5 (just two steps):
+Step 1: x₀ = 0, y₀ = 1
+- k₁ = 0.5(0 + 1) = 0.5
+- k₂ = 0.5(0.25 + 1.25) = 0.75
+- k₃ = 0.5(0.25 + 1.375) = 0.8125
+- k₄ = 0.5(0.5 + 1.8125) = 1.156
+- y₁ = 1 + (0.5 + 1.5 + 1.625 + 1.156)/6 = 1.797
+
+Already with just h = 0.5, RK4 is more accurate than Euler with h = 0.25!
+
+Now, here's a crucial concept for exams - stability. Consider y' = λy where λ < 0 (decay problem). The exact solution decays to zero. But what about numerical solutions?
+
+For Euler: yₙ₊₁ = yₙ + hλyₙ = (1 + hλ)yₙ
+
+This is a geometric sequence! It decays only if |1 + hλ| < 1. This means:
+-2 < hλ < 0
+
+So for stability, we need h < 2/|λ|. If λ = -100 (stiff equation), we need h < 0.02. Tiny steps!
+
+Here's the key insight about stiff equations: they have widely different time scales. Think of a chemical reaction with both fast and slow components. The fast component forces tiny time steps even after it's essentially died out. That's inefficiency!
+
+RK4 has a larger stability region than Euler, but for very stiff problems, we need implicit methods like backward Euler:
+yₙ₊₁ = yₙ + h·f(xₙ₊₁,yₙ₊₁)
+
+This requires solving an equation at each step (often with Newton's method), but it's unconditionally stable for decay problems!
+
+Common exam mistakes to avoid:
+1. Forgetting that k₂ and k₃ use the MIDPOINT xₙ + h/2
+2. Using yₙ instead of yₙ + k₁/2 in computing k₂
+3. Wrong weights in RK4 (remember: 1-2-2-1, divide by 6)
+4. Confusing local error (one step) with global error (accumulated)
+
+Prof. Ditkowski usually asks conceptual questions: "Why is RK4 more accurate than Euler?" Answer: It uses information about the derivative at multiple points within each step, achieving higher-order accuracy.
+
+Or: "When would you choose implicit over explicit methods?" Answer: For stiff equations where stability requirements would force extremely small steps in explicit methods.
+
+Another favorite: "What's the trade-off in choosing step size h?" Answer: Smaller h means better accuracy but more computational work and potentially more round-off error accumulation.
+
+So basically, numerical methods turn ODEs into iteration formulas. Euler is simple but crude, RK4 is the workhorse for non-stiff problems, and implicit methods handle stiff equations. Master these three, understand stability, and you're set for any numerical ODE question!

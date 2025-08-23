@@ -1,0 +1,249 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{tikz-3dplot}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{classification}{Classification}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{visualization}
+
+\title{3D Systems and Higher Dimensions}
+\author{ODE 1 - Lesson 39}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{3D Linear Systems}
+
+Consider the 3D linear system:
+$$\dot{\mathbf{x}} = A\mathbf{x}, \quad \text{where } A \in \mathbb{R}^{3 \times 3}$$
+
+\begin{keypoint}
+\textbf{Fundamental Principle:}
+The behavior is completely determined by the eigenvalues $\lambda$_{1}$, \lambda$_{2}$, \lambda$_{3}$$ of $A$.
+\begin{itemize}
+    \item Real eigenvalues \rightarrow exponential behavior
+    \item Complex pair \rightarrow rotation in a plane
+    \item All three eigenvalues cannot be complex (odd dimension!)
+\end{itemize}
+\end{keypoint}
+
+\section{Classification of 3D Equilibria}
+
+\begin{classification}[3D Equilibrium Types]
+\begin{center}
+\begin{tabular}{|l|c|c|p{5cm}|}
+\hline
+\textbf{Type} & \textbf{Eigenvalues} & \textbf{Stability} & \textbf{Behavior} \\
+\hline
+\hline
+Stable Node & $\lambda$_{i}$ < 0$ (all real) & Asymp. Stable & All trajectories converge \\
+\hline
+Unstable Node & $\lambda$_{i}$ > 0$ (all real) & Unstable & All trajectories diverge \\
+\hline
+Saddle (1-2) & 1 pos., 2 neg. & Unstable & 1D unstable, 2D stable manifold \\
+\hline
+Saddle (2-1) & 2 pos., 1 neg. & Unstable & 2D unstable, 1D stable manifold \\
+\hline
+Spiral-Node (S) & 1 real neg., 2 complex (Re$<$0) & Asymp. Stable & Spiral in plane, converge perpendicular \\
+\hline
+Spiral-Node (U) & 1 real pos., 2 complex (Re$>$0) & Unstable & Spiral out plane, diverge perpendicular \\
+\hline
+Spiral-Saddle & 1 real, 2 complex (mixed signs) & Unstable & Spiral in one direction, escape another \\
+\hline
+Center-Line & 1 real = 0, 2 pure imag. & Marginally Stable & Circles in plane, line of equilibria \\
+\hline
+\end{tabular}
+\end{center}
+\end{classification}
+
+\section{Invariant Manifolds}
+
+\begin{definition}[Stable, Unstable, and Center Manifolds]
+For an equilibrium at the origin with eigenvalues $\{\lambda$_{i}$\}$:
+\begin{align}
+E^{s} &= \text{span}\{v_{i} : \text{Re}(\lambda_{i}) < 0\} \quad \text{(Stable manifold)} \\
+E^{u} &= \text{span}\{v_{i} : \text{Re}(\lambda_{i}) > 0\} \quad \text{(Unstable manifold)} \\
+E^{c} &= \text{span}\{v_{i} : \text{Re}(\lambda_{i}) = 0\} \quad \text{(Center manifold)}
+\end{align}
+Dimensions: $\dim(E$^{s}$) + \dim(E$^{u}$) + \dim(E$^{c}$) = 3$
+\end{definition}
+
+\begin{theorem}[Manifold Dynamics]
+\begin{itemize}
+    \item Trajectories in $E$^{s}$$ approach origin as $t \to \infty$
+    \item Trajectories in $E$^{u}$$ approach origin as $t \to -\infty$
+    \item Trajectories in $E$^{c}$$ may be periodic or stationary
+\end{itemize}
+\end{theorem}
+
+\section{Visualization Techniques}
+
+\subsection{Projection Methods}
+
+\begin{visualization}
+\textbf{Standard Projections:}
+\begin{itemize}
+    \item \textbf{xy-projection}: View from above $(x,y,0)$
+    \item \textbf{xz-projection}: View from side $(x,0,z)$
+    \item \textbf{yz-projection}: View from front $(0,y,z)$
+\end{itemize}
+Each projection shows 2D "shadow" of 3D dynamics
+\end{visualization}
+
+\begin{example}[Projection Analysis]
+System with $\lambda$_{1}$ = -1$, $\lambda$_{2}$,3 = -0.5 \pm 2i$:
+\begin{itemize}
+    \item xy-projection: Spiral (from complex pair)
+    \item xz-projection: Node-like (real eigenvalue dominates)
+    \item yz-projection: Pure spiral (complex pair only)
+\end{itemize}
+\end{example}
+
+\subsection{Poincaré Sections}
+
+\begin{definition}[Poincaré Section]
+A \textbf{Poincaré section} is a lower-dimensional slice through phase space. For a 3D system, choose a 2D surface $\Sigma$ and record intersection points of trajectories with $\Sigma$.
+\end{definition}
+
+\begin{insight}
+\textbf{Poincaré Map Reveals:}
+\begin{itemize}
+    \item Fixed point \rightarrow Periodic orbit
+    \item Closed curve \rightarrow Quasi-periodic (torus)
+    \item Strange pattern \rightarrow Chaos
+    \item No pattern \rightarrow Transient behavior
+\end{itemize}
+\end{insight}
+
+\section{Examples of 3D Systems}
+
+\begin{example}[Complete 3D Analysis]
+Consider the matrix:
+$$A = \begin{pmatrix} -2 & 1 & 0 \\ 0 & -1 & 0 \\ 0 & 0 & 3 \end{pmatrix}$$
+
+\textbf{Step 1:} Eigenvalues are $\lambda$_{1}$ = -2$, $\lambda$_{2}$ = -1$, $\lambda$_{3}$ = 3$
+
+\textbf{Step 2:} Classification: Saddle (2-1 type)
+
+\textbf{Step 3:} Manifolds:
+\begin{itemize}
+    \item $E$^{s}$ = \text{span}\{e$_{1}$, e$_{2}$\}$ (xy-plane), $\dim(E$^{s}$) = 2$
+    \item $E$^{u}$ = \text{span}\{e$_{3}$\}$ (z-axis), $\dim(E$^{u}$) = 1$
+\end{itemize}
+
+\textbf{Step 4:} Behavior: Trajectories spiral toward xy-plane, then escape along z-axis
+\end{example}
+
+\begin{example}[Spiral-Node System]
+$$A = \begin{pmatrix} -3 & 0 & 0 \\ 0 & -1 & 4 \\ 0 & -4 & -1 \end{pmatrix}$$
+
+Eigenvalues: $\lambda$_{1}$ = -3$, $\lambda_{2,3} = -1 \pm 4i$
+
+Classification: Stable spiral-node
+- Exponential decay along x-axis (rate = 3)
+- Spiral decay in yz-plane (rate = 1, frequency = 4)
+\end{example}
+
+\section{Higher Dimensions (n > 3)}
+
+\begin{keypoint}
+\textbf{Classification in n-Dimensions:}
+For $\dot{\mathbf{x}} = A\mathbf{x}$ with $A \in \mathbb{R}^{n \times n}$:
+\begin{itemize}
+    \item Count eigenvalues with $\text{Re}(\lambda) < 0$: $n$_{s}$$ (stable directions)
+    \item Count eigenvalues with $\text{Re}(\lambda) > 0$: $n$_{u}$$ (unstable directions)
+    \item Count eigenvalues with $\text{Re}(\lambda) = 0$: $n$_{c}$$ (center directions)
+    \item Check: $n$_{s}$ + n$_{u}$ + n$_{c}$ = n$
+\end{itemize}
+\end{keypoint}
+
+\begin{classification}[Stability in Higher Dimensions]
+\begin{itemize}
+    \item \textbf{Asymptotically Stable}: All $\text{Re}(\lambda$_{i}$) < 0$
+    \item \textbf{Unstable}: At least one $\text{Re}(\lambda$_{i}$) > 0$
+    \item \textbf{Marginally Stable}: All $\text{Re}(\lambda$_{i}$) \leq 0$, some $= 0$
+\end{itemize}
+\end{classification}
+
+\section{Numerical Visualization Tools}
+
+\begin{visualization}
+\textbf{Essential Plotting Techniques:}
+\begin{enumerate}
+    \item \textbf{3D Trajectory Plots}: Direct visualization in 3D
+    \item \textbf{Multiple 2D Projections}: Show different viewpoints
+    \item \textbf{Animation}: Time evolution along trajectories
+    \item \textbf{Isosurfaces}: Level sets of conserved quantities
+    \item \textbf{Vector Field Slices}: Direction fields on 2D slices
+\end{enumerate}
+\end{visualization}
+
+\section{Special Phenomena in 3D}
+
+\begin{definition}[Limit Cycle]
+A \textbf{limit cycle} is an isolated closed orbit. In 3D, nearby trajectories can spiral toward it (stable) or away (unstable).
+\end{definition}
+
+\begin{definition}[Torus Attractor]
+Quasi-periodic motion on a 2D torus surface in 3D phase space. Occurs with two incommensurate frequencies.
+\end{definition}
+
+\begin{definition}[Strange Attractor]
+A fractal set in phase space exhibiting sensitive dependence on initial conditions (chaos). Example: Lorenz attractor.
+\end{definition}
+
+\section{The Lorenz System (Preview)}
+
+\begin{example}[Lorenz Equations]
+$$\begin{aligned}
+\dot{x} &= \sigma(y - x) \\
+\dot{y} &= rx - y - xz \\
+\dot{z} &= xy - bz
+\end{aligned}$$
+
+For $\sigma = 10$, $b = 8/3$, $r = 28$: Chaotic attractor!
+
+Equilibria:
+\begin{itemize}
+    \item Origin: Always exists
+    \item $C_\pm = (\pm\sqrt{b(r-1)}, \pm\sqrt{b(r-1)}, r-1)$ for $r > 1$
+\end{itemize}
+\end{example}
+
+\section{Exam Strategy for 3D Problems}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's 3D Problem Approach:}
+\begin{enumerate}
+    \item State system dimension explicitly
+    \item Find ALL eigenvalues (check: product = det, sum = trace)
+    \item Classify equilibrium type precisely
+    \item State manifold dimensions: "2D stable, 1D unstable"
+    \item Describe behavior in words
+    \item Optional: Sketch ONE key projection
+    \item Never attempt full 3D drawing
+\end{enumerate}
+\end{examtip}
+
+\begin{warning}
+\textbf{Common 3D Errors:}
+\begin{itemize}
+    \item Forgetting complex eigenvalues come in pairs
+    \item Wrong manifold dimension count
+    \item Trying to visualize 4D+ systems
+    \item Missing the third eigenvalue
+    \item Not checking $\sum \lambda$_{i}$ = \text{tr}(A)$
+\end{itemize}
+\end{warning}
+
+\end{document}

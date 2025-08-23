@@ -1,0 +1,269 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz}
+\usepackage{geometry, enumitem, mdframed}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+
+\title{Practice Problems - Lesson 36: Phase Space and Trajectories}
+\author{ODE 1 Course}
+\date{}
+
+\usepackage{xcolor}
+\begin{document}
+\maketitle
+
+\section*{Part A: Phase Space Concepts (Problems 1-5)}
+
+\begin{enumerate}
+\item Consider the system $\dot{x} = y$, $\dot{y} = -x$.
+\begin{enumerate}[label=(\alph*)]
+    \item What is the dimension of the phase space?
+    \item Find all equilibrium points.
+    \item Show that $x^2 + y^2$ is constant along trajectories.
+    \item What does this tell you about the shape of trajectories?
+\end{enumerate}
+
+\item For the equation $\ddot{x} + 2\dot{x} + 5x = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to a first-order system.
+    \item Identify the phase space variables.
+    \item Find the equilibrium point(s) in phase space.
+\end{enumerate}
+
+\item True or False (explain your answer):
+\begin{enumerate}[label=(\alph*)]
+    \item Two different trajectories can pass through the same point.
+    \item A trajectory can cross itself.
+    \item Every bounded trajectory must be a closed orbit.
+    \item In 1D phase space, closed orbits are possible.
+\end{enumerate}
+
+\item Given the direction field at point $(2, 3)$ is $(1, -2)$:
+\begin{enumerate}[label=(\alph*)]
+    \item What is the instantaneous direction of motion?
+    \item What is the speed at this point?
+    \item Find the slope of the trajectory at this point.
+\end{enumerate}
+
+\item For the system $\dot{x} = x(1-x-y)$, $\dot{y} = y(1-2x-y)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibrium points.
+    \item Verify your answers by substitution.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Nullclines and Direction Fields (Problems 6-10)}
+
+\begin{enumerate}[resume]
+\item For the system $\dot{x} = x - y$, $\dot{y} = x + y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the $x$-nullcline.
+    \item Find the $y$-nullcline.
+    \item Where do the nullclines intersect?
+    \item What is special about this intersection point?
+\end{enumerate}
+
+\item Consider $\dot{x} = y^2 - x$, $\dot{y} = x - 2y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find both nullclines.
+    \item Sketch the nullclines on the same axes.
+    \item Identify all equilibrium points.
+\end{enumerate}
+
+\item For the system $\dot{x} = \sin(y)$, $\dot{y} = \cos(x)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the equilibrium at the origin.
+    \item Find another equilibrium point.
+    \item Are there infinitely many equilibria? Why?
+\end{enumerate}
+
+\item Given nullclines $x = 0$ and $y = x^2$:
+\begin{enumerate}[label=(\alph*)]
+    \item What system could have these nullclines?
+    \item Find the equilibrium points.
+    \item Determine the flow direction in the region $x > 0, y > x^2$.
+\end{enumerate}
+
+\item For $\dot{x} = y - x^2$, $\dot{y} = -x$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show that the origin is an equilibrium.
+    \item Find any other equilibria.
+    \item What are the nullclines?
+    \item Sketch the direction field at points $(1,0)$, $(0,1)$, $(-1,0)$, $(0,-1)$.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Trajectories and Invariant Sets (Problems 11-16)}
+
+\begin{enumerate}[resume]
+\item Show that the unit circle $x^2 + y^2 = 1$ is an invariant set for:
+$$\dot{x} = -y + x(1 - x^2 - y^2), \quad \dot{y} = x + y(1 - x^2 - y^2)$$
+
+\item For the system $\dot{x} = y$, $\dot{y} = -\sin(x)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria in $-\pi \leq x \leq \pi$.
+    \item Show that $E = \frac{1}{2}y^2 - \cos(x)$ is constant along trajectories.
+    \item Use this to sketch different types of trajectories.
+\end{enumerate}
+
+\item Consider the linear system $\dot{\mathbf{x}} = A\mathbf{x}$ where $A = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the eigenvalues of $A$.
+    \item What type of trajectories do you expect?
+    \item Find a conserved quantity.
+\end{enumerate}
+
+\item Prove that if a trajectory is bounded and the vector field is continuous, then:
+\begin{enumerate}[label=(\alph*)]
+    \item The trajectory exists for all time.
+    \item The omega-limit set is non-empty.
+\end{enumerate}
+
+\item For the system $\dot{r} = r(1-r)$, $\dot{\theta} = 1$ in polar coordinates:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all circular trajectories.
+    \item Describe the behavior as $t \to \infty$.
+    \item Is the unit circle attracting or repelling?
+\end{enumerate}
+
+\item Given a gradient system $\dot{\mathbf{x}} = -\nabla V(\mathbf{x})$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $V$ decreases along trajectories.
+    \item What does this imply about closed orbits?
+    \item Find equilibria in terms of $V$.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part D: Special Trajectories (Problems 17-21)}
+
+\begin{enumerate}[resume]
+\item For a 2D system, explain why:
+\begin{enumerate}[label=(\alph*)]
+    \item A homoclinic orbit cannot exist in linear systems.
+    \item Closed orbits require at least one equilibrium inside.
+    \item Trajectories cannot spiral into a closed orbit from outside.
+\end{enumerate}
+
+\item Consider the Van der Pol system $\ddot{x} - \mu(1-x^2)\dot{x} + x = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to first-order form.
+    \item Find the unique equilibrium.
+    \item For $\mu = 0$, describe all trajectories.
+\end{enumerate}
+
+\item For the Hamiltonian system with $H(x,y) = \frac{1}{2}(x^2 + y^2) + x^2y - \frac{1}{3}y^3$:
+\begin{enumerate}[label=(\alph*)]
+    \item Write the corresponding ODE system.
+    \item Show that $H$ is conserved.
+    \item Find all equilibria.
+\end{enumerate}
+
+\item Analyze the system $\dot{x} = y + x(x^2 + y^2)$, $\dot{y} = -x + y(x^2 + y^2)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is an equilibrium.
+    \item Convert to polar coordinates.
+    \item Describe the trajectory behavior near the origin.
+\end{enumerate}
+
+\item For the Lotka-Volterra system $\dot{x} = x(a - by)$, $\dot{y} = y(-c + dx)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria (assume $a,b,c,d > 0$).
+    \item Find a conserved quantity.
+    \item What does this imply about trajectory types?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Advanced Concepts (Problems 22-26)}
+
+\begin{enumerate}[resume]
+\item Prove the Poincaré-Bendixson theorem consequence:
+If a trajectory in 2D is bounded and contains no equilibria, it must approach a closed orbit.
+
+\item For the system on the cylinder $(x \mod 2\pi, y \in \mathbb{R})$:
+$$\dot{x} = 1, \quad \dot{y} = \sin(x)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Are there any equilibria?
+    \item Describe all possible trajectories.
+    \item Are there any closed orbits?
+\end{enumerate}
+
+\item Consider a 3D system with a 2D invariant plane:
+\begin{enumerate}[label=(\alph*)]
+    \item How can you identify such a plane?
+    \item What does this mean for trajectories starting in the plane?
+    \item Give an example of such a system.
+\end{enumerate}
+
+\item For the delayed logistic equation $\dot{x} = rx(1 - x(t-\tau))$:
+\begin{enumerate}[label=(\alph*)]
+    \item What is the phase space?
+    \item Why is it infinite-dimensional?
+    \item Find the equilibria.
+\end{enumerate}
+
+\item Analyze the reversible system (invariant under $t \to -t, y \to -y$):
+$$\dot{x} = y, \quad \dot{y} = x - x^3$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria.
+    \item Use reversibility to deduce trajectory properties.
+    \item Find the homoclinic orbits.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 27-30)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Style]} Consider the system:
+$$\dot{x} = 2x - y - x^2, \quad \dot{y} = x - 2y + xy$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find ALL equilibrium points.
+    \item Find the nullclines.
+    \item Determine the direction field at $(1, 1)$.
+    \item Sketch the phase portrait near each equilibrium.
+    \item Classify the stability of each equilibrium (intuitive).
+\end{enumerate}
+
+\item \textbf{[Comprehensive]} For the pendulum equation $\ddot{\theta} + \sin(\theta) = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to phase space form.
+    \item Find equilibria in $[0, 2\pi]$.
+    \item Derive the energy function.
+    \item Sketch the complete phase portrait.
+    \item Identify separatrices, closed orbits, and equilibrium types.
+    \item Explain the physical meaning of each trajectory type.
+\end{enumerate}
+
+\item \textbf{[Theoretical]} Prove or disprove:
+\begin{enumerate}[label=(\alph*)]
+    \item Every 2D system has at least one equilibrium.
+    \item If all trajectories are bounded, there exists a closed orbit.
+    \item A trajectory can have empty omega-limit set.
+    \item Two closed orbits cannot intersect.
+\end{enumerate}
+
+\item \textbf{[Application]} A chemical reaction follows:
+$$\dot{A} = -kAB + \ell, \quad \dot{B} = -kAB + m$$
+where $k, \ell, m > 0$ are constants.
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria.
+    \item Show that $A + B$ changes linearly with time.
+    \item Use this to reduce to a 1D problem.
+    \item Describe the long-term behavior.
+    \item Sketch the phase portrait.
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Solution Strategies:}
+\begin{itemize}
+    \item Always find equilibria first
+    \item Look for conserved quantities (energy, momentum, etc.)
+    \item Use nullclines to organize phase space
+    \item Check trajectory uniqueness carefully
+    \item Connect mathematical results to physical meaning
+    \item For Prof. Ditkowski: Show ALL algebraic steps
+\end{itemize}
+\end{hint}
+
+\end{document}

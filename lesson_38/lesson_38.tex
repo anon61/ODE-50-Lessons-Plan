@@ -1,0 +1,287 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{algorithm2e}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{method}{Method}
+\newtheorem{technique}{Technique}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{checkwork}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{stepbox}
+
+\title{Drawing Phase Portraits: Complete Methodology}
+\author{ODE 1 - Lesson 38}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Five-Step Portrait Algorithm}
+
+\begin{stepbox}
+\textbf{MASTER ALGORITHM for Phase Portraits:}
+\begin{enumerate}
+    \item \textbf{Find Equilibria:} Solve $\mathbf{f}(\mathbf{x}) = \mathbf{0}$
+    \item \textbf{Classify:} Compute eigenvalues/eigenvectors
+    \item \textbf{Draw Framework:} Eigenvector lines and nullclines
+    \item \textbf{Determine Flow:} Test points for direction
+    \item \textbf{Complete Portrait:} Add smooth trajectories
+\end{enumerate}
+\end{stepbox}
+
+\section{Step 1: Finding Equilibria}
+
+For the system:
+\begin{align}
+\dot{x} &= f(x,y) \\
+\dot{y} &= g(x,y)
+\end{align}
+
+\begin{method}[Equilibrium Location]
+Solve simultaneously:
+\begin{align}
+f(x,y) &= 0 \\
+g(x,y) &= 0
+\end{align}
+For linear systems $\dot{\mathbf{x}} = A\mathbf{x}$:
+- If $\det(A) \neq 0$: unique equilibrium at origin
+- If $\det(A) = 0$: line or plane of equilibria
+\end{method}
+
+\section{Step 2: Classification via Eigenanalysis}
+
+\begin{keypoint}
+\textbf{Eigenvalue Interpretation:}
+\begin{itemize}
+    \item \textbf{Real $\lambda$}: Exponential behavior along eigenvector
+    \item $\lambda < 0$: Decay toward origin
+    \item $\lambda > 0$: Growth away from origin
+    \item \textbf{Complex $\lambda = \alpha \pm i\beta$}: Rotation with frequency $\beta$
+    \item $\alpha < 0$: Inward spiral
+    \item $\alpha > 0$: Outward spiral
+    \item $\alpha = 0$: Closed orbits
+\end{itemize}
+\end{keypoint}
+
+\section{Step 3: Drawing the Framework}
+
+\subsection{Eigenvector Directions}
+
+\begin{technique}[Drawing Eigenvectors]
+For each real eigenvalue $\lambda$_{i}$$ with eigenvector $\mathbf{v}$_{i}$$:
+\begin{enumerate}
+    \item Draw line through origin in direction $\mathbf{v}$_{i}$$
+    \item Add arrows:
+    \begin{itemize}
+        \item $\lambda$_{i}$ < 0$: arrows point TOWARD origin
+        \item $\lambda$_{i}$ > 0$: arrows point AWAY from origin
+    \end{itemize}
+    \item Label as stable ($\lambda < 0$) or unstable ($\lambda > 0$) manifold
+\end{enumerate}
+\end{technique}
+
+\subsection{Nullcline Method}
+
+\begin{method}[Nullcline Construction]
+\begin{enumerate}
+    \item \textbf{$x$-nullcline}: Solve $\dot{x} = f(x,y) = 0$
+    \begin{itemize}
+        \item On this curve: vertical motion only
+        \item Trajectories cross vertically
+    \end{itemize}
+    \item \textbf{$y$-nullcline}: Solve $\dot{y} = g(x,y) = 0$
+    \begin{itemize}
+        \item On this curve: horizontal motion only
+        \item Trajectories cross horizontally
+    \end{itemize}
+    \item Intersections are equilibria
+    \item Nullclines divide plane into sign-definite regions
+\end{enumerate}
+\end{method}
+
+\begin{checkwork}
+\textbf{Using Nullclines to Verify Flow:}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Region} & \textbf{Signs} & \textbf{Flow Direction} \\
+\hline
+$\dot{x} > 0, \dot{y} > 0$ & $(+,+)$ & Northeast $\nearrow$ \\
+$\dot{x} > 0, \dot{y} < 0$ & $(+,-)$ & Southeast $\searrow$ \\
+$\dot{x} < 0, \dot{y} > 0$ & $(-,+)$ & Northwest $\nwarrow$ \\
+$\dot{x} < 0, \dot{y} < 0$ & $(-,-)$ & Southwest $\swarrow$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{checkwork}
+
+\section{Step 4: Determining Flow Direction}
+
+\begin{technique}[Direction Field Sampling]
+\begin{enumerate}
+    \item Choose test points in each region (e.g., $(\pm1, 0), (0, \pm1), (\pm1, \pm1)$)
+    \item Compute velocity vector: $\mathbf{v} = (f(x,y), g(x,y))$
+    \item Draw arrow in direction of $\mathbf{v}$
+    \item Length indicates speed: $|\mathbf{v}| = \sqrt{f$^{2}$ + g$^{2}$}$
+\end{enumerate}
+\end{technique}
+
+\section{Step 5: Completing the Portrait}
+
+\subsection{Portrait-Specific Drawing Rules}
+
+\begin{center}
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Type} & \textbf{Drawing Instructions} \\
+\hline
+\hline
+\textbf{Saddle} &
+\begin{itemize}
+    \item Draw stable/unstable manifolds (eigenvectors)
+    \item Add 4 hyperbolic trajectories in sectors
+    \item Trajectories approach stable, depart unstable manifold
+\end{itemize} \\
+\hline
+\textbf{Node (distinct $\lambda$)} &
+\begin{itemize}
+    \item All trajectories tangent to slow eigenvector at origin
+    \item Fast eigenvector: straight-line trajectory
+    \item Other trajectories curve from fast to slow direction
+\end{itemize} \\
+\hline
+\textbf{Improper Node} &
+\begin{itemize}
+    \item One straight-line trajectory (eigenvector)
+    \item All others curve in, tangent to eigenvector
+    \item "Fan" appearance
+\end{itemize} \\
+\hline
+\textbf{Star Node} &
+\begin{itemize}
+    \item Straight-line trajectories in ALL directions
+    \item Radially symmetric
+\end{itemize} \\
+\hline
+\textbf{Spiral/Focus} &
+\begin{itemize}
+    \item Logarithmic spirals
+    \item Determine rotation: check velocity at $(1,0)$
+    \item Stable: inward spiral; Unstable: outward
+    \item Multiple coils for clarity
+\end{itemize} \\
+\hline
+\textbf{Center} &
+\begin{itemize}
+    \item Closed elliptical orbits
+    \item Nested, non-intersecting
+    \item Determine ellipse orientation from eigenvectors of $A$^{TA}$$
+\end{itemize} \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Rotation Direction for Spirals/Centers}
+
+\begin{keypoint}
+\textbf{Quick Rotation Check:}
+At point $(1, 0)$:
+\begin{itemize}
+    \item If $\dot{y} > 0$: Counterclockwise rotation
+    \item If $\dot{y} < 0$: Clockwise rotation
+\end{itemize}
+Alternatively, for $\dot{\mathbf{x}} = A\mathbf{x}$ with $A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$:
+\begin{itemize}
+    \item $b > 0$ or $c < 0$: Counterclockwise
+    \item $b < 0$ or $c > 0$: Clockwise
+\end{itemize}
+\end{keypoint}
+
+\section{Common Errors and Corrections}
+
+\begin{warning}
+\textbf{Critical Mistakes to Avoid:}
+\begin{enumerate}
+    \item \textbf{Crossing Trajectories}: Violates uniqueness
+    \item \textbf{Wrong Arrow Direction}: Check eigenvalue signs
+    \item \textbf{Incorrect Tangency}: Nodes must show proper tangent behavior
+    \item \textbf{Sparse Trajectories}: Draw at least 4-6 curves
+    \item \textbf{Missing Labels}: Always label axes and equilibria
+\end{enumerate}
+\end{warning}
+
+\section{Advanced Techniques}
+
+\subsection{Isoclines}
+
+\begin{method}[Isocline Method]
+Curves where trajectories have constant slope $m$:
+$$\frac{dy}{dx} = \frac{g(x,y)}{f(x,y)} = m$$
+\begin{itemize}
+    \item $m = 0$: $x$-nullcline (horizontal crossing)
+    \item $m = \infty$: $y$-nullcline (vertical crossing)
+    \item $m = 1$: Trajectories cross at $45°$
+    \item $m = -1$: Trajectories cross at $-45°$
+\end{itemize}
+\end{method}
+
+\subsection{Symmetry Exploitation}
+
+\begin{technique}[Using Symmetry]
+\begin{itemize}
+    \item \textbf{$x \leftrightarrow -x$ symmetry}: If $f(-x,y) = -f(x,y)$ and $g(-x,y) = g(x,y)$
+    \item \textbf{$y \leftrightarrow -y$ symmetry}: If $f(x,-y) = f(x,y)$ and $g(x,-y) = -g(x,y)$
+    \item \textbf{Rotational symmetry}: For systems with $A = \begin{pmatrix} a & -b \\ b & a \end{pmatrix}$
+\end{itemize}
+Draw one sector, then reflect/rotate!
+\end{technique}
+
+\section{Quality Checklist}
+
+\begin{examtip}
+\textbf{Before Submitting Your Portrait:}
+\begin{itemize}
+    \item[$\square$] All equilibria found and marked
+    \item[$\square$] Classification stated explicitly
+    \item[$\square$] Eigenvalues/eigenvectors shown (if linear)
+    \item[$\square$] Eigenvector directions drawn with correct arrows
+    \item[$\square$] At least 4-6 trajectories sketched
+    \item[$\square$] Arrow heads on trajectories showing flow
+    \item[$\square$] No trajectories cross (except at equilibria)
+    \item[$\square$] Axes labeled
+    \item[$\square$] Special features noted (separatrices, manifolds)
+\end{itemize}
+\end{examtip}
+
+\section{Example: Complete Portrait Construction}
+
+\begin{example}[Step-by-Step Portrait]
+Draw the phase portrait for:
+$$\dot{x} = 2x + y, \quad \dot{y} = x + 2y$$
+
+\textbf{Step 1:} Equilibria: $(0,0)$ only.
+
+\textbf{Step 2:} Matrix $A = \begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$
+
+Eigenvalues: $\det(A - \lambda I) = (2-\lambda)$^{2}$ - 1 = 0$
+$$\lambda = 2 \pm 1 = 3, 1$$
+
+Eigenvectors:
+- $\lambda$_{1}$ = 3$: $\mathbf{v}$_{1}$ = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+- $\lambda$_{2}$ = 1$: $\mathbf{v}$_{2}$ = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+
+Classification: Unstable node (both $\lambda > 0$)
+
+\textbf{Step 3:} Draw lines $y = x$ and $y = -x$ with outward arrows
+
+\textbf{Step 4:} Test point $(1, 0)$: $\dot{x} = 2$, $\dot{y} = 1$ \rightarrow Northeast flow
+
+\textbf{Step 5:} Complete with trajectories tangent to $y = -x$ (slow manifold)
+\end{example}
+
+\end{document}

@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 32: Practice Problems - Complex Eigenvalues}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Finding Complex Eigenvalues and Eigenvectors}
+
+\begin{enumerate}
+\item Find the eigenvalues of $A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ and classify the equilibrium.
+
+\item Find the eigenvalues and eigenvectors of $A = \begin{pmatrix} 2 & -5 \\ 1 & 2 \end{pmatrix}$.
+
+\item Determine $\alpha$ and $\beta$ if the eigenvalues are $\lambda = 3 \pm 4i$.
+
+\item For what values of $a$ does $A = \begin{pmatrix} a & -2 \\ 2 & a \end{pmatrix}$ have complex eigenvalues?
+
+\item Find a 2\times2 matrix with eigenvalues $\lambda = -1 \pm 3i$.
+\end{enumerate}
+
+\section*{Part B: Extracting Real Solutions}
+
+\begin{enumerate}[start=6]
+\item Given eigenvalue $\lambda = 2i$ with eigenvector $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix}$, find two real solutions.
+
+\item Extract real solutions from $\lambda = 1 + i$ with eigenvector $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix}$.
+
+\item If $\mathbf{x}$_{c}$(t) = e^{(2+3i)t}\begin{pmatrix} 1+i \\ 2 \end{pmatrix}$, find the real and imaginary parts.
+
+\item Convert the complex solution $\mathbf{x}(t) = e^{-t+2it}\begin{pmatrix} i \\ 1 \end{pmatrix}$ to real form.
+
+\item Given $\lambda = 3 - 2i$ and $\mathbf{v} = \begin{pmatrix} 2 \\ 1+i \end{pmatrix}$, find the general real solution.
+\end{enumerate}
+
+\section*{Part C: 2\times2 Systems with Complex Eigenvalues}
+
+\begin{enumerate}[start=11]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & -4 \\ 1 & 0 \end{pmatrix}\mathbf{x}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 2 \\ 0 \end{pmatrix}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 3 & -2 \\ 4 & 3 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Determine the solution: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part D: Stability and Behavior Analysis}
+
+\begin{enumerate}[start=16]
+\item Classify the stability of the origin for $\mathbf{x}' = \begin{pmatrix} -2 & 3 \\ -3 & -2 \end{pmatrix}\mathbf{x}$
+
+\item Find the period of oscillation for $\mathbf{x}' = \begin{pmatrix} 0 & -3 \\ 3 & 0 \end{pmatrix}\mathbf{x}$
+
+\item Determine when the solution reaches maximum distance from origin: $\mathbf{x}' = \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item For what values of $k$ is the origin stable for $\mathbf{x}' = \begin{pmatrix} k & -4 \\ 1 & k \end{pmatrix}\mathbf{x}$?
+
+\item Find a system where solutions spiral inward with period $\pi$.
+\end{enumerate}
+
+\section*{Part E: 3\times3 and Higher Dimensional Systems}
+
+\begin{enumerate}[start=21]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 1 & -1 & 0 \\ 1 & 1 & 0 \\ 0 & 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ -1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+
+\item Analyze: $\mathbf{x}' = \begin{pmatrix} -1 & 0 & 2 \\ 0 & -1 & -2 \\ -2 & 2 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Find all eigenvalues: $A = \begin{pmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 2 & -3 \\ 0 & 0 & 3 & 2 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part F: Applications and Special Cases}
+
+\begin{enumerate}[start=26]
+\item A mass-spring system gives $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}\mathbf{x}$ where $x$_{1}$$ is position, $x$_{2}$$ is velocity. Find the frequency of oscillation.
+
+\item An RLC circuit yields $\mathbf{x}' = \begin{pmatrix} -1 & -2 \\ 2 & -1 \end{pmatrix}\mathbf{x}$. Determine if the circuit is underdamped, overdamped, or critically damped.
+
+\item Two coupled oscillators give $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 & 0 \\ -2 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 1 & 0 & -2 & 0 \end{pmatrix}\mathbf{x}$. Find the normal modes.
+
+\item Show that if $A$ is skew-symmetric ($A$^{T}$ = -A$), all eigenvalues are pure imaginary.
+
+\item \textbf{Challenge:} Prove that for the system $\mathbf{x}' = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}\mathbf{x}$, the solution curves are logarithmic spirals with equation $r = r$_{0e}$^{(\alpha/\beta)\theta}$ in polar coordinates.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $\lambda = \pm i$, center (pure rotation)
+
+\textbf{Problem 6:} $\mathbf{x}$_{1}$(t) = \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}$, $\mathbf{x}$_{2}$(t) = \begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}$
+
+\textbf{Problem 11:} $\lambda = \pm 2i$, $\mathbf{x}(t) = c$_{1}$\begin{pmatrix} \cos(2t) \\ \sin(2t)/2 \end{pmatrix} + c$_{2}$\begin{pmatrix} \sin(2t) \\ -\cos(2t)/2 \end{pmatrix}$
+
+\textbf{Problem 12:} First find $\lambda = 1 \pm i$, then apply initial conditions.
+
+\textbf{Problem 17:} Period $T = 2\pi/\beta = 2\pi/3$
+
+\textbf{Problem 19:} Stable for $k < 0$
+
+\textbf{Problem 26:} Natural frequency $\omega = 2$ rad/s
+
+\textbf{Problem 27:} Underdamped (complex eigenvalues with negative real part)
+
+\textbf{Key Strategy:} Always use Euler's formula to convert complex exponentials to real trig functions. Remember that complex eigenvalues come in conjugate pairs, and you only need to work with one of them.
+
+\textbf{Verification:} Check that your real solutions satisfy the original differential equation!
+
+\end{document}

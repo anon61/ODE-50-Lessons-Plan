@@ -1,0 +1,191 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newtheorem{lemma}{Lemma}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{transformation}
+
+\title{Lesson 20: Riccati to Second-Order Linear Transformation}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Fundamental Transformation}
+
+\begin{theorem}[Riccati to Second-Order Linear]
+The Riccati equation
+$$y' = q_0(x) + q_1(x)y + q_2(x)y^2$$
+can be transformed into the second-order linear equation
+$$u'' + p(x)u' + r(x)u = 0$$
+via the substitution $y = -\frac{1}{q_2} \cdot \frac{u'}{u}$, where:
+\begin{align}
+p(x) &= -q_1 - \frac{q_2'}{q_2} \\
+r(x) &= q_0 q_2
+\end{align}
+\end{theorem}
+
+\begin{proof}
+Starting with $y = -\frac{1}{q_2} \cdot \frac{u'}{u}$:
+
+\begin{align}
+y' &= -\frac{1}{q_2} \cdot \frac{d}{dx}\left(\frac{u'}{u}\right) + \frac{q_2'}{q_2^2} \cdot \frac{u'}{u} \\
+&= -\frac{1}{q_2}\left(\frac{u''}{u} - \frac{(u')^2}{u^2}\right) + \frac{q_2'}{q_2^2} \cdot \frac{u'}{u} \\
+&= -\frac{u''}{q_2 u} + \frac{1}{q_2} \cdot \frac{(u')^2}{u^2} + \frac{q_2'}{q_2^2} \cdot \frac{u'}{u} \\
+&= -\frac{u''}{q_2 u} + \frac{1}{q_2} \cdot q_2^2 y^2 + \frac{q_2'}{q_2^2} \cdot (-q_2 y) \\
+&= -\frac{u''}{q_2 u} + q_2 y^2 - \frac{q_2'}{q_2} y
+\end{align}
+
+Substituting into the Riccati equation and simplifying yields the stated result. $\square$
+\end{proof}
+
+\section{Alternative Transformation}
+
+\begin{transformation}
+\textbf{The Exponential Integral Approach:}
+
+For the Riccati equation $y' = q_0 + q_1 y + q_2 y^2$, we can use:
+$$v = \exp\left(\int y \, dx\right)$$
+
+Then:
+\begin{enumerate}
+    \item $\frac{v'}{v} = y$ implies $y = \frac{v'}{v}$
+    \item $y' = \frac{v''}{v} - \left(\frac{v'}{v}\right)^2 = \frac{v''}{v} - y^2$
+    \item Substituting into Riccati: $\frac{v''}{v} - y^2 = q_0 + q_1 y + q_2 y^2$
+    \item This gives: $v'' - q_1 v' - (1 + q_2)(v')^2/v + q_0 v = 0$
+\end{enumerate}
+
+This form is useful when $q_2 = -1$ as it simplifies to:
+$$v'' - q_1 v' + q_0 v = 0$$
+\end{transformation}
+
+\section{Standard Examples}
+
+\begin{example}[Constant Coefficients]
+Solve: $y' = 1 + y^2$
+
+\textbf{Method 1: Using $y = -u'/u$}
+
+Here $q_0 = 1$, $q_1 = 0$, $q_2 = 1$. Since $q_2$ is constant, $q_2' = 0$.
+
+The second-order equation becomes:
+$$u'' + 0 \cdot u' + 1 \cdot u = 0 \implies u'' + u = 0$$
+
+General solution: $u = c_1 \cos x + c_2 \sin x$
+
+Therefore: $y = -\frac{u'}{u} = -\frac{-c_1 \sin x + c_2 \cos x}{c_1 \cos x + c_2 \sin x} = \frac{c_1 \sin x - c_2 \cos x}{c_1 \cos x + c_2 \sin x}$
+
+Simplifying: $y = \tan(x - \phi)$ where $\tan \phi = c_2/c_1$
+\end{example}
+
+\begin{example}[Euler-Type Transformation]
+Solve: $y' = \frac{a}{x^2} + b \cdot y^2$ where $a, b$ are constants.
+
+Using $y = -\frac{1}{b} \cdot \frac{u'}{u}$ (note $q_2 = b$):
+
+The second-order equation becomes:
+$$u'' + 0 \cdot u' + \frac{ab}{x^2} u = 0$$
+
+or equivalently:
+$$x^2 u'' + ab \cdot u = 0$$
+
+This is an Euler equation. Let $u = x^m$:
+$$m(m-1) + ab = 0 \implies m = \frac{1 \pm \sqrt{1 - 4ab}}{2}$$
+
+The nature of solutions depends on the discriminant $1 - 4ab$.
+\end{example}
+
+\section{Special Second-Order Forms}
+
+\begin{keypoint}
+\textbf{Common Transformations and Their Second-Order Forms:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Riccati Form} & \textbf{Second-Order Result} \\
+\hline
+$y' = a + by^2$ (const) & $u'' + ab \cdot u = 0$ \\
+$y' = \frac{a}{x^2} + by^2$ & $x^2u'' + ab \cdot u = 0$ (Euler) \\
+$y' = ax^2 + by^2$ & $u'' + abx^2 u = 0$ (Airy-type) \\
+$y' = q_0(x) - y^2$ & $u'' - q_0(x)u = 0$ \\
+$y' = \frac{n(n+1)}{x^2} + y^2$ & Modified Bessel equation \\
+\hline
+\end{tabular}
+\end{center}
+\end{keypoint}
+
+\begin{warning}
+\textbf{When the Method Fails:}
+\begin{itemize}
+    \item If $q_2(x) = 0$ at some points, the transformation is singular there
+    \item The resulting second-order equation may not have elementary solutions
+    \item Series solutions or special functions may be required
+    \item Numerical methods might be necessary for general $q_i(x)$
+\end{itemize}
+\end{warning}
+
+\section{Reverse Transformation}
+
+\begin{theorem}[Second-Order to Riccati]
+Given the second-order linear equation:
+$$u'' + p(x)u' + q(x)u = 0$$
+
+The substitution $y = -\frac{u'}{u}$ yields the Riccati equation:
+$$y' = -q(x) - p(x)y - y^2$$
+\end{theorem}
+
+\begin{insight}
+\textbf{Why This Matters:}
+\begin{itemize}
+    \item Every linear second-order equation has an associated Riccati
+    \item Solutions of one determine solutions of the other
+    \item Qualitative properties transfer between the two forms
+    \item Stability analysis can be done in either form
+    \item Special functions defined by second-order equations give Riccati solutions
+\end{itemize}
+\end{insight}
+
+\section{Solution Process Flowchart}
+
+\begin{keypoint}
+\textbf{Solution Process Algorithm:}
+\begin{enumerate}
+    \item Start with Riccati: $y' = q_0 + q_1y + q_2y^2$
+    \item \textbf{If} you know a particular solution $y_p$:
+    \begin{itemize}
+        \item Use substitution $y = y_p + v$
+        \item Solve resulting Bernoulli equation
+    \end{itemize}
+    \item \textbf{If} no particular solution is known:
+    \begin{itemize}
+        \item Use transformation $y = -\frac{u'}{q_2 u}$
+        \item Solve resulting second-order linear equation
+    \end{itemize}
+    \item Back-substitute to find general solution
+\end{enumerate}
+\end{keypoint}
+
+\section{Connection to Special Functions}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Favorite Transformations:}
+\begin{enumerate}
+    \item Riccati $\to$ Constant coefficient: Usually solvable with exponentials
+    \item Riccati $\to$ Euler equation: Power solutions
+    \item Riccati $\to$ Airy equation: Special functions required
+    \item Riccati $\to$ Bessel equation: Bessel functions needed
+    \item Simple forms where $q_2 = \pm 1$: Often give nice solutions
+\end{enumerate}
+\end{examtip}
+
+\end{document}

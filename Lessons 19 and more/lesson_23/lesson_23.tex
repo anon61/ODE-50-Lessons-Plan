@@ -1,0 +1,141 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry, mdframed, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 23: Integrating Factors - $\mu(x)$ and $\mu(y)$ Cases}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction to Integrating Factors}
+
+\begin{definition}[Integrating Factor]
+For a non-exact equation $M(x,y)dx + N(x,y)dy = 0$, an \textbf{integrating factor} $\mu(x,y)$ is a function such that
+$$\mu(x,y)M(x,y)dx + \mu(x,y)N(x,y)dy = 0$$
+is exact.
+\end{definition}
+
+\begin{keypoint}
+An integrating factor converts a non-exact equation into an exact one without changing the solution curves.
+\end{keypoint}
+
+\section{Integrating Factor Depending Only on $x$}
+
+\begin{theorem}[Test for $\mu(x)$]
+If $\frac{\partial M/\partial y - \partial N/\partial x}{N}$ depends only on $x$, then there exists an integrating factor $\mu(x)$ satisfying:
+$$\frac{d\mu}{dx} = \mu \cdot \frac{\partial M/\partial y - \partial N/\partial x}{N}$$
+\end{theorem}
+
+\begin{algorithm}
+\textbf{Finding $\mu(x)$:}
+\begin{enumerate}
+    \item Calculate $\frac{\partial M}{\partial y}$ and $\frac{\partial N}{\partial x}$
+    \item Compute $\frac{\partial M/\partial y - \partial N/\partial x}{N}$
+    \item Check if this expression contains only $x$ (no $y$ terms)
+    \item If yes, solve $\frac{d\mu}{dx} = \mu \cdot \frac{\partial M/\partial y - \partial N/\partial x}{N}$
+    \item Multiply original equation by $\mu(x)$
+    \item Verify the result is exact and solve
+\end{enumerate}
+\end{algorithm}
+
+\section{Integrating Factor Depending Only on $y$}
+
+\begin{theorem}[Test for $\mu(y)$]
+If $\frac{\partial N/\partial x - \partial M/\partial y}{M}$ depends only on $y$, then there exists an integrating factor $\mu(y)$ satisfying:
+$$\frac{d\mu}{dy} = \mu \cdot \frac{\partial N/\partial x - \partial M/\partial y}{M}$$
+\end{theorem}
+
+\begin{keypoint}
+\textbf{Memory Aid:}
+\begin{itemize}
+    \item For $\mu(x)$: ``$(M_y - N_x)/N$'' $\to$ function of $x$ only
+    \item For $\mu(y)$: ``$(N_x - M_y)/M$'' $\to$ function of $y$ only
+\end{itemize}
+Note the sign flip and denominator change!
+\end{keypoint}
+
+\section{Complete Examples}
+
+\begin{example}[Finding $\mu(x)$]
+Solve: $(3xy + y^2)dx + (x^2 + xy)dy = 0$
+
+\textbf{Step 1: Check exactness}
+$\frac{\partial M}{\partial y} = 3x + 2y$, $\frac{\partial N}{\partial x} = 2x + y$
+Not equal $\Rightarrow$ Not exact
+
+\textbf{Step 2: Test for $\mu(x)$}
+$\frac{M_y - N_x}{N} = \frac{(3x + 2y) - (2x + y)}{x^2 + xy} = \frac{x + y}{x(x + y)} = \frac{1}{x}$
+
+This depends only on $x$!
+
+\textbf{Step 3: Find $\mu(x)$}
+$\frac{d\mu}{dx} = \frac{\mu}{x} \Rightarrow \mu = x$
+
+\textbf{Step 4: Multiply and solve}
+$x(3xy + y^2)dx + x(x^2 + xy)dy = 0$
+$(3x^2y + xy^2)dx + (x^3 + x^2y)dy = 0$
+
+Verify exactness: $\frac{\partial}{\partial y}(3x^2y + xy^2) = 3x^2 + 2xy = \frac{\partial}{\partial x}(x^3 + x^2y)$ $\checkmark$
+\end{example}
+
+\begin{example}[Finding $\mu(y)$]
+Solve: $(2y)dx + (3x)dy = 0$
+
+\textbf{Test for $\mu(y)$:}
+$\frac{N_x - M_y}{M} = \frac{3 - 2}{2y} = \frac{1}{2y}$
+
+This depends only on $y$!
+
+$\frac{d\mu}{dy} = \frac{\mu}{2y} \Rightarrow \mu = y^{1/2}$
+
+\textbf{Multiplied equation:} $(2y^{3/2})dx + (3xy^{1/2})dy = 0$
+
+Solution: $H = 2xy^{3/2} = C$
+\end{example}
+
+\section{Decision Flow}
+
+\begin{algorithm}
+\textbf{Complete Strategy:}
+\begin{enumerate}
+    \item Test for exactness first
+    \item If not exact, test for $\mu(x)$: check if $(M_y - N_x)/N$ depends only on $x$
+    \item If not, test for $\mu(y)$: check if $(N_x - M_y)/M$ depends only on $y$
+    \item If neither works, try special forms (Lesson 24)
+    \item After finding $\mu$, multiply equation and solve as exact
+\end{enumerate}
+\end{algorithm}
+
+\begin{warning}
+\textbf{Common Mistakes:}
+\begin{itemize}
+    \item Forgetting to multiply both $M$ and $N$ by the integrating factor
+    \item Sign errors in $(M_y - N_x)$ vs $(N_x - M_y)$
+    \item Confusing which denominator to use ($N$ vs $M$)
+    \item Not verifying exactness after multiplication
+\end{itemize}
+\end{warning}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Patterns:}
+\begin{itemize}
+    \item Often gives equations where both $\mu(x)$ and $\mu(y)$ exist
+    \item May ask you to find the integrating factor, not the full solution
+    \item Watch for simple integrating factors like $x$, $y$, $x^2$, $y^{-1}$
+    \item Sometimes disguises as ``Show that $\mu = \ldots$ is an integrating factor''
+\end{itemize}
+\end{examtip}
+
+\end{document}

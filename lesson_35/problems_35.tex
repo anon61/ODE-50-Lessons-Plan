@@ -1,0 +1,117 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 35: Practice Problems - Duhamel's Principle}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Direct Application of Duhamel's Formula}
+
+\begin{enumerate}
+\item Apply Duhamel's principle to solve: $\mathbf{x}' = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Use Duhamel to find: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e$^{t}$ \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Solve using Duhamel: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ t \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Apply the formula to: $\mathbf{x}' = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e$^{t}$ \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part B: Systems with Step Functions}
+
+\begin{enumerate}[start=6]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-2) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Find: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ H(t-1) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Solve with piecewise forcing: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1-H(t-1) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Compute: $\mathbf{x}' = \begin{pmatrix} -2 & 0 \\ 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-1) - H(t-2) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Find the response to multiple steps: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t) \\ H(t-1) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part C: Impulse Response Problems}
+
+\begin{enumerate}[start=11]
+\item Find the response to $\mathbf{f}(t) = \delta(t-1)\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ for $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Solve with double impulse: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \delta(t)\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \delta(t-\pi)\begin{pmatrix} 0 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Compute the impulse response matrix for $A = \begin{pmatrix} 1 & 2 \\ 0 & 3 \end{pmatrix}$
+
+\item Find the solution with initial impulse: $\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0^+) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$ (impulse at $t=0$)
+
+\item Determine the long-term behavior after impulse: $\mathbf{x}' = \begin{pmatrix} -1 & 2 \\ 0 & -3 \end{pmatrix}\mathbf{x} + \delta(t-1)\begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part D: Complete IVPs with Various Forcings}
+
+\begin{enumerate}[start=16]
+\item Solve completely: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+
+\item Find: $\mathbf{x}' = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ (resonance!)
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \\ e^{-t} \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 2 \end{pmatrix}$
+
+\item Complete solution for: $\mathbf{x}' = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Find $\mathbf{x}(2)$ for: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e$^{t}$ \\ t \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part E: 3\times3 Systems Using Duhamel}
+
+\begin{enumerate}[start=21]
+\item Apply Duhamel to: $\mathbf{x}' = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \\ -1 \end{pmatrix}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ 0 \\ e$^{t}$ \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+
+\item Find: $\mathbf{x}' = \begin{pmatrix} -1 & 0 & 0 \\ 0 & -2 & 0 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \sin t \\ \cos t \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$
+
+\item Compute steady-state for: $\mathbf{x}' = \begin{pmatrix} -1 & 1 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+
+\item Solve with Jordan block: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part F: Advanced Applications}
+
+\begin{enumerate}[start=26]
+\item Show that for constant forcing $\mathbf{f}(t) = \mathbf{c}$ and stable $A$ (all eigenvalues have negative real parts), the steady-state solution is $\mathbf{x}_{ss} = -A^{-1}\mathbf{c}$.
+
+\item Verify Duhamel gives the same result as variation of parameters for: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{3t} \\ 0 \end{pmatrix}$
+
+\item For periodic forcing $\mathbf{f}(t) = \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}$ with $A = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}$, find the steady-state periodic solution.
+
+\item Derive the response to a ramp input: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \cdot H(t) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item \textbf{Challenge:} Prove that Duhamel's formula satisfies the differential equation and initial condition.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $\mathbf{x}(t) = \begin{pmatrix} \frac{1}{2}(1-e^{2t}) \\ \frac{1}{3}(1-e^{3t}) \end{pmatrix}$
+
+\textbf{Problem 3:} Use $e^{At} = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, get $\mathbf{x}(t) = \begin{pmatrix} 1 + t$^{3}$/6 \\ t$^{2}$/2 \end{pmatrix}$
+
+\textbf{Problem 5:} $e^{At} = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}$, particular solution is $\begin{pmatrix} 1 - \cos t \\ \sin t \end{pmatrix}$
+
+\textbf{Problem 11:} $\mathbf{x}(t) = \begin{pmatrix} H(t-1)e^{-(t-1)} \\ e^{-2t} + 0 \end{pmatrix}$
+
+\textbf{Problem 16:} Repeated eigenvalue with resonance gives $t$^{2e}$^{2t}$ terms.
+
+\textbf{Problem 17:} Resonance produces $t\cos(2t)$ and $t\sin(2t)$ terms.
+
+\textbf{Key Strategy:} Always write Duhamel's formula first, then systematically compute $e^{At}$, apply to IC, set up convolution, and combine.
+
+\textbf{Verification:} Differentiate your solution and verify it satisfies both the ODE and initial condition.
+
+\end{document}

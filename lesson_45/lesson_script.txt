@@ -1,0 +1,220 @@
+Episode 45: Method of Undetermined Coefficients**
+
+Audio Lesson Script**
+*[Duration: 15-20 minutes when read aloud]*
+
+---
+
+**Opening**
+
+So basically, everything we've done so far has been for homogeneous equations - where the right-hand side is zero. But in the real world? Forces act on systems. Circuits have voltage sources. Springs get pushed. That's where non-homogeneous equations come in, and today I'm going to show you the most efficient method for solving them: undetermined coefficients.
+
+Here's the beautiful thing about this method - it's purely algebraic. No integration needed. You just guess the right form, plug it in, and solve for coefficients. It's like having a cheat code for differential equations. But there's a catch - it only works for certain types of forcing functions. Let me show you exactly when and how to use it.
+
+**The Non-Homogeneous Problem**
+
+Consider the general non-homogeneous linear ODE with constant coefficients:
+a_n y^(n) + ... + a_1 y' + a_0 y = f(t)
+
+The complete solution has two parts:
+y = y_h + y_p
+
+where y_h is the homogeneous solution (from Lessons 43-44) and y_p is a particular solution that we need to find.
+
+The homogeneous solution y_h contains all the arbitrary constants and satisfies the initial conditions. The particular solution y_p is just ONE solution that makes the equation work with the forcing function f(t).
+
+**When Does This Method Work?**
+
+Undetermined coefficients works when f(t) is a linear combination of:
+1. Polynomials: t^n, t^2, t, constants
+2. Exponentials: e^(at)
+3. Sines and cosines: sin(bt), cos(bt)
+4. Products of these: t^2 e^(3t), e^(-t)cos(2t), t·sin(t)
+
+Why these functions? Because when you differentiate them, you get the same type of function back! A polynomial stays a polynomial (maybe lower degree), e^(at) stays e^(at), and trig functions stay trig functions. This closure property is what makes the method work.
+
+**The Basic Strategy**
+
+Here's the algorithm:
+1. Identify the form of f(t)
+2. Guess a particular solution y_p with the same form but undetermined coefficients
+3. Substitute y_p into the ODE
+4. Match coefficients to find the unknowns
+
+Let me show you with examples.
+
+**Example 1: Polynomial Forcing**
+
+Solve: y'' - 3y' + 2y = 4t + 5
+
+First, find y_h. Characteristic equation: r^2 - 3r + 2 = 0, giving r = 1, 2.
+So y_h = c_1 e^t + c_2 e^(2t).
+
+Now for y_p. Since f(t) = 4t + 5 is a first-degree polynomial, we guess:
+y_p = At + B
+
+Why not just At? Because when we differentiate, we'll get constants too, and we need to match all terms.
+
+Calculate derivatives:
+- y_p' = A
+- y_p'' = 0
+
+Substitute into the ODE:
+0 - 3A + 2(At + B) = 4t + 5
+2At + (2B - 3A) = 4t + 5
+
+Matching coefficients:
+- Coefficient of t: 2A = 4, so A = 2
+- Constant term: 2B - 3A = 5, so 2B - 6 = 5, giving B = 11/2
+
+Therefore: y_p = 2t + 11/2
+
+Complete solution: y = c_1 e^t + c_2 e^(2t) + 2t + 11/2
+
+**Example 2: Exponential Forcing**
+
+Solve: y'' - 5y' + 6y = e^(4t)
+
+Homogeneous: r^2 - 5r + 6 = 0, giving r = 2, 3.
+So y_h = c_1 e^(2t) + c_2 e^(3t).
+
+For f(t) = e^(4t), guess: y_p = Ae^(4t)
+
+Derivatives:
+- y_p' = 4Ae^(4t)
+- y_p'' = 16Ae^(4t)
+
+Substitute:
+16Ae^(4t) - 5(4Ae^(4t)) + 6Ae^(4t) = e^(4t)
+(16A - 20A + 6A)e^(4t) = e^(4t)
+2Ae^(4t) = e^(4t)
+
+So A = 1/2, giving y_p = (1/2)e^(4t).
+
+**The Resonance Problem**
+
+Now here's where it gets tricky. What if the forcing function matches one of your homogeneous solutions? This is called resonance, and it's where students make mistakes.
+
+**Example 3: Resonance Case**
+
+Solve: y'' - 5y' + 6y = e^(2t)
+
+Same homogeneous solution: y_h = c_1 e^(2t) + c_2 e^(3t)
+
+If we guess y_p = Ae^(2t), we have a problem! This is already in y_h. When we substitute, we'll get 0 = e^(2t), which is impossible.
+
+The fix? Multiply by t:
+y_p = Ate^(2t)
+
+Now:
+- y_p' = Ae^(2t) + 2Ate^(2t)
+- y_p'' = 4Ae^(2t) + 4Ate^(2t)
+
+Substitute:
+[4Ae^(2t) + 4Ate^(2t)] - 5[Ae^(2t) + 2Ate^(2t)] + 6[Ate^(2t)] = e^(2t)
+e^(2t)[4A + 4At - 5A - 10At + 6At] = e^(2t)
+e^(2t)[-A] = e^(2t)
+
+So A = -1, giving y_p = -te^(2t).
+
+The rule: If your guess matches a homogeneous solution, multiply by t. If it still matches (repeated roots), multiply by t^2, and so on.
+
+**Example 4: Trigonometric Forcing**
+
+Solve: y'' + 4y = sin(3t)
+
+Homogeneous: r^2 + 4 = 0, giving r = ±2i.
+So y_h = c_1 cos(2t) + c_2 sin(2t).
+
+For f(t) = sin(3t), we must guess BOTH sine and cosine:
+y_p = A cos(3t) + B sin(3t)
+
+Why both? Because derivatives of sine give cosine and vice versa. We need both to match.
+
+Derivatives:
+- y_p' = -3A sin(3t) + 3B cos(3t)
+- y_p'' = -9A cos(3t) - 9B sin(3t)
+
+Substitute:
+[-9A cos(3t) - 9B sin(3t)] + 4[A cos(3t) + B sin(3t)] = sin(3t)
+(-5A) cos(3t) + (-5B) sin(3t) = 0 + sin(3t)
+
+Matching:
+- Coefficient of cos(3t): -5A = 0, so A = 0
+- Coefficient of sin(3t): -5B = 1, so B = -1/5
+
+Therefore: y_p = -(1/5) sin(3t)
+
+**Example 5: Resonant Trigonometric**
+
+This is the most important case for physics - pure resonance.
+
+Solve: y'' + 4y = sin(2t)
+
+Now we have trouble! The forcing frequency matches the natural frequency. Our guess A cos(2t) + B sin(2t) is already in y_h.
+
+Multiply by t:
+y_p = t[A cos(2t) + B sin(2t)]
+
+After substituting and simplifying (trust me, it's messy):
+A = 1/4, B = 0
+
+So y_p = (t/4) cos(2t)
+
+This solution grows without bound - that's resonance! The amplitude increases linearly with time.
+
+**The Superposition Principle**
+
+When f(t) has multiple terms, handle each separately:
+
+If f(t) = 3e^t + 2sin(t) - 4t^2, find particular solutions for each:
+- y_p1 for 3e^t
+- y_p2 for 2sin(t)
+- y_p3 for -4t^2
+
+Then y_p = y_p1 + y_p2 + y_p3.
+
+**The Complete Guessing Table**
+
+Here's your cheat sheet:
+
+| f(t) | Guess y_p |
+|------|-----------|
+| Polynomial degree n | Polynomial degree n |
+| e^(at) | Ae^(at) |
+| sin(bt) or cos(bt) | A cos(bt) + B sin(bt) |
+| t^n e^(at) | (Polynomial degree n) × e^(at) |
+| e^(at) sin(bt) | e^(at)[A cos(bt) + B sin(bt)] |
+
+If resonance occurs (guess matches homogeneous), multiply by t^s where s is the multiplicity of the matching root.
+
+**Common Mistakes**
+
+1. **Forgetting both sine and cosine**: Even if f(t) = cos(3t), you need both in y_p.
+
+2. **Wrong degree polynomial**: If f(t) = t^3, you need y_p = At^3 + Bt^2 + Ct + D, not just At^3.
+
+3. **Missing resonance**: Always check if your guess appears in y_h first!
+
+4. **Product rules**: For f(t) = t^2 e^(3t), you need y_p = (At^2 + Bt + C)e^(3t), not just At^2 e^(3t).
+
+**Memory Technique**
+
+Think of it as "mimicry with modification":
+- The particular solution mimics the forcing function
+- But includes all related terms (lower degree polynomials, both trig functions)
+- And modifies for resonance when needed
+
+**Why Not Always Use This Method?**
+
+Undetermined coefficients is fast but limited. It fails for:
+- f(t) = tan(t), sec(t), ln(t), 1/t
+- Any function that doesn't stay in a finite-dimensional space under differentiation
+
+For these, we need variation of parameters (next topic in your course).
+
+**Closing**
+
+So basically, undetermined coefficients is pattern matching with algebra. Identify the forcing type, make an educated guess with unknown coefficients, substitute, and solve. The only subtlety is resonance - when your guess matches a homogeneous solution, multiply by t. Master this method and you'll solve 90% of the non-homogeneous ODEs on Prof. Ditkowski's exam in minutes instead of hours. It's pure algorithmic beauty.
+
+---

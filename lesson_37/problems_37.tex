@@ -1,0 +1,280 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry, enumitem, mdframed}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newmdenv[linecolor=green,linewidth=1pt]{solution}
+
+\title{Practice Problems - Lesson 37: 2D Linear Classification}
+\author{ODE 1 Course}
+\date{}
+
+\usepackage{xcolor}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Quick Classification (Problems 1-6)}
+
+\begin{enumerate}
+\item Classify each system using ONLY trace and determinant:
+\begin{enumerate}[label=(\alph*)]
+    \item $A = \begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix}$
+    \item $A = \begin{pmatrix} -2 & 4 \\ -1 & -2 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 0 & -3 \\ 3 & 0 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 1 & 5 \\ -1 & -1 \end{pmatrix}$
+\end{enumerate}
+
+\item For each trace-determinant pair, determine the portrait type:
+\begin{enumerate}[label=(\alph*)]
+    \item $\tau = 4, \Delta = 3$
+    \item $\tau = -2, \Delta = 5$
+    \item $\tau = 0, \Delta = 4$
+    \item $\tau = 3, \Delta = -2$
+\end{enumerate}
+
+\item Find all values of $k$ such that $A = \begin{pmatrix} k & 2 \\ 3 & 1 \end{pmatrix}$ gives:
+\begin{enumerate}[label=(\alph*)]
+    \item A saddle point
+    \item A center
+    \item A stable node
+    \item A stable spiral
+\end{enumerate}
+
+\item Determine the stability of the origin for:
+$$\dot{x} = -3x + 2y, \quad \dot{y} = -2x - 3y$$
+without computing eigenvalues.
+
+\item Which of these systems have closed orbits?
+\begin{enumerate}[label=(\alph*)]
+    \item $\dot{x} = y, \dot{y} = -4x$
+    \item $\dot{x} = y, \dot{y} = -x - y$
+    \item $\dot{x} = -y, \dot{y} = x$
+    \item $\dot{x} = x + y, \dot{y} = -x + y$
+\end{enumerate}
+
+\item A system has eigenvalues $\lambda$_{1}$ = 2 + 3i$ and $\lambda$_{2}$ = 2 - 3i$.
+\begin{enumerate}[label=(\alph*)]
+    \item Classify the equilibrium type.
+    \item Find the trace and determinant.
+    \item Is the origin stable?
+    \item What is the rotation frequency?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Eigenvalue Analysis (Problems 7-12)}
+
+\begin{enumerate}[resume]
+\item For $A = \begin{pmatrix} 4 & -5 \\ 2 & -2 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues and eigenvectors.
+    \item Classify the equilibrium.
+    \item Sketch the phase portrait.
+    \item Find equations for stable/unstable manifolds.
+\end{enumerate}
+
+\item Consider $A = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show eigenvalues are complex.
+    \item Find the real and imaginary parts.
+    \item Determine rotation direction.
+    \item Calculate the period of near-circular orbits.
+\end{enumerate}
+
+\item For the repeated eigenvalue case $A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the eigenvalue(s).
+    \item Find all eigenvectors.
+    \item Classify as star, improper, or proper node.
+    \item Sketch the portrait.
+\end{enumerate}
+
+\item Given eigenvalues $\lambda$_{1}$ = -3, \lambda$_{2}$ = -1$ with eigenvectors $v$_{1}$ = \begin{pmatrix} 1 \\ 1 \end{pmatrix}, v$_{2}$ = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Reconstruct matrix $A$.
+    \item Verify the classification.
+    \item Which eigenvector determines long-term behavior?
+\end{enumerate}
+
+\item A matrix has $\tau = -4$ and one eigenvalue is $\lambda$_{1}$ = -1$. Find:
+\begin{enumerate}[label=(\alph*)]
+    \item The other eigenvalue.
+    \item The determinant.
+    \item The equilibrium type.
+\end{enumerate}
+
+\item For what values of $a$ does $A = \begin{pmatrix} a & 1 \\ -4 & a \end{pmatrix}$ have:
+\begin{enumerate}[label=(\alph*)]
+    \item Real eigenvalues?
+    \item Complex eigenvalues?
+    \item Pure imaginary eigenvalues?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Portrait Sketching (Problems 13-18)}
+
+\begin{enumerate}[resume]
+\item Sketch the phase portrait for each:
+\begin{enumerate}[label=(\alph*)]
+    \item $\dot{x} = 2x + y, \dot{y} = x + 2y$ (proper node)
+    \item $\dot{x} = x + 3y, \dot{y} = -3x + y$ (spiral)
+    \item $\dot{x} = 2x - 5y, \dot{y} = x - 2y$ (saddle)
+    \item $\dot{x} = -y, \dot{y} = 4x$ (center)
+\end{enumerate}
+
+\item Draw a phase portrait with:
+\begin{enumerate}[label=(\alph*)]
+    \item Eigenvalues $\lambda$_{1}$ = 3, \lambda$_{2}$ = 1$
+    \item Horizontal eigenvector for $\lambda$_{1}$$
+    \item Vertical eigenvector for $\lambda$_{2}$$
+\end{enumerate}
+
+\item Sketch an improper node for $A = \begin{pmatrix} -2 & 1 \\ 0 & -2 \end{pmatrix}$.
+
+\item Draw a stable spiral that rotates clockwise with eigenvalues $-1 \pm 2i$.
+
+\item Create a phase portrait where:
+\begin{enumerate}[label=(\alph*)]
+    \item Trajectories approach origin
+    \item No rotation occurs
+    \item All trajectories are tangent to $y = x$ at origin
+\end{enumerate}
+
+\item Sketch the degenerate case $A = \begin{pmatrix} 1 & 2 \\ 0 & 0 \end{pmatrix}$.
+\end{enumerate}
+
+\section*{Part D: Special Cases (Problems 19-23)}
+
+\begin{enumerate}[resume]
+\item Analyze the star node $A = 3I$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all eigenvectors.
+    \item Describe trajectory behavior.
+    \item Find the solution starting at $(1, 2)$.
+\end{enumerate}
+
+\item For the skew-symmetric matrix $A = \begin{pmatrix} 0 & \omega \\ -\omega & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show all orbits are circles.
+    \item Find the period.
+    \item What physical system does this represent?
+\end{enumerate}
+
+\item Consider the nilpotent matrix $A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues.
+    \item Describe the phase portrait.
+    \item Solve the system explicitly.
+\end{enumerate}
+
+\item Analyze the shear transformation $A = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria.
+    \item Describe trajectory behavior.
+    \item Is the origin stable?
+\end{enumerate}
+
+\item For a Hamiltonian system with $A = \begin{pmatrix} 0 & 1 \\ -\omega$^{2}$ & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show $\tau = 0$ always.
+    \item When is it a center vs. saddle?
+    \item Find the conserved quantity.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Parameter Studies (Problems 24-28)}
+
+\begin{enumerate}[resume]
+\item Consider $A_\mu = \begin{pmatrix} \mu & 1 \\ -1 & \mu \end{pmatrix}$ as $\mu$ varies:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues as functions of $\mu$.
+    \item Identify all bifurcation values.
+    \item Sketch portraits for $\mu = -1, 0, 1$.
+    \item What happens as $\mu$ crosses zero?
+\end{enumerate}
+
+\item For the damped oscillator $\ddot{x} + 2\zeta\dot{x} + x = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to first-order system.
+    \item Classify for $\zeta = 0, 0.5, 1, 2$.
+    \item Find the critical damping value.
+    \item Relate to physical behavior.
+\end{enumerate}
+
+\item Study $A = \begin{pmatrix} a & b \\ b & a \end{pmatrix}$ (symmetric):
+\begin{enumerate}[label=(\alph*)]
+    \item Show eigenvalues are always real.
+    \item Find conditions for each portrait type.
+    \item Can this give a spiral? Why not?
+\end{enumerate}
+
+\item For $A = \begin{pmatrix} 1 & k \\ k & -1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the transition value where portrait type changes.
+    \item Classify for $k = 0, 1, 2$.
+    \item Sketch the trace-det diagram path as $k$ varies.
+\end{enumerate}
+
+\item Consider the one-parameter family $A_\alpha = \begin{pmatrix} \alpha & \alpha-1 \\ 1-\alpha & \alpha \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show $\det(A_\alpha)$ is constant.
+    \item Find all portrait types as $\alpha$ varies.
+    \item Identify bifurcation points.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 29-30)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Comprehensive]}
+Given the system $\dot{x} = ax + 4y$, $\dot{y} = -x + ay$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find trace and determinant in terms of $a$.
+    \item Determine all values of $a$ giving:
+    \begin{itemize}
+        \item Saddle points
+        \item Centers
+        \item Stable spirals
+        \item Stable nodes
+    \end{itemize}
+    \item Sketch the bifurcation diagram.
+    \item For $a = -1$, find eigenvalues and eigenvectors.
+    \item Draw the phase portrait for $a = -1$.
+    \item Find the solution with initial condition $(1, 0)$ when $a = 0$.
+\end{enumerate}
+
+\item \textbf{[Complete Analysis]}
+A mechanical system has equations:
+$$\ddot{x} + (k+1)\dot{x} + kx = 0$$
+where $k > 0$ is a parameter.
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to a first-order system.
+    \item Find the matrix $A$ in terms of $k$.
+    \item Compute trace, determinant, and discriminant.
+    \item Show the origin is always stable.
+    \item Find the critical value $k^*$ where behavior changes.
+    \item Classify the portrait for:
+    \begin{itemize}
+        \item $0 < k < k^*$
+        \item $k = k^*$
+        \item $k > k^*$
+    \end{itemize}
+    \item Interpret physically for a mass-spring-damper.
+    \item Sketch portraits for $k = 0.1, 0.25, 1$.
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Strategies:}
+\begin{itemize}
+    \item Always compute $\det(A)$ first - negative means saddle!
+    \item Use $\tau$^{2}$ - 4\Delta$ to distinguish nodes from spirals
+    \item Remember: $\tau = \lambda$_{1}$ + \lambda$_{2}$$, $\Delta = \lambda$_{1}$ \cdot \lambda$_{2}$$
+    \item For spirals: rotation direction from off-diagonal signs
+    \item Centers only when $\tau = 0$ exactly
+    \item Check your portrait satisfies uniqueness theorem
+\end{itemize}
+\end{hint}
+
+\end{document}

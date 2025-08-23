@@ -1,0 +1,103 @@
+Episode 32: Complex Eigenvalues - Real Solutions**
+
+Audio Lesson Script**
+
+Hey there! Welcome to Lesson 32, where we tackle complex eigenvalues. So basically, when you solve that characteristic equation and get complex roots, don't panic! This actually leads to some of the most interesting behavior in ODEs - oscillations and spirals. Prof. Ditkowski absolutely loves these on exams because they test whether you really understand the connection between complex numbers and trigonometry.
+
+Here's the key insight: complex eigenvalues ALWAYS come in conjugate pairs for real matrices. If λ = α + iβ is an eigenvalue, then λ̄ = α - iβ is also an eigenvalue. This is because the characteristic polynomial has real coefficients. And here's the beautiful part - these complex eigenvalues give us real solutions involving sines and cosines!
+
+Let me show you the process with a classic example:
+```
+A = [0  -1]
+    [1   0]
+```
+
+This is a rotation matrix! Let's find the eigenvalues:
+det(A - λI) = det([-λ  -1]) = λ² + 1 = 0
+              ([1  -λ])
+
+So λ = ±i. Pure imaginary eigenvalues - this means pure rotation with no growth or decay.
+
+Now for the eigenvector with λ = i:
+(A - iI)v = [-i  -1][v₁] = [0]
+            [1   -i][v₂]   [0]
+
+From the first row: -iv₁ - v₂ = 0, so v₂ = -iv₁. Choose v₁ = 1:
+v = [1, -i]ᵀ
+
+Here's where Euler's formula becomes our hero! The complex solution is:
+x(t) = e^(it)[1, -i]ᵀ = (cos t + i sin t)[1, -i]ᵀ
+
+Expanding this:
+x(t) = [cos t + i sin t, -i cos t + sin t]ᵀ
+
+Now, the crucial step - separate real and imaginary parts:
+Real part: [cos t, sin t]ᵀ
+Imaginary part: [sin t, -cos t]ᵀ
+
+These two real vectors form our fundamental solutions! The general real solution is:
+**x(t) = c₁[cos t, sin t]ᵀ + c₂[sin t, -cos t]ᵀ**
+
+Let's do a more general example with both rotation and growth/decay:
+```
+A = [2  -3]
+    [3   2]
+```
+
+The characteristic equation: det(A - λI) = (2-λ)² + 9 = λ² - 4λ + 13 = 0
+Using the quadratic formula: λ = (4 ± √(16-52))/2 = (4 ± 6i)/2 = 2 ± 3i
+
+So α = 2 (growth rate) and β = 3 (rotation frequency).
+
+For λ = 2 + 3i, find the eigenvector:
+(A - (2+3i)I)v = [-3i  -3][v₁] = [0]
+                 [3   -3i][v₂]   [0]
+
+From row 1: -3iv₁ - 3v₂ = 0, so v₂ = -iv₁. Choose v₁ = 1:
+v = [1, -i]ᵀ
+
+The complex solution: x(t) = e^((2+3i)t)[1, -i]ᵀ = e^(2t)e^(3it)[1, -i]ᵀ
+
+Using Euler: e^(3it) = cos(3t) + i sin(3t)
+
+So: x(t) = e^(2t)(cos(3t) + i sin(3t))[1, -i]ᵀ
+
+Multiply out and separate:
+Real part: e^(2t)[cos(3t), sin(3t)]ᵀ
+Imaginary part: e^(2t)[sin(3t), -cos(3t)]ᵀ
+
+General real solution:
+**x(t) = e^(2t)[c₁(cos(3t)[1,0]ᵀ + sin(3t)[0,1]ᵀ) + c₂(sin(3t)[1,0]ᵀ - cos(3t)[0,1]ᵀ)]**
+
+Wait, that looks messy! Let me rewrite it cleaner:
+**x(t) = e^(2t)[c₁[cos(3t), sin(3t)]ᵀ + c₂[sin(3t), -cos(3t)]ᵀ]**
+
+The e^(2t) out front tells us we have exponential growth (since α = 2 > 0), while the trig functions give rotation with angular frequency β = 3.
+
+Here's my memory trick: "ERIC" - **E**uler's formula, **R**eal and **I**maginary parts, **C**ombine for solution.
+
+Physical interpretation is amazing:
+- α > 0: Outward spiral (unstable)
+- α < 0: Inward spiral (stable)
+- α = 0: Center (pure rotation, neutrally stable)
+- β determines rotation speed
+
+Common mistakes to avoid:
+1. **Forgetting complex conjugates** - You only need to work with one; the other gives the same real solutions
+2. **Not extracting real parts correctly** - Carefully separate Re and Im
+3. **Wrong Euler's formula** - Remember: e^(iθ) = cos θ + i sin θ
+4. **Missing the e^(αt) factor** - This scales everything!
+
+Prof. Ditkowski's favorite trick: He'll give you a matrix where the eigenvalues are λ = a ± bi and ask about the behavior at t = 2π/b. At this time, we've completed one full rotation!
+
+Here's a crucial connection - in the phase plane, complex eigenvalues create spirals or centers. The real part α determines whether you spiral in or out, while the imaginary part β determines how fast you rotate. If you see a spiral in a phase portrait, you KNOW there are complex eigenvalues lurking!
+
+Quick tip for exams: If the characteristic equation is λ² - 2aλ + (a² + b²) = 0, then λ = a ± bi immediately! This form appears often because it comes from matrices like:
+```
+[a  -b]
+[b   a]
+```
+
+This is the standard form for complex eigenvalues - memorize it!
+
+For initial value problems with complex eigenvalues, you still just plug in t = 0 and solve for c₁ and c₂. The algebra is the same, just with trig functions involved.

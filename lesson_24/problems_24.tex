@@ -1,0 +1,163 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry, xcolor}
+\geometry{margin=1in}
+
+\title{Lesson 24: Practice Problems - Special Integrating Factors}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\usepackage{mdframed}
+\usepackage{tikz}
+\begin{document}
+\maketitle
+
+\section*{Part A: Testing for $\mu(xy)$ (Problems 1-5)}
+
+\begin{enumerate}
+\item For $(y^2 + 2xy)dx + (x^2 - xy)dy = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Verify that neither $\mu(x)$ nor $\mu(y)$ exists
+    \item Test for $\mu(xy)$
+    \item Find the integrating factor if it exists
+\end{enumerate}
+
+\item Test for $\mu(xy)$: $(3xy + y^2)dx + (3xy + x^2)dy = 0$
+
+\item Determine if $\mu(xy)$ exists: $(2y + xy^2)dx + (2x - x^2y)dy = 0$
+
+\item For $(y + x^2y^2)dx + (x + x^2y^2)dy = 0$, find $\mu(xy)$ if it exists.
+
+\item Show that $(xy^2 - y)dx + (x^2y - x)dy = 0$ has $\mu = 1/(xy)$
+\end{enumerate}
+
+\section*{Part B: Testing for $\mu(x^2 + y^2)$ (Problems 6-10)}
+
+\begin{enumerate}[start=6]
+\item Test for $\mu(x^2 + y^2)$: $(x^2 + y^2 + x)dx + ydy = 0$
+
+\item For $(x + y)dx + (x - y)dy = 0$ on the punctured plane:
+\begin{enumerate}[label=(\alph*)]
+    \item Show standard integrating factors don't exist
+    \item Find $\mu(x^2 + y^2)$
+\end{enumerate}
+
+\item Verify that $\mu = 1/(x^2 + y^2)$ works for:
+$-y dx + x dy = 0$
+
+\item Find $\mu(x^2 + y^2)$ for:
+$(x^3 + xy^2 + y)dx + (x^2y + y^3 - x)dy = 0$
+
+\item Test whether $(2xy)dx + (x^2 + y^2)dy = 0$ has an integrating factor of the form $\mu(x^2 + y^2)$.
+\end{enumerate}
+
+\section*{Part C: Power Form $\mu = x^a y^b$ (Problems 11-15)}
+
+\begin{enumerate}[start=11]
+\item Find values of $a$ and $b$ such that $\mu = x^a y^b$ is an integrating factor for:
+$y dx + 2x dy = 0$
+
+\item Find $\mu = x^a y^b$ for: $(2y^2 + xy)dx + xy dy = 0$
+
+\item Determine all integrating factors of the form $x^a y^b$ for:
+$3y dx + 2x dy = 0$
+
+\item For what values of $a, b$ is $x^a y^b$ an integrating factor for:
+$(x^2 + y^2)dx + 2xy dy = 0$?
+
+\item Given that $(3x^2y + ay^3)dx + (x^3 + 3bxy^2)dy = 0$ has an integrating factor $\mu = x^2y$, find $a$ and $b$.
+\end{enumerate}
+
+\section*{Part D: Homogeneous Equations (Problems 16-20)}
+
+\begin{enumerate}[start=16]
+\item Verify homogeneity and find the integrating factor:
+$(x^2 + y^2)dx + 2xy dy = 0$
+
+\item Use the homogeneous property to solve:
+$(x^2 - 2y^2)dx + xy dy = 0$
+
+\item Show that $(x^3 + xy^2)dx + (x^2y + y^3)dy = 0$ is homogeneous and find $\mu$.
+
+\item For the homogeneous equation $(2xy + y^2)dx + (x^2 + 2xy)dy = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find $\mu = 1/(xM + yN)$
+    \item Solve the equation
+\end{enumerate}
+
+\item Explain why $\mu = 1/(xM + yN)$ works for all homogeneous equations of the same degree.
+\end{enumerate}
+
+\section*{Part E: Mixed Special Forms (Problems 21-25)}
+
+\begin{enumerate}[start=21]
+\item For $(y^2 - xy + 1)dx + (xy - x^2 + 1)dy = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Test all standard forms ($\mu(x)$, $\mu(y)$, $\mu(xy)$)
+    \item Find an appropriate integrating factor
+\end{enumerate}
+
+\item The equation $(f(y) + xy)dx + (g(x) + xy)dy = 0$ has $\mu(xy)$. What can you conclude about $f$ and $g$?
+
+\item Find the most appropriate integrating factor for:
+$(x^2y^3 + y)dx + (x^3y^2 + x)dy = 0$
+
+\item Given $(P(x)y + Q(y))dx + (R(x) + S(y)x)dy = 0$ has $\mu = x^a y^b$, find relationships among $P, Q, R, S$.
+
+\item For equations with integrating factor $\mu = e^{xy}$, what condition must $(M_y - N_x)/(xN - yM)$ satisfy?
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 26-30)}
+
+\begin{enumerate}[start=26]
+\item (Prof. Ditkowski 2022) Show that $(2xy^3 + y)dx + (3x^2y^2 + x)dy = 0$ becomes exact when multiplied by $\mu = xy$.
+
+\item Find all integrating factors of the form $\mu = f(xy)$ for:
+$y dx - x dy = 0$
+
+\item Given that an equation has both $\mu_1 = x$ and $\mu_2 = y$ as integrating factors:
+\begin{enumerate}[label=(\alph*)]
+    \item What can you conclude about the equation?
+    \item Give an example of such an equation
+\end{enumerate}
+
+\item For $(ax^2 + bxy + cy^2)dx + (dx^2 + exy + fy^2)dy = 0$ to have $\mu = 1/(x^2 + y^2)$, find the relationship between the coefficients.
+
+\item A differential equation has the form $M dx + N dy = 0$ where $M$ and $N$ are polynomials of degree 3.
+\begin{enumerate}[label=(\alph*)]
+    \item Under what conditions will it have $\mu = x^a y^b$?
+    \item Can it have $\mu(xy)$? Explain.
+    \item What about $\mu = 1/(xM + yN)$?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Key Insights}
+
+\textbf{Problem 1:}
+(a) $\mu(x)$: $(M_y - N_x)/N = (2y + 2x - 2x + y)/(x^2 - xy) = 3y/(x^2 - xy)$ - has $y$, no $\mu(x)$
+$\mu(y)$: $(N_x - M_y)/M = (2x - y - 2y - 2x)/(y^2 + 2xy) = -3y/(y^2 + 2xy) = -3/(y + 2x)$ - has $x$, no $\mu(y)$
+
+(b) $\mu(xy)$: $(M_y - N_x)/(xN - yM) = 3y/(x(x^2 - xy) - y(y^2 + 2xy)) = 3y/(x^3 - x^2y - y^3 - 2xy^2)$
+
+\textbf{Problem 8:}
+$-y dx + x dy = 0$ has $M_y = -1$, $N_x = 1$, so $(M_y - N_x) = -2$
+$xM + yN = x(-y) + y(x) = 0$ - Division by zero issue!
+But note: $d(\arctan(y/x)) = \frac{x dy - y dx}{x^2 + y^2}$, so $\mu = 1/(x^2 + y^2)$ works!
+
+\textbf{Problem 11:}
+$y dx + 2x dy = 0$ with $\mu = x^a y^b$ gives:
+$x^a y^{b+1} dx + 2x^{a+1} y^b dy = 0$
+Exactness: $(b+1)x^a y^b = 2(a+1)x^a y^b$
+So $b + 1 = 2(a + 1)$, giving $b = 2a + 1$
+Family of solutions: $\mu = x^a y^{2a+1}$ for any $a$
+
+\textbf{Problem 16:}
+$(x^2 + y^2)dx + 2xy dy = 0$
+Both $M$ and $N$ are homogeneous of degree 2.
+$xM + yN = x(x^2 + y^2) + y(2xy) = x^3 + xy^2 + 2xy^2 = x^3 + 3xy^2$
+So $\mu = 1/(x^3 + 3xy^2)$
+
+\textbf{Key Strategy:} For Problem 23, notice the symmetry in $x$ and $y$ - this suggests $\mu = xy$ or $\mu = 1/(xy)$.
+
+\textbf{Warning:} Problem 28 - If two different integrating factors exist, their ratio must be a function that makes the original equation exact when used as an integrating factor.
+
+\end{document}
