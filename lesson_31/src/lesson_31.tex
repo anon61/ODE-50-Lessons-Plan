@@ -1,0 +1,139 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{ODE Lesson 31: Repeated Eigenvalues and Jordan Forms}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Defective Eigenvalue Problem}
+
+\begin{definition}[Algebraic and Geometric Multiplicity]
+For an eigenvalue $\lambda$:
+\begin{itemize}
+\item \textbf{Algebraic multiplicity}: The multiplicity of $\lambda$ as a root of the characteristic polynomial
+\item \textbf{Geometric multiplicity}: The dimension of the eigenspace $\ker(A - \lambda I)$
+\item \textbf{Defect}: Algebraic multiplicity minus geometric multiplicity
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Generalized Eigenvector]
+A \textbf{generalized eigenvector} of order $k$ associated with eigenvalue $\lambda$ is a vector $\mathbf{v}$ satisfying:
+\[(A - \lambda I)^{k} \mathbf{v} = \mathbf{0} \quad \text{but} \quad (A - \lambda I)^{k-1} \mathbf{v} \neq \mathbf{0}\]
+\end{definition}
+
+\begin{keypoint}
+\textbf{Jordan Block Structure:}
+A Jordan block of size $n$ for eigenvalue $\lambda$ is:
+\[J_{n}(\lambda) = \begin{pmatrix}
+\lambda & 1 & 0 & \cdots & 0 \\
+0 & \lambda & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \ddots & \vdots \\
+0 & 0 & 0 & \lambda & 1 \\
+0 & 0 & 0 & 0 & \lambda
+\end{pmatrix}\]
+\end{keypoint}
+
+\begin{algorithm}[Jordan Chain Construction]
+To find a Jordan chain for repeated eigenvalue $\lambda$:
+\begin{enumerate}
+\item Start with an eigenvector: $(A - \lambda I)\mathbf{v}_{1} = \mathbf{0}$
+\item Find generalized eigenvector: $(A - \lambda I)\mathbf{v}_{2} = \mathbf{v}_{1}$
+\item Continue the chain: $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}_{k}$
+\item Stop when you have enough vectors to match algebraic multiplicity
+\end{enumerate}
+\end{algorithm}
+
+\begin{theorem}[Solution Form for Repeated Eigenvalues]
+For eigenvalue $\lambda$ with a Jordan chain $\{\mathbf{v}_{1}, \mathbf{v}_{2}, \ldots, \mathbf{v}_{k}\}$:
+\begin{gather}
+\mathbf{x}_{1}(t) = e^{\lambda t}\mathbf{v}_{1} \\
+\mathbf{x}_{2}(t) = e^{\lambda t}(t\mathbf{v}_{1} + \mathbf{v}_{2}) \\
+\mathbf{x}_{3}(t) = e^{\lambda t}\left(\frac{t^{2}}{2!}\mathbf{v}_{1} + t\mathbf{v}_{2} + \mathbf{v}_{3}\right) \\
+\vdots \\
+\mathbf{x}_{k}(t) = e^{\lambda t}\sum_{j=0}^{k-1} \frac{t^{j}}{j!}\mathbf{v}_{k-j}
+\end{gather}
+\end{theorem}
+
+\begin{keypoint}
+\textbf{Why Polynomial Terms Appear:}\\
+The polynomial terms arise from the nilpotent part $(A - \lambda I)$. When we write $A = \lambda I + N$ where $N = A - \lambda I$ is nilpotent:
+\[e^{At} = e^{\lambda t} e^{Nt} = e^{\lambda t}\left(I + Nt + \frac{N^{2}t^2}{2!} + \cdots\right)\]
+The series terminates because $N^{k} = 0$ for some $k$!
+\end{keypoint}
+
+\section{Complete Examples}
+
+\begin{example}[$2\times2$ System with Double Eigenvalue]
+Solve $\mathbf{x}' = \begin{pmatrix} 3 & 1 \\ -1 & 5 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$
+
+\textbf{Solution:}
+\begin{enumerate}
+\item \textbf{Find eigenvalues:} $\det(A - \lambda I) = 0$ gives $\lambda = 3$ (double)
+
+\item \textbf{Find eigenvector:}
+$(A - 3I)\mathbf{v}_{1} = \begin{pmatrix} 0 & 1 \\ -1 & 2 \end{pmatrix}\mathbf{v}_{1} = \mathbf{0}$
+This gives $\mathbf{v}_{1} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item \textbf{Find generalized eigenvector:}
+Solve $(A - 3I)\mathbf{w} = \mathbf{v}_{1}$:
+\[\begin{pmatrix} 0 & 1 \\ -1 & 2 \end{pmatrix}\begin{pmatrix} w_{1} \\ w_{2} \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\]
+
+From the first equation: $w_{2} = 1$. From the second: $-w_{1} + 2(1) = 0$, so $w_{1} = 2$.
+Therefore $\mathbf{w} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$
+
+\item \textbf{General Solution:}
+\[\mathbf{x}(t) = c_{1} e^{3t}\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_{2} e^{3t}\left(t\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 2 \\ 1 \end{pmatrix}\right)\]
+
+\item \textbf{Apply Initial Conditions:}
+$\mathbf{x}(0) = c_{1}\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_{2}\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$
+
+This gives: $c_{1} + 2c_{2} = 2$ and $c_{2} = 1$
+Therefore $c_{1} = 0$ and $c_{2} = 1$
+
+\item \textbf{Final Solution:}
+\[\mathbf{x}(t) = e^{3t}\left(t\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 2 \\ 1 \end{pmatrix}\right) = e^{3t}\begin{pmatrix} t + 2 \\ 1 \end{pmatrix}\]
+\end{enumerate}
+\end{example}
+
+\begin{warning}
+\textbf{Critical Mistakes to Avoid:}
+\begin{itemize}
+\item Do NOT solve $(A - \lambda I)^{2}\mathbf{v} = \mathbf{0}$ directly for generalized eigenvectors
+\item The order matters in Jordan chains: always solve sequentially
+\item Check that $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}_{k}$ is satisfied
+\item The coefficient of $t^{k}$ is $1/k!$, not just $t^{k}$
+\end{itemize}
+\end{warning}
+
+\begin{insight}
+\textbf{Physical Interpretation:}
+The polynomial terms in $t$ arise from the system's failure to diagonalize completely. The Jordan form captures the "almost diagonal" structure, and the polynomial terms represent the coupling between modes that can't be completely separated.
+\end{insight}
+
+\begin{examtip}
+Prof. Ditkowski's exams typically include:
+\begin{itemize}
+\item One $2\times2$ system with repeated eigenvalues
+\item Finding both eigenvectors and generalized eigenvectors
+\item Initial value problems (most common)
+\item Questions about Jordan canonical form
+\item Verification of solutions
+\end{itemize}
+\end{examtip}
+
+\end{document}
