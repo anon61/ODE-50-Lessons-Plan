@@ -1,0 +1,466 @@
+# **Lesson 17: Homogeneous Equations - The y/x Substitution**
+
+## **Component 1: Audio Lesson Script**
+
+Hey there! Welcome to Lesson 17, where we're diving into one of the coolest tricks in differential equations - homogeneous equations and the magical y/x substitution.
+
+So basically, homogeneous equations are all about scaling and proportions. Here's the key insight - imagine you're looking at a differential equation, and if you zoom in or out equally on both x and y axes, the equation looks exactly the same. That's homogeneity! It's like those fractal patterns where the same structure appears at every scale.
+
+Let me show you what I mean mathematically. A first-order equation is homogeneous if you can write it as dy/dx = F(y/x). Notice how everything depends on the ratio y/x? That's the telltale sign. Another way to check - and this is super important for Prof. Ditkowski's exams - is the formal test: if f(tx, ty) = t^n f(x,y) for some n, then it's homogeneous of degree n.
+
+Here's a quick example to cement this. Take dy/dx = (x² + y²)/(xy). Let's test it: replace x with tx and y with ty. We get (t²x² + t²y²)/(t²xy) = t²(x² + y²)/t²(xy) = (x² + y²)/(xy). See? The t's cancel out completely! That's homogeneous of degree 0.
+
+Now, why does the substitution v = y/x work? Think about it geometrically - if everything depends on the ratio y/x, let's just call that ratio something simple, like v. Then y = vx, and here's where it gets interesting. When we differentiate y = vx, we get dy/dx = v + x(dv/dx). This is the crucial step that trips up so many students!
+
+Watch this transformation magic. If we have dy/dx = F(y/x), and we substitute, we get v + x(dv/dx) = F(v). Rearranging: x(dv/dx) = F(v) - v. And boom! This is separable: dv/(F(v) - v) = dx/x. We turned a seemingly complex equation into something we already know how to solve!
+
+Let's work through a complete example. Consider dy/dx = (2xy)/(x² - y²). First, let's verify it's homogeneous. Dividing numerator and denominator by x²: dy/dx = (2y/x)/(1 - (y/x)²). Perfect! It's in the form F(y/x).
+
+Now substitute v = y/x, so y = vx and dy/dx = v + x(dv/dx). Our equation becomes:
+v + x(dv/dx) = 2v/(1 - v²)
+
+Solving for dv/dx: x(dv/dx) = 2v/(1 - v²) - v = (2v - v(1 - v²))/(1 - v²) = (2v - v + v³)/(1 - v²) = (v + v³)/(1 - v²) = v(1 + v²)/(1 - v²)
+
+Now separate: (1 - v²)dv/v(1 + v²) = dx/x
+
+The left side needs partial fractions. Breaking it down: integrate both sides, and after some algebra (which you should practice!), you get the implicit solution involving arctangent and logarithms.
+
+Here's a trickier example that Prof. Ditkowski loves: dy/dx = (x + y)/(x - y). This doesn't look homogeneous at first, but divide top and bottom by x: dy/dx = (1 + y/x)/(1 - y/x). Bingo! Now use v = y/x and watch the magic happen.
+
+Common mistakes to avoid - and trust me, these cost points on exams:
+1. Forgetting the product rule when differentiating y = vx. Remember: dy/dx = v + x(dv/dx), NOT just x(dv/dx)!
+2. Not checking if the equation is actually homogeneous before applying the substitution
+3. Incorrect back-substitution - always replace v with y/x at the end
+4. Missing singular solutions when F(v) - v = 0
+
+Here's an exam strategy that works: First, quickly test for homogeneity by checking if all terms have the same total degree in x and y. If yes, immediately write v = y/x and the derivative formula. Work through the algebra carefully - Prof. Ditkowski gives partial credit for correct setup even if you make computational errors.
+
+One more insight - sometimes the substitution u = x/y works better, especially when you have more y terms than x terms. The derivative becomes dx/dy = u + y(du/dy). Same principle, just flipped!
+
+Remember, homogeneous equations often appear disguised. Terms like x²y, xy², x³ all have degree 3. Terms like sin(y/x), e^(y/x), ln(y/x) are homogeneous of degree 0. Train your eye to spot these patterns quickly.
+
+The geometric interpretation is beautiful - homogeneous equations describe processes where the rate of change depends only on direction from the origin, not distance. Think of it like wind patterns that blow the same way along any ray from the center.
+
+For Prof. Ditkowski's exam, expect at least one homogeneous equation, often combined with an initial condition. Sometimes he'll ask you to verify homogeneity first, then solve. Practice recognition - it should take you under 30 seconds to identify and start the substitution. The whole problem shouldn't take more than 10 minutes if you're well-prepared.
+
+## **Component 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{transformation}
+
+\title{Lesson 17: Homogeneous First-Order Differential Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Recognition and Definition}
+
+\begin{definition}[Homogeneous Function]
+A function $f(x,y)$ is homogeneous of degree $n$ if:
+$$f(tx, ty) = t^n f(x,y) \quad \text{for all } t > 0$$
+\end{definition}
+
+\begin{definition}[Homogeneous Differential Equation]
+A first-order ODE is homogeneous if it can be written as:
+$$\frac{dy}{dx} = F\left(\frac{y}{x}\right)$$
+or equivalently, if $M(x,y)dx + N(x,y)dy = 0$ where $M$ and $N$ are homogeneous functions of the same degree.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Quick Recognition Tests:}
+\begin{enumerate}
+    \item Check if all terms have the same total degree in $x$ and $y$
+    \item Try to factor out powers to write as $F(y/x)$
+    \item Apply the scaling test: $f(tx, ty) = t^n f(x,y)$
+\end{enumerate}
+\end{keypoint}
+
+\section{The Substitution Method}
+
+\begin{transformation}
+\textbf{The $v = y/x$ Substitution Algorithm:}
+\begin{enumerate}
+    \item Set $v = \frac{y}{x}$, so $y = vx$
+    \item Differentiate: $\frac{dy}{dx} = v + x\frac{dv}{dx}$ \textcolor{red}{(Product Rule!)}
+    \item Substitute into the original equation
+    \item Simplify to get: $x\frac{dv}{dx} = F(v) - v$
+    \item Separate variables: $\frac{dv}{F(v) - v} = \frac{dx}{x}$
+    \item Integrate both sides
+    \item Back-substitute $v = y/x$
+\end{enumerate}
+\end{transformation}
+
+\begin{warning}
+\textbf{Critical Points:}
+\begin{itemize}
+    \item The derivative $\frac{dy}{dx} = v + x\frac{dv}{dx}$ comes from the product rule
+    \item Check for singular solutions where $F(v) - v = 0$
+    \item The substitution fails along $x = 0$ (use $u = x/y$ instead if needed)
+\end{itemize}
+\end{warning}
+
+\section{Detailed Examples}
+
+\begin{example}[Standard Homogeneous]
+Solve: $\frac{dy}{dx} = \frac{x^2 + xy + y^2}{x^2}$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Verify homogeneity: $\frac{dy}{dx} = 1 + \frac{y}{x} + \left(\frac{y}{x}\right)^2 = F(y/x)$ ✓
+    \item Let $v = y/x$, then $y = vx$ and $\frac{dy}{dx} = v + x\frac{dv}{dx}$
+    \item Substitute: $v + x\frac{dv}{dx} = 1 + v + v^2$
+    \item Simplify: $x\frac{dv}{dx} = 1 + v^2$
+    \item Separate: $\frac{dv}{1 + v^2} = \frac{dx}{x}$
+    \item Integrate: $\arctan(v) = \ln|x| + C$
+    \item Back-substitute: $\arctan\left(\frac{y}{x}\right) = \ln|x| + C$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Disguised Homogeneous]
+Solve: $(x - y)\frac{dy}{dx} = x + y$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Rewrite: $\frac{dy}{dx} = \frac{x + y}{x - y} = \frac{1 + y/x}{1 - y/x}$ (homogeneous!)
+    \item Let $v = y/x$: $v + x\frac{dv}{dx} = \frac{1 + v}{1 - v}$
+    \item Simplify: $x\frac{dv}{dx} = \frac{1 + v}{1 - v} - v = \frac{1 + v - v(1 - v)}{1 - v} = \frac{1 + v^2}{1 - v}$
+    \item Separate: $\frac{1 - v}{1 + v^2}dv = \frac{dx}{x}$
+    \item Use partial fractions on the left side
+    \item Final solution involves $\arctan$ and $\ln$ terms
+\end{enumerate}
+\end{example}
+
+\section{Special Cases and Variations}
+
+\begin{insight}
+\textbf{Alternative Substitution:}
+When the equation has more $y$ terms, try $u = \frac{x}{y}$:
+\begin{itemize}
+    \item $x = uy$ implies $\frac{dx}{dy} = u + y\frac{du}{dy}$
+    \item The equation becomes separable in $u$ and $y$
+\end{itemize}
+\end{insight}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Patterns:}
+\begin{itemize}
+    \item Often combines homogeneous with initial conditions
+    \item May ask to verify homogeneity before solving
+    \item Likes equations of the form $(ax + by)dx + (cx + dy)dy = 0$
+    \item Tests recognition with trigonometric terms like $\sin(y/x)$
+    \item Partial credit for correct substitution setup
+\end{itemize}
+\end{examtip}
+
+\section{Geometric Interpretation}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[->] (-3,0) -- (3,0) node[right] {$x$};
+    \draw[->] (0,-3) -- (0,3) node[above] {$y$};
+
+    % Draw solution curves as rays from origin
+    \foreach \angle in {20, 40, 60, 120, 140, 160, -20, -40, -60} {
+        \draw[blue, thick] (0,0) -- ({2.5*cos(\angle)}, {2.5*sin(\angle)});
+    }
+
+    % Draw direction field
+    \foreach \x in {-2,-1,1,2} {
+        \foreach \y in {-2,-1,1,2} {
+            \pgfmathsetmacro{\slope}{(\y/\x)}
+            \draw[gray, ->] (\x,\y) -- ({\x+0.2}, {\y+0.2*\slope});
+        }
+    }
+
+    \node at (0,-3.5) {Homogeneous equations: solutions along rays from origin};
+\end{tikzpicture}
+\end{center}
+
+\section{Recognition Flowchart}
+
+\begin{center}
+\begin{tikzpicture}[node distance=2cm]
+    \node[rectangle, draw] (start) {Given: First-order ODE};
+    \node[diamond, draw, below of=start] (test1) {Can write as $F(y/x)$?};
+    \node[diamond, draw, below of=test1] (test2) {Same degree in all terms?};
+    \node[rectangle, draw, right of=test1, xshift=2cm] (homo) {Homogeneous: Use $v = y/x$};
+    \node[rectangle, draw, left of=test2, xshift=-2cm] (nothomo) {Not Homogeneous};
+
+    \draw[->] (start) -- (test1);
+    \draw[->] (test1) -- node[left] {No} (test2);
+    \draw[->] (test1) -- node[above] {Yes} (homo);
+    \draw[->] (test2) -- node[above] {No} (nothomo);
+    \draw[->] (test2.east) -| node[right, pos=0.25] {Yes} (homo);
+\end{tikzpicture}
+\end{center}
+
+\end{document}
+```
+
+## **Component 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 17: Practice Problems - Homogeneous Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (5 problems)}
+
+\begin{enumerate}
+    \item Determine if each equation is homogeneous. If yes, identify the degree:
+    \begin{enumerate}[label=(\alph*)]
+        \item $\frac{dy}{dx} = \frac{x^2 + 3xy}{2x^2 - y^2}$
+        \item $\frac{dy}{dx} = x + y$
+        \item $(x^2 + y^2)dx - 2xy dy = 0$
+        \item $\frac{dy}{dx} = e^{y/x} + \frac{y}{x}$
+        \item $x\frac{dy}{dx} = y\ln\left(\frac{y}{x}\right)$
+    \end{enumerate}
+
+    \item Show that if $M(x,y)$ and $N(x,y)$ are homogeneous of degree $n$, then $M dx + N dy = 0$ is a homogeneous equation.
+
+    \item Prove that $\frac{dy}{dx} = f\left(\frac{ax + by + c}{dx + ey + f}\right)$ is NOT homogeneous unless $c = f = 0$.
+
+    \item Verify that $(x\sin(y/x) - y\cos(y/x))dx + x\cos(y/x)dy = 0$ is homogeneous.
+
+    \item Transform $\frac{dy}{dx} = \frac{y^3 + 2x^2y}{x^3 - xy^2}$ into the form $F(y/x)$.
+\end{enumerate}
+
+\section*{Part B: Basic Substitution Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve using $v = y/x$ substitution:
+    $$\frac{dy}{dx} = \frac{y}{x} + 1$$
+
+    \item Solve: $(x + y)dx - (x - y)dy = 0$
+
+    \item Find the general solution:
+    $$x\frac{dy}{dx} = y + \sqrt{x^2 + y^2}$$
+
+    \item Solve the IVP:
+    $$\frac{dy}{dx} = \frac{2y^2}{xy - x^2}, \quad y(1) = 2$$
+
+    \item Solve: $xy' = y + x\tan(y/x)$
+
+    \item Find all solutions:
+    $$(x^2 + 2y^2)\frac{dy}{dx} = xy$$
+\end{enumerate}
+
+\section*{Part C: Complete Solution Process (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve and verify your solution:
+    $$\left(y^2 - 2xy\right)dx + x^2 dy = 0$$
+
+    \item Find the solution curve passing through $(1, 1)$:
+    $$\frac{dy}{dx} = \frac{x^2 + xy + y^2}{x^2}$$
+
+    \item Solve using the appropriate substitution:
+    $$x^2y' = y^2 + xy + x^2$$
+
+    \item Find the general solution:
+    $$(3x^2 + y^2)dx - 2xy dy = 0$$
+
+    \item Solve the equation:
+    $$\frac{dy}{dx} = \frac{x + 2y}{2x - y}$$
+\end{enumerate}
+
+\section*{Part D: Tricky Cases and Variations (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve using $u = x/y$ instead of $v = y/x$:
+    $$x\frac{dy}{dx} = 2y + x\sec\left(\frac{x}{y}\right)$$
+
+    \item Find singular solutions if any:
+    $$\frac{dy}{dx} = \frac{y}{x} + \sqrt{1 + \left(\frac{y}{x}\right)^2}$$
+
+    \item Solve the equation with parameter $a$:
+    $$\frac{dy}{dx} = \frac{ax^2 + y^2}{2xy}$$
+
+    \item Transform to homogeneous and solve:
+    $$\frac{dy}{dx} = \frac{2x + 3y - 5}{x + 2y - 3}$$
+    (Hint: Use translation of coordinates)
+
+    \item Solve the implicit homogeneous equation:
+    $$x^3 + y^3 = 3xy(x + y)$$
+\end{enumerate}
+
+\section*{Part E: Mixed Recognition Challenge (4 problems)}
+
+\begin{enumerate}[resume]
+    \item Identify which equations are homogeneous and solve only those:
+    \begin{enumerate}[label=(\alph*)]
+        \item $y' = (x^2 + y^2)/(2xy)$
+        \item $y' = x^2 + y^2$
+        \item $y' = (x - y)/(x + y)$
+        \item $y' + y/x = x^2$
+    \end{enumerate}
+
+    \item Show that the substitution $y = vx$ transforms the homogeneous equation into a separable equation in $v$ and $x$.
+
+    \item Find all homogeneous equations of the form:
+    $$\frac{dy}{dx} = \frac{ay + bx}{cy + dx}$$
+
+    \item Prove that if $y_1(x)$ is a solution to a homogeneous equation, then $y_2(x) = ky_1(kx)$ is also a solution for any constant $k$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Complete Problems (5 problems)}
+
+\begin{enumerate}[resume]
+    \item \textbf{[Prof. Ditkowski Style]}
+    Consider the equation: $(x^2 + y^2)dx + (x^2 - 2xy)dy = 0$
+    \begin{enumerate}[label=(\alph*)]
+        \item Verify that this is a homogeneous equation
+        \item Find the general solution
+        \item Find the particular solution satisfying $y(1) = 0$
+        \item Determine if there are any singular solutions
+    \end{enumerate}
+
+    \item \textbf{[Comprehensive Problem]}
+    For the equation $\frac{dy}{dx} = \frac{y}{x} + \frac{x}{y}$:
+    \begin{enumerate}[label=(\alph*)]
+        \item Show it's homogeneous
+        \item Solve using $v = y/x$
+        \item Find the solution through $(1, 1)$
+        \item Sketch the solution curves
+    \end{enumerate}
+
+    \item \textbf{[Application Problem]}
+    A curve has the property that at any point $(x, y)$, the tangent line passes through the point $(x/2, 0)$. Find the equation of all such curves.
+
+    \item \textbf{[Theory and Computation]}
+    \begin{enumerate}[label=(\alph*)]
+        \item Prove that every homogeneous equation has solution curves that are similar under scaling from the origin
+        \item Solve: $x(x + y)dy = y(x - y)dx$
+        \item Explain the geometric meaning of your solution
+    \end{enumerate}
+
+    \item \textbf{[Challenge Problem]}
+    Consider the family of equations: $\frac{dy}{dx} = F(y/x)$ where $F$ is continuous.
+    \begin{enumerate}[label=(\alph*)]
+        \item Show that if $F(v) = v$ has solutions $v = v_i$, then $y = v_i x$ are solutions
+        \item For $F(v) = v^2 + v - 2$, find all straight-line solutions
+        \item Solve the complete equation and discuss the behavior near the straight-line solutions
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1(a):} Homogeneous of degree 0. Divide numerator and denominator by $x^2$.
+
+\textbf{Problem 6:} Let $v = y/x$. After substitution: $v + x\frac{dv}{dx} = v + 1$, so $\frac{dv}{dx} = \frac{1}{x}$.
+Integrating: $v = \ln|x| + C$, thus $y = x\ln|x| + Cx$.
+
+\textbf{Problem 11:} After substitution and separation: $\int \frac{v dv}{1 + v^2} = \int \frac{dx}{x}$.
+This gives $\frac{1}{2}\ln(1 + v^2) = \ln|x| + C$, or $(x^2 + y^2) = Ax^2$ where $A = e^{2C}$.
+
+\textbf{Problem 17:} Check $F(v) - v = 0$: $v + \sqrt{1 + v^2} - v = \sqrt{1 + v^2} \neq 0$ for any real $v$. No singular solutions.
+
+\textbf{Problem 20:} Translation: let $X = x - 1$, $Y = y - 1$ to eliminate constants.
+
+\textbf{Key Integration Formulas Needed:}
+\begin{itemize}
+    \item $\int \frac{dv}{1 + v^2} = \arctan(v) + C$
+    \item $\int \frac{v dv}{1 + v^2} = \frac{1}{2}\ln(1 + v^2) + C$
+    \item $\int \frac{dv}{v^2 - 1} = \frac{1}{2}\ln\left|\frac{v-1}{v+1}\right| + C$
+\end{itemize}
+
+\end{document}
+```
+
+## **Component 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Importing Content:**
+1. Save the Audio Lesson Script as a text file: "Lesson17_Audio_Homogeneous.txt"
+2. Compile the Theory Document LaTeX and save as PDF: "Lesson17_Theory_Homogeneous.pdf"
+3. Compile the Practice Problems LaTeX and save as PDF: "Lesson17_Problems_Homogeneous.pdf"
+4. Import all three documents into a new NotebookLM notebook titled "ODE Lesson 17: Homogeneous Equations"
+
+**Audio Generation Tips:**
+- Use the Audio Lesson Script as the primary source for NotebookLM's audio overview
+- Request emphasis on the substitution formula: dy/dx = v + x(dv/dx)
+- Ask for clear pronunciation of mathematical terms: "homogeneous" (ho-mo-GENE-ee-us)
+- Request pauses after key formulas for note-taking
+
+**Study Sequence:**
+1. **First Pass (30 min):** Listen to the audio while following the Theory Document
+2. **Practice Recognition (20 min):** Do Part A problems without looking at solutions
+3. **Learn Substitution (45 min):** Work through Part B with the Theory Document open
+4. **Master the Method (1 hour):** Complete Parts C and D, checking solutions
+5. **Exam Preparation (45 min):** Time yourself on Part F problems
+
+**Integration with Previous Lessons:**
+- Review Lesson 4 (Separable Equations) - you'll need those integration skills
+- Connect to Lesson 5 (Linear Equations) - some homogeneous become linear after substitution
+- Link to Lesson 10 (Exact Equations) - homogeneous equations can also be exact
+
+**Key Formulas to Memorize:**
+```
+v = y/x  →  y = vx  →  dy/dx = v + x(dv/dx)
+Homogeneous test: f(tx, ty) = t^n f(x,y)
+Standard form: dy/dx = F(y/x)
+After substitution: x(dv/dx) = F(v) - v
+```
+
+**Common Patterns to Recognize:**
+- Rational functions with same degree in numerator and denominator
+- Expressions involving √(x² + y²), sin(y/x), e^(y/x), ln(y/x)
+- Equations where every term has the same total degree
+
+**NotebookLM Query Suggestions:**
+- "Explain why the product rule is crucial in the v = y/x substitution"
+- "What are the geometric implications of homogeneous equations?"
+- "Give me examples of homogeneous equations that don't look homogeneous initially"
+- "How do I choose between v = y/x and u = x/y substitutions?"
+- "What are Prof. Ditkowski's favorite homogeneous equation types?"
+
+**Practice Schedule:**
+- **Week 1:** Master recognition and basic substitution (Problems 1-15)
+- **Week 2:** Advanced problems and variations (Problems 16-25)
+- **Week 3:** Exam-style problems and speed practice (Problems 26-30)
+- **Before Exam:** Review all methods, practice recognition speed
+
+**Self-Assessment Checkpoints:**
+- [ ] Can identify homogeneous equations in under 30 seconds
+- [ ] Remember the product rule in dy/dx = v + x(dv/dx) automatically
+- [ ] Can execute the complete substitution process without notes
+- [ ] Recognize when to use alternative substitutions
+- [ ] Can solve exam-style problems in under 10 minutes
+
+**Connection to Future Topics:**
+- Homogeneous equations appear in systems (Block 15)
+- The scaling property connects to dimensional analysis
+- Similar substitutions used in Bernoulli equations (Lesson 18)
+- Foundation for understanding similarity solutions in PDEs
+
+---
+
+**Lesson 17 complete.** Request 'Generate Lesson 18' for the next lesson in Block 6.# **Lesson 18: Bernoulli Equations - The Power Transform**
+
+## **Component 1: Audio Lesson Script**
+

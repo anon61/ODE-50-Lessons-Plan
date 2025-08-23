@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Practice Problems: Lesson 9 - Direction Fields and Isoclines}
+\author{Master the visualization of ODEs!}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Concepts (6 problems)}
+
+\begin{enumerate}
+\item For $\frac{dy}{dx} = x + y$, find the isoclines for slopes $c = 0, 1, -1, 2$.
+
+\item Identify all equilibrium points for $\frac{dy}{dx} = (x-1)(y+2)$.
+
+\item Sketch the direction field for $\frac{dy}{dx} = -y$ on the region $[-2,2] \times [-2,2]$.
+
+\item Given a direction field, how can you identify points where solutions have horizontal tangents?
+
+\item For $\frac{dy}{dx} = x^2$, explain why all isoclines are vertical lines.
+
+\item True or False: A solution curve can cross an isocline at most once. Explain.
+\end{enumerate}
+
+\section*{Part B: Core Techniques (6 problems)}
+
+\begin{enumerate}[resume]
+\item Construct the direction field for $\frac{dy}{dx} = \frac{y}{x}$ (exclude $x=0$). What are the isoclines?
+
+\item For $\frac{dy}{dx} = xy$, find equations for all isoclines and sketch the nullcline.
+
+\item Draw the direction field for $\frac{dy}{dx} = y - x^2$ and identify regions where solutions are increasing.
+
+\item Given $\frac{dy}{dx} = \sin(x) - y$, find the isocline for slope $0$ and sketch nearby solution behavior.
+
+\item For $\frac{dy}{dx} = \frac{x}{y}$, describe the direction field along the axes. What's special about these points?
+
+\item Sketch solution curves for $\frac{dy}{dx} = 2x$ passing through $(0,0)$, $(1,1)$, and $(-1,2)$.
+\end{enumerate}
+
+\section*{Part C: Applications (5 problems)}
+
+\begin{enumerate}[resume]
+\item A direction field shows all arrows pointing toward the line $y = 2x + 1$. What can you conclude about long-term behavior?
+
+\item For the logistic equation $\frac{dy}{dx} = y(1-y)$, analyze the direction field to determine stability of equilibria.
+
+\item Given $\frac{dy}{dx} = (x-1)^2 + (y-1)^2 - 1$, describe the direction field on the circle centered at $(1,1)$ with radius $1$.
+
+\item For $\frac{dy}{dx} = -x/y$, explain why solution curves must be circles centered at the origin.
+
+\item A chemical reaction follows $\frac{dy}{dx} = k(a-y)(b-y)$ where $a > b > 0$. Analyze the direction field behavior.
+\end{enumerate}
+
+\section*{Part D: Advanced/Theoretical (5 problems)}
+
+\begin{enumerate}[resume]
+\item Prove that if $f(x,y)$ is continuous, solution curves cannot cross except at equilibrium points.
+
+\item For $\frac{dy}{dx} = f(y)$ (autonomous equation), explain why all isoclines are horizontal lines.
+
+\item Show that if a direction field has a line of symmetry, solution curves respect this symmetry.
+
+\item Given two ODEs with direction fields that differ only in magnitude (not direction) of arrows, how do their solution curves relate?
+
+\item Prove that near a saddle point, there exist exactly four special solution curves (separatrices).
+\end{enumerate}
+
+\section*{Part E: Exam-Style Questions (6 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Special]} Sketch the complete direction field for $\frac{dy}{dx} = x^2 - y^2$. Find all equilibria, draw five distinct isoclines, and sketch three solution curves showing different behaviors.
+
+\item Given only the direction field (figure provided on exam), determine the ODE from:
+    \begin{enumerate}[label=\alph*)]
+        \item $\frac{dy}{dx} = x - y$
+        \item $\frac{dy}{dx} = x + y$
+        \item $\frac{dy}{dx} = xy$
+        \item $\frac{dy}{dx} = x/y$
+    \end{enumerate}
+
+\item For $\frac{dy}{dx} = y^2 - x$, without solving:
+    \begin{enumerate}[label=\alph*)]
+        \item Find all nullclines
+        \item Determine regions where solutions are concave up
+        \item Sketch the solution passing through $(1,1)$
+        \item Describe behavior as $x \to \infty$
+    \end{enumerate}
+
+\item \textbf{[Multi-part]} Consider $\frac{dy}{dx} = (x-1)(y-1)(y+1)$:
+    \begin{enumerate}[label=\alph*)]
+        \item Find all equilibrium points
+        \item Classify stability of each equilibrium using the direction field
+        \item Identify all separatrices
+        \item Sketch the complete phase portrait
+    \end{enumerate}
+
+\item A direction field shows spiraling arrows converging to a point. Which ODE could produce this?
+    \begin{enumerate}[label=\alph*)]
+        \item $\frac{dy}{dx} = -x - y$
+        \item $\frac{dy}{dx} = x^2 + y^2$
+        \item $\frac{dy}{dx} = xy$
+        \item Cannot determine
+    \end{enumerate}
+
+\item \textbf{[Conceptual]} Explain how to determine from a direction field alone whether an ODE has periodic solutions. Apply your method to analyze $\frac{dy}{dx} = -x + y^3$.
+\end{enumerate}
+
+\section*{Answer Key with Hints}
+
+\textbf{Problem 1:} $y = -x$ (slope 0), $y = -x + 1$ (slope 1), $y = -x - 1$ (slope -1), $y = -x + 2$ (slope 2)
+
+\textbf{Problem 2:} Single equilibrium at $(1, -2)$
+
+\textbf{Problem 7:} Isoclines are rays from origin: $y = cx$
+
+\textbf{Problem 13:} Along $y = 2x + 1$, slope equals $0$, so this is an attractor
+
+\textbf{Problem 19:} Horizontal isoclines mean $f$ doesn't depend on $x$ explicitly
+
+\textbf{Problem 24:} Use nullclines $y = \pm 1$ and $x = 1$ to divide plane into regions
+
+\end{document}

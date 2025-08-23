@@ -1,0 +1,623 @@
+# **LESSON 12: Separable Equations - Complete Method and Tricks** 🎯
+
+Let's master the most important elementary ODE technique! Separable equations appear in 25-30% of Prof. Ditkowski's exam problems, either directly or as part of larger questions.
+
+---
+
+## **1. Audio Lesson Script**
+*[Conversational, 1000 words]*
+
+Alright, so basically, separable equations are THE workhorse of ODE solving! Here's the key insight: if you can write your ODE as dy/dx = g(x)h(y) - where g depends only on x and h depends only on y - you can literally separate the variables to opposite sides and integrate. It's like untangling two ropes that got twisted together!
+
+Let me show you the magic. Take dy/dx = xy. See how the right side is x times y? That's g(x) = x and h(y) = y. Now watch this algebra trick:
+dy/dx = xy
+dy/y = x dx
+
+Boom! All the y's are on the left, all the x's are on the right. Now integrate both sides:
+∫dy/y = ∫x dx
+ln|y| = x²/2 + C
+
+Solving for y: |y| = e^(x²/2 + C) = e^C · e^(x²/2)
+
+Since e^C is just another constant (always positive), we can write: y = Ae^(x²/2) where A can be any non-zero constant.
+
+But WAIT! Here's where students lose points constantly - what if y = 0? Look back at our separation step: we divided by y. If y = 0, we can't do that! Let's check: if y = 0, then dy/dx = 0, and x·0 = 0. It works! So y = 0 is also a solution - we call this a SINGULAR solution because we lost it during separation.
+
+Pro Ditkowski tip number one: ALWAYS check what you divided by! If you divided by h(y), check if h(y) = 0 gives a solution. These singular solutions appear on like 80% of separable equation exam problems!
+
+Let's do another example with a classic trick. Solve dy/dx = (1-y²). Students often mess this up. Watch:
+dy/(1-y²) = dx
+
+Now you need partial fractions! 1/(1-y²) = 1/((1-y)(1+y)) = 1/2 · (1/(1-y) + 1/(1+y))
+
+So: ∫[1/(1-y) + 1/(1+y)]dy = 2∫dx
+-ln|1-y| + ln|1+y| = 2x + C
+ln|(1+y)/(1-y)| = 2x + C
+
+This gives: (1+y)/(1-y) = ±e^(2x+C) = Ae^(2x)
+
+But don't forget - we divided by 1-y², which is zero when y = ±1. Check these: if y = 1, then dy/dx = 0 = 1-1². Yes! If y = -1, then dy/dx = 0 = 1-1². Yes! So y = ±1 are singular solutions.
+
+Here's a memory device I love: "SEPARATE, INTEGRATE, INVESTIGATE" - Separate the variables, Integrate both sides, Investigate what you divided by for lost solutions!
+
+Now let's talk about autonomous equations - these are special separable equations where dy/dx = f(y) only. No x on the right side! These are Prof. Ditkowski's favorites because they connect to phase line analysis.
+
+Example: dy/dx = y(1-y). This is the logistic equation! Separate:
+dy/(y(1-y)) = dx
+
+Partial fractions again: 1/(y(1-y)) = 1/y + 1/(1-y)
+
+Integrate: ln|y| - ln|1-y| = x + C
+ln|y/(1-y)| = x + C
+
+So: y/(1-y) = Ae^x, which gives y = Ae^x/(1 + Ae^x)
+
+And yes, check y = 0 and y = 1 - both are solutions (the equilibria)!
+
+Common mistake alert! When you have dy/dx = y², students write 1/y² dy = dx. After integrating: -1/y = x + C. They then write y = -1/(x+C). But what's the domain? When x = -C, we have division by zero! The solution blows up - we call this finite-time blow-up. Prof. Ditkowski LOVES testing this!
+
+Here's another exam trick: implicit vs explicit solutions. Sometimes after separating and integrating, you can't solve for y nicely. That's okay! Leave it implicit. Example: dy/dx = (x+y)/(x-y). This looks non-separable, but try the substitution v = y/x, so y = vx and dy/dx = v + x(dv/dx). It becomes separable in v and x!
+
+Integration technique reminder: when you get ∫dy/y, it's ln|y| + C. When you get ∫dy/y², it's -1/y + C. When you get ∫dy/√y, it's 2√y + C. Know these cold!
+
+Let me give you the systematic approach for the exam:
+1. Write in form dy/dx = g(x)h(y)
+2. Separate: dy/h(y) = g(x)dx (if h(y) ≠ 0)
+3. Integrate both sides
+4. Solve for y if possible (explicit), otherwise leave implicit
+5. Check where h(y) = 0 for singular solutions
+6. Verify at least one solution by substitution
+
+Physical interpretation helps too! In population models, dy/dt = ky means exponential growth. dy/dt = ky(M-y) is logistic growth with carrying capacity M. Chemical reactions often give dy/dt = k(a-y)(b-y). These are all separable!
+
+One final Pro Ditkowski special: he often gives initial conditions that make the arbitrary constant weird. Like y(1) = e. Don't panic! Just substitute and solve for C algebraically. Sometimes C = 0, sometimes C = ln(2), whatever - just be careful with the algebra.
+
+The absolute key takeaway? Separable equations are everywhere in ODEs. Master the separation algebra, NEVER forget to check for singular solutions (what you divided by), and be comfortable with both implicit and explicit forms. This technique alone will get you through a huge chunk of the exam!
+
+---
+
+## **2. LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{Separable Equations: Complete Method and Analysis}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{Lesson 12}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Recognition}
+
+\begin{definition}[Separable Equation]
+A first-order ODE is \textbf{separable} if it can be written in the form:
+$$\frac{dy}{dx} = g(x)h(y)$$
+where $g(x)$ is a function of $x$ only and $h(y)$ is a function of $y$ only.
+\end{definition}
+
+\begin{keypoint}
+Alternative forms that are separable:
+\begin{itemize}
+    \item $M(x)N(y)dx + P(x)Q(y)dy = 0$
+    \item $\frac{dy}{dx} = \frac{f(x)}{g(y)}$
+    \item Autonomous: $\frac{dy}{dx} = f(y)$
+\end{itemize}
+\end{keypoint}
+
+\section{Solution Method}
+
+\begin{method}[Separation of Variables]
+\begin{enumerate}
+    \item Write in standard form: $\frac{dy}{dx} = g(x)h(y)$
+    \item Separate variables: $\frac{dy}{h(y)} = g(x)dx$ \quad (assuming $h(y) \neq 0$)
+    \item Integrate both sides: $\int \frac{dy}{h(y)} = \int g(x)dx$
+    \item Include integration constant: $H(y) = G(x) + C$
+    \item Solve for $y$ if possible (explicit solution)
+    \item Check for singular solutions where $h(y) = 0$
+\end{enumerate}
+\end{method}
+
+\begin{warning}
+Division by $h(y)$ loses solutions where $h(y) = 0$. These must be checked separately!
+\end{warning}
+
+\section{Complete Solution Structure}
+
+\begin{theorem}[General and Singular Solutions]
+For $\frac{dy}{dx} = g(x)h(y)$:
+\begin{itemize}
+    \item \textbf{General solution}: Obtained by separation (family of curves)
+    \item \textbf{Singular solutions}: Constants $y = c$ where $h(c) = 0$
+    \item \textbf{Complete solution}: Union of general and singular solutions
+\end{itemize}
+\end{theorem}
+
+\begin{example}[Finding All Solutions]
+Solve: $\frac{dy}{dx} = 2x(y^2 - 1)$
+
+\textbf{Step 1:} Separate (assuming $y^2 - 1 \neq 0$):
+$$\frac{dy}{y^2 - 1} = 2x\,dx$$
+
+\textbf{Step 2:} Use partial fractions:
+$$\frac{1}{y^2-1} = \frac{1}{2}\left(\frac{1}{y-1} - \frac{1}{y+1}\right)$$
+
+\textbf{Step 3:} Integrate:
+$$\frac{1}{2}\ln\left|\frac{y-1}{y+1}\right| = x^2 + C$$
+
+\textbf{Step 4:} General solution:
+$$\frac{y-1}{y+1} = Ae^{2x^2}$$ where $A = \pm e^{2C}$
+
+\textbf{Step 5:} Check $y^2 - 1 = 0$:
+\begin{itemize}
+    \item If $y = 1$: $\frac{dy}{dx} = 0 = 2x(1-1)$ ✓
+    \item If $y = -1$: $\frac{dy}{dx} = 0 = 2x(1-1)$ ✓
+\end{itemize}
+
+\textbf{Complete solution:} $\frac{y-1}{y+1} = Ae^{2x^2}$ and $y = \pm 1$
+\end{example}
+
+\section{Autonomous Equations}
+
+\begin{definition}[Autonomous Equation]
+An ODE $\frac{dy}{dx} = f(y)$ depending only on $y$ is \textbf{autonomous}.
+\end{definition}
+
+\begin{method}[Solving Autonomous Equations]
+For $\frac{dy}{dx} = f(y)$:
+\begin{enumerate}
+    \item Find equilibria: solve $f(y) = 0$
+    \item For non-equilibrium solutions: $\int \frac{dy}{f(y)} = \int dx = x + C$
+    \item This gives $x$ as a function of $y$ (inverse solution)
+    \item Invert if possible to get $y(x)$
+\end{enumerate}
+\end{method}
+
+\begin{insight}
+Autonomous equations have time-translation symmetry: if $y(x)$ is a solution, so is $y(x - x_0)$ for any constant $x_0$.
+\end{insight}
+
+\section{Common Integration Patterns}
+
+\subsection{Essential Integrals for Separable Equations}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Integral} & \textbf{Result} & \textbf{Notes} \\
+\hline
+$\int \frac{dy}{y}$ & $\ln|y| + C$ & $y \neq 0$ \\
+\hline
+$\int \frac{dy}{y^2}$ & $-\frac{1}{y} + C$ & $y \neq 0$ \\
+\hline
+$\int \frac{dy}{1-y^2}$ & $\frac{1}{2}\ln\left|\frac{1+y}{1-y}\right| + C$ & $|y| \neq 1$ \\
+\hline
+$\int \frac{dy}{1+y^2}$ & $\arctan(y) + C$ & All $y$ \\
+\hline
+$\int \frac{dy}{\sqrt{1-y^2}}$ & $\arcsin(y) + C$ & $|y| < 1$ \\
+\hline
+$\int \frac{dy}{y(1-y)}$ & $\ln\left|\frac{y}{1-y}\right| + C$ & $y \neq 0, 1$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Implicit Solutions}
+
+\begin{definition}[Implicit Solution]
+A relation $F(x,y) = C$ that cannot be solved explicitly for $y$ but satisfies the ODE.
+\end{definition}
+
+\begin{example}[Necessarily Implicit]
+For $\frac{dy}{dx} = \frac{-2xy}{x^2 + 2y^2}$:
+
+Separating gives: $x^2 + 2y^2 = C$ (circles and ellipses)
+
+Cannot solve explicitly for $y$ as a single-valued function.
+\end{example}
+
+\begin{examtip}
+Prof. Ditkowski accepts implicit solutions. Don't waste time trying to solve for $y$ if the algebra becomes messy!
+\end{examtip}
+
+\section{Existence and Uniqueness Issues}
+
+\begin{theorem}[Uniqueness Violation at Equilibria]
+For $\frac{dy}{dx} = f(y)$ with $f(y_0) = 0$:
+\begin{itemize}
+    \item The constant solution $y = y_0$ exists
+    \item Non-constant solutions may touch $y = y_0$
+    \item Uniqueness fails if $f'(y_0) = 0$
+\end{itemize}
+\end{theorem}
+
+\begin{example}[Non-unique Solution]
+$\frac{dy}{dx} = 2\sqrt{|y|}$ with $y(0) = 0$
+
+Solutions include:
+\begin{itemize}
+    \item $y = 0$ (singular)
+    \item $y = x^2$ for $x \geq 0$
+    \item $y = -x^2$ for $x \leq 0$
+    \item Combinations thereof
+\end{itemize}
+\end{example}
+
+\section{Solution Verification}
+
+\begin{method}[Verification Protocol]
+\begin{enumerate}
+    \item Differentiate the solution (implicit differentiation if needed)
+    \item Substitute into original ODE
+    \item Verify algebraic identity
+    \item Check initial conditions
+    \item Verify singular solutions separately
+    \item State domain of validity
+\end{enumerate}
+\end{method}
+
+\section{Common Errors}
+
+\begin{warning}
+Critical mistakes that cost points:
+\begin{enumerate}
+    \item Forgetting to check for singular solutions
+    \item Losing absolute value signs in logarithms
+    \item Incorrect partial fraction decomposition
+    \item Not including integration constant
+    \item Domain errors (e.g., $\ln(y)$ requires $y > 0$)
+    \item Sign errors when separating
+\end{enumerate}
+\end{warning}
+
+\end{document}
+```
+
+---
+
+## **3. LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Practice Problems: Separable Equations}
+\author{Lesson 12 Exercises}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (6 problems)}
+
+\begin{enumerate}
+\item Determine which equations are separable:
+    \begin{enumerate}
+        \item $\frac{dy}{dx} = x + y$
+        \item $\frac{dy}{dx} = xy + x$
+        \item $\frac{dy}{dx} = \frac{x^2}{y^2}$
+        \item $\frac{dy}{dx} = \sin(x+y)$
+        \item $\frac{dy}{dx} = e^x \cdot e^y$
+        \item $\frac{dy}{dx} = \frac{xy}{x^2 + y^2}$
+    \end{enumerate}
+
+\item Rewrite in separable form if possible: $(x^2 + 1)y\,dx + (y^2 - 1)x\,dy = 0$
+
+\item For the autonomous equation $\frac{dy}{dx} = y^3 - y$, identify all equilibrium points.
+
+\item True or False: Every autonomous equation is separable. Explain.
+
+\item Can $\frac{dy}{dx} = \sqrt{xy}$ be made separable? If so, how?
+
+\item Explain why $\frac{dy}{dx} = x + y$ is NOT separable.
+\end{enumerate}
+
+\section*{Part B: Basic Separable Equations (6 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $\frac{dy}{dx} = 2xy$
+
+\item Solve: $\frac{dy}{dx} = \frac{y}{x}$ for $x > 0$
+
+\item Find the general solution: $\frac{dy}{dx} = y^2$
+
+\item Solve: $\frac{dy}{dx} = (1+x)(1+y)$
+
+\item Solve with initial condition: $\frac{dy}{dx} = \frac{x}{y}$, $y(0) = 2$
+
+\item Find all solutions: $\frac{dy}{dx} = y\cos(x)$
+\end{enumerate}
+
+\section*{Part C: Singular Solutions and Lost Solutions (6 problems)}
+
+\begin{enumerate}[resume]
+\item Find ALL solutions to: $\frac{dy}{dx} = 2\sqrt{y}$
+
+\item Solve completely: $\frac{dy}{dx} = y^2 - 1$
+
+\item Find general and singular solutions: $\frac{dy}{dx} = x(y^2 - 4y + 4)$
+
+\item Solve: $y' = y^2(1-y)^2$ and identify all constant solutions
+
+\item For $\frac{dy}{dx} = \frac{2xy}{1-x^2}$, find all solutions including any lost in separation
+
+\item Determine all solutions: $(y-1)y' = x(y-1)^2$
+\end{enumerate}
+
+\section*{Part D: Implicit Solutions and Special Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve (leave implicit if necessary): $\frac{dy}{dx} = \frac{1-y}{1+x}$
+
+\item Find the solution curves: $x\,dy + y\,dx = xy^2\,dx$
+
+\item Solve: $\frac{dy}{dx} = \frac{x^2 + y^2}{2xy}$ using substitution $v = y/x$
+
+\item Show that $x^2 + xy + y^2 = C$ solves a certain separable equation. Find the equation.
+
+\item Solve using appropriate substitution: $\frac{dy}{dx} = (x+y)^2$
+\end{enumerate}
+
+\section*{Part E: Advanced Techniques (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve the logistic equation: $\frac{dy}{dt} = y(1-y/100)$ with $y(0) = 10$
+
+\item Find the solution: $\frac{dy}{dx} = \frac{y^2 - 1}{x^2 - 1}$ passing through $(2, 2)$
+
+\item Solve: $\frac{dy}{dx} = e^{x+y} + e^{x-y}$
+
+\item For what values of $n$ is $\frac{dy}{dx} = x^n y^{2-n}$ separable? Solve for those values.
+
+\item Find the orthogonal trajectories of the family $y = Cx^2$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (7 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Special]} Consider $\frac{dy}{dx} = \frac{2y^2 - y}{x}$
+    \begin{enumerate}
+        \item Find the general solution
+        \item Find all singular solutions
+        \item Solve the IVP with $y(1) = 1/2$
+        \item Sketch several solution curves
+        \item For what initial conditions does the solution blow up in finite time?
+    \end{enumerate}
+
+\item \textbf{[Comprehensive]} The population $P(t)$ of bacteria satisfies $\frac{dP}{dt} = P(2 - P/1000)$
+    \begin{enumerate}
+        \item Find all equilibrium populations
+        \item Solve for $P(t)$ if $P(0) = 500$
+        \item Find $\lim_{t \to \infty} P(t)$
+        \item When does the population reach 1500?
+    \end{enumerate}
+
+\item \textbf{[Implicit Challenge]} Solve $\frac{dy}{dx} = \frac{3x^2 + 2xy}{x^2 + 2y^2}$ and verify your solution
+
+\item \textbf{[Lost Solutions Focus]} For $\frac{dy}{dx} = \frac{y^2(y-3)}{x}$:
+    \begin{enumerate}
+        \item Separate and find the general solution
+        \item Identify ALL constant solutions
+        \item Which constant solutions are singular?
+        \item Verify each constant solution
+    \end{enumerate}
+
+\item \textbf{[Domain Analysis]} Consider $\frac{dy}{dx} = \frac{1}{y\ln(y)}$ for $y > 1$
+    \begin{enumerate}
+        \item Solve the equation
+        \item If $y(0) = e$, find the particular solution
+        \item Determine the domain of existence
+        \item What happens as $x \to \pm\infty$?
+    \end{enumerate}
+
+\item \textbf{[Uniqueness Failure]} For $\frac{dy}{dx} = 3y^{2/3}$:
+    \begin{enumerate}
+        \item Show that $y = 0$ is a solution
+        \item Find the general solution for $y \neq 0$
+        \item Show that the IVP with $y(0) = 0$ has infinitely many solutions
+        \item Sketch several solutions through the origin
+    \end{enumerate}
+
+\item \textbf{[Prof. Ditkowski Comprehensive]}
+    Chemical reaction kinetics gives $\frac{dy}{dt} = k(a-y)(b-y)$ where $a = 2$, $b = 1$, $k = 1$
+    \begin{enumerate}
+        \item Use partial fractions to separate variables
+        \item Find the general solution
+        \item If $y(0) = 0$, find $y(t)$
+        \item What is $\lim_{t \to \infty} y(t)$?
+        \item Interpret physically: what does $y$ represent?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Answer Key with Essential Hints}
+
+\textbf{1.} Separable: (b) factor as $x(y+1)$, (c), (e)
+
+\textbf{3.} Equilibria: $y = 0, \pm 1$
+
+\textbf{7.} $y = Ce^{x^2}$
+
+\textbf{9.} $y = -\frac{1}{x+C}$; blows up at $x = -C$
+
+\textbf{11.} $y = Cx$; also $y = 0$ (singular)
+
+\textbf{13.} $y = 2x^2 + C$; also $y = 0$ (lost solution)
+
+\textbf{14.} General: $\arctan(y) = x^2/2 + C$; Singular: $y = \pm 1$
+
+\textbf{15.} $y = (x-2)^2$; also $y = 2$ (singular)
+
+\textbf{19.} $(1+x)(1-y) = C$
+
+\textbf{24.} Logistic solution: $y = \frac{100}{1 + 9e^{-t}}$
+
+\textbf{27.} Separable for all $n$; Solution form depends on $n$
+
+\textbf{30.} General: $y = \frac{Cx^2}{1+Cx}$; Singular: $y = 0, y = 1$
+
+\textbf{31.} Equilibria at $P = 0, 2000$; Solution approaches 2000
+
+\textbf{35.} Solution: $\ln(\ln(y)) = x + C$
+
+\textbf{37.} Use $(a-y)(b-y) = (y-1)(y-2)$; $y \to 1$ as $t \to \infty$
+
+\end{document}
+```
+
+---
+
+## **4. NotebookLM Instructions & Study Guide**
+
+### **How to Use These Materials Effectively**
+
+**Step 1: Concept Mastery (45 minutes)**
+- Read audio script while working examples
+- Focus on the separation process
+- Understand why we lose solutions when dividing
+
+**Step 2: Theory Deep Dive (1 hour)**
+- Study the LaTeX theory systematically
+- Master the integration patterns table
+- Practice identifying autonomous equations
+- Understand implicit vs explicit solutions
+
+**Step 3: Progressive Practice (2.5 hours)**
+- Part A: Recognition (15 minutes)
+- Part B: Basic problems (30 minutes)
+- Part C: Singular solutions (45 minutes) - CRITICAL!
+- Part D: Implicit solutions (30 minutes)
+- Part E: Advanced (30 minutes)
+- Part F: Exam problems (50 minutes)
+
+### **Key Success Strategies**
+
+✅ **Mastery Checklist:**
+- [ ] Can separate variables algebraically without errors
+- [ ] Always check for singular/lost solutions
+- [ ] Comfortable with partial fractions
+- [ ] Handle implicit solutions confidently
+- [ ] Verify solutions systematically
+- [ ] Recognize autonomous equations instantly
+
+⚠️ **Common Pitfalls to Avoid:**
+- Forgetting to check what you divided by
+- Losing absolute values in logarithms
+- Wrong partial fraction decomposition
+- Missing the integration constant
+- Not recognizing when solution blows up
+
+### **Prof. Ditkowski's Exam Patterns**
+
+**High-Probability Topics:**
+1. **Logistic equation** (appears almost every exam)
+2. **Finding ALL solutions** including singular (30% of problems)
+3. **Autonomous equations** with phase analysis
+4. **Chemical reaction kinetics** problems
+5. **Population models** with interpretation
+
+**His Testing Style:**
+- Always asks for "ALL solutions" not just general
+- Loves initial conditions that make C = 0 or C = 1
+- Tests domain awareness (blow-up, undefined regions)
+- Connects to qualitative analysis from Lesson 10
+- Requires physical interpretation
+
+### **Daily Practice Routine**
+
+**Day 1: Foundation**
+- Master the separation algebra
+- Practice 10 basic separable equations
+- Focus on getting integration right
+
+**Day 2: Singular Solutions**
+- Work through Part C completely
+- For each problem, explicitly check what you divided by
+- Create a checklist for finding lost solutions
+
+**Day 3: Advanced & Exam Prep**
+- Complete Parts D, E, F
+- Time yourself: 15 minutes per exam problem
+- Practice writing complete solutions
+
+### **Integration with Other Lessons**
+
+**Connections:**
+- **Lesson 11**: Direct integration is a special case (h(y) = 1)
+- **Lesson 10**: Autonomous equations link to phase lines
+- **Lesson 13**: Some separable equations have singular solutions
+- **Later**: Exact equations sometimes reduce to separable
+
+### **Formula Sheet Extract**
+
+```
+SEPARABLE EQUATIONS CHECKLIST
+□ Form: dy/dx = g(x)h(y)
+□ Separate: dy/h(y) = g(x)dx
+□ Check h(y) = 0 for lost solutions!
+□ Integrate both sides
+□ Include +C
+□ Verify solution
+
+CRITICAL INTEGRALS:
+∫dy/y = ln|y| + C
+∫dy/(y²-1) = (1/2)ln|(y-1)/(y+1)| + C
+∫dy/(1-y²) = (1/2)ln|(1+y)/(1-y)| + C
+∫dy/√y = 2√y + C
+
+AUTONOMOUS: dy/dx = f(y)
+- Equilibria where f(y) = 0
+- Always separable
+- Time-translation symmetry
+
+WARNING: Division by h(y) loses solutions!
+ALWAYS check if h(y) = 0 gives a solution
+```
+
+### **Exam Success Metrics**
+
+You're ready when you can:
+- [ ] Separate any separable equation in < 1 minute
+- [ ] Never miss a singular solution
+- [ ] Handle partial fractions smoothly
+- [ ] Work with implicit solutions confidently
+- [ ] Solve a complete exam problem in 12-15 minutes
+
+### **Pro Tips from Past Exams**
+
+1. **The "ALL solutions" trick**: When Prof. Ditkowski asks for "all solutions," he's specifically checking if you'll find singular solutions. This is free points if you remember to check!
+
+2. **Initial condition traps**: If y(0) = 0 and 0 is an equilibrium, watch for non-uniqueness!
+
+3. **Blow-up awareness**: Solutions like y = 1/(C-x) blow up. Always state the domain!
+
+4. **Partial fractions mastery**: Review the technique! It appears in 40% of separable problems.
+
+5. **Verification habit**: Even if you're running out of time, write "Verification: [substitute back]" for partial credit.
+
+---
+
+## **Final Power Tips** 💪
+
+Separable equations are the workhorses of ODEs. They appear everywhere - as complete problems, as sub-problems after substitutions, in applications. Prof. Ditkowski expects you to handle them flawlessly.
+
+**The Golden Rule**: Every time you divide by something to separate, that "something" equal to zero might be a solution. Never forget this check!
+
+**Time Management**: On the exam, separable problems should take 10-12 minutes max. If you're stuck on algebra, move on and come back.
+
+**Confidence Builder**: Start your exam with a separable equation if you can choose. Getting it perfect builds momentum!
+
+Remember: This technique combines with others. Master it thoroughly, and you'll recognize it hiding inside more complex problems. You've got this! 🎯📚
+

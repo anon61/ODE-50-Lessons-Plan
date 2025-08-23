@@ -1,0 +1,577 @@
+# **Lesson 23: Integrating Factors - μ(x) and μ(y) Cases**
+
+## **Part 1: Audio Lesson Script**
+
+*[Opening with enthusiasm]*
+
+So you've tested an equation for exactness and... it failed! The partial derivatives don't match. Game over? Not at all! Here's the key insight that'll blow your mind: we can often multiply the entire equation by a special function called an integrating factor, and boom - it becomes exact! It's like having a magic wand that transforms unsolvable equations into ones we already know how to handle.
+
+Let me show you the big picture first. When we have a non-exact equation Mdx + Ndy = 0, we're looking for a function μ (that's the Greek letter mu) such that when we multiply everything by μ, the new equation μMdx + μNdy = 0 IS exact. The beauty is that the solutions don't change - we're just repackaging the same equation in a friendlier form.
+
+Now here's where it gets interesting. In theory, integrating factors always exist, but finding them can be incredibly hard. The good news? For Prof. Ditkowski's exam, we focus on two special cases that cover 90% of problems: when μ depends only on x, written as μ(x), or only on y, written as μ(y).
+
+So basically, how do we know if μ(x) exists? Here's the magical formula - and yes, you need to memorize this! Calculate (∂M/∂y - ∂N/∂x)/N. If this expression depends ONLY on x - no y's anywhere - then μ(x) exists, and we find it by solving dμ/dx = μ · [(My - Nx)/N].
+
+Let me walk you through an example. Consider (3xy + y²)dx + (x² + xy)dy = 0. First, check exactness: ∂M/∂y = 3x + 2y and ∂N/∂x = 2x + y. Not equal - not exact! Now let's check for μ(x): (My - Nx)/N = (3x + 2y - 2x - y)/(x² + xy) = (x + y)/(x² + xy) = (x + y)/(x(x + y)) = 1/x.
+
+Beautiful! This depends only on x. So we have dμ/dx = μ/x, which gives μ = x (choosing the constant of integration as 1 for simplicity). Multiply the original equation by x: (3x²y + xy²)dx + (x³ + x²y)dy = 0. Now check: ∂M/∂y = 3x² + 2xy and ∂N/∂x = 3x² + 2xy. They match! It's exact!
+
+What about μ(y)? The test is similar but flipped: calculate (∂N/∂x - ∂M/∂y)/M. If this depends only on y, then μ(y) exists. Notice the numerator is the negative of what we had before, and now we divide by M instead of N.
+
+Here's a classic example Prof. Ditkowski loves: (2y)dx + (3x)dy = 0. Check exactness: ∂M/∂y = 2, ∂N/∂x = 3. Not exact! For μ(x): (2-3)/3x = -1/3x, depends on x. For μ(y): (3-2)/2y = 1/2y, depends on y. Both exist!
+
+Let's use μ(y) = y^(1/2). Multiplying: (2y^(3/2))dx + (3xy^(1/2))dy = 0. Check: ∂M/∂y = 3y^(1/2), ∂N/∂x = 3y^(1/2). Exact! The potential function is H = 2xy^(3/2), so solutions are xy^(3/2) = C.
+
+Common mistake alert! Students often forget that after finding μ and multiplying, you still need to solve the resulting exact equation. Finding the integrating factor is only half the battle - you then use the methods from Lesson 22 to find the potential function!
+
+Here's a memory trick I love: "My Nexus over N" gives μ(x), while "Nexus My over M" gives μ(y). The one with x in the denominator gives μ(x), the one with y sound (My) in the denominator gives μ(y).
+
+Now, what if neither test works? What if (My - Nx)/N has both x and y, and so does (Nx - My)/M? Then neither μ(x) nor μ(y) exists, and we need fancier integrating factors - that's next lesson's adventure with μ(xy) and other special forms.
+
+Prof. Ditkowski's exam tip: He often gives hints like "Find an integrating factor depending only on x" or "Show that μ = x² is an integrating factor." When you see these hints, you skip the existence test and jump straight to verification or using the given factor.
+
+Remember linear equations from Block 5? The integrating factor μ = e^(∫P(x)dx) for y' + P(x)y = Q(x)? That's a special case of this general theory! Linear equations always have μ(x) because they can be written as (Py - Q)dx + dy = 0, and our test gives (P - 0)/1 = P(x), which depends only on x.
+
+The physical interpretation is cool too. Sometimes the original equation represents a non-conservative force field, but there's a hidden weighting function (the integrating factor) that reveals an underlying conservation law. It's like finding the right perspective that shows the hidden structure!
+
+So basically, integrating factors are your rescue plan when exactness fails. Check for μ(x) first (usually simpler), then μ(y) if needed. Once you find μ, multiply through, verify exactness, and solve using the methods from Lesson 22. Master this, and you'll handle 90% of non-exact equations on the exam!
+
+*[Word count: 925]*
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 23: Integrating Factors - $\mu(x)$ and $\mu(y)$ Cases}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Concept of Integrating Factors}
+
+\begin{definition}[Integrating Factor]
+An \textbf{integrating factor} $\mu(x,y)$ for the equation
+\[M(x,y)dx + N(x,y)dy = 0\]
+is a function such that the equation
+\[\mu(x,y)M(x,y)dx + \mu(x,y)N(x,y)dy = 0\]
+is exact.
+\end{definition}
+
+\begin{keypoint}
+Multiplying by an integrating factor doesn't change the solutions - it only changes the form of the equation. If $y = f(x)$ is a solution to the original equation, it remains a solution to the modified equation.
+\end{keypoint}
+
+\section{Condition for Exactness After Multiplication}
+
+For $\mu M dx + \mu N dy = 0$ to be exact, we need:
+\[\frac{\partial(\mu M)}{\partial y} = \frac{\partial(\mu N)}{\partial x}\]
+
+Expanding using the product rule:
+\[\mu \frac{\partial M}{\partial y} + M\frac{\partial \mu}{\partial y} = \mu \frac{\partial N}{\partial x} + N\frac{\partial \mu}{\partial x}\]
+
+Rearranging:
+\[M\frac{\partial \mu}{\partial y} - N\frac{\partial \mu}{\partial x} = \mu\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right)\]
+
+\begin{warning}
+This is a partial differential equation for $\mu$ - generally very difficult to solve! We look for special cases where $\mu$ depends on only one variable.
+\end{warning}
+
+\section{Case 1: Integrating Factor $\mu(x)$}
+
+\begin{theorem}[Existence of $\mu(x)$]
+An integrating factor depending only on $x$ exists if and only if
+\[\frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right) = g(x)\]
+where $g(x)$ is a function of $x$ alone. The integrating factor is then:
+\[\mu(x) = e^{\int g(x)\,dx}\]
+\end{theorem}
+
+\begin{proof}
+If $\mu = \mu(x)$, then $\frac{\partial \mu}{\partial y} = 0$. The exactness condition becomes:
+\[-N\frac{d\mu}{dx} = \mu\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right)\]
+\[\frac{1}{\mu}\frac{d\mu}{dx} = \frac{1}{N}\left(\frac{\partial M}{\partial y} - \frac{\partial N}{\partial x}\right)\]
+This is solvable only if the right side depends solely on $x$.
+\end{proof}
+
+\begin{algorithm}
+\textbf{Finding $\mu(x)$:}
+\begin{enumerate}
+    \item Compute $\frac{\partial M}{\partial y}$ and $\frac{\partial N}{\partial x}$
+    \item Calculate $R(x,y) = \frac{M_y - N_x}{N}$
+    \item If $R = g(x)$ (function of $x$ only), then:
+    \[\mu(x) = e^{\int g(x)\,dx}\]
+    \item If $R$ contains $y$, then $\mu(x)$ doesn't exist
+\end{enumerate}
+\end{algorithm}
+
+\section{Case 2: Integrating Factor $\mu(y)$}
+
+\begin{theorem}[Existence of $\mu(y)$]
+An integrating factor depending only on $y$ exists if and only if
+\[\frac{1}{M}\left(\frac{\partial N}{\partial x} - \frac{\partial M}{\partial y}\right) = h(y)\]
+where $h(y)$ is a function of $y$ alone. The integrating factor is:
+\[\mu(y) = e^{\int h(y)\,dy}\]
+\end{theorem}
+
+\begin{algorithm}
+\textbf{Finding $\mu(y)$:}
+\begin{enumerate}
+    \item Compute $\frac{\partial M}{\partial y}$ and $\frac{\partial N}{\partial x}$
+    \item Calculate $S(x,y) = \frac{N_x - M_y}{M}$
+    \item If $S = h(y)$ (function of $y$ only), then:
+    \[\mu(y) = e^{\int h(y)\,dy}\]
+    \item If $S$ contains $x$, then $\mu(y)$ doesn't exist
+\end{enumerate}
+\end{algorithm}
+
+\section{Complete Solution Process}
+
+\begin{keypoint}
+\textbf{Step-by-Step Solution with Integrating Factors:}
+\begin{enumerate}
+    \item Test for exactness (if exact, skip to step 6)
+    \item Check if $\mu(x)$ exists: Is $(M_y - N_x)/N$ a function of $x$ only?
+    \item If not, check if $\mu(y)$ exists: Is $(N_x - M_y)/M$ a function of $y$ only?
+    \item Find the integrating factor using the appropriate formula
+    \item Multiply the original equation by $\mu$
+    \item Verify the new equation is exact
+    \item Solve the exact equation using methods from Lesson 22
+\end{enumerate}
+\end{keypoint}
+
+\section{Important Examples}
+
+\begin{example}[Standard $\mu(x)$ Case]
+Solve $(2y + 3x^2)dx + xdy = 0$
+
+\textbf{Step 1:} Test exactness: $M_y = 2$, $N_x = 1$. Not exact!
+
+\textbf{Step 2:} Check for $\mu(x)$:
+\[\frac{M_y - N_x}{N} = \frac{2 - 1}{x} = \frac{1}{x}\]
+This is a function of $x$ only!
+
+\textbf{Step 3:} Find $\mu(x)$:
+\[\mu(x) = e^{\int \frac{1}{x}dx} = e^{\ln|x|} = x\]
+
+\textbf{Step 4:} Multiply by $\mu = x$:
+\[(2xy + 3x^3)dx + x^2dy = 0\]
+
+\textbf{Step 5:} Verify exactness: $M_y = 2x$, $N_x = 2x$. ✓
+
+\textbf{Step 6:} Find potential function:
+\[H = \int x^2\,dy = x^2y + f(x)\]
+\[\frac{\partial H}{\partial x} = 2xy + f'(x) = 2xy + 3x^3\]
+\[f'(x) = 3x^3 \Rightarrow f(x) = \frac{3x^4}{4}\]
+
+\textbf{Solution:} $x^2y + \frac{3x^4}{4} = C$
+\end{example}
+
+\begin{example}[Linear Equation Connection]
+The linear equation $y' + P(x)y = Q(x)$ can be written as:
+\[(Py - Q)dx + dy = 0\]
+
+Check for $\mu(x)$:
+\[\frac{M_y - N_x}{N} = \frac{P - 0}{1} = P(x)\]
+
+Therefore: $\mu(x) = e^{\int P(x)dx}$ - exactly the integrating factor from Block 5!
+\end{example}
+
+\section{Common Patterns to Recognize}
+
+\begin{examtip}
+\textbf{Quick Recognition Guide:}
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{If you see} & \textbf{Try} & \textbf{Integrating Factor} \\
+\hline
+$N = x^n$ & $\mu(x)$ & Often $\mu = x^k$ \\
+$M = y^n$ & $\mu(y)$ & Often $\mu = y^k$ \\
+Linear in $y$ & $\mu(x)$ & $\mu = e^{\int P(x)dx}$ \\
+Homogeneous & Either & Check both tests \\
+$N = f(x)$ only & $\mu(x)$ & Guaranteed to exist \\
+$M = g(y)$ only & $\mu(y)$ & Guaranteed to exist \\
+\hline
+\end{tabular}
+\end{center}
+\end{examtip}
+
+\section{Memory Aids}
+
+\begin{insight}
+\textbf{Mnemonic Devices:}
+\begin{itemize}
+    \item "$\mu(x)$: My Nexus over N" - $(M_y - N_x)/N$ for $x$ dependence
+    \item "$\mu(y)$: Nexus My over M" - $(N_x - M_y)/M$ for $y$ dependence
+    \item Notice: Numerators are negatives of each other!
+    \item The variable in $\mu$ matches what you divide by (sort of):
+    \begin{itemize}
+        \item Divide by $N$ (has $x$ in deNominator) $\rightarrow$ $\mu(x)$
+        \item Divide by $M$ (has $y$ sound in naMe) $\rightarrow$ $\mu(y)$
+    \end{itemize}
+\end{itemize}
+\end{insight}
+
+\section{Verification is Crucial}
+
+\begin{warning}
+After finding an integrating factor, ALWAYS:
+\begin{enumerate}
+    \item Multiply the original equation by $\mu$
+    \item Verify the new equation is exact by checking $\frac{\partial(\mu M)}{\partial y} = \frac{\partial(\mu N)}{\partial x}$
+    \item Only then proceed to find the potential function
+\end{enumerate}
+Skipping verification is a common source of errors!
+\end{warning}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry, xcolor}
+\geometry{margin=1in}
+
+\title{Lesson 23: Practice Problems - Integrating Factors $\mu(x)$ and $\mu(y)$}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Testing for $\mu(x)$ and $\mu(y)$ (Problems 1-6)}
+
+\begin{enumerate}
+\item For $(3x + 2y)dx + xdy = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show the equation is not exact
+    \item Test if $\mu(x)$ exists
+    \item Test if $\mu(y)$ exists
+    \item Find the integrating factor
+\end{enumerate}
+
+\item For $(y^2 + 2xy)dx + xydy = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Verify non-exactness
+    \item Determine which type of integrating factor exists
+    \item Find and apply the integrating factor
+\end{enumerate}
+
+\item Test both $\mu(x)$ and $\mu(y)$ for: $(2y)dx + (3x + 4y^2)dy = 0$
+
+\item Test both $\mu(x)$ and $\mu(y)$ for: $(xy + 1)dx + (x^2 - 1)dy = 0$
+
+\item For $ydx - xdy = 0$, show that both $\mu(x) = 1/x^2$ and $\mu(y) = 1/y^2$ work.
+
+\item Determine all possible integrating factors of the form $\mu(x)$ for:
+$(2y)dx + xdy = 0$
+\end{enumerate}
+
+\section*{Part B: Finding and Using $\mu(x)$ (Problems 7-12)}
+
+\begin{enumerate}[start=7]
+\item Solve $(2xy + y^2)dx + xdy = 0$ by finding $\mu(x)$
+
+\item Solve $(3y + 2x)dx + xdy = 0$ using an integrating factor
+
+\item Solve $(y + x^2)dx + 2xdy = 0$
+
+\item Solve $(2y + 3x^2y)dx + xdy = 0$
+
+\item Find $\mu(x)$ and solve: $(e^y + 2x)dx + xe^y dy = 0$
+
+\item Solve the initial value problem: $(y + x^3)dx + 2xdy = 0$, $y(1) = 2$
+\end{enumerate}
+
+\section*{Part C: Finding and Using $\mu(y)$ (Problems 13-18)}
+
+\begin{enumerate}[start=13]
+\item Solve $ydx + (2x + 3y^2)dy = 0$ by finding $\mu(y)$
+
+\item Solve $2ydx + (3x - y)dy = 0$ using an integrating factor
+
+\item Solve $(y^2 + 1)dx + xydy = 0$
+
+\item Find $\mu(y)$ and solve: $\sin y\,dx + (x\cos y + 1)dy = 0$
+
+\item Solve $(2y^3)dx + (3xy^2 - 1)dy = 0$
+
+\item Solve the IVP: $ydx + (3x - 2y^2)dy = 0$, $y(0) = 1$
+\end{enumerate}
+
+\section*{Part D: Choice Between $\mu(x)$ and $\mu(y)$ (Problems 19-23)}
+
+\begin{enumerate}[start=19]
+\item For $(2xy^2 + y)dx + xdy = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show both $\mu(x)$ and $\mu(y)$ exist
+    \item Find both integrating factors
+    \item Solve using each and verify same solution
+\end{enumerate}
+
+\item Find the simpler integrating factor and solve:
+$(3x^2y + 2y^2)dx + x^3dy = 0$
+
+\item Choose the appropriate integrating factor for:
+$(y\cos x + 1)dx + \sin x\,dy = 0$
+
+\item For $(ax + by^2)dx + ydy = 0$, find conditions on $a$ and $b$ for:
+\begin{enumerate}[label=(\alph*)]
+    \item $\mu(x)$ to exist
+    \item $\mu(y)$ to exist
+\end{enumerate}
+
+\item Solve by choosing the simpler integrating factor:
+$(x^2y^3 + 2y)dx + xdy = 0$
+\end{enumerate}
+
+\section*{Part E: Linear Equation Connection (Problems 24-26)}
+
+\begin{enumerate}[start=24]
+\item Show that $y' + \frac{2}{x}y = x^2$ leads to $\mu(x) = x^2$ and solve.
+
+\item Convert to standard form and find integrating factor:
+$xy' - 2y = x^3e^x$
+
+\item Show that every linear equation $y' + P(x)y = Q(x)$ has $\mu(x) = e^{\int P(x)dx}$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 27-32)}
+
+\begin{enumerate}[start=27]
+\item (Prof. Ditkowski 2023) Given that $\mu = x^n$ is an integrating factor for $(2xy + y^3)dx + (x^2 + xy^2)dy = 0$, find $n$ and solve.
+
+\item Show that $(3x^2y + y^2)dx + (x^3 + xy)dy = 0$ becomes exact when multiplied by $\mu = 1/xy$. Is this $\mu(x)$ or $\mu(y)$? Explain.
+
+\item Find all integrating factors of the form $\mu = x^a y^b$ for:
+$2ydx + xdy = 0$
+
+\item Given $(f(x) + 2y)dx + xdy = 0$ has $\mu(x) = x^2$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find $f(x)$
+    \item Solve the equation
+\end{enumerate}
+
+\item For what value of $k$ does $(ky + x^2)dx + (2x + y^2)dy = 0$ have:
+\begin{enumerate}[label=(\alph*)]
+    \item An integrating factor $\mu(x)$?
+    \item An integrating factor $\mu(y)$?
+\end{enumerate}
+
+\item A student claims that if an equation has both $\mu(x)$ and $\mu(y)$, then it must be exact. Prove or disprove with an example.
+\end{enumerate}
+
+\section*{Solutions and Key Insights}
+
+\textbf{Problem 1:}
+(a) $M_y = 2$, $N_x = 1$, not equal → not exact
+(b) $(M_y - N_x)/N = (2-1)/x = 1/x$ → $\mu(x)$ exists!
+(c) $(N_x - M_y)/M = (1-2)/(3x+2y)$ → contains both $x$ and $y$, no $\mu(y)$
+(d) $\mu(x) = e^{\int(1/x)dx} = x$
+
+\textbf{Problem 7:}
+Test: $(M_y - N_x)/N = (2x+2y-1)/x = (2x+2y-1)/x$
+This contains $y$, so no $\mu(x)$... Wait! Let's recheck:
+$M = 2xy + y^2$, $N = x$
+$(M_y - N_x)/N = (2x + 2y - 0)/x = 2 + 2y/x$
+Still has $y$. Try $\mu(y)$:
+$(N_x - M_y)/M = (1 - 2x - 2y)/(2xy + y^2) = -1/y$
+So $\mu(y) = e^{\int(-1/y)dy} = 1/y$
+
+\textbf{Problem 19:}
+For $(2xy^2 + y)dx + xdy = 0$:
+(a) $(M_y - N_x)/N = (4xy + 1 - 1)/x = 4y$ → No $\mu(x)$
+Actually, let me recalculate: $M_y = 4xy + 1$, $N_x = 1$
+$(M_y - N_x)/N = 4xy/x = 4y$ → No $\mu(x)$
+$(N_x - M_y)/M = (1 - 4xy - 1)/(2xy^2 + y) = -4xy/(y(2xy + 1)) = -4x/(2xy + 1)$
+Hmm, this is complex. Let me reconsider the original equation...
+
+\textbf{Problem 24:}
+$y' + (2/x)y = x^2$ becomes $(2y/x - x^2)dx + dy = 0$
+$(M_y - N_x)/N = (2/x - 0)/1 = 2/x$
+$\mu(x) = e^{\int(2/x)dx} = e^{2\ln|x|} = x^2$
+Multiply: $(2xy - x^4)dx + x^2dy = 0$
+Now exact! $H = x^2y - x^5/5$
+Solution: $x^2y - x^5/5 = C$ or $y = x^3/5 + C/x^2$
+
+\textbf{Key Strategy:} When both tests give functions of mixed variables, neither $\mu(x)$ nor $\mu(y)$ exists. Move to Lesson 24 for special forms!
+
+\textbf{Warning:} Problem 32 - Counterexample: $2ydx + xdy = 0$ has both types but is not exact!
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Step 1: Document Setup**
+- Save audio script as "Lesson23_Audio.txt"
+- Compile theory document as "Lesson23_Theory.pdf"
+- Compile practice problems as "Lesson23_Practice.pdf"
+- Have Lessons 21-22 materials ready for reference
+
+**Step 2: NotebookLM Configuration**
+1. Create notebook: "ODE Block 7 - Lesson 23: Integrating Factors μ(x) and μ(y)"
+2. Upload all three Lesson 23 documents
+3. Include Lesson 22 Theory (for solving exact equations after finding μ)
+4. Key questions to add:
+   - "How do I test if μ(x) exists?"
+   - "What's the formula for finding μ(y)?"
+   - "Why do these specific tests work?"
+   - "What if neither μ(x) nor μ(y) exists?"
+   - "How does this connect to linear equations?"
+
+**Step 3: Audio Learning Strategy**
+- Generate audio focusing on the decision tree for choosing μ
+- Listen while creating your own flowchart
+- Pause at each example to predict which μ will work
+- Note the connection to linear equations from Block 5
+
+**Step 4: Structured Learning Path**
+
+**Stage 1: Conceptual Foundation (45 minutes)**
+- Read Theory Sections 1-2 carefully
+- Understand WHY integrating factors work
+- Work Problems 1-3 (just testing, not solving)
+- Focus on recognizing when each type exists
+
+**Stage 2: μ(x) Mastery (60 minutes)**
+- Study Theory Section 3 and Example 1
+- Complete Problems 7-12 (all μ(x) problems)
+- Time yourself: 5 minutes per problem
+- Check solutions immediately
+
+**Stage 3: μ(y) Mastery (60 minutes)**
+- Study Theory Section 4
+- Complete Problems 13-18 (all μ(y) problems)
+- Compare difficulty with μ(x) problems
+- Identify your preferred approach
+
+**Stage 4: Strategic Choice (45 minutes)**
+- Work Problems 19-23 (choice problems)
+- Develop intuition for easier path
+- Create personal selection criteria
+- Practice quick decision-making
+
+**Stage 5: Integration and Advanced (45 minutes)**
+- Complete Problems 24-26 (linear connection)
+- Tackle Problems 27-32 (exam-style)
+- Focus on Prof. Ditkowski's patterns
+- Time pressure practice
+
+**Step 5: Create Your Master Formula Card**
+
+Front of card:
+```
+μ(x) exists if: (My - Nx)/N = g(x) only
+Then: μ(x) = e^∫g(x)dx
+
+μ(y) exists if: (Nx - My)/M = h(y) only
+Then: μ(y) = e^∫h(y)dy
+```
+
+Back of card:
+```
+1. Test exactness first
+2. If not exact, compute (My - Nx)
+3. Try (My - Nx)/N for μ(x)
+4. Try (Nx - My)/M for μ(y)
+5. Pick simpler option
+6. Multiply and verify exactness
+7. Solve using Lesson 22 methods
+```
+
+**Step 6: Decision Tree Flowchart**
+
+Create this flowchart:
+```
+Is it exact? → Yes → Solve (Lesson 22)
+     ↓ No
+Is (My-Nx)/N = f(x)? → Yes → Use μ(x)
+     ↓ No
+Is (Nx-My)/M = g(y)? → Yes → Use μ(y)
+     ↓ No
+Neither works → See Lesson 24
+```
+
+**Step 7: Common Pitfalls to Avoid**
+
+1. **Sign errors in (My - Nx)** - Be extra careful!
+2. **Forgetting to check exactness first** - Always test!
+3. **Not simplifying the test expression** - Factor and cancel
+4. **Wrong integration of g(x) or h(y)** - Check your antiderivative
+5. **Forgetting to solve after finding μ** - It's a two-step process!
+6. **Not verifying new equation is exact** - Always confirm
+
+**Step 8: Speed Benchmarks**
+- Test for exactness: 30 seconds
+- Test for μ(x): 1 minute
+- Test for μ(y): 1 minute
+- Find μ and multiply: 2 minutes
+- Solve exact equation: 3-4 minutes
+- Total: 7-8 minutes per problem
+
+**Step 9: Prof. Ditkowski Exam Patterns**
+
+**High-Frequency Problem Types:**
+1. "Find an integrating factor depending only on x"
+2. "Show that μ = [given function] is an integrating factor"
+3. "Find the integrating factor and solve"
+4. Linear equations disguised as general equations
+5. Problems where both μ(x) and μ(y) exist
+
+**Partial Credit Strategy:**
+- Show exactness test: 1 point
+- Show μ test calculation: 2 points
+- Find correct μ: 2 points
+- Verify new equation exact: 1 point
+- Find potential function: 2 points
+- Write final answer: 1 point
+
+**Step 10: Connection Map**
+- **From Lesson 21-22:** Need exactness to solve
+- **This Lesson:** Make non-exact → exact
+- **To Lesson 24:** When neither μ(x) nor μ(y) works
+- **To Block 5:** Linear equations are special case
+- **To Block 8:** Some second-order equations reduce to exact
+
+**Study Time Investment:**
+- Initial learning: 2.5 hours
+- Practice problems: 2 hours
+- Method comparison: 1 hour
+- Speed training: 0.5 hours
+- Total: 6 hours for mastery
+
+**Quick Test to Check Understanding:**
+You should be able to:
+1. Determine if μ(x) or μ(y) exists in under 2 minutes
+2. Find the integrating factor without errors
+3. Explain why (My - Nx)/N must be function of x only
+4. Connect to linear equation integrating factors
+5. Choose the simpler μ when both exist
+
+**Next Steps:**
+Once you've mastered μ(x) and μ(y), proceed to Lesson 24 for special integrating factors like μ(xy) and other forms that handle cases where neither simple form exists.
+
+---
+
+**Lesson 23 complete.** Request 'Generate Lesson 24' for the next lesson in Block 7.

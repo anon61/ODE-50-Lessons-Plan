@@ -1,0 +1,495 @@
+# **Lesson 22: Finding Potential Functions - Systematic Approach**
+
+## **Part 1: Audio Lesson Script**
+
+*[Opening with engaging tone]*
+
+Alright, so you've mastered recognizing exact equations - fantastic! Now comes the fun part: actually solving them. Here's the key insight that'll make everything click: when we know an equation is exact, we're guaranteed that some function H(x,y) exists where the solution curves are just H(x,y) = C. Our job? Find that H!
+
+So basically, we have three methods to find H, and I'm going to show you all three because Prof. Ditkowski loves asking you to solve the same problem multiple ways. But here's the secret - they all give the same answer, so you can use whichever feels easiest for the specific problem.
+
+Let me show you Method 1: Integrate M with respect to x. Since we know M = ∂H/∂x, we can write H = ∫M dx, treating y as a constant. But wait - when you integrate a partial derivative with respect to x, you don't get a regular constant, you get a function of y! So we write H = ∫M dx + g(y), where g(y) is our "constant of integration" that might depend on y.
+
+Here's where students mess up - they forget to find g(y)! Don't worry, there's a systematic way. After integrating M, take the partial derivative of your result with respect to y. This should equal N. The difference between N and what you get tells you what g'(y) must be. Integrate that, and boom - you've got your complete H!
+
+Let's work through an example. Consider (2xy + 3x²)dx + (x² + 2y)dy = 0. We already verified this is exact in the last lesson. Using Method 1, integrate M = 2xy + 3x² with respect to x: H = x²y + x³ + g(y). Now differentiate with respect to y: ∂H/∂y = x² + g'(y). But we need this to equal N = x² + 2y. So g'(y) = 2y, which means g(y) = y². Therefore, H = x²y + x³ + y², and our solution is x²y + x³ + y² = C.
+
+Method 2 flips the script - integrate N with respect to y! Since N = ∂H/∂y, we get H = ∫N dy + f(x), where now f(x) is our "constant" that depends on x. Same process: differentiate with respect to x, compare to M, find f'(x), integrate, done!
+
+Using our same example with Method 2: integrate N = x² + 2y with respect to y to get H = x²y + y² + f(x). Differentiate with respect to x: ∂H/∂x = 2xy + f'(x). This must equal M = 2xy + 3x². So f'(x) = 3x², giving f(x) = x³. We get H = x²y + y² + x³ - same answer! The order doesn't matter, which is exactly what we'd expect from a state function.
+
+Now here's Method 3, the line integral approach - this one's elegant but takes more setup. Pick any point (x₀, y₀) and integrate from there to (x, y). The path doesn't matter because the equation is exact! I usually pick (0,0) if it's in the domain, and use the path from (0,0) to (x,0) to (x,y). This gives H = ∫₀ˣ M(t,0)dt + ∫₀ʸ N(x,s)ds.
+
+Prof. Ditkowski's pro tip: Choose your method based on the problem! If M is simpler, use Method 1. If N is simpler, use Method 2. If both are messy but become simple when one variable is zero, use Method 3.
+
+Here's a trickier example that shows why method choice matters: (y²eˣ + 2x)dx + (2yeˣ + 3y²)dy = 0. First, verify exactness: ∂M/∂y = 2yeˣ and ∂N/∂x = 2yeˣ - exact! Now, integrating M = y²eˣ + 2x with respect to x gives H = y²eˣ + x² + g(y). But look at N = 2yeˣ + 3y² - integrating this with respect to y is actually easier! We get H = y²eˣ + y³ + f(x). Taking ∂H/∂x = y²eˣ + f'(x) = M = y²eˣ + 2x, so f'(x) = 2x and f(x) = x². Final answer: H = y²eˣ + y³ + x².
+
+Common exam trap: Prof. Ditkowski sometimes gives you an exact equation and asks for the solution passing through a specific point. After finding H, plug in the point to find C! If the solution passes through (1,2), and H = x²y + y², then C = (1)²(2) + (2)² = 6, so your particular solution is x²y + y² = 6.
+
+Verification is crucial! Whatever method you use, always check that ∂H/∂x = M and ∂H/∂y = N. This catches arithmetic errors and gets you partial credit even if you made a mistake somewhere.
+
+Remember: finding H is like reverse engineering a gradient. You're asking "what function has this gradient field?" The beauty is that exactness guarantees a unique answer up to a constant. Master these techniques, and you'll solve exact equations in your sleep!
+
+*[Word count: 896]*
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 22: Finding Potential Functions - Systematic Approach}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Potential Function}
+
+\begin{definition}[Potential Function]
+For an exact equation $M(x,y)dx + N(x,y)dy = 0$, the \textbf{potential function} $H(x,y)$ satisfies:
+\begin{align}
+\frac{\partial H}{\partial x} &= M(x,y) \\
+\frac{\partial H}{\partial y} &= N(x,y)
+\end{align}
+The general solution is then given by $H(x,y) = C$.
+\end{definition}
+
+\begin{keypoint}
+The potential function is unique up to an additive constant. All methods for finding $H$ yield the same result.
+\end{keypoint}
+
+\section{Method 1: Integration with Respect to $x$}
+
+\begin{algorithm}
+\textbf{Method 1 - Integrate $M$ with respect to $x$:}
+\begin{enumerate}
+    \item Since $\frac{\partial H}{\partial x} = M(x,y)$, integrate:
+    \[H(x,y) = \int M(x,y)\,dx + g(y)\]
+    where $g(y)$ is an arbitrary function of $y$ alone.
+
+    \item Differentiate the result with respect to $y$:
+    \[\frac{\partial H}{\partial y} = \frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right] + g'(y)\]
+
+    \item Set this equal to $N(x,y)$:
+    \[\frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right] + g'(y) = N(x,y)\]
+
+    \item Solve for $g'(y)$:
+    \[g'(y) = N(x,y) - \frac{\partial}{\partial y}\left[\int M(x,y)\,dx\right]\]
+
+    \item Integrate to find $g(y)$:
+    \[g(y) = \int g'(y)\,dy\]
+
+    \item Write the complete potential function:
+    \[H(x,y) = \int M(x,y)\,dx + g(y)\]
+\end{enumerate}
+\end{algorithm}
+
+\begin{example}[Method 1 Application]
+Solve $(3x^2y + y^3)dx + (x^3 + 3xy^2)dy = 0$
+
+\textbf{Step 1:} Verify exactness (assumed done): $\frac{\partial M}{\partial y} = 3x^2 + 3y^2 = \frac{\partial N}{\partial x}$ ✓
+
+\textbf{Step 2:} Integrate $M = 3x^2y + y^3$ with respect to $x$:
+\[H = x^3y + xy^3 + g(y)\]
+
+\textbf{Step 3:} Differentiate with respect to $y$:
+\[\frac{\partial H}{\partial y} = x^3 + 3xy^2 + g'(y)\]
+
+\textbf{Step 4:} Set equal to $N = x^3 + 3xy^2$:
+\[x^3 + 3xy^2 + g'(y) = x^3 + 3xy^2\]
+
+\textbf{Step 5:} Therefore $g'(y) = 0$, so $g(y) = 0$ (we can choose the constant to be 0).
+
+\textbf{Solution:} $H(x,y) = x^3y + xy^3$, so the general solution is $x^3y + xy^3 = C$.
+\end{example}
+
+\section{Method 2: Integration with Respect to $y$}
+
+\begin{algorithm}
+\textbf{Method 2 - Integrate $N$ with respect to $y$:}
+\begin{enumerate}
+    \item Since $\frac{\partial H}{\partial y} = N(x,y)$, integrate:
+    \[H(x,y) = \int N(x,y)\,dy + f(x)\]
+    where $f(x)$ is an arbitrary function of $x$ alone.
+
+    \item Differentiate with respect to $x$:
+    \[\frac{\partial H}{\partial x} = \frac{\partial}{\partial x}\left[\int N(x,y)\,dy\right] + f'(x)\]
+
+    \item Set equal to $M(x,y)$ and solve for $f'(x)$:
+    \[f'(x) = M(x,y) - \frac{\partial}{\partial x}\left[\int N(x,y)\,dy\right]\]
+
+    \item Integrate to find $f(x)$ and write complete $H(x,y)$.
+\end{enumerate}
+\end{algorithm}
+
+\begin{insight}
+Choose Method 1 when $M$ is simpler to integrate. Choose Method 2 when $N$ is simpler. The choice can significantly reduce computation time on exams!
+\end{insight}
+
+\section{Method 3: Line Integral Approach}
+
+\begin{algorithm}
+\textbf{Method 3 - Path Integration:}
+
+Since the equation is exact, the line integral is path-independent:
+\[H(x,y) = \int_{(x_0,y_0)}^{(x,y)} M\,dx + N\,dy\]
+
+Common choice: Use path from $(0,0) \to (x,0) \to (x,y)$:
+\[H(x,y) = \int_0^x M(t,0)\,dt + \int_0^y N(x,s)\,ds\]
+\end{algorithm}
+
+\begin{examtip}
+Prof. Ditkowski often asks: "Solve using two different methods and verify they give the same result." This tests your understanding that the potential function is unique.
+\end{examtip}
+
+\section{Verification Process}
+
+\begin{warning}
+Always verify your solution! Check that:
+\begin{enumerate}
+    \item $\frac{\partial H}{\partial x} = M(x,y)$ ✓
+    \item $\frac{\partial H}{\partial y} = N(x,y)$ ✓
+\end{enumerate}
+This catches errors and ensures partial credit.
+\end{warning}
+
+\section{Common Integration Patterns}
+
+\begin{keypoint}
+\textbf{Memorize these common potential functions:}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{If you see} & \textbf{Think potential} \\
+\hline
+$y\,dx + x\,dy$ & $H = xy$ \\
+$2xy\,dx + x^2\,dy$ & $H = x^2y$ \\
+$\frac{y}{x^2}\,dx - \frac{1}{x}\,dy$ & $H = -\frac{y}{x}$ \\
+$e^x\sin y\,dx + e^x\cos y\,dy$ & $H = e^x\sin y$ \\
+$\frac{x}{\sqrt{x^2+y^2}}\,dx + \frac{y}{\sqrt{x^2+y^2}}\,dy$ & $H = \sqrt{x^2+y^2}$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{keypoint}
+
+\section{Initial Value Problems}
+
+\begin{method}[Solving IVPs with Exact Equations]
+\begin{enumerate}
+    \item Find the potential function $H(x,y)$
+    \item Use initial condition $(x_0, y_0)$ to find $C$:
+    \[H(x_0, y_0) = C\]
+    \item Write particular solution: $H(x,y) = C$
+\end{enumerate}
+\end{method}
+
+\begin{example}[IVP Example]
+Solve $(2xy + 1)dx + (x^2 + 2y)dy = 0$ with $y(1) = 2$.
+
+\textbf{Solution:} From Method 1: $H = x^2y + x + y^2$
+
+Using $y(1) = 2$: $H(1,2) = (1)^2(2) + 1 + (2)^2 = 7$
+
+Particular solution: $x^2y + x + y^2 = 7$
+\end{example}
+
+\section{Efficiency Tips}
+
+\begin{insight}
+\textbf{Strategic Integration Choices:}
+\begin{itemize}
+    \item If $M$ contains $\ln$, $\arctan$, or complex expressions in $y$ → Use Method 2
+    \item If $N$ contains $\ln$, $\arctan$, or complex expressions in $x$ → Use Method 1
+    \item If both are complex but simplify when one variable is 0 → Use Method 3
+    \item For polynomials, choose based on lower degree
+\end{itemize}
+\end{insight}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry, xcolor}
+\geometry{margin=1in}
+
+\title{Lesson 22: Practice Problems - Finding Potential Functions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Potential Functions (Problems 1-6)}
+
+\begin{enumerate}
+\item Find the potential function: $(2x + 3y)dx + (3x + 4y)dy = 0$
+
+\item Find the potential function: $(y^2 + 2xy)dx + (2xy + x^2)dy = 0$
+
+\item Find the potential function: $(e^x\sin y + 2x)dx + (e^x\cos y)dy = 0$
+
+\item Find the potential function: $(3x^2 + 6xy^2)dx + (6x^2y + 4y^3)dy = 0$
+
+\item Find the potential function: $\left(\frac{1}{x} + y\right)dx + \left(x - \frac{1}{y}\right)dy = 0$
+
+\item Find the potential function: $(2xy^3 + 1)dx + (3x^2y^2 + 2)dy = 0$
+\end{enumerate}
+
+\section*{Part B: Method Comparison (Problems 7-11)}
+
+\begin{enumerate}[start=7]
+\item Solve using both Method 1 and Method 2, verify they agree:
+$(y\cos x + 2x)dx + (\sin x + 2y)dy = 0$
+
+\item Solve using Method 1, then verify using Method 2:
+$(2xe^y + y)dx + (x^2e^y + x + 3y^2)dy = 0$
+
+\item Solve using Method 2, then verify using Method 1:
+$(y^2e^{xy} + 2x)dx + (2xye^{xy} + 3y^2)dy = 0$
+
+\item Use Method 3 (line integral from origin):
+$(2xy + y^2)dx + (x^2 + 2xy)dy = 0$
+
+\item Compare all three methods for:
+$(3x^2y + y^3)dx + (x^3 + 3xy^2)dy = 0$
+\end{enumerate}
+
+\section*{Part C: Initial Value Problems (Problems 12-16)}
+
+\begin{enumerate}[start=12]
+\item Solve $(2xy + 3)dx + (x^2 - 1)dy = 0$ with $y(1) = 2$
+
+\item Solve $(ye^{xy} + 2x)dx + (xe^{xy} + 2y)dy = 0$ with $y(0) = 1$
+
+\item Solve $\left(\cos y - y\sin x\right)dx + \left(-x\sin y - \cos x\right)dy = 0$ with $y(\pi/2) = \pi$
+
+\item Solve $(2x + y^2)dx + (2xy - 3y^2)dy = 0$ with $y(2) = 1$
+
+\item Find the solution curve passing through $(1, 1)$ for:
+$(3x^2y^2 + 2x)dx + (2x^3y + 3y^2)dy = 0$
+\end{enumerate}
+
+\section*{Part D: Complex Expressions (Problems 17-21)}
+
+\begin{enumerate}[start=17]
+\item Find $H$ for: $\left(e^x + \frac{y}{x^2}\right)dx + \left(\frac{1}{x} + e^y\right)dy = 0$
+
+\item Find $H$ for: $(y\sec^2 x + \sec x \tan x)dx + (\tan x + 2y)dy = 0$
+
+\item Find $H$ for: $\left(\frac{2x}{x^2 + y^2} + 3x^2\right)dx + \left(\frac{2y}{x^2 + y^2} + 2y\right)dy = 0$
+
+\item Find $H$ for: $(\ln y + 2xy)dx + \left(\frac{x}{y} + x^2 + y^2\right)dy = 0$
+
+\item Find $H$ for: $(y^2\cos x - 3x^2y)dx + (2y\sin x - x^3 + \ln y)dy = 0$
+\end{enumerate}
+
+\section*{Part E: Verification Problems (Problems 22-25)}
+
+\begin{enumerate}[start=22]
+\item Given $H(x,y) = x^3y + xy^3 + x^2$, find $M$ and $N$ such that $Mdx + Ndy = 0$ is exact with this potential function.
+
+\item A student claims $H = x^2y + y^3$ is the potential function for $(2xy)dx + (x^2 + 3y^2)dy = 0$. Verify or correct this.
+
+\item Find the error: For $(2xy + 1)dx + (x^2 + 2y)dy = 0$, a student got $H = x^2y + x + y^2 + 5$. Is this correct?
+
+\item Show that if $H_1$ and $H_2$ are both potential functions for the same exact equation, then $H_1 - H_2 = $ constant.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 26-30)}
+
+\begin{enumerate}[start=26]
+\item (Prof. Ditkowski 2023) Find the potential function using two methods:
+$(2xy + y^2\cos x)dx + (x^2 + 2y\sin x)dy = 0$
+
+\item Given that $(ax^2y + 2xy^2)dx + (x^3 + bx^2y)dy = 0$ is exact with $a = 3$, find $b$ and solve the equation.
+
+\item The equation $(P(x) + y^2)dx + (Q(y) + 2xy)dy = 0$ is exact.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the relationship between $P(x)$ and $Q(y)$
+    \item If $P(x) = x^2$, find $Q(y)$ and the potential function
+\end{enumerate}
+
+\item Find all functions $f(x)$ such that $(f(x) + y)dx + (x + e^y)dy = 0$ is exact, then solve for $f(x) = x$.
+
+\item A potential function satisfies $H(0,y) = y^2$ and $H(x,0) = x^3$. If the equation is $(3x^2 + g(y))dx + (h(x) + 2y)dy = 0$, find $g(y)$, $h(x)$, and $H(x,y)$.
+\end{enumerate}
+
+\section*{Solutions and Key Insights}
+
+\textbf{Problem 1:} Using Method 1:
+$H = \int(2x + 3y)dx = x^2 + 3xy + g(y)$
+$\frac{\partial H}{\partial y} = 3x + g'(y) = 3x + 4y$
+So $g'(y) = 4y$, giving $g(y) = 2y^2$
+Answer: $H = x^2 + 3xy + 2y^2$
+
+\textbf{Problem 7:}
+Method 1: $H = \int(y\cos x + 2x)dx = y\sin x + x^2 + g(y)$
+$\frac{\partial H}{\partial y} = \sin x + g'(y) = \sin x + 2y$
+So $g(y) = y^2$. Thus $H = y\sin x + x^2 + y^2$
+
+Method 2: $H = \int(\sin x + 2y)dy = y\sin x + y^2 + f(x)$
+$\frac{\partial H}{\partial x} = y\cos x + f'(x) = y\cos x + 2x$
+So $f(x) = x^2$. Same answer!
+
+\textbf{Problem 12:} First find $H$:
+$H = \int(2xy + 3)dx = x^2y + 3x + g(y)$
+$\frac{\partial H}{\partial y} = x^2 + g'(y) = x^2 - 1$
+So $g(y) = -y$, giving $H = x^2y + 3x - y$
+
+Using $y(1) = 2$: $C = (1)^2(2) + 3(1) - 2 = 3$
+Solution: $x^2y + 3x - y = 3$
+
+\textbf{Problem 22:} Given $H = x^3y + xy^3 + x^2$
+$M = \frac{\partial H}{\partial x} = 3x^2y + y^3 + 2x$
+$N = \frac{\partial H}{\partial y} = x^3 + 3xy^2$
+
+\textbf{Key Strategy Note:} For Problem 19, use the fact that $d(\ln(x^2 + y^2)) = \frac{2x\,dx + 2y\,dy}{x^2 + y^2}$
+
+\textbf{Warning for Problem 30:} Use the boundary conditions to build $H$ systematically.
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Step 1: Document Preparation**
+- Save the audio script as "Lesson22_Audio.txt"
+- Compile and save theory document as "Lesson22_Theory.pdf"
+- Compile and save practice problems as "Lesson22_Practice.pdf"
+- Keep your Lesson 21 materials handy for reference
+
+**Step 2: NotebookLM Setup**
+1. Create a new notebook: "ODE Block 7 - Lesson 22: Finding Potential Functions"
+2. Upload all three Lesson 22 documents
+3. Also upload Lesson 21 Theory for continuity
+4. Add these guiding questions:
+   - "What are the three methods for finding potential functions?"
+   - "How do I choose which method to use?"
+   - "What is the systematic process for finding g(y) or f(x)?"
+   - "How do I solve initial value problems with exact equations?"
+
+**Step 3: Audio Generation Strategy**
+- Generate audio overview focusing on method comparison
+- Listen while working through one example with each method
+- Pause after each step to verify understanding
+- Take notes on which method feels most natural to you
+
+**Step 4: Progressive Study Plan**
+
+**Phase 1: Foundation (45 minutes)**
+- Read Theory Sections 1-2 thoroughly
+- Work Problems 1-3 using Method 1 only
+- Check solutions immediately
+- Focus on the g(y) finding process
+
+**Phase 2: Method Mastery (60 minutes)**
+- Read Theory Sections 3-4
+- Work Problems 4-6 using Method 2
+- Complete Problems 7-9 using both methods
+- Compare efficiency and identify preferences
+
+**Phase 3: Advanced Techniques (45 minutes)**
+- Study Method 3 (line integral approach)
+- Work Problems 10-11 comparing all methods
+- Focus on Problems 17-21 (complex expressions)
+- Identify integration shortcuts
+
+**Phase 4: Application (45 minutes)**
+- Complete all IVP problems (12-16)
+- Work verification problems (22-25)
+- Focus on exam-style problems (26-30)
+- Time yourself on the last 5 problems
+
+**Step 5: Create Your Method Selection Flowchart**
+
+Draw a flowchart with these decision points:
+```
+Is M simpler? → Yes → Method 1
+              → No  → Is N simpler? → Yes → Method 2
+                                    → No  → Method 3 or preference
+```
+
+**Step 6: Common Integration Checklist**
+Create a reference card with:
+- ∫y^n dx = xy^n + g(y)
+- ∫x^n dy = x^n y + f(x)
+- ∫e^(xy) dx needs product rule consideration
+- ∫1/x dx = ln|x| (watch domains!)
+- ∫trig functions: remember the "+g(y)" or "+f(x)"
+
+**Step 7: Error Prevention Strategies**
+
+**Most Common Mistakes to Avoid:**
+1. **Forgetting g(y) or f(x)** - ALWAYS include it
+2. **Not finding g'(y) correctly** - Take derivative carefully
+3. **Sign errors** - Check each step
+4. **Integration mistakes** - Verify by differentiation
+5. **Wrong constant for IVP** - Substitute point carefully
+
+**Verification Protocol:**
+After finding H, ALWAYS check:
+- ∂H/∂x = M? ✓
+- ∂H/∂y = N? ✓
+- Initial condition satisfied? ✓
+
+**Step 8: Speed Training**
+Time goals for exam conditions:
+- Simple polynomial: 3-4 minutes
+- Exponential/trig: 5-6 minutes
+- Complex with IVP: 7-8 minutes
+- Verification: 1 minute
+
+**Step 9: Integration with Block**
+- This lesson directly follows Lesson 21 (recognition)
+- Next lesson (23) handles non-exact equations
+- Methods here are fundamental for all exact equation problems
+- Line integral method connects to vector calculus
+
+**Study Time Allocation:**
+- Initial learning: 3 hours
+- Practice problems: 2 hours
+- Method comparison: 1 hour
+- Speed training: 1 hour
+- Total: 7 hours for mastery
+
+**Prof. Ditkowski Exam Patterns:**
+- Always one "find H using two methods" problem
+- IVP with exact equations appears in 70% of exams
+- Complex expressions (logarithms, trig) are favorites
+- Partial credit given for correct method even with arithmetic errors
+- Explicitly showing ∂H/∂x = M and ∂H/∂y = N worth 2-3 points
+
+**Formula Sheet Must-Haves:**
+```
+Method 1: H = ∫M dx + g(y), find g'(y) from ∂H/∂y = N
+Method 2: H = ∫N dy + f(x), find f'(x) from ∂H/∂x = M
+Method 3: H = ∫[0,x] M(t,0)dt + ∫[0,y] N(x,s)ds
+Solution: H(x,y) = C
+```
+
+**Next Steps:**
+After mastering finding potential functions, proceed to Lesson 23 to learn about integrating factors - the technique for solving non-exact equations by making them exact!
+
+---
+
+**Lesson 22 complete.** Request 'Generate Lesson 23' for the next lesson in Block 7.

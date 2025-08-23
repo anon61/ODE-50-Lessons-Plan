@@ -1,0 +1,566 @@
+Welcome to Lesson 18! Today we're tackling Bernoulli equations - one of the most elegant transformations in differential equations. These equations look impossible at first, but with one clever substitution, they become completely solvable.
+
+So basically, a Bernoulli equation has this specific form: y' + p(x)y = q(x)y^n. Notice how we have y to different powers? That's what makes it nonlinear and seemingly difficult. But here's the key insight - we can transform this nonlinear equation into a linear one with the right power substitution!
+
+Let me show you why this is so cool. When n = 0, the equation becomes y' + p(x)y = q(x), which is already linear - we solved these in Lesson 5! When n = 1, we get y' + p(x)y = q(x)y, which rearranges to y' = y(q(x) - p(x)), and that's separable! But for any other value of n, we need the Bernoulli trick.
+
+The magic substitution is v = y^(1-n). Why this specific power? Watch what happens when we differentiate. From v = y^(1-n), we get dv/dx = (1-n)y^(-n) · dy/dx. Now, solving for dy/dx: dy/dx = y^n/(1-n) · dv/dx.
+
+Here's where it gets beautiful. Substitute this into our original Bernoulli equation. We have y^n/(1-n) · dv/dx + p(x)y = q(x)y^n. Now multiply everything by (1-n)y^(-n). After some algebra - and trust me, you should work through this yourself - you get: dv/dx + (1-n)p(x)v = (1-n)q(x).
+
+Boom! That's a linear equation in v! We just turned a nonlinear nightmare into something we already know how to solve.
+
+Let's work through a complete example. Consider y' - y/x = x√y. First, identify that this is Bernoulli with p(x) = -1/x, q(x) = x, and n = 1/2.
+
+Using v = y^(1-1/2) = y^(1/2) = √y, we get y = v² and dy/dx = 2v · dv/dx. Substituting into the original equation: 2v · dv/dx - v²/x = x·v. Dividing by v (assuming v ≠ 0): 2 · dv/dx - v/x = x.
+
+Rearranging: dv/dx - v/(2x) = x/2. This is linear! Using the integrating factor μ = e^(-∫1/(2x)dx) = e^(-ln|x|/2) = 1/√|x|, we can solve it completely.
+
+Here's a trickier example that Prof. Ditkowski loves: the logistic equation y' = ay(1 - y/K). This doesn't look like Bernoulli at first, but expand it: y' = ay - (a/K)y². Rearranging: y' - ay = -(a/K)y². Now we see it's Bernoulli with p(x) = -a, q(x) = -a/K, and n = 2!
+
+Using v = y^(1-2) = y^(-1) = 1/y, the equation transforms to dv/dx + av = a/K. This linear equation has solution v = 1/K + Ce^(-ax), so y = K/(1 + CKe^(-ax)). That's the famous logistic curve!
+
+Common mistakes to avoid - these are exam killers:
+1. Wrong power in the substitution. Remember: v = y^(1-n), not y^n!
+2. Incorrect derivative computation. From v = y^(1-n), we get dv/dx = (1-n)y^(-n) · dy/dx.
+3. Sign errors when rearranging to standard form.
+4. Forgetting to check for singular solutions when dividing by y^n.
+5. Not recognizing disguised Bernoulli equations.
+
+Here's an exam strategy: First, rearrange your equation to match y' + p(x)y = q(x)y^n exactly. Identify n clearly - fractional and negative values are common! Write down the substitution v = y^(1-n) immediately, along with the derivative relation. Work through the transformation carefully - Prof. Ditkowski gives partial credit for correct setup.
+
+One insight that helps: Bernoulli equations often model real phenomena. Population growth with carrying capacity gives logistic equations (n = 2). Chemical reactions often lead to n = 2 or n = 3. Fluid dynamics problems frequently produce n = -1 or n = 1/2.
+
+Special cases to remember:
+- When n = 2, we get Riccati-type behavior
+- When n = -1, the substitution v = y² works nicely
+- Negative n values often appear in physics problems
+- Fractional n values come from root expressions
+
+The connection to Riccati is important for Prof. Ditkowski's course. Every Riccati equation y' = q₀(x) + q₁(x)y + q₂(x)y² can be viewed as a Bernoulli equation if you know one particular solution. This connection appears on exams!
+
+For computational efficiency, here's a pro tip: After identifying n, immediately write the transformed linear equation dv/dx + (1-n)p(x)v = (1-n)q(x) without going through all the intermediate steps. Just be careful with the algebra!
+
+Remember, Bernoulli equations are about recognizing the pattern and applying the mechanical transformation. Once you've practiced a dozen of these, you'll solve them almost automatically. The whole problem shouldn't take more than 8-10 minutes on an exam if you're well-prepared.
+
+## **Component 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{transformation}
+
+\title{Lesson 18: Bernoulli Differential Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Recognition}
+
+\begin{definition}[Bernoulli Equation]
+A Bernoulli differential equation has the form:
+$$\frac{dy}{dx} + p(x)y = q(x)y^n$$
+where $p(x)$ and $q(x)$ are continuous functions and $n \neq 0, 1$.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Why $n \neq 0, 1$?}
+\begin{itemize}
+    \item If $n = 0$: $y' + p(x)y = q(x)$ is already linear
+    \item If $n = 1$: $y' + p(x)y = q(x)y$ gives $y' = y(q(x) - p(x))$, which is separable
+    \item For all other $n$: The equation is genuinely nonlinear and requires the Bernoulli transformation
+\end{itemize}
+\end{keypoint}
+
+\section{The Bernoulli Transformation}
+
+\begin{transformation}
+\textbf{The Power Substitution Method:}
+\begin{enumerate}
+    \item Given: $\frac{dy}{dx} + p(x)y = q(x)y^n$ with $n \neq 0, 1$
+    \item Substitute: $v = y^{1-n}$
+    \item Then: $y = v^{\frac{1}{1-n}}$ and $\frac{dy}{dx} = \frac{1}{1-n}v^{\frac{n}{1-n}} \cdot \frac{dv}{dx}$
+    \item Alternatively: $\frac{dv}{dx} = (1-n)y^{-n} \cdot \frac{dy}{dx}$
+    \item The transformed equation becomes:
+    $$\frac{dv}{dx} + (1-n)p(x)v = (1-n)q(x)$$
+    \item This is linear in $v$! Solve using integrating factor method
+    \item Back-substitute: $y = v^{\frac{1}{1-n}}$
+\end{enumerate}
+\end{transformation}
+
+\begin{warning}
+\textbf{Critical Algebraic Steps:}
+Starting from $v = y^{1-n}$:
+\begin{align}
+\frac{dv}{dx} &= (1-n)y^{-n} \frac{dy}{dx} \\
+\frac{dy}{dx} &= \frac{y^n}{1-n} \frac{dv}{dx} \\
+\end{align}
+Substituting into the original equation and multiplying by $(1-n)y^{-n}$ gives the linear form.
+\end{warning}
+
+\section{Detailed Derivation}
+
+\begin{theorem}[Bernoulli to Linear Transformation]
+The substitution $v = y^{1-n}$ transforms the Bernoulli equation into a linear equation.
+
+\textbf{Proof:}
+\begin{align}
+\text{Given: } & y' + p(x)y = q(x)y^n \\
+\text{Let: } & v = y^{1-n} \\
+\text{Then: } & \frac{dv}{dx} = (1-n)y^{-n}\frac{dy}{dx} \\
+\text{So: } & \frac{dy}{dx} = \frac{y^n}{1-n}\frac{dv}{dx} \\
+\text{Substitute: } & \frac{y^n}{1-n}\frac{dv}{dx} + p(x)y = q(x)y^n \\
+\text{Multiply by } \frac{1-n}{y^n}: & \frac{dv}{dx} + (1-n)p(x)y^{1-n} = (1-n)q(x) \\
+\text{Since } v = y^{1-n}: & \frac{dv}{dx} + (1-n)p(x)v = (1-n)q(x) \quad \square
+\end{align}
+\end{theorem}
+
+\section{Standard Examples}
+
+\begin{example}[Basic Bernoulli]
+Solve: $y' + \frac{2y}{x} = x^2y^3$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Identify: $p(x) = \frac{2}{x}$, $q(x) = x^2$, $n = 3$
+    \item Substitute: $v = y^{1-3} = y^{-2}$
+    \item Transform: $\frac{dv}{dx} + (1-3)\frac{2v}{x} = (1-3)x^2$
+    \item Simplify: $\frac{dv}{dx} - \frac{4v}{x} = -2x^2$
+    \item Integrating factor: $\mu = e^{\int 4/x \, dx} = x^4$
+    \item Multiply: $x^4\frac{dv}{dx} - 4x^3v = -2x^6$
+    \item Integrate: $x^4v = -\frac{2x^7}{7} + C$
+    \item Solve for $v$: $v = -\frac{2x^3}{7} + \frac{C}{x^4}$
+    \item Back-substitute: $y^{-2} = -\frac{2x^3}{7} + \frac{C}{x^4}$
+    \item Final: $y = \pm\left(-\frac{2x^3}{7} + \frac{C}{x^4}\right)^{-1/2}$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Logistic Equation]
+Solve: $\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right)$ where $r, K > 0$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Expand: $\frac{dP}{dt} = rP - \frac{r}{K}P^2$
+    \item Rearrange: $\frac{dP}{dt} - rP = -\frac{r}{K}P^2$ (Bernoulli with $n = 2$)
+    \item Substitute: $v = P^{1-2} = P^{-1} = \frac{1}{P}$
+    \item Transform: $\frac{dv}{dt} + rv = \frac{r}{K}$
+    \item Solve linear equation: $v = \frac{1}{K} + Ce^{-rt}$
+    \item Back-substitute: $P = \frac{1}{v} = \frac{K}{1 + CKe^{-rt}}$
+    \item With initial condition $P(0) = P_0$: $P(t) = \frac{K}{1 + \left(\frac{K - P_0}{P_0}\right)e^{-rt}}$
+\end{enumerate}
+\end{example}
+
+\section{Special Cases and Variations}
+
+\begin{insight}
+\textbf{Common Values of $n$ and Their Applications:}
+\begin{center}
+\begin{tabular}{|c|l|l|}
+\hline
+$n$ & Application & Substitution \\
+\hline
+$2$ & Logistic growth, Riccati connection & $v = y^{-1}$ \\
+$3$ & Certain chemical reactions & $v = y^{-2}$ \\
+$1/2$ & Fluid dynamics, heat transfer & $v = y^{1/2}$ \\
+$-1$ & Inverse relationships & $v = y^2$ \\
+$-2$ & Gravitational problems & $v = y^3$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{insight}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Patterns:}
+\begin{itemize}
+    \item Often disguises Bernoulli equations - practice recognition
+    \item Likes fractional powers: $n = 1/2, 3/2, -1/2$
+    \item May combine with initial conditions
+    \item Tests the connection to logistic growth
+    \item Sometimes asks for qualitative behavior without full solution
+    \item Partial credit for correct substitution identification
+\end{itemize}
+\end{examtip}
+
+\section{Recognition Flowchart}
+
+\begin{center}
+\begin{tikzpicture}[node distance=2cm, auto]
+    \node[rectangle, draw] (start) {First-order ODE};
+    \node[diamond, draw, below of=start] (test1) {Form: $y' + p(x)y = q(x)y^n$?};
+    \node[diamond, draw, below of=test1] (test2) {$n = 0$?};
+    \node[diamond, draw, below of=test2] (test3) {$n = 1$?};
+    \node[rectangle, draw, right of=test2, xshift=2cm] (linear) {Linear: Use I.F.};
+    \node[rectangle, draw, right of=test3, xshift=2cm] (sep) {Separable};
+    \node[rectangle, draw, below of=test3] (bern) {Bernoulli: $v = y^{1-n}$};
+    \node[rectangle, draw, left of=test1, xshift=-2cm] (other) {Try other methods};
+
+    \draw[->] (start) -- (test1);
+    \draw[->] (test1) -- node[left] {Yes} (test2);
+    \draw[->] (test1) -- node[above] {No} (other);
+    \draw[->] (test2) -- node[left] {No} (test3);
+    \draw[->] (test2) -- node[above] {Yes} (linear);
+    \draw[->] (test3) -- node[left] {No} (bern);
+    \draw[->] (test3) -- node[above] {Yes} (sep);
+\end{tikzpicture}
+\end{center}
+
+\section{Solution Quality Check}
+
+\begin{keypoint}
+\textbf{Verification Steps:}
+\begin{enumerate}
+    \item Check that your transformed equation is truly linear
+    \item Verify the integrating factor calculation
+    \item Ensure back-substitution is algebraically correct
+    \item Test with initial conditions if given
+    \item Check for lost solutions when $y = 0$
+\end{enumerate}
+\end{keypoint}
+
+\end{document}
+```
+
+## **Component 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 18: Practice Problems - Bernoulli Equations}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Recognition and Classification (5 problems)}
+
+\begin{enumerate}
+    \item Identify which equations are Bernoulli and determine $p(x)$, $q(x)$, and $n$:
+    \begin{enumerate}[label=(\alph*)]
+        \item $y' + xy = xy^3$
+        \item $xy' - 2y = x^3\sqrt{y}$
+        \item $y' + y^2 = x$
+        \item $\frac{dy}{dx} = y(1 - y)$
+        \item $ty' + 2ty = t^3y^{-1}$
+    \end{enumerate}
+
+    \item Show that the equation $y' = ay + by^2 + c$ can be transformed into Bernoulli form only if $c = 0$.
+
+    \item Prove that if $y_1$ is a solution to the Bernoulli equation with $n = 2$, then $y_2 = y_1/(1 + Cy_1)$ is also a solution for any constant $C$.
+
+    \item Transform each equation to standard Bernoulli form:
+    \begin{enumerate}[label=(\alph*)]
+        \item $x^2y' = xy + y^3$
+        \item $\frac{dy}{dx} = \frac{y}{x} + x^2y^{-2}$
+    \end{enumerate}
+
+    \item Determine the appropriate substitution $v$ for each value of $n$:
+    \begin{enumerate}[label=(\alph*)]
+        \item $n = 3$
+        \item $n = 1/2$
+        \item $n = -1$
+        \item $n = 5/3$
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Basic Substitution Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve: $y' - y = -y^2$
+
+    \item Find the general solution: $\frac{dy}{dx} + \frac{y}{x} = x^2y^2$
+
+    \item Solve the IVP: $y' + 2y = y^3e^{-2x}$, $y(0) = 1$
+
+    \item Solve: $xy' + y = x^2y^4$
+
+    \item Find all solutions: $\frac{dy}{dt} = 2ty - y^3$
+
+    \item Solve: $y' - \frac{3y}{x} = \frac{x^2}{y^2}$ (Hint: $n = -2$)
+\end{enumerate}
+
+\section*{Part C: Complete Solution Process (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve and verify: $(1 + x^2)y' + 2xy = (1 + x^2)^2y^3$
+
+    \item Find the solution satisfying $y(1) = 2$:
+    $$xy' - y = x^3y^{1/2}$$
+
+    \item Solve the logistic equation with harvesting:
+    $$\frac{dP}{dt} = P(2 - P) - h$$
+    where $h$ is a constant harvesting rate.
+
+    \item Solve: $2xy' + y = xy^{-1}$
+
+    \item Find the general solution:
+    $$\cos x \cdot y' + y\sin x = y^2\cos^3 x$$
+\end{enumerate}
+
+\section*{Part D: Tricky Cases and Variations (5 problems)}
+
+\begin{enumerate}[resume]
+    \item Solve the generalized logistic equation:
+    $$\frac{dy}{dt} = ry^{\alpha}\left(1 - \left(\frac{y}{K}\right)^{\beta}\right)$$
+    where $\alpha = 1$ and $\beta = 1$.
+
+    \item Transform and solve:
+    $$y' = \frac{1}{x}(y - x^2y^3)$$
+
+    \item Find all solutions including singular ones:
+    $$y' + p(x)y = q(x)y^2$$
+    where $p(x) = 2/x$ and $q(x) = 1/x^2$.
+
+    \item Solve the Bernoulli equation with periodic coefficient:
+    $$y' + \sin x \cdot y = \cos x \cdot y^2$$
+
+    \item Consider the equation $y' = y^2 - 2xy^{3/2} + x^2y$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Show this can be written in Bernoulli form
+        \item Find the appropriate substitution
+        \item Solve the equation
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Mixed Recognition Challenge (4 problems)}
+
+\begin{enumerate}[resume]
+    \item Classify each equation and solve only the Bernoulli ones:
+    \begin{enumerate}[label=(\alph*)]
+        \item $y' + y/x = y^2\ln x$
+        \item $y' + y = e^x$
+        \item $xy' = y + x^2y^{-1}$
+        \item $y' + y\tan x = \sin x$
+    \end{enumerate}
+
+    \item Show that the Riccati equation $y' = q_0(x) + q_1(x)y + q_2(x)y^2$ becomes Bernoulli if one particular solution $y_p$ is known.
+
+    \item Prove that every autonomous Bernoulli equation $y' = ay + by^n$ can be solved by separation of variables.
+
+    \item Find conditions on $f(x)$ such that $y' + f(x)y = f(x)y^n$ has polynomial solutions.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Complete Problems (6 problems)}
+
+\begin{enumerate}[resume]
+    \item \textbf{[Prof. Ditkowski Style]}
+    Consider the equation: $xy' - 2y = x^4y^{1/2}$
+    \begin{enumerate}[label=(\alph*)]
+        \item Identify the type of equation and write in standard form
+        \item State the appropriate substitution
+        \item Transform to a linear equation
+        \item Solve the linear equation
+        \item Find the general solution in terms of $y$
+        \item Find the particular solution with $y(1) = 4$
+    \end{enumerate}
+
+    \item \textbf{[Application Problem]}
+    A population model with Allee effect is given by:
+    $$\frac{dP}{dt} = rP\left(1 - \frac{P}{K}\right)\left(\frac{P}{A} - 1\right)$$
+    where $0 < A < K$.
+    \begin{enumerate}[label=(\alph*)]
+        \item Show this is not in Bernoulli form
+        \item Find equilibrium points
+        \item Analyze stability of equilibria
+        \item Sketch solution curves
+    \end{enumerate}
+
+    \item \textbf{[Comprehensive Problem]}
+    For the equation $y' + \frac{n}{x}y = x^{n}y^{1-n}$ where $n$ is a positive integer:
+    \begin{enumerate}[label=(\alph*)]
+        \item Verify this is Bernoulli
+        \item Show that $y = x^n$ is a solution
+        \item Find the general solution
+        \item Discuss the behavior as $x \to 0^+$ and $x \to \infty$
+    \end{enumerate}
+
+    \item \textbf{[Theory and Computation]}
+    Consider $y' - \frac{y}{x} = x^{\alpha}y^{\beta}$
+    \begin{enumerate}[label=(\alph*)]
+        \item For what values of $\alpha$ and $\beta$ is this Bernoulli?
+        \item Solve for $\alpha = 2$, $\beta = 2$
+        \item Find conditions on $\alpha$ and $\beta$ for bounded solutions
+    \end{enumerate}
+
+    \item \textbf{[Chemical Reaction Model]}
+    The reaction rate equation:
+    $$\frac{dc}{dt} = -kc^2 + \frac{k'}{V}$$
+    where $c$ is concentration, $V$ is volume, and $k, k'$ are rate constants.
+    \begin{enumerate}[label=(\alph*)]
+        \item Show this is Bernoulli with $n = 2$
+        \item Solve with $c(0) = c_0$
+        \item Find the steady-state concentration
+        \item Determine conditions for finite-time blow-up
+    \end{enumerate}
+
+    \item \textbf{[Challenge Problem]}
+    The generalized Bernoulli equation:
+    $$y' + p(x)y = q(x)y^n + r(x)y^m$$
+    \begin{enumerate}[label=(\alph*)]
+        \item Show that if $m = 2n - 1$, a single substitution reduces this to linear form
+        \item Solve the special case: $y' - y = y^2 - y^3$
+        \item Discuss the connection to Riccati equations
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1(a):} Bernoulli with $p(x) = x$, $q(x) = x$, $n = 3$.
+
+\textbf{Problem 6:} $n = 2$, so $v = y^{-1}$. After substitution: $v' + v = -1$.
+Solution: $v = -1 + Ce^{-x}$, thus $y = \frac{1}{-1 + Ce^{-x}}$.
+
+\textbf{Problem 7:} With $n = 2$, use $v = y^{-1}$. The transformed equation is $v' - v/x = -x^2$.
+Integrating factor: $\mu = e^{\int -1/x \, dx} = 1/x$.
+Solution: $v = x(x^2/4 + C)$, so $y = \frac{1}{x(x^2/4 + C)}$.
+
+\textbf{Problem 11:} Use $v = y^{1/2}$. The transformed equation becomes:
+$v' + \frac{v}{2x} = \frac{x^2}{2}$. Solution involves $v = x^2 + Cx^{-1/2}$.
+
+\textbf{Problem 25:} Standard form: $y' - \frac{2y}{x} = x^3y^{1/2}$.
+Here $n = 1/2$, so $v = y^{1/2}$. Transformed: $v' - \frac{v}{x} = \frac{x^3}{2}$.
+
+\textbf{Key Formulas:}
+\begin{itemize}
+    \item Bernoulli: $y' + p(x)y = q(x)y^n$
+    \item Substitution: $v = y^{1-n}$
+    \item Linear form: $v' + (1-n)p(x)v = (1-n)q(x)$
+    \item Special case $n = 2$: Logistic-type equations
+\end{itemize}
+
+\textbf{Common Integration Results:}
+\begin{itemize}
+    \item $\int xe^x dx = (x-1)e^x + C$
+    \item $\int x^ne^{ax} dx$ requires integration by parts
+    \item $\int \frac{1}{x^2 + a^2} dx = \frac{1}{a}\arctan(x/a) + C$
+\end{itemize}
+
+\end{document}
+```
+
+## **Component 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Importing Content:**
+1. Save the Audio Lesson Script as: "Lesson18_Audio_Bernoulli.txt"
+2. Compile the Theory Document LaTeX as PDF: "Lesson18_Theory_Bernoulli.pdf"
+3. Compile the Practice Problems LaTeX as PDF: "Lesson18_Problems_Bernoulli.pdf"
+4. Import all three into NotebookLM notebook: "ODE Lesson 18: Bernoulli Equations"
+
+**Audio Generation Tips:**
+- Emphasize the substitution formula: v = y^(1-n), NOT y^n
+- Request clear explanation of why n ≠ 0, 1
+- Ask for emphasis on the transformation to linear form
+- Include pauses after presenting the standard form
+
+**Study Sequence:**
+1. **First Pass (30 min):** Listen to audio while reading Theory Document
+2. **Master the Substitution (30 min):** Work through the transformation derivation yourself
+3. **Basic Practice (45 min):** Complete Part A and B problems
+4. **Advanced Practice (1 hour):** Work through Parts C and D
+5. **Exam Prep (45 min):** Time yourself on Part F problems
+
+**Integration with Previous Lessons:**
+- **Essential Prerequisites:**
+  - Lesson 5 (Linear Equations) - you'll solve these after transformation
+  - Lesson 4 (Separable) - for the n = 1 case
+- **Connections:**
+  - Lesson 19 (Riccati) - Bernoulli appears when you know one Riccati solution
+  - Applications block - logistic equation is Bernoulli with n = 2
+
+**Key Formulas to Memorize:**
+```
+Standard Form: y' + p(x)y = q(x)y^n
+Substitution: v = y^(1-n)
+Derivative: dv/dx = (1-n)y^(-n) · dy/dx
+Linear Form: v' + (1-n)p(x)v = (1-n)q(x)
+Back-substitute: y = v^(1/(1-n))
+```
+
+**Common Patterns to Recognize:**
+- Logistic: y' = ay(1 - y/K) → Bernoulli with n = 2
+- Chemical reactions: Often n = 2 or n = 3
+- Population models: Usually n = 2
+- Physics problems: Often fractional n like 1/2, 3/2
+
+**NotebookLM Query Suggestions:**
+- "Why does the substitution v = y^(1-n) linearize the equation?"
+- "What are the most common mistakes in Bernoulli problems?"
+- "Explain the connection between logistic and Bernoulli equations"
+- "How do I recognize disguised Bernoulli equations?"
+- "What happens when n is negative or fractional?"
+- "Show me the step-by-step transformation for n = 2"
+
+**Practice Schedule:**
+- **Day 1:** Recognition and standard form (Problems 1-5)
+- **Day 2:** Basic substitution practice (Problems 6-11)
+- **Day 3:** Complete solutions with verification (Problems 12-16)
+- **Day 4:** Tricky cases and variations (Problems 17-21)
+- **Day 5:** Mixed practice and exam prep (Problems 22-30)
+
+**Self-Assessment Checkpoints:**
+- [ ] Can identify Bernoulli equations in any form
+- [ ] Remember v = y^(1-n) automatically (not y^n!)
+- [ ] Can execute the complete transformation without notes
+- [ ] Solve the resulting linear equation efficiently
+- [ ] Perform back-substitution correctly
+- [ ] Recognize logistic equation as Bernoulli n = 2
+- [ ] Handle negative and fractional n values
+- [ ] Complete exam problems in under 10 minutes
+
+**Common Exam Tricks:**
+- Disguised Bernoulli: Divide by x or rearrange first
+- Fractional powers: √y means n = 1/2
+- Negative powers: 1/y² means n = -2
+- Initial conditions: Often test back-substitution
+- Parameter problems: May ask about behavior for different n
+
+**Memory Aids:**
+- "1 minus n" - The substitution is ALWAYS y^(1-n)
+- "Linear after" - The result is always linear in v
+- "Multiply by (1-n)" - Both p and q get this factor
+- "Power down" - We reduce the power from n to 1
+
+**Connection to Applications:**
+- **Population Dynamics:** Logistic growth (n = 2)
+- **Chemical Kinetics:** Reaction rates (n = 2, 3)
+- **Economics:** Solow growth model variants
+- **Physics:** Nonlinear damping, fluid dynamics
+- **Biology:** Enzyme kinetics, predator-prey modifications
+
+**Prof. Ditkowski's Specific Preferences:**
+- Always verify your solution satisfies the original equation
+- Show all algebraic steps in the transformation
+- State clearly what n equals before substituting
+- Check for lost solutions (y = 0 often works)
+- Write the final answer in terms of y, not v
+
+**Quick Reference Card:**
+1. Identify: y' + p(x)y = q(x)y^n
+2. Note: n value (if 0 → linear, if 1 → separable)
+3. Substitute: v = y^(1-n)
+4. Transform: v' + (1-n)p(x)v = (1-n)q(x)
+5. Solve: Linear equation in v
+6. Back-substitute: y = v^(1/(1-n))
+
+---
+
+**Lesson 18 complete.** Request 'Generate Lesson 19' for the next lesson in Block 6.
