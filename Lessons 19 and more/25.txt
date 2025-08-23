@@ -1,0 +1,627 @@
+# **Lesson 25: Orthogonal Trajectories and Applications**
+
+## **Part 1: Audio Lesson Script**
+
+*[Opening with physical motivation]*
+
+Picture this: you're looking at the electric field lines radiating out from a positive charge. Now imagine the equipotential curves - those circles centered on the charge where the voltage is constant. Notice something beautiful? They meet at right angles! This isn't coincidence - it's a fundamental principle that appears everywhere in physics and engineering. Today, we're learning how to find these orthogonal trajectories, and trust me, Prof. Ditkowski LOVES this topic because it connects differential equations to real-world applications.
+
+So basically, orthogonal trajectories are curves that intersect a given family of curves at right angles. Here's the key insight: if you have a family of curves described by F(x,y,c) = 0, where c is a parameter, you can find the family of curves perpendicular to them using a beautiful trick with differential equations.
+
+Let me show you the systematic approach. Step one: eliminate the parameter c by differentiation. If your family is y = cx², differentiate to get dy/dx = 2cx. Now substitute back to eliminate c: since c = y/x², we get dy/dx = 2y/x. This differential equation describes the original family!
+
+Step two - and this is the magic - to find orthogonal trajectories, replace dy/dx with -dx/dy. Why? Because if two curves are perpendicular, their slopes are negative reciprocals! So our orthogonal equation becomes -dx/dy = 2y/x, or dx/dy = -2y/x.
+
+Step three: solve this new equation. Rearranging: x dx = -2y dy. Integrating both sides: x²/2 = -y² + C, or x² + 2y² = K. These ellipses are orthogonal to the original parabolas y = cx²!
+
+Let's work through another classic example that shows up on every exam. Find the orthogonal trajectories of the family of circles x² + y² = c².
+
+First, differentiate implicitly: 2x + 2y(dy/dx) = 0, so dy/dx = -x/y. This is the differential equation for the circles.
+
+For orthogonal trajectories: replace dy/dx with -dx/dy to get -dx/dy = -x/y, or dx/dy = x/y.
+
+Solving: y dy = x dx, integrating gives y²/2 = x²/2 + C, or y² - x² = K. These are rectangular hyperbolas - perpendicular to circles!
+
+Here's a common mistake students make: they forget to eliminate the parameter BEFORE finding the differential equation. If you don't eliminate c first, you'll get the wrong equation and everything falls apart. Prof. Ditkowski deducts major points for this!
+
+The physical applications are everywhere! In electrostatics, field lines and equipotentials are orthogonal. In fluid dynamics, streamlines and velocity potential curves are perpendicular. In heat transfer, heat flow lines and isotherms meet at right angles. This isn't just math - it's how nature organizes itself!
+
+Let me give you a more complex example that combines everything we've learned. Find orthogonal trajectories of y = ce^x.
+
+Differentiate: dy/dx = ce^x. But wait - we need to eliminate c! From the original equation, c = ye^(-x), so dy/dx = ye^(-x) · e^x = y. The differential equation is simply dy/dx = y.
+
+For orthogonal trajectories: -dx/dy = y, or dx/dy = -y. This is tricky - we need x as a function of y. Rearranging: dx = -y dy, so x = -y²/2 + C. The orthogonal trajectories are parabolas opening sideways!
+
+Prof. Ditkowski's favorite trick question: "Find self-orthogonal families." These are families where the orthogonal trajectories belong to the same family! Example: the family of rectangular hyperbolas xy = c. The differential equation is dy/dx = -y/x. The orthogonal equation is -dx/dy = -y/x, or dx/dy = y/x, which gives xy = K - the same family! Mind-blowing, right?
+
+Here's a memory device: "Orthogonal means flip and negate" - flip dy/dx to dx/dy and negate it. Some students remember it as "perpendicular slopes multiply to -1," which leads to the same transformation.
+
+For polar coordinates, there's a different rule! If the family has differential equation dr/dθ = f(r,θ), the orthogonal trajectories satisfy r²(dθ/dr) = f(r,θ). The r² factor comes from the geometry of polar coordinates.
+
+Warning for the exam: Prof. Ditkowski often asks you to sketch both families. Remember - they should visibly intersect at right angles! Use this as a check: if your sketches don't look perpendicular, something's wrong with your calculation.
+
+The connection to complex analysis is beautiful. In the complex plane, if u(x,y) = c₁ and v(x,y) = c₂ are orthogonal families, then f(z) = u + iv is analytic! This is why orthogonal trajectories appear in conformal mapping and potential theory.
+
+Common exam pattern: given a physical situation (like temperature distribution), derive the differential equation, find orthogonal trajectories, and interpret physically. For temperature T = c, orthogonal trajectories are heat flow lines!
+
+So basically, orthogonal trajectories let us find perpendicular curve families systematically. Eliminate the parameter, get the differential equation, flip and negate dy/dx, solve the new equation, and interpret the result. Master this process, and you'll ace these problems that beautifully connect math to physics!
+
+*[Word count: 893]*
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{algorithm}
+
+\title{Lesson 25: Orthogonal Trajectories and Applications}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Geometric Interpretation}
+
+\begin{definition}[Orthogonal Trajectories]
+Given a one-parameter family of curves $F(x,y,c) = 0$, the \textbf{orthogonal trajectories} are curves that intersect each member of the family at right angles (90°).
+\end{definition}
+
+\begin{keypoint}
+At any point of intersection, the product of the slopes of two orthogonal curves equals $-1$:
+\[m_1 \cdot m_2 = -1\]
+This is the fundamental principle behind finding orthogonal trajectories.
+\end{keypoint}
+
+\section{The Systematic Method}
+
+\begin{algorithm}
+\textbf{Finding Orthogonal Trajectories:}
+\begin{enumerate}
+    \item Start with family $F(x,y,c) = 0$
+    \item Differentiate to eliminate parameter $c$:
+    \[\frac{\partial F}{\partial x} + \frac{\partial F}{\partial y}\frac{dy}{dx} = 0\]
+    \item Express as differential equation: $\frac{dy}{dx} = f(x,y)$
+    \item Replace $\frac{dy}{dx}$ with $-\frac{dx}{dy}$ to get orthogonal equation:
+    \[-\frac{dx}{dy} = f(x,y)\]
+    \item Solve the new differential equation
+    \item The solution gives the orthogonal trajectories
+\end{enumerate}
+\end{algorithm}
+
+\begin{warning}
+You MUST eliminate the parameter $c$ before forming the differential equation. Failing to do so is the most common error and leads to incorrect results!
+\end{warning}
+
+\section{Classic Examples}
+
+\begin{example}[Straight Lines Through Origin]
+Find orthogonal trajectories of $y = cx$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Differentiate: $\frac{dy}{dx} = c$
+    \item Eliminate $c$: Since $c = \frac{y}{x}$, we have $\frac{dy}{dx} = \frac{y}{x}$
+    \item Orthogonal equation: $-\frac{dx}{dy} = \frac{y}{x}$ or $\frac{dx}{dy} = -\frac{y}{x}$
+    \item Rearrange: $x dx = -y dy$
+    \item Integrate: $\frac{x^2}{2} = -\frac{y^2}{2} + C$
+    \item Simplify: $x^2 + y^2 = K$
+\end{enumerate}
+The orthogonal trajectories are circles centered at the origin!
+\end{example}
+
+\begin{example}[Exponential Curves]
+Find orthogonal trajectories of $y = ce^{2x}$.
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Differentiate: $\frac{dy}{dx} = 2ce^{2x}$
+    \item Eliminate $c$: From original, $c = ye^{-2x}$, so $\frac{dy}{dx} = 2y$
+    \item Orthogonal equation: $-\frac{dx}{dy} = 2y$ or $\frac{dx}{dy} = -2y$
+    \item Integrate: $x = -y^2 + C$
+    \item Result: $x + y^2 = K$ (parabolas opening left)
+\end{enumerate}
+\end{example}
+
+\section{Visualization of Orthogonal Families}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.5]
+\begin{axis}[
+    axis lines = center,
+    xlabel = $x$,
+    ylabel = $y$,
+    xmin=-3, xmax=3,
+    ymin=-3, ymax=3,
+    title={Orthogonal Families: Lines $y=cx$ and Circles $x^2+y^2=K$},
+    grid=major,
+    width=10cm,
+    height=10cm
+]
+
+% Draw lines y = cx
+\foreach \c in {-2,-1,-0.5,0.5,1,2} {
+    \addplot[blue, thick, domain=-3:3, samples=2] {x*\c};
+}
+
+% Draw circles x^2 + y^2 = K
+\foreach \k in {0.5,1,1.5,2,2.5} {
+    \addplot[red, thick, domain=0:360, samples=100, parametric]
+    ({sqrt(\k)*cos(x)},{sqrt(\k)*sin(x)});
+}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Self-Orthogonal Families}
+
+\begin{definition}[Self-Orthogonal]
+A family of curves is \textbf{self-orthogonal} if its orthogonal trajectories belong to the same family (with different parameter values).
+\end{definition}
+
+\begin{example}[Rectangular Hyperbolas]
+The family $xy = c$ is self-orthogonal.
+
+\textbf{Proof:}
+\begin{enumerate}
+    \item Differentiate: $y + x\frac{dy}{dx} = 0$, so $\frac{dy}{dx} = -\frac{y}{x}$
+    \item Orthogonal equation: $-\frac{dx}{dy} = -\frac{y}{x}$ or $\frac{dx}{dy} = \frac{y}{x}$
+    \item Rearrange: $\frac{x dx}{y dy} = 1$, so $x dx = y dy$
+    \item Integrate: $\frac{x^2}{2} = \frac{y^2}{2} + C$
+    \item This gives $x^2 - y^2 = K$, or $(x-y)(x+y) = K$
+\end{enumerate}
+Actually, more careful analysis shows these are also rectangular hyperbolas, rotated by 45°.
+\end{example}
+
+\section{Physical Applications}
+
+\begin{keypoint}
+\textbf{Orthogonal Trajectories in Physics:}
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Field} & \textbf{Family 1} & \textbf{Family 2 (Orthogonal)} \\
+\hline
+Electrostatics & Electric field lines & Equipotential surfaces \\
+Fluid Dynamics & Streamlines & Velocity potential lines \\
+Heat Transfer & Heat flow lines & Isotherms (constant temperature) \\
+Magnetism & Magnetic field lines & Constant flux surfaces \\
+Stress Analysis & Principal stress trajectories & Shear stress trajectories \\
+\hline
+\end{tabular}
+\end{center}
+\end{keypoint}
+
+\begin{insight}
+The orthogonality of field lines and equipotentials follows from the fact that the gradient (field) is perpendicular to level curves (equipotentials). This is why $\vec{E} = -\nabla V$.
+\end{insight}
+
+\section{Polar Coordinate Form}
+
+\begin{theorem}[Orthogonal Trajectories in Polar Coordinates]
+If a family of curves in polar coordinates satisfies the differential equation
+\[\frac{dr}{d\theta} = F(r,\theta)\]
+then the orthogonal trajectories satisfy
+\[r^2\frac{d\theta}{dr} = F(r,\theta)\]
+\end{theorem}
+
+\begin{example}[Cardioids]
+Find orthogonal trajectories of $r = a(1 + \cos\theta)$ (family of cardioids).
+
+The differential equation and solution involve more complex polar calculus, but the principle remains: multiply by $r^2$ and interchange the roles of $r$ and $\theta$ derivatives.
+\end{example}
+
+\section{Connection to Complex Analysis}
+
+\begin{theorem}[Cauchy-Riemann and Orthogonality]
+If $f(z) = u(x,y) + iv(x,y)$ is analytic, then the families $u(x,y) = c_1$ and $v(x,y) = c_2$ are orthogonal trajectories.
+\end{theorem}
+
+\begin{example}[Complex Function]
+For $f(z) = z^2 = (x+iy)^2 = x^2 - y^2 + 2ixy$:
+\begin{itemize}
+    \item Real part: $u = x^2 - y^2 = c_1$ (hyperbolas)
+    \item Imaginary part: $v = 2xy = c_2$ (hyperbolas)
+    \item These families are orthogonal!
+\end{itemize}
+\end{example}
+
+\section{Common Exam Patterns}
+
+\begin{examtip}
+Prof. Ditkowski's favorite orthogonal trajectory problems:
+\begin{enumerate}
+    \item Circles and radial lines: $x^2 + y^2 = c^2$ ↔ $y = kx$
+    \item Parabolas and exponentials: $y^2 = cx$ ↔ $y = ke^{2x}$
+    \item Confocal ellipses and hyperbolas (advanced)
+    \item Temperature distribution and heat flow
+    \item Self-orthogonal families (always one question!)
+\end{enumerate}
+\end{examtip}
+
+\section{Step-by-Step Strategy}
+
+\begin{algorithm}
+\textbf{Exam Problem Approach:}
+\begin{enumerate}
+    \item Identify the given family $F(x,y,c) = 0$
+    \item Differentiate with respect to $x$ (implicit differentiation if needed)
+    \item Eliminate parameter $c$ using the original equation
+    \item Write differential equation: $\frac{dy}{dx} = f(x,y)$
+    \item Form orthogonal equation: $\frac{dx}{dy} = -f(x,y)$
+    \item Solve (may require exact equations or integrating factors!)
+    \item Verify orthogonality by checking slopes at intersection points
+    \item Sketch both families showing perpendicular intersections
+\end{enumerate}
+\end{algorithm}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry, xcolor}
+\geometry{margin=1in}
+
+\title{Lesson 25: Practice Problems - Orthogonal Trajectories}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Orthogonal Trajectories (Problems 1-6)}
+
+\begin{enumerate}
+\item Find the orthogonal trajectories of the family $y = cx^2$.
+
+\item Find the orthogonal trajectories of $x^2 + y^2 = c$.
+
+\item Find the orthogonal trajectories of $y = ce^{-x}$.
+
+\item Find the orthogonal trajectories of $xy = c$.
+
+\item Find the orthogonal trajectories of $y^2 = cx$.
+
+\item Find the orthogonal trajectories of $y = c\sin x$.
+\end{enumerate}
+
+\section*{Part B: Eliminating Parameters (Problems 7-11)}
+
+\begin{enumerate}[start=7]
+\item For the family $x^2 + y^2 = 2cx$:
+\begin{enumerate}[label=(\alph*)]
+    \item Eliminate $c$ to find the differential equation
+    \item Find the orthogonal trajectories
+\end{enumerate}
+
+\item For the family $y = c(x-1)^2$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the differential equation of the family
+    \item Determine the orthogonal trajectories
+\end{enumerate}
+
+\item Given $(x-c)^2 + y^2 = c^2$, find orthogonal trajectories.
+
+\item For $y^2 = c(x+c)$, eliminate $c$ and find orthogonal curves.
+
+\item The family $y = \tan(x + c)$ - find its orthogonal trajectories.
+\end{enumerate}
+
+\section*{Part C: Self-Orthogonal Families (Problems 12-14)}
+
+\begin{enumerate}[start=12]
+\item Show that the family of rectangular hyperbolas $x^2 - y^2 = c$ is self-orthogonal.
+
+\item Prove that confocal parabolas $y^2 = 4c(x+c)$ are self-orthogonal.
+
+\item Find all self-orthogonal families of the form $ax^2 + by^2 = c$.
+\end{enumerate}
+
+\section*{Part D: Physical Applications (Problems 15-19)}
+
+\begin{enumerate}[start=15]
+\item The equipotential lines in a 2D electric field are given by $x^2 - y^2 = c$. Find the electric field lines.
+
+\item Temperature distribution in a plate: $T = x^2 + y^2 = c$. Find the heat flow lines.
+
+\item Stream function: $\psi = xy = c$. Find the velocity potential lines.
+
+\item Given electric field lines $y = ce^x$, find the equipotentials.
+
+\item In a magnetic field, the flux lines are circles $x^2 + y^2 = c^2$. What are the constant magnetic potential curves?
+\end{enumerate}
+
+\section*{Part E: Complex Orthogonal Trajectories (Problems 20-24)}
+
+\begin{enumerate}[start=20]
+\item Find orthogonal trajectories of $y = c(1 + x^2)$.
+
+\item Find orthogonal trajectories of the family of curves $r = c\sin\theta$ in polar coordinates.
+
+\item For the family $e^x\cos y = c$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the differential equation
+    \item Determine orthogonal trajectories
+\end{enumerate}
+
+\item Find orthogonal trajectories of $x^3 + 3xy^2 = c$.
+
+\item The family of curves is given implicitly by $x^2y + xy^2 = c$. Find orthogonal trajectories.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 25-30)}
+
+\begin{enumerate}[start=25]
+\item (Prof. Ditkowski 2023) Show that the families $x^2 + y^2 = ax$ and $x^2 + y^2 = by$ are orthogonal, where $a$ and $b$ are parameters.
+
+\item Given that two families of curves are orthogonal:
+Family 1: $y = f(x,c)$
+Family 2: $y = g(x,k)$
+Prove that at any intersection point, $\frac{\partial f}{\partial x} \cdot \frac{\partial g}{\partial x} = -1$.
+
+\item A family of curves satisfies the differential equation $\frac{dy}{dx} = \frac{2xy}{x^2 - y^2}$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the orthogonal differential equation
+    \item Show that both equations are exact
+    \item Solve both and verify orthogonality
+\end{enumerate}
+
+\item In complex analysis, $f(z) = z^3$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the families $u(x,y) = c$ and $v(x,y) = k$
+    \item Verify they are orthogonal trajectories
+    \item Sketch several curves from each family
+\end{enumerate}
+
+\item Find all functions $F(x,y)$ such that the family $F(x,y) = c$ is self-orthogonal.
+
+\item Two families of curves in polar coordinates are given by:
+Family 1: $r = c(1 + \cos\theta)$ (cardioids)
+Family 2: $r = k(1 - \cos\theta)$
+\begin{enumerate}[label=(\alph*)]
+    \item Are these families orthogonal?
+    \item If not, find the orthogonal trajectories of Family 1
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Key Insights}
+
+\textbf{Problem 1:} $y = cx^2$
+Differentiate: $\frac{dy}{dx} = 2cx$
+Eliminate $c$: From $y = cx^2$, we get $c = \frac{y}{x^2}$
+So $\frac{dy}{dx} = \frac{2y}{x}$
+Orthogonal: $-\frac{dx}{dy} = \frac{2y}{x}$ or $\frac{dx}{dy} = -\frac{x}{2y}$
+Solving: $2y dy = -x dx$
+$y^2 = -\frac{x^2}{2} + C$
+Result: $x^2 + 2y^2 = K$ (ellipses)
+
+\textbf{Problem 4:} $xy = c$
+Differentiate: $y + x\frac{dy}{dx} = 0$
+So $\frac{dy}{dx} = -\frac{y}{x}$
+Orthogonal: $-\frac{dx}{dy} = -\frac{y}{x}$ or $\frac{dx}{dy} = \frac{y}{x}$
+This gives $x dx = y dy$
+Result: $x^2 - y^2 = K$ (rectangular hyperbolas rotated 45°)
+
+\textbf{Problem 7:} $x^2 + y^2 = 2cx$
+Differentiate: $2x + 2y\frac{dy}{dx} = 2c$
+From original: $c = \frac{x^2 + y^2}{2x}$
+Substitute: $2x + 2y\frac{dy}{dx} = \frac{x^2 + y^2}{x}$
+Simplify: $\frac{dy}{dx} = \frac{y^2 - x^2}{2xy}$
+Orthogonal: $\frac{dx}{dy} = \frac{2xy}{x^2 - y^2}$
+
+\textbf{Problem 15:} Electric field lines are orthogonal to equipotentials.
+Given: $x^2 - y^2 = c$
+Differentiate: $2x - 2y\frac{dy}{dx} = 0$
+So $\frac{dy}{dx} = \frac{x}{y}$
+Orthogonal (field lines): $\frac{dx}{dy} = -\frac{x}{y}$
+Solving: $\frac{x dx}{y dy} = -1$, so $x dx = -y dy$
+Result: $x^2 + y^2 = K$ (circles - radial field!)
+
+\textbf{Key Strategy for Problem 12:} For self-orthogonal, show that the orthogonal differential equation, when solved, gives the same family with different parameter.
+
+\textbf{Warning for Problem 28:} For $f(z) = z^3 = (x+iy)^3$, expand carefully:
+$u + iv = x^3 - 3xy^2 + i(3x^2y - y^3)$
+So $u = x^3 - 3xy^2$ and $v = 3x^2y - y^3$
+
+\textbf{Insight for Problem 25:} These are circles passing through the origin. Use the fact that circles through origin with centers on perpendicular axes are orthogonal.
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Step 1: Complete Block Preparation**
+- Save Lesson 25 audio as "Lesson25_Audio.txt"
+- Compile theory as "Lesson25_Theory.pdf"
+- Compile problems as "Lesson25_Practice.pdf"
+- Gather ALL Block 7 materials (Lessons 21-25)
+
+**Step 2: NotebookLM Final Setup**
+1. Create notebook: "ODE Block 7 - Lesson 25: Orthogonal Trajectories"
+2. Upload all three Lesson 25 documents
+3. Add these synthesis questions:
+   - "How do I find orthogonal trajectories step-by-step?"
+   - "What are self-orthogonal families?"
+   - "How does this connect to physics applications?"
+   - "What's the relationship to complex analysis?"
+
+**Step 3: Audio Learning Plan**
+- Generate audio emphasizing the geometric intuition
+- Listen while sketching perpendicular curve families
+- Pause to understand the dy/dx → -dx/dy transformation
+- Note all physics applications mentioned
+
+**Step 4: Comprehensive Study Path**
+
+**Stage 1: Core Concept (45 minutes)**
+- Read Theory Sections 1-3
+- Understand perpendicular slopes relationship
+- Work Problems 1-6 carefully
+- Sketch each family pair
+
+**Stage 2: Parameter Elimination (45 minutes)**
+- Master Theory Section 2 algorithm
+- Complete Problems 7-11
+- Focus on implicit differentiation
+- Practice eliminating parameters
+
+**Stage 3: Special Cases (30 minutes)**
+- Study self-orthogonal families
+- Work Problems 12-14
+- Understand when families are self-orthogonal
+- Connect to symmetry
+
+**Stage 4: Applications (45 minutes)**
+- Read Theory Section 6
+- Complete Problems 15-19
+- Connect each to physical meaning
+- Create application reference sheet
+
+**Stage 5: Advanced and Integration (60 minutes)**
+- Work Problems 20-30
+- Focus on complex examples
+- Time yourself on exam problems
+- Review entire Block 7
+
+**Step 5: Master Summary Card**
+
+Create a card with:
+
+**Front:**
+```
+ORTHOGONAL TRAJECTORIES ALGORITHM:
+1. Start with F(x,y,c) = 0
+2. Differentiate to get dF/dx + (dF/dy)(dy/dx) = 0
+3. Eliminate c using original equation
+4. Get dy/dx = f(x,y)
+5. Replace with -dx/dy = f(x,y)
+6. Solve new equation
+7. Result = orthogonal trajectories
+```
+
+**Back:**
+```
+QUICK CHECKS:
+• Slopes multiply to -1 at intersections
+• Sketches show 90° angles
+• dy/dx → -dx/dy (flip and negate)
+• In polar: dr/dθ → r²dθ/dr
+
+PHYSICS:
+• E-field ⊥ equipotentials
+• Heat flow ⊥ isotherms
+• Streamlines ⊥ potential lines
+```
+
+**Step 6: Block 7 Integration Map**
+
+Create connections:
+```
+Lesson 21: Test exactness → needed for orthogonal equations
+Lesson 22: Solve exact → after finding orthogonal DE
+Lesson 23-24: Integrating factors → if orthogonal DE not exact
+Lesson 25: Apply all techniques to find perpendicular families
+```
+
+**Step 7: Common Pitfalls**
+
+1. **Not eliminating parameter first** - Critical error!
+2. **Wrong sign in transformation** - It's negative reciprocal
+3. **Forgetting dx/dy not dy/dx** - Direction matters
+4. **Not checking perpendicularity** - Verify with slopes
+5. **Sketch errors** - Curves must visibly meet at 90°
+
+**Step 8: Speed Benchmarks**
+- Eliminate parameter: 1-2 minutes
+- Find differential equation: 1 minute
+- Transform to orthogonal: 30 seconds
+- Solve new equation: 3-4 minutes
+- Verify and sketch: 2 minutes
+- Total: 7-9 minutes
+
+**Step 9: Prof. Ditkowski's Patterns**
+
+**Guaranteed Exam Topics:**
+1. One basic orthogonal trajectory (circles/lines)
+2. One with parameter elimination
+3. One physics application
+4. Self-orthogonal check
+5. Often combined with exact equations
+
+**Point Distribution:**
+- Correct differential equation: 3 points
+- Proper transformation: 2 points
+- Solution of new equation: 3 points
+- Final answer: 1 point
+- Sketch: 1 point
+
+**Step 10: Block 7 Complete Review**
+
+**You've now mastered:**
+1. **Exact equation recognition** (Lesson 21)
+2. **Finding potential functions** (Lesson 22)
+3. **Basic integrating factors** (Lesson 23)
+4. **Special integrating factors** (Lesson 24)
+5. **Orthogonal trajectories** (Lesson 25)
+
+**Time Investment Summary:**
+- Lesson 21: 5 hours
+- Lesson 22: 7 hours
+- Lesson 23: 6 hours
+- Lesson 24: 6 hours
+- Lesson 25: 5 hours
+- **Total Block 7: 29 hours**
+
+**Final Mastery Checklist:**
+□ Can test exactness in 30 seconds
+□ Can find potential functions by 3 methods
+□ Can identify which integrating factor to use
+□ Can find μ(x), μ(y), μ(xy), μ(x²+y²)
+□ Can find orthogonal trajectories systematically
+□ Can sketch perpendicular curve families
+□ Understand all physics applications
+
+**Exam Strategy for Block 7:**
+1. **Always test exactness first** - quickest check
+2. **Show all work** - partial credit is generous
+3. **Verify solutions** - catches errors
+4. **Draw sketches** - helps visualize
+5. **State conclusions clearly** - "Therefore, the equation is exact"
+
+**Connection to Future Blocks:**
+- Block 8: Higher-order equations may reduce to exact
+- Block 9: Systems often involve orthogonal phase curves
+- Block 10: Laplace transforms of exact equation solutions
+
+**Pro Tips for Prof. Ditkowski's Exam:**
+- Exact equations appear in EVERY exam (2-3 problems)
+- One problem combines exact + integrating factor
+- Orthogonal trajectories often as application problem
+- Always verify exactness after finding μ
+- Sketch orthogonal families even if not asked
+- Use both methods for potential functions if time permits
+
+**Congratulations!** You've completed Block 7, mastering exact equations and their applications. This material forms 25-35% of the typical ODE 1 exam and provides essential tools for physics and engineering applications.
+
+---
+
+**Block 7 Complete!** You now have mastery of exact equations, integrating factors, and orthogonal trajectories. These tools are fundamental for solving many physical problems and will appear throughout your studies in mathematics, physics, and engineering.

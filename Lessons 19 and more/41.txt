@@ -1,0 +1,678 @@
+# **Lesson 41: Hartman-Grobman Theorem - When Linearization Works**
+
+## **Part 1: Audio Lesson Script**
+
+Welcome to Lesson 41! Today we're tackling one of the most important theorems in dynamical systems - the Hartman-Grobman theorem. This is the theorem that tells us WHEN we can trust linearization, and when we need to be careful. Prof. Ditkowski loves this because it connects mathematical rigor with practical application.
+
+So basically, here's the big question from last lesson: we learned how to linearize nonlinear systems near critical points. But when does this linearization actually tell us the truth about the nonlinear system? That's exactly what Hartman-Grobman answers!
+
+Let me give you the intuition first. Imagine you're looking at a photograph of a mountain landscape. If you zoom in on a rocky cliff face, the photo accurately shows you it's steep and jagged. But if you zoom in on the very peak - that transition point where one side goes up and the other goes down - the photo might not capture the full 3D nature of that saddle point. The Hartman-Grobman theorem tells us when our "linearization photo" is trustworthy.
+
+Here's the key concept: a critical point is called HYPERBOLIC if all eigenvalues of the Jacobian have non-zero real parts. In other words, no eigenvalues lie on the imaginary axis. When a critical point is hyperbolic, Hartman-Grobman guarantees that the linearization tells us the complete local story!
+
+The formal statement is beautiful: If $(x_0, y_0)$ is a hyperbolic equilibrium, then near this point, the nonlinear system and its linearization are "topologically conjugate." This fancy term means there's a continuous deformation that transforms trajectories of one system into trajectories of the other, preserving their essential behavior.
+
+Let me show you what this means practically. Consider the system:
+ẋ = x + y²
+ẏ = -2y + x²
+
+The only critical point is (0,0). The Jacobian at the origin is:
+J = [1  0]
+    [0 -2]
+
+Eigenvalues are λ₁ = 1 and λ₂ = -2. Since both have non-zero real parts, this is hyperbolic! Hartman-Grobman tells us the origin is definitely a saddle point for the nonlinear system, just like its linearization predicts. The stable manifold comes in along the y-axis direction (corresponding to λ = -2), and the unstable manifold goes out along the x-axis direction (corresponding to λ = 1).
+
+Now here's the crucial insight - what about those pesky nonlinear terms y² and x²? Hartman-Grobman says they might bend or curve the trajectories, but they CAN'T change the fundamental saddle structure. That's incredibly powerful!
+
+But watch out - here's where students lose points with Prof. Ditkowski. The theorem does NOT apply when eigenvalues have zero real parts. Let me show you why this matters:
+
+Consider: ẋ = y, ẏ = -x + x³
+
+At the origin, J = [0  1], giving eigenvalues λ = ±i.
+                [-1 0]
+
+The linearization says "center" - closed orbits around the origin. But look what that x³ term does! Using energy methods (which we'll see in Lesson 42), you can show the origin is actually UNSTABLE for the nonlinear system. The cubic term completely changes the behavior! This is why Hartman-Grobman requires hyperbolicity.
+
+Here's my memory trick: "HyGro" - Hyperbolic means Grobman works! If eigenvalues touch the imaginary axis, all bets are off.
+
+Let's work through another example that Prof. Ditkowski loves - the bifurcation preview:
+ẋ = μx + y - x³
+ẏ = -x + μy
+
+At (0,0), the Jacobian is [μ  1]. The eigenvalues are λ = μ ± i.
+                          [-1 μ]
+
+When is this hyperbolic? When Re(λ) ≠ 0, which means μ ≠ 0. So:
+- If μ < 0: Stable spiral (Hartman-Grobman applies)
+- If μ > 0: Unstable spiral (Hartman-Grobman applies)
+- If μ = 0: Pure imaginary eigenvalues (Hartman-Grobman FAILS)
+
+At μ = 0, we'd need more sophisticated techniques to determine behavior. This is called a Hopf bifurcation point!
+
+Now, let me clarify what "topological conjugacy" really means for your exam. It preserves:
+1. The direction of trajectories (stable stays stable, unstable stays unstable)
+2. The existence of separatrices and manifolds
+3. The qualitative behavior (nodes stay nodes, saddles stay saddles, spirals stay spirals)
+
+But it does NOT preserve:
+1. The exact shape of trajectories
+2. The speed along trajectories
+3. Distances or angles
+
+Think of it like this: if linearization says "saddle," the nonlinear system might have curved separatrices instead of straight ones, but it's still fundamentally a saddle!
+
+Here's another key insight for the exam. When Prof. Ditkowski asks "Is linearization valid?" you need to check:
+1. Are all eigenvalues non-zero? (Non-degenerate)
+2. Do all eigenvalues have non-zero real parts? (Hyperbolic)
+
+If yes to both, write: "By the Hartman-Grobman theorem, linearization determines local behavior."
+If no, write: "Hartman-Grobman does not apply; linearization may not determine behavior."
+
+A classic exam question involves multiple equilibria. Consider:
+ẋ = sin(x)
+ẏ = y - cos(x)
+
+Critical points are at x = nπ, y = cos(nπ) = (-1)ⁿ. For even n, we get (0,1), (2π,1), etc. For odd n, we get (π,-1), (3π,-1), etc.
+
+At (0,1): J = [0   0], one zero eigenvalue - NOT hyperbolic!
+             [0   1]
+
+At (π,-1): J = [0    0], both eigenvalues positive - hyperbolic!
+              [0    1]
+
+So linearization works at (π,-1) but fails at (0,1). This is the kind of careful analysis Prof. Ditkowski expects!
+
+The practical takeaway? When you linearize and get:
+- Real eigenvalues with same sign: Definitively a node
+- Real eigenvalues with opposite signs: Definitively a saddle
+- Complex with non-zero real part: Definitively a spiral
+- Purely imaginary or zero: Need additional analysis!
+
+Remember, Hartman-Grobman is your guarantee that linearization isn't lying to you - but only when the hyperbolicity condition holds!
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{example}{Example}
+\newtheorem{remark}{Remark}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{application}
+
+\title{Lesson 41: The Hartman-Grobman Theorem\\
+\large When Linearization Works}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Hyperbolicity - The Key Condition}
+
+\begin{definition}[Hyperbolic Equilibrium]
+A critical point $(x_0, y_0)$ of the nonlinear system
+$$\dot{x} = f(x,y), \quad \dot{y} = g(x,y)$$
+is called \textbf{hyperbolic} if all eigenvalues of the Jacobian matrix $J(x_0, y_0)$ have non-zero real parts. That is, if $\lambda_1, \lambda_2$ are the eigenvalues, then:
+$$\text{Re}(\lambda_1) \neq 0 \quad \text{and} \quad \text{Re}(\lambda_2) \neq 0$$
+\end{definition}
+
+\begin{keypoint}
+\textbf{Hyperbolic equilibria:}
+\begin{itemize}
+    \item Nodes (all eigenvalues real with same sign)
+    \item Saddles (real eigenvalues with opposite signs)
+    \item Spirals (complex eigenvalues with non-zero real part)
+\end{itemize}
+\textbf{Non-hyperbolic equilibria:}
+\begin{itemize}
+    \item Centers (purely imaginary eigenvalues)
+    \item Degenerate nodes (zero eigenvalue)
+    \item Any case with $\text{Re}(\lambda) = 0$ for some eigenvalue
+\end{itemize}
+\end{keypoint}
+
+\section{The Hartman-Grobman Theorem}
+
+\begin{theorem}[Hartman-Grobman]
+Let $(x_0, y_0)$ be a hyperbolic equilibrium point of the $C^1$ system:
+$$\dot{x} = f(x,y), \quad \dot{y} = g(x,y)$$
+Then there exists a neighborhood $U$ of $(x_0, y_0)$ and a homeomorphism $h: U \to V$ (where $V$ is a neighborhood of the origin) such that $h$ maps trajectories of the nonlinear system to trajectories of the linearized system:
+$$\dot{\xi} = J(x_0, y_0) \cdot \xi$$
+preserving the direction of time.
+\end{theorem}
+
+\begin{insight}
+The homeomorphism $h$ provides a \textbf{topological conjugacy} between the nonlinear and linear systems. This means:
+\begin{enumerate}
+    \item The qualitative behavior is identical
+    \item Stable/unstable manifolds correspond
+    \item The phase portrait structure is preserved
+    \item But geometric properties (angles, distances) may change
+\end{enumerate}
+\end{insight}
+
+\section{What Hartman-Grobman Tells Us}
+
+\subsection{What IS Preserved}
+
+\begin{itemize}
+    \item \textbf{Stability type:} Stable remains stable, unstable remains unstable
+    \item \textbf{Equilibrium type:} Nodes remain nodes, saddles remain saddles, spirals remain spirals
+    \item \textbf{Invariant manifolds:} Stable and unstable manifolds exist with same dimensions
+    \item \textbf{Local dynamics:} The direction of flow and separation of trajectories
+\end{itemize}
+
+\subsection{What is NOT Preserved}
+
+\begin{itemize}
+    \item \textbf{Trajectory shape:} Straight lines may become curves
+    \item \textbf{Time parametrization:} Speed along trajectories may change
+    \item \textbf{Metric properties:} Distances and angles are not preserved
+    \item \textbf{Special structures:} Hamiltonian or gradient structure may be lost
+\end{itemize}
+
+\section{Applications and Examples}
+
+\begin{example}[Hyperbolic Saddle]
+Consider the system:
+$$\dot{x} = x + y^2, \quad \dot{y} = -y + x^2$$
+
+At the origin:
+$$J(0,0) = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}$$
+
+Eigenvalues: $\lambda_1 = 1 > 0$, $\lambda_2 = -1 < 0$
+
+Since both eigenvalues have non-zero real parts, the origin is hyperbolic. By Hartman-Grobman:
+\begin{itemize}
+    \item The origin is a saddle point for the nonlinear system
+    \item There exists a 1D stable manifold (tangent to eigenvector for $\lambda = -1$)
+    \item There exists a 1D unstable manifold (tangent to eigenvector for $\lambda = 1$)
+    \item Near the origin, trajectories behave qualitatively like the linear saddle
+\end{itemize}
+\end{example}
+
+\begin{example}[Non-hyperbolic Center]
+Consider:
+$$\dot{x} = -y + x(x^2 + y^2), \quad \dot{y} = x + y(x^2 + y^2)$$
+
+At the origin:
+$$J(0,0) = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$$
+
+Eigenvalues: $\lambda = \pm i$ (purely imaginary)
+
+The origin is NOT hyperbolic. Hartman-Grobman does not apply! Indeed:
+\begin{itemize}
+    \item Linearization predicts a center (neutral stability)
+    \item The actual nonlinear system has an unstable spiral!
+    \item In polar coordinates: $\dot{r} = r^3 > 0$ for $r \neq 0$
+\end{itemize}
+\end{example}
+
+\begin{warning}
+\textbf{Common Exam Mistakes:}
+\begin{enumerate}
+    \item Applying Hartman-Grobman when eigenvalues are purely imaginary
+    \item Forgetting to verify hyperbolicity before concluding
+    \item Claiming exact trajectory shapes are preserved
+    \item Not recognizing when additional analysis is needed
+\end{enumerate}
+\end{warning}
+
+\section{The Center Problem}
+
+When linearization yields purely imaginary eigenvalues ($\lambda = \pm i\omega$), the nonlinear system near the equilibrium could be:
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Possibility} & \textbf{Determining Factor} \\
+\hline
+Center & Nonlinear terms preserve area/energy \\
+Stable spiral & Nonlinear terms dissipate energy \\
+Unstable spiral & Nonlinear terms add energy \\
+More complex & Multiple timescale dynamics \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{examtip}
+When Prof. Ditkowski gives you a system with purely imaginary eigenvalues:
+\begin{enumerate}
+    \item State clearly: "The equilibrium is non-hyperbolic"
+    \item Write: "Hartman-Grobman theorem does not apply"
+    \item Say: "Linearization alone cannot determine stability"
+    \item If asked for more, use Lyapunov functions or compute higher-order terms
+\end{enumerate}
+\end{examtip}
+
+\section{Structural Stability}
+
+\begin{definition}[Structural Stability]
+A system is \textbf{structurally stable} near an equilibrium if small perturbations to the system preserve the qualitative dynamics.
+\end{definition}
+
+\begin{theorem}[Consequence of Hartman-Grobman]
+Hyperbolic equilibria are structurally stable. Small perturbations to $f$ and $g$ will:
+\begin{itemize}
+    \item Slightly move the equilibrium location
+    \item Slightly change eigenvalues (keeping signs of real parts)
+    \item Preserve the topological type
+\end{itemize}
+\end{theorem}
+
+\begin{application}
+In real-world modeling:
+\begin{itemize}
+    \item \textbf{Hyperbolic equilibria} are robust to modeling errors
+    \item \textbf{Non-hyperbolic equilibria} are sensitive to perturbations
+    \item This explains why centers are rarely observed in practice
+    \item Bifurcations occur when equilibria lose hyperbolicity
+\end{itemize}
+\end{application}
+
+\section{Algorithm for Applying Hartman-Grobman}
+
+\begin{mdframed}[linecolor=black, linewidth=1pt]
+\textbf{Step-by-Step Procedure:}
+\begin{enumerate}
+    \item Find the critical point $(x_0, y_0)$
+    \item Compute the Jacobian $J(x_0, y_0)$
+    \item Calculate eigenvalues $\lambda_1, \lambda_2$
+    \item Check hyperbolicity:
+    \begin{itemize}
+        \item If $\text{Re}(\lambda_1) \neq 0$ AND $\text{Re}(\lambda_2) \neq 0$: HYPERBOLIC
+        \item Otherwise: NON-HYPERBOLIC
+    \end{itemize}
+    \item If hyperbolic:
+    \begin{itemize}
+        \item State: "By Hartman-Grobman, linearization determines local behavior"
+        \item Classify using linear theory
+        \item Conclude about stability
+    \end{itemize}
+    \item If non-hyperbolic:
+    \begin{itemize}
+        \item State: "Hartman-Grobman does not apply"
+        \item Note that additional analysis is required
+        \item Consider Lyapunov functions or normal forms
+    \end{itemize}
+\end{enumerate}
+\end{mdframed}
+
+\section{Connection to Bifurcation Theory}
+
+\begin{insight}
+Bifurcations occur when a parameter change causes an equilibrium to lose hyperbolicity. Common scenarios:
+\begin{itemize}
+    \item \textbf{Saddle-node:} Real eigenvalue crosses zero
+    \item \textbf{Hopf:} Complex pair crosses imaginary axis
+    \item \textbf{Pitchfork/Transcritical:} Zero eigenvalue appears
+\end{itemize}
+At bifurcation points, Hartman-Grobman fails and nonlinear terms determine the behavior!
+\end{insight}
+
+\section{Summary Table}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Eigenvalues} & \textbf{Hyperbolic?} & \textbf{H-G Applies?} & \textbf{Conclusion} \\
+\hline
+$\lambda_1, \lambda_2 < 0$ & Yes & Yes & Stable node \\
+$\lambda_1, \lambda_2 > 0$ & Yes & Yes & Unstable node \\
+$\lambda_1 < 0 < \lambda_2$ & Yes & Yes & Saddle \\
+$\alpha \pm i\beta$, $\alpha \neq 0$ & Yes & Yes & Spiral (sign of $\alpha$) \\
+$\pm i\beta$ & No & No & Inconclusive \\
+$\lambda_1 = 0$, $\lambda_2 \neq 0$ & No & No & Inconclusive \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\usepackage{mdframed, xcolor}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newcommand{\solution}[1]{\textcolor{blue}{\textbf{Solution Hint:} #1}}
+
+\title{Lesson 41: Practice Problems\\
+\large Hartman-Grobman Theorem Applications}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Identifying Hyperbolic Equilibria (5 problems)}
+
+\begin{enumerate}
+\item For the system $\dot{x} = x - y$, $\dot{y} = x^2 - 1$, determine which critical points are hyperbolic.
+\solution{Find critical points at $(1,1)$ and $(-1,-1)$. Check eigenvalues at each.}
+
+\item Consider $\dot{x} = y$, $\dot{y} = -\sin(x)$. Which equilibria at $x = n\pi$ are hyperbolic?
+\solution{Check $\cos(n\pi) = (-1)^n$ in the Jacobian. Different behavior for even/odd $n$.}
+
+\item For what values of $a$ is the origin a hyperbolic equilibrium?
+$$\dot{x} = ax - y, \quad \dot{y} = x + ay$$
+\solution{Find when eigenvalues $\lambda = a \pm i$ have non-zero real parts.}
+
+\item Determine all hyperbolic critical points of:
+$$\dot{x} = x(1 - x - y), \quad \dot{y} = y(2 - 3x - y)$$
+\solution{Four critical points to check. Compute eigenvalues at each.}
+
+\item For the gradient system with $V(x,y) = x^4 - 2x^2 + y^2$, identify hyperbolic equilibria.
+\solution{Critical points where $\nabla V = 0$. Use Hessian for eigenvalues.}
+\end{enumerate}
+
+\section*{Part B: Applying Hartman-Grobman (6 problems)}
+
+\begin{enumerate}[resume]
+\item Given the system:
+$$\dot{x} = -x + y^2, \quad \dot{y} = -2y + x^2$$
+Can linearization at the origin determine the local behavior? Justify using Hartman-Grobman.
+\solution{Check eigenvalues of $J(0,0)$. Both negative implies hyperbolic stable node.}
+
+\item For the system $\dot{x} = y + x^3$, $\dot{y} = -x + y^3$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is non-hyperbolic
+    \item Explain why Hartman-Grobman doesn't apply
+    \item What additional analysis would be needed?
+\end{enumerate}
+\solution{Eigenvalues are $\pm i$. Need Lyapunov function or normal form analysis.}
+
+\item Consider the damped Duffing oscillator:
+$$\dot{x} = y, \quad \dot{y} = x - x^3 - \delta y$$
+For $\delta > 0$, determine which equilibria have behavior determined by linearization.
+\solution{Three equilibria. Check hyperbolicity at each.}
+
+\item A system has Jacobian at equilibrium:
+$$J = \begin{pmatrix} -1 & 2 \\ 3 & -1 \end{pmatrix}$$
+What does Hartman-Grobman tell us about the nonlinear behavior near this point?
+\solution{Compute eigenvalues. Check if both have non-zero real parts.}
+
+\item For the predator-prey system:
+$$\dot{x} = x(1 - x) - \frac{xy}{1 + x}, \quad \dot{y} = ry\left(1 - \frac{y}{x}\right)$$
+Under what conditions on $r > 0$ is the coexistence equilibrium hyperbolic?
+\solution{Find the equilibrium, compute Jacobian, determine eigenvalue conditions.}
+
+\item Given that a system's linearization at $(1,2)$ has eigenvalues $\lambda = 2 \pm 3i$, what can you conclude about:
+\begin{enumerate}[label=(\alph*)]
+    \item The validity of linearization?
+    \item The type of equilibrium?
+    \item The stability?
+\end{enumerate}
+\solution{Positive real parts mean hyperbolic unstable spiral.}
+\end{enumerate}
+
+\section*{Part C: Non-Hyperbolic Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Show that the origin is non-hyperbolic for:
+$$\dot{x} = y + ax^3, \quad \dot{y} = -x + by^3$$
+What does this mean for stability analysis?
+\solution{$J(0,0)$ has purely imaginary eigenvalues. Linearization fails.}
+
+\item Consider the Hamiltonian system:
+$$\dot{x} = \frac{\partial H}{\partial y}, \quad \dot{y} = -\frac{\partial H}{\partial x}$$
+where $H(x,y) = \frac{1}{2}(x^2 + y^2) + \frac{1}{4}(x^4 + y^4)$.
+Why doesn't Hartman-Grobman apply at the origin?
+\solution{Hamiltonian systems have centers; eigenvalues are purely imaginary.}
+
+\item For the system:
+$$\dot{x} = -y + \mu x(x^2 + y^2), \quad \dot{y} = x + \mu y(x^2 + y^2)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is non-hyperbolic for all $\mu$
+    \item Determine stability using polar coordinates
+    \item Compare with linearization prediction
+\end{enumerate}
+\solution{In polar: $\dot{r} = \mu r^3$. Sign of $\mu$ determines stability.}
+
+\item A system has a line of equilibria $y = 0$. Can Hartman-Grobman apply at any point on this line?
+\solution{Zero eigenvalue guaranteed, so non-hyperbolic everywhere.}
+
+\item For what parameter values does Hartman-Grobman fail?
+$$\dot{x} = \alpha x - y, \quad \dot{y} = x + \alpha y$$
+\solution{Eigenvalues $\lambda = \alpha \pm i$. Fails when $\alpha = 0$.}
+\end{enumerate}
+
+\section*{Part D: Structural Stability (4 problems)}
+
+\begin{enumerate}[resume]
+\item If a system has a hyperbolic saddle at the origin, what happens under small perturbations $\epsilon f_1(x,y)$ and $\epsilon g_1(x,y)$?
+\solution{Saddle persists but may shift location slightly.}
+
+\item Consider the perturbed system:
+$$\dot{x} = -x + \epsilon xy, \quad \dot{y} = -2y + \epsilon x^2$$
+For small $\epsilon$, does the qualitative behavior near the origin change?
+\solution{Origin remains hyperbolic stable node for small $\epsilon$.}
+
+\item A system undergoes a Hopf bifurcation at $\mu = 0$:
+$$\dot{x} = \mu x - y + x(x^2 + y^2), \quad \dot{y} = x + \mu y + y(x^2 + y^2)$$
+Explain using Hartman-Grobman why the behavior changes at $\mu = 0$.
+\solution{Eigenvalues cross imaginary axis; hyperbolicity lost.}
+
+\item Two systems have the same linearization at their respective equilibria, with eigenvalues $-1 \pm 2i$. What can you conclude about their local phase portraits?
+\solution{Both have topologically equivalent stable spirals near equilibrium.}
+\end{enumerate}
+
+\section*{Part E: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Comprehensive]} Consider the system:
+$$\dot{x} = y^2 - x, \quad \dot{y} = x^2 - y$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all critical points
+    \item Determine which are hyperbolic
+    \item For hyperbolic equilibria, state the type and stability
+    \item For non-hyperbolic equilibria, explain why Hartman-Grobman fails
+\end{enumerate}
+\solution{Critical points at $(0,0)$, $(1,1)$, and two others. Check each.}
+
+\item \textbf{[Prof. Ditkowski Style]} The van der Pol oscillator:
+$$\dot{x} = y, \quad \dot{y} = -x + \epsilon(1 - x^2)y$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is the only equilibrium
+    \item For what values of $\epsilon > 0$ can we use linearization?
+    \item Classify the origin for small $\epsilon > 0$
+    \item What happens as $\epsilon \to 0$?
+\end{enumerate}
+\solution{Always hyperbolic for $\epsilon > 0$, non-hyperbolic at $\epsilon = 0$.}
+
+\item \textbf{[Application]} A chemical reaction system:
+$$\dot{x} = 1 - x - xy^2, \quad \dot{y} = \alpha(xy^2 - y)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the equilibrium with $x, y > 0$
+    \item Determine conditions on $\alpha > 0$ for hyperbolicity
+    \item When hyperbolic, what does linearization tell us?
+    \item Interpret chemically
+\end{enumerate}
+\solution{Steady state exists. Check when Jacobian eigenvalues have non-zero real parts.}
+
+\item \textbf{[Multiple Equilibria]} For the system:
+$$\dot{x} = x(1 - x^2 - y^2), \quad \dot{y} = y(1 - x^2 - y^2) + x$$
+\begin{enumerate}[label=(\alph*)]
+    \item Show there are exactly two equilibria
+    \item Determine which (if any) are hyperbolic
+    \item Apply Hartman-Grobman where valid
+    \item Sketch the expected phase portrait
+\end{enumerate}
+\solution{One at origin, another on unit circle. Check hyperbolicity of each.}
+
+\item \textbf{[Theory and Application]} Consider:
+$$\dot{x} = f(x,y), \quad \dot{y} = g(x,y)$$
+where $f(1,2) = g(1,2) = 0$ and the Jacobian at $(1,2)$ is:
+$$J(1,2) = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Is $(1,2)$ hyperbolic? Explain.
+    \item What does linearization predict?
+    \item Why might this prediction be wrong?
+    \item Give an example of $f$ and $g$ where linearization fails
+\end{enumerate}
+\solution{Purely imaginary eigenvalues. Could be center, spiral, or more complex.}
+\end{enumerate}
+
+\section*{Part F: Advanced Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Prove that all equilibria of a gradient system $\dot{x} = -\nabla V(x)$ with non-degenerate critical points are hyperbolic.
+\solution{Hessian eigenvalues are real; non-degenerate means non-zero.}
+
+\item For the Lorenz system restricted to the $x$-$y$ plane (setting $z = 0$):
+$$\dot{x} = \sigma(y - x), \quad \dot{y} = rx - y$$
+Determine for which values of $\sigma, r > 0$ the origin is hyperbolic.
+
+\item Consider a system where the Jacobian at an equilibrium has characteristic polynomial $\lambda^2 + p\lambda + q = 0$. Give conditions on $p$ and $q$ for:
+\begin{enumerate}[label=(\alph*)]
+    \item Hyperbolic node
+    \item Hyperbolic saddle
+    \item Hyperbolic spiral
+    \item Non-hyperbolic equilibrium
+\end{enumerate}
+
+\item \textbf{[Challenge]} Show that if a 2D system has a homoclinic orbit (trajectory connecting a saddle to itself), then the saddle must be hyperbolic.
+
+\item \textbf{[Research Preview]} Consider the system:
+$$\dot{x} = y + \delta x - x^3, \quad \dot{y} = -x$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find critical points as functions of $\delta$
+    \item Determine hyperbolicity conditions
+    \item Show that bifurcations occur when hyperbolicity is lost
+    \item Sketch the bifurcation diagram
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Exam Strategies:}
+\begin{itemize}
+    \item Always check $\text{Re}(\lambda) \neq 0$ for ALL eigenvalues
+    \item State explicitly whether Hartman-Grobman applies
+    \item If it applies, conclude definitively about behavior
+    \item If it doesn't apply, state that additional analysis is needed
+    \item Remember: "hyperbolic" = "linearization works"
+    \item Common error: Forgetting that BOTH eigenvalues need non-zero real parts
+\end{itemize}
+\end{hint}
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Step 1: Document Preparation**
+- Save the Audio Lesson Script as "Lesson41_Audio.txt"
+- Compile the Theory document to "Lesson41_Theory.pdf"
+- Compile the Practice Problems to "Lesson41_Practice.pdf"
+- Keep all files in a folder labeled "Lesson 41 - Hartman-Grobman"
+
+**Step 2: NotebookLM Setup**
+1. Create a new notebook: "ODE Lesson 41: Hartman-Grobman Theorem"
+2. Upload all three documents
+3. Add a note: "Focus on when linearization is valid"
+4. Tag as "Critical for Exam"
+
+**Step 3: Audio Generation Tips**
+- Request emphasis on the hyperbolicity condition
+- Ask for clear examples of when the theorem fails
+- Include discussion of the center problem
+- Request connection to real-world stability
+
+**Step 4: Study Progression**
+1. **Foundation (1 hour):** Read theory document, focusing on Definition 1 and Theorem 1
+2. **Audio Learning (45 min):** Listen while reviewing hyperbolic vs non-hyperbolic table
+3. **Basic Practice (1 hour):** Complete Parts A and B
+4. **Advanced Practice (1.5 hours):** Work through Parts C-E
+5. **Synthesis (30 min):** Create a decision tree for applying Hartman-Grobman
+
+**Step 5: Key Concepts Checklist**
+After studying, verify you can:
+- [ ] Define hyperbolic equilibrium precisely
+- [ ] State the Hartman-Grobman theorem
+- [ ] Identify when the theorem applies/fails
+- [ ] Explain topological conjugacy intuitively
+- [ ] Connect to structural stability
+- [ ] Recognize the center problem
+
+**Step 6: Common Exam Patterns**
+Prof. Ditkowski typically tests Hartman-Grobman through:
+1. "Determine which equilibria are hyperbolic"
+2. "Can linearization determine the behavior? Justify."
+3. "The linearization gives eigenvalues λ = ___. What can you conclude?"
+4. Parameter-dependent problems where hyperbolicity changes
+
+**Quick Reference Card to Create:**
+```
+HARTMAN-GROBMAN DECISION TREE
+1. Find equilibrium (x₀,y₀)
+2. Compute J(x₀,y₀)
+3. Find eigenvalues λ₁,λ₂
+4. Check: Re(λ₁) ≠ 0 AND Re(λ₂) ≠ 0?
+   YES → Hyperbolic → H-G applies → Trust linearization
+   NO → Non-hyperbolic → H-G fails → Need more analysis
+```
+
+**Integration with Other Lessons:**
+- Lesson 40: Provides the linearization process
+- Lesson 41: Tells when linearization is valid
+- Lesson 42: Offers alternative (Lyapunov) when H-G fails
+
+**Time-Saving Tips:**
+1. For complex eigenvalues α ± iβ: Just check if α ≠ 0
+2. For real eigenvalues: Check neither is zero
+3. Pure imaginary (±iβ) or zero: Immediately non-hyperbolic
+
+**Memory Aids:**
+- "HyGro" - Hyperbolic means Grobman works
+- "Real parts rule" - Non-zero real parts needed
+- "Centers can't be trusted" - Purely imaginary = inconclusive
+
+**Practice Priority:**
+HIGH: Problems 6, 11, 16-17, 21-25
+MEDIUM: Problems 1-5, 12-15
+REVIEW: Problems 7-10, 18-20
+
+**Warning Signs in Exam:**
+- Words like "might," "could be," "possibly" → Check hyperbolicity!
+- Parameter problems → Look for values where hyperbolicity fails
+- "Justify using Hartman-Grobman" → Must verify conditions
+
+**Prof. Ditkowski's Favorite Tricks:**
+1. Systems with parameters where hyperbolicity fails at specific values
+2. Multiple equilibria where some are hyperbolic and others aren't
+3. Asking what happens "as parameter approaches critical value"
+4. Hamiltonian/conservative systems (always non-hyperbolic centers)
+
+**Total Study Time Required:**
+- Theory absorption: 1.5 hours
+- Practice problems: 2.5 hours
+- Audio and review: 1 hour
+- Total: 5 hours for mastery
+
+**Self-Test Questions:**
+1. Why does Hartman-Grobman require hyperbolicity?
+2. What's the difference between topological and geometric equivalence?
+3. Give an example where linearization predicts wrong stability
+4. When do bifurcations occur in terms of hyperbolicity?
+5. How does structural stability relate to Hartman-Grobman?
+
+---
+
+**Lesson 41 complete. Request 'Generate Lesson 42' for the final lesson on Lyapunov Functions and Global Stability in Block 11.**

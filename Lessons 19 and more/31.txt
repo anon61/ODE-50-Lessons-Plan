@@ -1,0 +1,530 @@
+# **Lesson 31: Repeated Eigenvalues and Jordan Forms**
+
+## **Part 1: Audio Lesson Script**
+
+Alright, welcome to Lesson 31! This is where things get a bit trickier - we're dealing with repeated eigenvalues and the infamous Jordan forms. So basically, last lesson we had the nice case where all eigenvalues were distinct. But what happens when eigenvalues repeat? That's today's adventure!
+
+Here's the key insight: when an eigenvalue repeats, we might not have enough eigenvectors to form a complete solution. Think about it - if λ = 2 appears twice as an eigenvalue, we need two linearly independent solutions involving e^(2t), but we might only find one eigenvector! This is called a "defective" eigenvalue.
+
+Let me show you what's going on with a concrete example. Consider the matrix:
+```
+A = [3  1]
+    [0  3]
+```
+
+The characteristic equation is (3-λ)² = 0, so λ = 3 is a double eigenvalue. Now let's find eigenvectors:
+(A - 3I)v = [0  1][v₁] = [0]
+            [0  0][v₂]   [0]
+
+This gives us v₂ = 0, so our eigenvector is v = [1, 0]ᵀ. But wait - we only got ONE eigenvector for a double eigenvalue! We're missing a solution!
+
+Here's where generalized eigenvectors save the day. The idea is brilliant: if (A - λI)v = 0 gives us regular eigenvectors, then (A - λI)²w = 0 gives us generalized eigenvectors. We're looking for vectors that become eigenvectors after one application of (A - λI).
+
+For our example, we need to solve (A - 3I)w = v, where v is our eigenvector:
+[0  1][w₁] = [1]
+[0  0][w₂]   [0]
+
+This gives w₂ = 1, and w₁ is free. Choose w₁ = 0, so w = [0, 1]ᵀ.
+
+Now here's the magic - our second solution is:
+**x₂(t) = e^(3t)(tw + v) = e^(3t)(t[0,1]ᵀ + [1,0]ᵀ)**
+
+See that t in there? That's the signature of a repeated eigenvalue! The general solution becomes:
+**x(t) = c₁e^(3t)[1,0]ᵀ + c₂e^(3t)(t[0,1]ᵀ + [1,0]ᵀ)**
+
+Let me explain why this works. When you differentiate e^(λt)(tv + w), you get:
+- The e^(λt) brings down a factor of λ
+- The t differentiation gives you just e^(λt)v
+- Combined: λe^(λt)(tv + w) + e^(λt)v
+
+For this to equal A times our solution, we need:
+A(tv + w) = λ(tv + w) + v
+
+This is exactly what our generalized eigenvector satisfies!
+
+Now, let's tackle a 3×3 example with a triple eigenvalue - this is exam gold for Prof. Ditkowski:
+```
+A = [2  1  0]
+    [0  2  1]
+    [0  0  2]
+```
+
+This is already in Jordan form! The eigenvalue λ = 2 has multiplicity 3. Finding eigenvectors:
+(A - 2I) = [0  1  0]
+           [0  0  1]
+           [0  0  0]
+
+Only one eigenvector: v₁ = [1, 0, 0]ᵀ.
+
+For the first generalized eigenvector, solve (A - 2I)v₂ = v₁:
+[0  1  0][x]   [1]
+[0  0  1][y] = [0]
+[0  0  0][z]   [0]
+
+This gives y = 1, z = 0, so v₂ = [0, 1, 0]ᵀ.
+
+For the second generalized eigenvector, solve (A - 2I)v₃ = v₂:
+[0  1  0][x]   [0]
+[0  0  1][y] = [1]
+[0  0  0][z]   [0]
+
+This gives y = 0, z = 1, so v₃ = [0, 0, 1]ᵀ.
+
+The general solution is:
+**x(t) = e^(2t)[c₁v₁ + c₂(tv₁ + v₂) + c₃(t²/2·v₁ + tv₂ + v₃)]**
+
+Notice the pattern: t⁰, t¹, t² terms appear! Each generalized eigenvector adds another power of t.
+
+Here's my memory trick for Jordan chains: "CAGE"
+- **C**heck multiplicity vs number of eigenvectors
+- **A**dd generalized eigenvectors if defective
+- **G**enerate solutions with polynomial terms
+- **E**xpand carefully with all t-powers
+
+Common mistakes to avoid:
+1. **Assuming you always get enough eigenvectors** - Always check!
+2. **Wrong generalized eigenvector equation** - It's (A-λI)w = v, not (A-λI)w = 0
+3. **Forgetting the t² terms** for triple eigenvalues - Each level adds a power
+4. **Not maintaining the chain order** - v₃ depends on v₂ which depends on v₁
+
+Prof. Ditkowski loves to test this with upper triangular matrices because the eigenvalues are obvious (diagonal entries) but the Jordan structure requires work. If you see an upper triangular matrix with repeated diagonal entries, immediately think "Jordan form incoming!"
+
+The physical interpretation: imagine a critically damped system. Regular eigenvectors give pure exponential decay, but generalized eigenvectors add polynomial growth that fights the exponential - that's why you get those t·e^(λt) terms that peak before decaying.
+
+Quick diagnostic: If an eigenvalue λ has algebraic multiplicity m (appears m times) but geometric multiplicity k (gives k independent eigenvectors), you need m - k generalized eigenvectors. This difference is called the defect.
+
+For initial value problems with Jordan forms, the algebra gets messy but the process is the same: expand your general solution, apply x(0) = x₀, and solve for the constants. The key is keeping track of all those t-terms!
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{nicematrix, systeme}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{algorithm}{Algorithm}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{jordan}
+
+\title{Lesson 31: Repeated Eigenvalues and Jordan Forms}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Defective Eigenvalue Problem}
+
+\begin{definition}[Algebraic and Geometric Multiplicity]
+For an eigenvalue $\lambda$:
+\begin{itemize}
+\item \textbf{Algebraic multiplicity}: The multiplicity of $\lambda$ as a root of the characteristic polynomial
+\item \textbf{Geometric multiplicity}: The dimension of the eigenspace $\ker(A - \lambda I)$
+\item \textbf{Defect}: Algebraic multiplicity minus geometric multiplicity
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Generalized Eigenvector]
+A \textbf{generalized eigenvector} of order $k$ associated with eigenvalue $\lambda$ is a vector $\mathbf{v}$ satisfying:
+\[(A - \lambda I)^k \mathbf{v} = \mathbf{0} \quad \text{but} \quad (A - \lambda I)^{k-1} \mathbf{v} \neq \mathbf{0}\]
+\end{definition}
+
+\begin{jordan}
+\textbf{Jordan Block Structure:}
+A Jordan block of size $n$ for eigenvalue $\lambda$ is:
+\[J_n(\lambda) = \begin{pmatrix}
+\lambda & 1 & 0 & \cdots & 0 \\
+0 & \lambda & 1 & \cdots & 0 \\
+\vdots & \vdots & \ddots & \ddots & \vdots \\
+0 & 0 & 0 & \lambda & 1 \\
+0 & 0 & 0 & 0 & \lambda
+\end{pmatrix}\]
+\end{jordan}
+
+\section{Finding Generalized Eigenvectors}
+
+\begin{algorithm}[Jordan Chain Construction]
+Given eigenvalue $\lambda$ with defect $d > 0$:
+\begin{enumerate}
+\item Find all regular eigenvectors: $(A - \lambda I)\mathbf{v}_1 = \mathbf{0}$
+\item Find first generalized eigenvector: $(A - \lambda I)\mathbf{v}_2 = \mathbf{v}_1$
+\item Continue the chain: $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}_k$
+\item Stop when you have enough vectors to match algebraic multiplicity
+\end{enumerate}
+\end{algorithm}
+
+\begin{theorem}[Solution Form for Repeated Eigenvalues]
+For eigenvalue $\lambda$ with a Jordan chain $\{\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_k\}$:
+\begin{align}
+\mathbf{x}_1(t) &= e^{\lambda t}\mathbf{v}_1 \\
+\mathbf{x}_2(t) &= e^{\lambda t}(t\mathbf{v}_1 + \mathbf{v}_2) \\
+\mathbf{x}_3(t) &= e^{\lambda t}\left(\frac{t^2}{2!}\mathbf{v}_1 + t\mathbf{v}_2 + \mathbf{v}_3\right) \\
+&\vdots \\
+\mathbf{x}_k(t) &= e^{\lambda t}\sum_{j=0}^{k-1} \frac{t^j}{j!}\mathbf{v}_{k-j}
+\end{align}
+\end{theorem}
+
+\begin{keypoint}
+\textbf{Why Polynomial Terms Appear:}\\
+The polynomial terms arise from the nilpotent part $(A - \lambda I)$. When we write $A = \lambda I + N$ where $N = A - \lambda I$ is nilpotent:
+\[e^{At} = e^{\lambda t} e^{Nt} = e^{\lambda t}\left(I + Nt + \frac{N^2t^2}{2!} + \cdots\right)\]
+The series terminates because $N^k = 0$ for some $k$!
+\end{keypoint}
+
+\section{Complete Examples}
+
+\begin{example}[2×2 System with Repeated Eigenvalue]
+Solve $\mathbf{x}' = \begin{pmatrix} 5 & 1 \\ -4 & 1 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 2 \\ 1 \end{pmatrix}$
+
+\textbf{Solution:}
+\begin{enumerate}
+\item \textbf{Eigenvalues:}
+\[\det(A - \lambda I) = \det\begin{pmatrix} 5-\lambda & 1 \\ -4 & 1-\lambda \end{pmatrix} = (5-\lambda)(1-\lambda) + 4\]
+\[= 5 - 6\lambda + \lambda^2 + 4 = \lambda^2 - 6\lambda + 9 = (\lambda - 3)^2\]
+So $\lambda = 3$ with algebraic multiplicity 2.
+
+\item \textbf{Eigenvectors:}
+\[(A - 3I) = \begin{pmatrix} 2 & 1 \\ -4 & -2 \end{pmatrix}\]
+Row reduction: $R_2 + 2R_1 \to R_2$ gives $\begin{pmatrix} 2 & 1 \\ 0 & 0 \end{pmatrix}$
+
+So $2v_1 + v_2 = 0 \implies v_2 = -2v_1$. Choose $v_1 = 1$: $\mathbf{v}_1 = \begin{pmatrix} 1 \\ -2 \end{pmatrix}$
+
+Geometric multiplicity = 1, Defect = 1.
+
+\item \textbf{Generalized Eigenvector:}
+Solve $(A - 3I)\mathbf{w} = \mathbf{v}_1$:
+\[\begin{pmatrix} 2 & 1 \\ -4 & -2 \end{pmatrix}\begin{pmatrix} w_1 \\ w_2 \end{pmatrix} = \begin{pmatrix} 1 \\ -2 \end{pmatrix}\]
+
+From row 1: $2w_1 + w_2 = 1$. Choose $w_1 = 0$: $w_2 = 1$, so $\mathbf{w} = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item \textbf{General Solution:}
+\[\mathbf{x}(t) = c_1 e^{3t}\begin{pmatrix} 1 \\ -2 \end{pmatrix} + c_2 e^{3t}\left(t\begin{pmatrix} 1 \\ -2 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix}\right)\]
+\[= e^{3t}\begin{pmatrix} c_1 + c_2t \\ -2c_1 - 2c_2t + c_2 \end{pmatrix}\]
+
+\item \textbf{Apply Initial Conditions:}
+\[\begin{pmatrix} 2 \\ 1 \end{pmatrix} = \begin{pmatrix} c_1 \\ -2c_1 + c_2 \end{pmatrix}\]
+So $c_1 = 2$ and $-2(2) + c_2 = 1 \implies c_2 = 5$
+
+\item \textbf{Final Solution:}
+\[\mathbf{x}(t) = e^{3t}\begin{pmatrix} 2 + 5t \\ -4 - 10t + 5 \end{pmatrix} = e^{3t}\begin{pmatrix} 2 + 5t \\ 1 - 10t \end{pmatrix}\]
+\end{enumerate}
+\end{example}
+
+\begin{example}[3×3 System with Triple Eigenvalue]
+Solve $\mathbf{x}' = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}\mathbf{x}$
+
+\textbf{Solution:}
+The matrix is upper triangular, so $\lambda = 1$ (triple).
+
+\textbf{First eigenvector:}
+$(A - I)\mathbf{v}_1 = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{v}_1 = \mathbf{0}$
+
+This gives $v_2 = v_3 = 0$, so $\mathbf{v}_1 = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+
+\textbf{First generalized eigenvector:}
+$(A - I)\mathbf{v}_2 = \mathbf{v}_1$:
+$\begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+
+This gives $y = 1, z = 0$, so $\mathbf{v}_2 = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$
+
+\textbf{Second generalized eigenvector:}
+$(A - I)\mathbf{v}_3 = \mathbf{v}_2$:
+$\begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\begin{pmatrix} x \\ y \\ z \end{pmatrix} = \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}$
+
+This gives $y = 0, z = 1$, so $\mathbf{v}_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$
+
+\textbf{General Solution:}
+\begin{align}
+\mathbf{x}(t) = e^t &\left[c_1\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + c_2\left(t\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix}\right)\right. \\
+&\left.+ c_3\left(\frac{t^2}{2}\begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix} + t\begin{pmatrix} 0 \\ 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\right)\right]
+\end{align}
+\end{example}
+
+\begin{warning}
+\textbf{Critical Mistakes to Avoid:}
+\begin{itemize}
+\item Do NOT solve $(A - \lambda I)^2\mathbf{v} = \mathbf{0}$ directly for generalized eigenvectors
+\item The order matters in Jordan chains: always solve sequentially
+\item Check that $(A - \lambda I)\mathbf{v}_{k+1} = \mathbf{v}_k$ is satisfied
+\item The coefficient of $t^k$ is $1/k!$, not just $t^k$
+\end{itemize}
+\end{warning}
+
+\begin{insight}
+\textbf{Matrix Exponential for Jordan Blocks:}
+For a Jordan block $J = \lambda I + N$ where $N$ is the nilpotent part:
+\[e^{Jt} = e^{\lambda t}e^{Nt} = e^{\lambda t}\begin{pmatrix}
+1 & t & \frac{t^2}{2!} & \cdots \\
+0 & 1 & t & \cdots \\
+0 & 0 & 1 & \cdots \\
+\vdots & \vdots & \vdots & \ddots
+\end{pmatrix}\]
+\end{insight}
+
+\begin{examtip}
+Prof. Ditkowski's favorite Jordan form problems:
+\begin{itemize}
+\item 2×2 with double eigenvalue (very common)
+\item 3×3 upper triangular matrices
+\item Finding Jordan normal form of a given matrix
+\item Systems where you must identify the defect
+\item Initial value problems requiring all generalized eigenvectors
+\end{itemize}
+\end{examtip}
+
+\section{Solution Behavior}
+
+For repeated eigenvalue $\lambda$ with Jordan block structure:
+\begin{itemize}
+\item If $\lambda < 0$: Solutions decay to zero (polynomial growth dominated by exponential decay)
+\item If $\lambda = 0$: Polynomial growth in time
+\item If $\lambda > 0$: Exponential growth enhanced by polynomial factors
+\end{itemize}
+
+The polynomial terms cause solutions to:
+\begin{itemize}
+\item Initially grow even if $\lambda < 0$ (transient growth)
+\item Approach eigenvector directions more slowly
+\item Create more complex trajectories in phase space
+\end{itemize}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 31: Practice Problems - Repeated Eigenvalues and Jordan Forms}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Identifying Defective Eigenvalues}
+
+\begin{enumerate}
+\item Determine the algebraic and geometric multiplicities of each eigenvalue for:
+$A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$
+
+\item Find the defect of each eigenvalue for:
+$A = \begin{pmatrix} 3 & 1 & 0 \\ 0 & 3 & 0 \\ 0 & 0 & 3 \end{pmatrix}$
+
+\item Show that $A = \begin{pmatrix} 1 & 2 \\ 0 & 1 \end{pmatrix}$ is defective and find its Jordan form.
+
+\item Determine which of these matrices are diagonalizable:
+a) $\begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$
+b) $\begin{pmatrix} 2 & 0 \\ 0 & 2 \end{pmatrix}$
+c) $\begin{pmatrix} 2 & 1 \\ 1 & 2 \end{pmatrix}$
+
+\item For $A = \begin{pmatrix} 4 & 1 & 0 \\ 0 & 4 & 1 \\ 0 & 0 & 4 \end{pmatrix}$, find the size of the largest Jordan block.
+\end{enumerate}
+
+\section*{Part B: Finding Generalized Eigenvectors}
+
+\begin{enumerate}[start=6]
+\item Find all eigenvectors and generalized eigenvectors for:
+$A = \begin{pmatrix} 3 & 1 \\ 0 & 3 \end{pmatrix}$
+
+\item Construct a complete Jordan chain for:
+$A = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}$
+
+\item Find the Jordan basis for:
+$A = \begin{pmatrix} 5 & 4 \\ -1 & 1 \end{pmatrix}$
+
+\item Determine all generalized eigenvectors for:
+$A = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}$
+
+\item Find a matrix $P$ such that $P^{-1}AP$ is in Jordan form for:
+$A = \begin{pmatrix} 4 & 1 \\ -4 & 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part C: 2×2 Systems with Repeated Eigenvalues}
+
+\begin{enumerate}[start=11]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 3 & 1 \\ -1 & 1 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 4 & 2 \\ -2 & 0 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 3 \\ -1 \end{pmatrix}$
+
+\item Find all solutions that remain bounded as $t \to \infty$ for:
+$\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 0 & -2 \end{pmatrix}\mathbf{x}$
+\end{enumerate}
+
+\section*{Part D: 3×3 Systems with Jordan Blocks}
+
+\begin{enumerate}[start=16]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 1 \\ 0 & 0 & 1 \end{pmatrix}\mathbf{x}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+
+\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 3 & 1 & 0 \\ 0 & 3 & 1 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x}$ with $x_1(0) = 1, x_2(0) = 0, x_3(0) = 0$
+
+\item Determine the Jordan form and solve: $\mathbf{x}' = \begin{pmatrix} 2 & 0 & 1 \\ 0 & 2 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$
+\end{enumerate}
+
+\section*{Part E: Mixed Eigenvalue Problems}
+
+\begin{enumerate}[start=21]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$ (repeated and distinct eigenvalues)
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 3 & 1 & 0 & 0 \\ 0 & 3 & 0 & 0 \\ 0 & 0 & -1 & 1 \\ 0 & 0 & 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+
+\item Analyze stability for: $\mathbf{x}' = \begin{pmatrix} -2 & 1 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -2 \end{pmatrix}\mathbf{x}$
+
+\item Find the fundamental matrix: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 1 \end{pmatrix}\mathbf{x}$
+\end{enumerate}
+
+\section*{Part F: Theory and Applications}
+
+\begin{enumerate}[start=26]
+\item Prove that if $\lambda$ is a repeated eigenvalue with full defect $n-1$, then the solutions contain terms up to $t^{n-1}e^{\lambda t}$.
+
+\item Show that for a 2×2 matrix with repeated eigenvalue $\lambda$, the trace equals $2\lambda$ and the determinant equals $\lambda^2$.
+
+\item A coupled system has matrix $A = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}$. Find the time when the solution with $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$ reaches its maximum norm.
+
+\item For the radioactive decay chain with matrix $A = \begin{pmatrix} -k & 0 & 0 \\ k & -k & 0 \\ 0 & k & -k \end{pmatrix}$, solve for the amounts of each isotope over time.
+
+\item \textbf{Challenge:} Prove that $e^{Jt}$ for a Jordan block $J$ can be computed as:
+$e^{Jt} = e^{\lambda t}\sum_{k=0}^{n-1} \frac{t^k}{k!}N^k$ where $N = J - \lambda I$.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} Algebraic multiplicity = 2, geometric multiplicity = 1, defect = 1.
+
+\textbf{Problem 6:} Eigenvector: $\mathbf{v}_1 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, Generalized: $\mathbf{v}_2 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\textbf{Problem 11:} $\mathbf{x}(t) = e^{2t}[c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2(t\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} 0 \\ 1 \end{pmatrix})]$
+
+\textbf{Problem 16:} Use the standard basis vectors as the Jordan chain.
+
+\textbf{Problem 24:} All solutions decay to zero since $\lambda = -2 < 0$ despite the $t$ and $t^2$ terms.
+
+\textbf{Problem 28:} Maximum occurs at $t = 1$ (derivative of $te^{-t}$ equals zero).
+
+\textbf{Key Strategy:} Always check the defect first! If geometric multiplicity equals algebraic multiplicity, use standard eigenvector methods. Otherwise, build Jordan chains systematically.
+
+\textbf{Verification:} For generalized eigenvector $\mathbf{v}_2$ satisfying $(A-\lambda I)\mathbf{v}_2 = \mathbf{v}_1$, verify that $\mathbf{x}(t) = e^{\lambda t}(t\mathbf{v}_1 + \mathbf{v}_2)$ satisfies $\mathbf{x}' = A\mathbf{x}$.
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+1. **Import Strategy:**
+   - Upload the Audio Script focusing on the Jordan chain concept
+   - Import the compiled Theory Document PDF for formal definitions
+   - Add Practice Problems for systematic drilling
+   - Include a "Jordan Form Cheat Sheet" if you create one
+
+2. **Audio Generation Tips:**
+   - Request explanation of "Why do we need generalized eigenvectors?"
+   - Ask for step-by-step walkthrough of finding Jordan chains
+   - Generate comparison between regular and generalized eigenvector methods
+   - Create audio explaining the geometric meaning of Jordan blocks
+
+3. **Study Sequence:**
+   - First: Understand when eigenvalues are defective
+   - Second: Master finding generalized eigenvectors for 2×2 cases
+   - Third: Practice Jordan chains for 3×3 matrices
+   - Fourth: Learn to identify Jordan form structure quickly
+   - Fifth: Solve complete IVPs with repeated eigenvalues
+
+4. **Key Concepts to Query NotebookLM:**
+   - "Explain why polynomial terms appear in solutions"
+   - "Walk through finding generalized eigenvectors step by step"
+   - "What's the difference between algebraic and geometric multiplicity?"
+   - "How do I know when to stop finding generalized eigenvectors?"
+   - "Show me how to solve (A - λI)v₂ = v₁"
+
+5. **Common Confusion Points:**
+   - Why (A - λI)v₂ = v₁ and not (A - λI)v₂ = 0
+   - The order of vectors in Jordan chains matters
+   - Each generalized eigenvector depends on the previous one
+   - The t^k terms have coefficients 1/k!
+   - Jordan blocks can have different sizes for same eigenvalue
+
+6. **Integration with Previous Lessons:**
+   - Lesson 30: This extends the distinct eigenvalue case
+   - Linear Algebra: Review null space and rank
+   - Matrix Theory: Jordan normal form is the canonical form
+   - Next: Complex eigenvalues can also be repeated!
+
+7. **Exam Preparation Focus:**
+   - Prof. Ditkowski LOVES 2×2 systems with repeated eigenvalues
+   - Always check defect before attempting solution
+   - Show the complete Jordan chain construction
+   - Verify your generalized eigenvectors
+   - Initial value problems with repeated eigenvalues are common
+
+8. **Practice Problem Strategy:**
+   - Start with Part A: Identify defective eigenvalues quickly
+   - Master Part B: Finding generalized eigenvectors
+   - Parts C-D: Full system solutions
+   - Part E: Mixed problems combine with Lesson 30
+   - Part F: Theory helps understand "why"
+
+9. **Memory Aids to Program into NotebookLM:**
+   - "DEFECT = Algebraic - Geometric"
+   - "Jordan chains: Each vector 'generates' the next"
+   - "Powers of t match the chain length minus 1"
+   - "Upper triangular → eigenvalues on diagonal → check for Jordan blocks"
+
+10. **Self-Assessment Questions:**
+    - Can I identify defective eigenvalues immediately?
+    - Do I know the systematic process for generalized eigenvectors?
+    - Can I write solutions with correct t^k terms?
+    - Do I understand why Jordan form is useful?
+    - Can I handle 3×3 systems with triple eigenvalues?
+
+11. **Time Management:**
+    - Audio lesson: 20 minutes
+    - Theory study: 1 hour (Jordan form is conceptually challenging)
+    - 2×2 practice: 1.5 hours
+    - 3×3 practice: 1.5 hours
+    - Mixed problems: 1 hour
+    - Review and consolidation: 30 minutes
+
+12. **Critical Warnings:**
+    - This topic appears on EVERY exam
+    - Arithmetic errors in finding generalized eigenvectors are common
+    - The Jordan chain order cannot be mixed up
+    - Always verify solutions by substitution
+    - If you see repeated eigenvalues, immediately think "possible Jordan form"
+
+13. **Links to Other Blocks:**
+    - Block 8: Matrix fundamentals
+    - Block 10: Phase portraits show the effect of Jordan blocks
+    - Block 11: Stability analysis with repeated eigenvalues
+    - The matrix exponential (Lesson 33) unifies this approach
+
+14. **Quick Diagnostic:**
+    Ask NotebookLM: "Give me a 2×2 matrix with eigenvalue 3 (double) and geometric multiplicity 1, then walk through the complete solution." If you can follow this without notes, you're ready!
+
+---
+
+**Lesson 31 complete. Request 'Generate Lesson 32' for the next lesson in Block 9.**

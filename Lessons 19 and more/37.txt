@@ -1,0 +1,756 @@
+# **Lesson 37: 2D Linear Systems - Complete Classification**
+
+## **Part 1: Audio Lesson Script**
+
+Alright, welcome to Lesson 37! This is where phase portraits get really systematic and beautiful. We're going to classify EVERY possible behavior of 2D linear systems. And here's the amazing part - there are only a handful of different types! Prof. Ditkowski absolutely loves this topic because it connects everything: eigenvalues, stability, and geometry.
+
+So basically, we're looking at systems of the form:
+dx/dt = ax + by
+dy/dt = cx + dy
+
+Or in matrix form: ẋ = Ax, where A is a 2×2 matrix.
+
+Here's the key insight that makes everything click: the eigenvalues of A completely determine the phase portrait! Just from two numbers (or complex numbers), we can predict exactly how every trajectory behaves. How cool is that?
+
+Let me show you the magic formula that Prof. Ditkowski always emphasizes. For any 2×2 matrix, we can compute:
+- Trace: tr(A) = a + d (sum of diagonal elements)
+- Determinant: det(A) = ad - bc
+- Discriminant: Δ = tr²(A) - 4det(A)
+
+These three numbers tell us EVERYTHING about the phase portrait!
+
+Now, let's go through each type systematically. First up - the saddle point. This happens when det(A) < 0, which means the eigenvalues are real with opposite signs. Picture this: one eigenvalue is positive, say λ₁ = 2, and the other is negative, λ₂ = -3. Trajectories approach along the stable eigenvector direction (corresponding to λ₂ < 0) and fly away along the unstable direction (λ₁ > 0). It looks like a horse saddle - hence the name!
+
+Here's a classic example:
+A = [1, 2; 3, -1]
+det(A) = -1 - 6 = -7 < 0
+So it's definitely a saddle! The origin is unstable because trajectories that start nearby (except exactly on the stable manifold) will eventually escape.
+
+Next, let's talk about nodes. These occur when both eigenvalues are real and have the same sign. If both are negative (λ₁, λ₂ < 0), we get a stable node - all trajectories converge to the origin. If both are positive, unstable node - everything flies away!
+
+But here's where it gets subtle - nodes come in two flavors. If the eigenvalues are different (λ₁ ≠ λ₂), we get a "proper node." Trajectories come in along both eigenvector directions, but faster along the direction of the larger magnitude eigenvalue.
+
+Example time! Consider:
+A = [-3, 1; 0, -1]
+Eigenvalues: λ₁ = -3, λ₂ = -1
+Both negative, different values → stable proper node!
+Trajectories approach faster along the λ₁ = -3 direction.
+
+Now, if eigenvalues are equal (λ₁ = λ₂), we might get an "improper node" or a "star node." If there are two independent eigenvectors (A = λI), every direction is an eigenvector - that's a star! If there's only one eigenvector (A is not diagonalizable), trajectories curve as they approach - improper node.
+
+Moving on to the really fun stuff - spirals and centers! When eigenvalues are complex conjugates (α ± iβ), trajectories rotate. The real part α determines stability:
+- α < 0: stable spiral (trajectories spiral inward)
+- α > 0: unstable spiral (spiral outward)
+- α = 0: center (closed circular/elliptical orbits)
+
+Here's how to spot them quickly:
+- Complex eigenvalues occur when Δ = tr²(A) - 4det(A) < 0
+- This means det(A) > tr²(A)/4
+- Also requires det(A) > 0
+
+Example of a stable spiral:
+A = [-1, 2; -2, -1]
+tr(A) = -2, det(A) = 1 + 4 = 5
+Δ = 4 - 20 = -16 < 0 → complex eigenvalues
+tr(A) < 0 → stable spiral!
+
+Centers are special - they're the borderline between stable and unstable spirals. They occur when tr(A) = 0 but det(A) > 0. Conservation of energy often gives us centers!
+
+Oh, and here's a memory trick I love: Think "SAD" for Saddle (det < 0), "NODS" for Nodes (Δ > 0, det > 0), "SPINS" for Spirals (Δ < 0, det > 0).
+
+Prof. Ditkowski's favorite exam question: "Classify the system without computing eigenvalues explicitly." Just use trace and determinant!
+
+Let me give you the complete classification chart:
+1. det(A) < 0 → Saddle (always unstable)
+2. det(A) > 0, Δ > 0, tr(A) < 0 → Stable node
+3. det(A) > 0, Δ > 0, tr(A) > 0 → Unstable node
+4. det(A) > 0, Δ < 0, tr(A) < 0 → Stable spiral
+5. det(A) > 0, Δ < 0, tr(A) > 0 → Unstable spiral
+6. det(A) > 0, tr(A) = 0 → Center
+
+Degenerate cases (det(A) = 0) are tricky. If one eigenvalue is zero, we get a line of equilibria. If both are zero (A = 0), every point is an equilibrium!
+
+Here's an exam warning: ALWAYS CHECK YOUR CLASSIFICATION! Compute eigenvalues if you have time to verify. Prof. Ditkowski deducts heavily for misclassification.
+
+The physical interpretation matters too. Saddles appear at mountain passes, nodes at sinks or sources, spirals in damped oscillators, and centers in conservative systems. Always connect the math to the physics!
+
+One more pro tip: The trace-determinant diagram is your best friend. Draw det on the vertical axis, tr on horizontal. The parabola det = tr²/4 separates nodes from spirals/centers. The horizontal line det = 0 separates saddles from everything else. Practice sketching this!
+
+Remember, this classification is complete - every 2×2 linear system falls into one of these categories. Master this, and you've got a huge chunk of the phase portrait problems solved!
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor, booktabs}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{classification}{Classification}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{quickcheck}
+
+\title{2D Linear Systems: Complete Classification}
+\author{ODE 1 - Lesson 37}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Classification Framework}
+
+Consider the 2D linear system:
+$$\dot{\mathbf{x}} = A\mathbf{x}, \quad \text{where } A = \begin{pmatrix} a & b \\ c & d \end{pmatrix}$$
+
+\begin{keypoint}
+\textbf{Master Classification Parameters:}
+\begin{align}
+\text{Trace: } \tau &= \text{tr}(A) = a + d \\
+\text{Determinant: } \Delta &= \det(A) = ad - bc \\
+\text{Discriminant: } D &= \tau^2 - 4\Delta
+\end{align}
+These three quantities completely determine the phase portrait!
+\end{keypoint}
+
+\section{Eigenvalue Analysis}
+
+The characteristic equation is:
+$$\lambda^2 - \tau\lambda + \Delta = 0$$
+
+with eigenvalues:
+$$\lambda_{1,2} = \frac{\tau \pm \sqrt{\tau^2 - 4\Delta}}{2} = \frac{\tau \pm \sqrt{D}}{2}$$
+
+\begin{theorem}[Eigenvalue Classification]
+The nature of eigenvalues depends on the discriminant $D$:
+\begin{itemize}
+    \item $D > 0$: Two distinct real eigenvalues
+    \item $D = 0$: One repeated real eigenvalue
+    \item $D < 0$: Two complex conjugate eigenvalues $\alpha \pm i\beta$
+\end{itemize}
+\end{theorem}
+
+\section{Complete Classification Table}
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+\textbf{Type} & \textbf{Condition} & \textbf{Eigenvalues} & \textbf{Stability} & \textbf{Behavior} \\
+\hline
+\hline
+Saddle & $\Delta < 0$ & $\lambda_1 < 0 < \lambda_2$ & Unstable & Hyperbolic \\
+\hline
+Stable Node & $\Delta > 0, D > 0, \tau < 0$ & $\lambda_1, \lambda_2 < 0$ & Asymp. Stable & Approach \\
+\hline
+Unstable Node & $\Delta > 0, D > 0, \tau > 0$ & $\lambda_1, \lambda_2 > 0$ & Unstable & Repelling \\
+\hline
+Stable Spiral & $\Delta > 0, D < 0, \tau < 0$ & $\alpha \pm i\beta, \alpha < 0$ & Asymp. Stable & Spiral in \\
+\hline
+Unstable Spiral & $\Delta > 0, D < 0, \tau > 0$ & $\alpha \pm i\beta, \alpha > 0$ & Unstable & Spiral out \\
+\hline
+Center & $\Delta > 0, \tau = 0$ & $\pm i\beta$ & Neutrally Stable & Ellipses \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Detailed Portrait Descriptions}
+
+\subsection{Saddle Point}
+
+\begin{classification}[Saddle]
+\textbf{Condition:} $\det(A) < 0$\\
+\textbf{Eigenvalues:} Real with opposite signs\\
+\textbf{Key Features:}
+\begin{itemize}
+    \item Stable manifold: $E^s = \text{span}\{v_1\}$ where $\lambda_1 < 0$
+    \item Unstable manifold: $E^u = \text{span}\{v_2\}$ where $\lambda_2 > 0$
+    \item Trajectories approach along $E^s$, depart along $E^u$
+    \item Four hyperbolic sectors
+\end{itemize}
+\end{classification}
+
+\begin{examtip}
+\textbf{Drawing a Saddle:}
+\begin{enumerate}
+    \item Draw stable eigenvector (arrows pointing in)
+    \item Draw unstable eigenvector (arrows pointing out)
+    \item Add hyperbolic trajectories in each sector
+    \item These are the separatrices - label them!
+\end{enumerate}
+\end{examtip}
+
+\subsection{Nodes}
+
+\begin{classification}[Proper Node]
+\textbf{Condition:} $\Delta > 0$, $D > 0$, $\lambda_1 \neq \lambda_2$\\
+\textbf{Behavior:}
+\begin{itemize}
+    \item All trajectories tangent to slow eigenvector at origin
+    \item Fast eigenvector: $|λ_1| > |λ_2|$ determines initial direction
+    \item Slow eigenvector: determines final approach direction
+\end{itemize}
+\end{classification}
+
+\begin{classification}[Improper Node]
+\textbf{Condition:} $D = 0$, single eigenvector\\
+\textbf{Special Case:} $A = \begin{pmatrix} \lambda & 1 \\ 0 & \lambda \end{pmatrix}$ (Jordan form)\\
+\textbf{Behavior:} Trajectories curve, all tangent to eigenvector
+\end{classification}
+
+\begin{classification}[Star Node]
+\textbf{Condition:} $A = \lambda I$ (scalar multiple of identity)\\
+\textbf{Behavior:} Straight-line trajectories in all directions
+\end{classification}
+
+\subsection{Spirals and Centers}
+
+\begin{classification}[Spiral/Focus]
+\textbf{Condition:} $D < 0$ (complex eigenvalues)\\
+\textbf{Eigenvalues:} $\lambda = \alpha \pm i\beta$\\
+\textbf{Behavior:}
+\begin{itemize}
+    \item Rotation frequency: $\omega = \beta$
+    \item Decay/growth rate: $\alpha$
+    \item Clockwise if $\det(A) > 0$ and $b < 0$ (or $c > 0$)
+    \item Counterclockwise if $\det(A) > 0$ and $b > 0$ (or $c < 0$)
+\end{itemize}
+\end{classification}
+
+\begin{insight}
+\textbf{Quick Spiral Direction:}
+Look at the off-diagonal elements of $A$:
+\begin{itemize}
+    \item Upper-right positive $(b > 0)$ → counterclockwise
+    \item Upper-right negative $(b < 0)$ → clockwise
+\end{itemize}
+\end{insight}
+
+\begin{classification}[Center]
+\textbf{Condition:} $\tau = 0$, $\Delta > 0$\\
+\textbf{Eigenvalues:} Pure imaginary $\pm i\beta$\\
+\textbf{Behavior:} Closed elliptical orbits, period $T = 2\pi/\beta$
+\end{classification}
+
+\section{Degenerate Cases}
+
+\begin{warning}
+\textbf{When $\det(A) = 0$:}
+\begin{itemize}
+    \item One zero eigenvalue: Line of equilibria
+    \item Two zero eigenvalues: Every point is an equilibrium
+    \item Parallel trajectories if one eigenvalue is nonzero
+\end{itemize}
+\end{warning}
+
+\section{The Trace-Determinant Diagram}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+    \draw[->] (-4,0) -- (4,0) node[right] {$\tau$};
+    \draw[->] (0,-2) -- (0,4) node[above] {$\Delta$};
+
+    % Parabola
+    \draw[thick,blue,domain=-3.5:3.5,samples=100] plot (\x, {0.25*\x*\x});
+
+    % Regions
+    \node at (-2, 2.5) {Stable Node};
+    \node at (2, 2.5) {Unstable Node};
+    \node at (-2, 0.5) {Stable Spiral};
+    \node at (2, 0.5) {Unstable Spiral};
+    \node at (0, -1) {Saddle};
+    \node[blue] at (0, 2) {Center};
+
+    % Labels
+    \node[blue] at (3, 3) {$\Delta = \frac{\tau^2}{4}$};
+    \draw[dashed] (-4,0) -- (4,0) node[near end, below] {$\Delta = 0$};
+\end{tikzpicture}
+\end{center}
+
+\section{Classification Algorithm}
+
+\begin{quickcheck}
+\textbf{Prof. Ditkowski's Quick Classification:}
+\begin{enumerate}
+    \item Compute $\det(A)$
+    \begin{itemize}
+        \item If $\det(A) < 0$ → \textbf{SADDLE} (done!)
+        \item If $\det(A) = 0$ → Degenerate case
+        \item If $\det(A) > 0$ → Continue...
+    \end{itemize}
+    \item Compute $\tau = \text{tr}(A)$
+    \begin{itemize}
+        \item If $\tau = 0$ → \textbf{CENTER}
+        \item If $\tau \neq 0$ → Continue...
+    \end{itemize}
+    \item Compute $D = \tau^2 - 4\det(A)$
+    \begin{itemize}
+        \item If $D > 0$ → \textbf{NODE} (stable if $\tau < 0$)
+        \item If $D < 0$ → \textbf{SPIRAL} (stable if $\tau < 0$)
+        \item If $D = 0$ → \textbf{IMPROPER/STAR NODE}
+    \end{itemize}
+\end{enumerate}
+\end{quickcheck}
+
+\section{Examples Gallery}
+
+\begin{example}[Complete Classification]
+Classify $A = \begin{pmatrix} 2 & 3 \\ 3 & 2 \end{pmatrix}$:
+\begin{align}
+\det(A) &= 4 - 9 = -5 < 0
+\end{align}
+Therefore: \textbf{SADDLE} (unstable)
+
+Verification: $\lambda = \frac{4 \pm \sqrt{16 + 20}}{2} = \frac{4 \pm 6}{2} = 5, -1$ ✓
+\end{example}
+
+\begin{example}[Using Trace-Det Only]
+Classify $A = \begin{pmatrix} -3 & 2 \\ -2 & -3 \end{pmatrix}$:
+\begin{align}
+\tau &= -6 < 0 \quad \text{(stable)} \\
+\Delta &= 9 + 4 = 13 > 0 \quad \text{(not a saddle)} \\
+D &= 36 - 52 = -16 < 0 \quad \text{(complex eigenvalues)}
+\end{align}
+Therefore: \textbf{STABLE SPIRAL}
+\end{example}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry, enumitem, mdframed}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+\newmdenv[linecolor=green,linewidth=1pt]{solution}
+
+\title{Practice Problems - Lesson 37: 2D Linear Classification}
+\author{ODE 1 Course}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Quick Classification (Problems 1-6)}
+
+\begin{enumerate}
+\item Classify each system using ONLY trace and determinant:
+\begin{enumerate}[label=(\alph*)]
+    \item $A = \begin{pmatrix} 3 & 1 \\ 1 & 3 \end{pmatrix}$
+    \item $A = \begin{pmatrix} -2 & 4 \\ -1 & -2 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 0 & -3 \\ 3 & 0 \end{pmatrix}$
+    \item $A = \begin{pmatrix} 1 & 5 \\ -1 & -1 \end{pmatrix}$
+\end{enumerate}
+
+\item For each trace-determinant pair, determine the portrait type:
+\begin{enumerate}[label=(\alph*)]
+    \item $\tau = 4, \Delta = 3$
+    \item $\tau = -2, \Delta = 5$
+    \item $\tau = 0, \Delta = 4$
+    \item $\tau = 3, \Delta = -2$
+\end{enumerate}
+
+\item Find all values of $k$ such that $A = \begin{pmatrix} k & 2 \\ 3 & 1 \end{pmatrix}$ gives:
+\begin{enumerate}[label=(\alph*)]
+    \item A saddle point
+    \item A center
+    \item A stable node
+    \item A stable spiral
+\end{enumerate}
+
+\item Determine the stability of the origin for:
+$$\dot{x} = -3x + 2y, \quad \dot{y} = -2x - 3y$$
+without computing eigenvalues.
+
+\item Which of these systems have closed orbits?
+\begin{enumerate}[label=(\alph*)]
+    \item $\dot{x} = y, \dot{y} = -4x$
+    \item $\dot{x} = y, \dot{y} = -x - y$
+    \item $\dot{x} = -y, \dot{y} = x$
+    \item $\dot{x} = x + y, \dot{y} = -x + y$
+\end{enumerate}
+
+\item A system has eigenvalues $\lambda_1 = 2 + 3i$ and $\lambda_2 = 2 - 3i$.
+\begin{enumerate}[label=(\alph*)]
+    \item Classify the equilibrium type.
+    \item Find the trace and determinant.
+    \item Is the origin stable?
+    \item What is the rotation frequency?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Eigenvalue Analysis (Problems 7-12)}
+
+\begin{enumerate}[resume]
+\item For $A = \begin{pmatrix} 4 & -5 \\ 2 & -2 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues and eigenvectors.
+    \item Classify the equilibrium.
+    \item Sketch the phase portrait.
+    \item Find equations for stable/unstable manifolds.
+\end{enumerate}
+
+\item Consider $A = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show eigenvalues are complex.
+    \item Find the real and imaginary parts.
+    \item Determine rotation direction.
+    \item Calculate the period of near-circular orbits.
+\end{enumerate}
+
+\item For the repeated eigenvalue case $A = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the eigenvalue(s).
+    \item Find all eigenvectors.
+    \item Classify as star, improper, or proper node.
+    \item Sketch the portrait.
+\end{enumerate}
+
+\item Given eigenvalues $\lambda_1 = -3, \lambda_2 = -1$ with eigenvectors $v_1 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}, v_2 = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Reconstruct matrix $A$.
+    \item Verify the classification.
+    \item Which eigenvector determines long-term behavior?
+\end{enumerate}
+
+\item A matrix has $\tau = -4$ and one eigenvalue is $\lambda_1 = -1$. Find:
+\begin{enumerate}[label=(\alph*)]
+    \item The other eigenvalue.
+    \item The determinant.
+    \item The equilibrium type.
+\end{enumerate}
+
+\item For what values of $a$ does $A = \begin{pmatrix} a & 1 \\ -4 & a \end{pmatrix}$ have:
+\begin{enumerate}[label=(\alph*)]
+    \item Real eigenvalues?
+    \item Complex eigenvalues?
+    \item Pure imaginary eigenvalues?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Portrait Sketching (Problems 13-18)}
+
+\begin{enumerate}[resume]
+\item Sketch the phase portrait for each:
+\begin{enumerate}[label=(\alph*)]
+    \item $\dot{x} = 2x + y, \dot{y} = x + 2y$ (proper node)
+    \item $\dot{x} = x + 3y, \dot{y} = -3x + y$ (spiral)
+    \item $\dot{x} = 2x - 5y, \dot{y} = x - 2y$ (saddle)
+    \item $\dot{x} = -y, \dot{y} = 4x$ (center)
+\end{enumerate}
+
+\item Draw a phase portrait with:
+\begin{enumerate}[label=(\alph*)]
+    \item Eigenvalues $\lambda_1 = 3, \lambda_2 = 1$
+    \item Horizontal eigenvector for $\lambda_1$
+    \item Vertical eigenvector for $\lambda_2$
+\end{enumerate}
+
+\item Sketch an improper node for $A = \begin{pmatrix} -2 & 1 \\ 0 & -2 \end{pmatrix}$.
+
+\item Draw a stable spiral that rotates clockwise with eigenvalues $-1 \pm 2i$.
+
+\item Create a phase portrait where:
+\begin{enumerate}[label=(\alph*)]
+    \item Trajectories approach origin
+    \item No rotation occurs
+    \item All trajectories are tangent to $y = x$ at origin
+\end{enumerate}
+
+\item Sketch the degenerate case $A = \begin{pmatrix} 1 & 2 \\ 0 & 0 \end{pmatrix}$.
+\end{enumerate}
+
+\section*{Part D: Special Cases (Problems 19-23)}
+
+\begin{enumerate}[resume]
+\item Analyze the star node $A = 3I$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all eigenvectors.
+    \item Describe trajectory behavior.
+    \item Find the solution starting at $(1, 2)$.
+\end{enumerate}
+
+\item For the skew-symmetric matrix $A = \begin{pmatrix} 0 & \omega \\ -\omega & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show all orbits are circles.
+    \item Find the period.
+    \item What physical system does this represent?
+\end{enumerate}
+
+\item Consider the nilpotent matrix $A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues.
+    \item Describe the phase portrait.
+    \item Solve the system explicitly.
+\end{enumerate}
+
+\item Analyze the shear transformation $A = \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria.
+    \item Describe trajectory behavior.
+    \item Is the origin stable?
+\end{enumerate}
+
+\item For a Hamiltonian system with $A = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show $\tau = 0$ always.
+    \item When is it a center vs. saddle?
+    \item Find the conserved quantity.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Parameter Studies (Problems 24-28)}
+
+\begin{enumerate}[resume]
+\item Consider $A_\mu = \begin{pmatrix} \mu & 1 \\ -1 & \mu \end{pmatrix}$ as $\mu$ varies:
+\begin{enumerate}[label=(\alph*)]
+    \item Find eigenvalues as functions of $\mu$.
+    \item Identify all bifurcation values.
+    \item Sketch portraits for $\mu = -1, 0, 1$.
+    \item What happens as $\mu$ crosses zero?
+\end{enumerate}
+
+\item For the damped oscillator $\ddot{x} + 2\zeta\dot{x} + x = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to first-order system.
+    \item Classify for $\zeta = 0, 0.5, 1, 2$.
+    \item Find the critical damping value.
+    \item Relate to physical behavior.
+\end{enumerate}
+
+\item Study $A = \begin{pmatrix} a & b \\ b & a \end{pmatrix}$ (symmetric):
+\begin{enumerate}[label=(\alph*)]
+    \item Show eigenvalues are always real.
+    \item Find conditions for each portrait type.
+    \item Can this give a spiral? Why not?
+\end{enumerate}
+
+\item For $A = \begin{pmatrix} 1 & k \\ k & -1 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the transition value where portrait type changes.
+    \item Classify for $k = 0, 1, 2$.
+    \item Sketch the trace-det diagram path as $k$ varies.
+\end{enumerate}
+
+\item Consider the one-parameter family $A_\alpha = \begin{pmatrix} \alpha & \alpha-1 \\ 1-\alpha & \alpha \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show $\det(A_\alpha)$ is constant.
+    \item Find all portrait types as $\alpha$ varies.
+    \item Identify bifurcation points.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 29-30)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Comprehensive]}
+Given the system $\dot{x} = ax + 4y$, $\dot{y} = -x + ay$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find trace and determinant in terms of $a$.
+    \item Determine all values of $a$ giving:
+    \begin{itemize}
+        \item Saddle points
+        \item Centers
+        \item Stable spirals
+        \item Stable nodes
+    \end{itemize}
+    \item Sketch the bifurcation diagram.
+    \item For $a = -1$, find eigenvalues and eigenvectors.
+    \item Draw the phase portrait for $a = -1$.
+    \item Find the solution with initial condition $(1, 0)$ when $a = 0$.
+\end{enumerate}
+
+\item \textbf{[Complete Analysis]}
+A mechanical system has equations:
+$$\ddot{x} + (k+1)\dot{x} + kx = 0$$
+where $k > 0$ is a parameter.
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to a first-order system.
+    \item Find the matrix $A$ in terms of $k$.
+    \item Compute trace, determinant, and discriminant.
+    \item Show the origin is always stable.
+    \item Find the critical value $k^*$ where behavior changes.
+    \item Classify the portrait for:
+    \begin{itemize}
+        \item $0 < k < k^*$
+        \item $k = k^*$
+        \item $k > k^*$
+    \end{itemize}
+    \item Interpret physically for a mass-spring-damper.
+    \item Sketch portraits for $k = 0.1, 0.25, 1$.
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Strategies:}
+\begin{itemize}
+    \item Always compute $\det(A)$ first - negative means saddle!
+    \item Use $\tau^2 - 4\Delta$ to distinguish nodes from spirals
+    \item Remember: $\tau = \lambda_1 + \lambda_2$, $\Delta = \lambda_1 \cdot \lambda_2$
+    \item For spirals: rotation direction from off-diagonal signs
+    \item Centers only when $\tau = 0$ exactly
+    \item Check your portrait satisfies uniqueness theorem
+\end{itemize}
+\end{hint}
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Step 1: Document Preparation**
+- Save the audio script as a text file
+- Compile the theory document to PDF
+- Compile the practice problems to PDF
+- Have a reference sheet with the classification table ready
+
+**Step 2: NotebookLM Setup**
+1. Create notebook: "ODE Lesson 37 - 2D Classification"
+2. Upload all three documents
+3. Add any lecture notes on eigenvalues from Block 9
+4. Include the trace-determinant diagram as an image if possible
+
+**Step 3: Audio Generation Strategy**
+- Generate audio from the script
+- Set conversational tone with emphasis on examples
+- Moderate pace for formula comprehension
+- Consider generating separate audio for the classification table
+
+**Step 4: Structured Study Plan**
+
+**Phase 1 - Foundation (45 minutes)**
+- Listen to audio while reviewing classification table
+- Create flashcards for each portrait type
+- Draw the trace-determinant diagram from memory
+
+**Phase 2 - Theory Mastery (1 hour)**
+- Read theory document section by section
+- Work through each example completely
+- Create your own examples for each type
+- Memorize the quick classification algorithm
+
+**Phase 3 - Problem Practice (2 hours)**
+- Part A: Quick classification (20 min)
+- Part B: Eigenvalue practice (30 min)
+- Part C: Sketching portraits (40 min)
+- Part D & E: Special cases (30 min)
+
+**Phase 4 - Exam Preparation (1 hour)**
+- Complete Part F problems under timed conditions
+- Review any mistakes with theory document
+- Create a one-page reference sheet
+
+**Step 5: Computational Verification**
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.integrate import odeint
+
+def classify_2d_system(A):
+    """Classify a 2D linear system"""
+    trace = np.trace(A)
+    det = np.linalg.det(A)
+    disc = trace**2 - 4*det
+
+    if det < 0:
+        return "Saddle (unstable)"
+    elif det == 0:
+        return "Degenerate case"
+    elif trace == 0:
+        return "Center (neutrally stable)"
+    elif disc > 0:
+        if trace < 0:
+            return "Stable node"
+        else:
+            return "Unstable node"
+    else:  # disc < 0
+        if trace < 0:
+            return "Stable spiral"
+        else:
+            return "Unstable spiral"
+
+# Example usage
+A = np.array([[1, 3], [3, 1]])
+print(f"Classification: {classify_2d_system(A)}")
+print(f"Eigenvalues: {np.linalg.eigvals(A)}")
+```
+
+**Step 6: Interactive Learning Activities**
+1. **Classification Game**: Given random 2×2 matrices, classify without computing eigenvalues
+2. **Portrait Matching**: Match eigenvalue pairs to portrait sketches
+3. **Parameter Explorer**: Vary one matrix entry and watch portrait change
+4. **Reverse Engineering**: Given a portrait, find a matrix that produces it
+
+**Step 7: Key Memorization Techniques**
+- **Acronym**: "SAD NODS and SPINS in CENTER"
+  - Saddle (det < 0)
+  - Nodes (D > 0, det > 0)
+  - Spirals (D < 0, det > 0)
+  - Center (tr = 0, det > 0)
+
+- **Visual Memory**: Draw trace-det diagram daily
+- **Hand Gestures**: Use hand motions for each portrait type
+- **Color Coding**: Assign colors to stable (green) vs unstable (red)
+
+**Step 8: Common Mistakes to Avoid**
+- Forgetting that det < 0 immediately means saddle
+- Confusing node and spiral conditions
+- Missing the trace = 0 requirement for centers
+- Drawing wrong eigenvector directions
+- Incorrect spiral rotation direction
+
+**Step 9: Quick Reference Card**
+Create a card with:
+```
+QUICK CLASSIFICATION:
+1. det < 0? → SADDLE
+2. det > 0, tr = 0? → CENTER
+3. det > 0, D > 0? → NODE (stable if tr < 0)
+4. det > 0, D < 0? → SPIRAL (stable if tr < 0)
+
+Where: D = tr² - 4det
+```
+
+**Step 10: Integration with Other Materials**
+- Review eigenvalue calculation from Lesson 35
+- Connect to stability concepts (upcoming)
+- Prepare for nonlinear analysis by mastering linear case
+- Use these portraits as building blocks for more complex systems
+
+**NotebookLM Special Features to Use:**
+1. **Chat Mode**: Ask for additional examples of specific types
+2. **Summary Generation**: Create bullet points for each portrait
+3. **Quiz Mode**: Test classification skills
+4. **Connection Finding**: Link to physical systems
+5. **Audio Notes**: Record your own explanations
+
+**Time Management for This Lesson:**
+- Initial audio listen: 30 minutes
+- Theory study: 1.5 hours
+- Practice problems: 2.5 hours
+- Computer verification: 30 minutes
+- Review and synthesis: 1 hour
+- **Total: 6 hours for mastery**
+
+**Success Metrics:**
+You've mastered this lesson when you can:
+- [ ] Classify any 2×2 system in under 30 seconds
+- [ ] Draw accurate portraits for all types
+- [ ] Explain the trace-determinant diagram
+- [ ] Connect eigenvalues to portrait features
+- [ ] Solve exam problems confidently
+
+---
+
+**Lesson 37 complete. Request 'Generate Lesson 38' for the next lesson in Block 10.**

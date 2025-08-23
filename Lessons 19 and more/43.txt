@@ -1,0 +1,754 @@
+I'll help you learn this ODE material thoroughly! Let me search for the complete course context to understand how this Block 12 fits into your overall ODE 1 course with Prof. Ditkowski.# **Lesson 43: Characteristic Equation Method - All Cases**
+
+## **Component 1: Audio Lesson Script**
+*[Duration: 15-20 minutes when read aloud]*
+
+---
+
+**Opening**
+
+So here's the thing about higher-order linear ODEs with constant coefficients - they're actually the most beautiful ODEs you'll encounter in this course. And I mean that. Why? Because unlike the variable coefficient equations we've been struggling with, these have a completely algebraic solution method. No integrals, no series, just pure algebra. Let me show you why this is so powerful.
+
+Imagine you're looking at a spring-mass system, or an electrical circuit, or any oscillating system. The governing equation often looks like this: ay'' + by' + cy = 0. Maybe it's third-order if there's additional damping, or fourth-order for coupled systems. The key insight - and this is what makes constant coefficients special - is that exponential functions are eigenfunctions of the derivative operator.
+
+**The Core Insight**
+
+Here's the key insight that unlocks everything: When you differentiate e^(rt), you get re^(rt). Differentiate again? r²e^(rt). See the pattern? Each derivative just multiplies by r. So if we guess that our solution has the form y = e^(rt), and we substitute into our differential equation, something magical happens.
+
+Let's say we have y'' - 5y' + 6y = 0. If y = e^(rt), then:
+- y' = re^(rt)
+- y'' = r²e^(rt)
+
+Substituting: r²e^(rt) - 5re^(rt) + 6e^(rt) = 0
+
+Factor out e^(rt) (which is never zero): e^(rt)(r² - 5r + 6) = 0
+
+So we just need r² - 5r + 6 = 0. That's it! We've converted our differential equation into an algebraic equation. This polynomial is called the characteristic equation, and its roots give us our solutions.
+
+**Working Through the Cases**
+
+Now, here's where it gets interesting. The characteristic equation can have different types of roots, and each type gives us a different form of solution.
+
+**Case 1: Distinct Real Roots**
+
+Let's continue with r² - 5r + 6 = 0. Factor it: (r - 2)(r - 3) = 0, so r₁ = 2 and r₂ = 3.
+
+This gives us two solutions: y₁ = e^(2t) and y₂ = e^(3t). The general solution is y = c₁e^(2t) + c₂e^(3t).
+
+Why does this work? Because the solution space is two-dimensional (it's a second-order equation), and these two exponentials are linearly independent. You can verify this with the Wronskian if you want - it's never zero.
+
+**Case 2: Complex Roots**
+
+Now let's look at y'' + 2y' + 5y = 0. The characteristic equation is r² + 2r + 5 = 0.
+
+Using the quadratic formula: r = (-2 ± √(4-20))/2 = (-2 ± √(-16))/2 = -1 ± 2i
+
+So we have complex conjugate roots: r₁ = -1 + 2i and r₂ = -1 - 2i.
+
+Technically, our solutions are y₁ = e^((-1+2i)t) and y₂ = e^((-1-2i)t). But Prof. Ditkowski wants real solutions, not complex ones. Here's the trick: Use Euler's formula!
+
+e^((α+iβ)t) = e^(αt)·e^(iβt) = e^(αt)[cos(βt) + i·sin(βt)]
+
+So for our roots -1 ± 2i, we get:
+- Real part: e^(-t)cos(2t)
+- Imaginary part: e^(-t)sin(2t)
+
+The general real solution is: y = e^(-t)[c₁cos(2t) + c₂sin(2t)]
+
+This represents damped oscillation - the e^(-t) causes decay while cos(2t) and sin(2t) create oscillation.
+
+**Case 3: Repeated Roots (Preview)**
+
+What if r² - 4r + 4 = 0? This factors as (r - 2)² = 0, giving us r = 2 with multiplicity 2.
+
+We only get one exponential solution: y₁ = e^(2t). But we need two linearly independent solutions! The second one turns out to be y₂ = te^(2t). We'll prove this in the next lesson, but for now, trust that the general solution is:
+
+y = (c₁ + c₂t)e^(2t)
+
+**Example 1: Basic Application**
+
+Let's solve a complete initial value problem: y'' - y' - 6y = 0, with y(0) = 1 and y'(0) = 0.
+
+Step 1: Characteristic equation: r² - r - 6 = 0
+Factor: (r - 3)(r + 2) = 0, so r₁ = 3 and r₂ = -2
+
+Step 2: General solution: y = c₁e^(3t) + c₂e^(-2t)
+
+Step 3: Apply initial conditions:
+- y(0) = 1: c₁ + c₂ = 1
+- y'(0) = 0: 3c₁ - 2c₂ = 0
+
+Step 4: Solve the system:
+From the second equation: c₁ = (2/3)c₂
+Substitute into first: (2/3)c₂ + c₂ = 1, so c₂ = 3/5
+Therefore: c₁ = 2/5
+
+Final solution: y = (2/5)e^(3t) + (3/5)e^(-2t)
+
+**Example 2: Higher Order with Complex Roots**
+
+Consider y''' + y' = 0. This is third-order, so we expect three solutions.
+
+Characteristic equation: r³ + r = 0
+Factor: r(r² + 1) = 0
+
+Roots: r₁ = 0, r₂ = i, r₃ = -i
+
+The first root gives y₁ = e^(0·t) = 1 (a constant solution).
+The complex roots ±i give us cos(t) and sin(t).
+
+General solution: y = c₁ + c₂cos(t) + c₃sin(t)
+
+**Common Mistakes and Exam Tips**
+
+Here are the mistakes I see every year on Prof. Ditkowski's exam:
+
+1. **Forgetting to convert complex solutions to real form**. If you leave e^((2+3i)t) in your answer, you'll lose points. Always convert to e^(2t)[A·cos(3t) + B·sin(3t)].
+
+2. **Wrong signs in the characteristic equation**. If your ODE is y'' - 5y' + 6y = 0, your characteristic equation is r² - 5r + 6 = 0, not r² + 5r + 6 = 0. The signs stay the same!
+
+3. **Not checking multiplicities**. If you get (r - 2)³ = 0, you need THREE solutions involving e^(2t): namely e^(2t), te^(2t), and t²e^(2t).
+
+4. **Arithmetic errors in the quadratic formula**. Always double-check your discriminant b² - 4ac. Is it positive (real roots), zero (repeated root), or negative (complex roots)?
+
+**Memory Techniques**
+
+To remember the solution forms:
+- **Distinct real roots**: Just exponentials, e^(r₁t), e^(r₂t), ...
+- **Complex roots α ± iβ**: e^(αt) times trig functions with frequency β
+- **Repeated root r with multiplicity k**: Multiply e^(rt) by powers of t up to t^(k-1)
+
+Think of it this way: Complex roots make things oscillate (trig functions), repeated roots need polynomial factors to maintain independence.
+
+**Connection to Systems**
+
+Remember from Block 8 how we converted higher-order equations to first-order systems? The characteristic equation we're using here is exactly the characteristic polynomial of the companion matrix! The roots are the eigenvalues. This isn't a coincidence - it's the same linear algebra underneath.
+
+**Closing and What's Next**
+
+So basically, the characteristic equation method transforms differential equations into algebra. You find roots, build solutions based on root type, and combine them with the right coefficients. In the next lesson, we'll dive deep into why repeated roots give us those t^k factors - it's actually beautiful when you see the underlying reason. For now, practice finding characteristic equations and identifying root types. This is the foundation for everything else in constant coefficient theory.
+
+---
+
+## **Component 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{formula}
+
+\title{Lesson 43: Characteristic Equation Method - All Cases}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+The characteristic equation method is the fundamental technique for solving linear ordinary differential equations with constant coefficients. This method transforms the differential equation into an algebraic problem, making it both computationally efficient and theoretically elegant.
+
+\begin{definition}[Linear ODE with Constant Coefficients]
+An $n$-th order linear homogeneous ODE with constant coefficients has the form:
+$$a_n y^{(n)} + a_{n-1} y^{(n-1)} + \cdots + a_1 y' + a_0 y = 0$$
+where $a_0, a_1, \ldots, a_n \in \mathbb{R}$ (or $\mathbb{C}$) are constants with $a_n \neq 0$.
+\end{definition}
+
+\section{The Characteristic Equation}
+
+\begin{theorem}[Exponential Ansatz]
+For the differential equation
+$$a_n y^{(n)} + a_{n-1} y^{(n-1)} + \cdots + a_1 y' + a_0 y = 0$$
+if we assume a solution of the form $y = e^{rt}$ where $r \in \mathbb{C}$, then $r$ must satisfy the characteristic equation:
+$$a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0$$
+\end{theorem}
+
+\begin{proof}
+Substituting $y = e^{rt}$ into the differential equation:
+\begin{align}
+y &= e^{rt} \\
+y' &= re^{rt} \\
+y'' &= r^2e^{rt} \\
+&\vdots \\
+y^{(k)} &= r^k e^{rt}
+\end{align}
+
+Therefore:
+$$a_n r^n e^{rt} + a_{n-1} r^{n-1} e^{rt} + \cdots + a_1 r e^{rt} + a_0 e^{rt} = 0$$
+
+Since $e^{rt} \neq 0$ for all $t$, we can divide by $e^{rt}$:
+$$a_n r^n + a_{n-1} r^{n-1} + \cdots + a_1 r + a_0 = 0$$
+\end{proof}
+
+\begin{keypoint}
+The characteristic equation is a polynomial equation of degree $n$. By the Fundamental Theorem of Algebra, it has exactly $n$ roots (counting multiplicities) in $\mathbb{C}$.
+\end{keypoint}
+
+\section{Solution Construction Based on Root Types}
+
+\subsection{Case 1: Distinct Real Roots}
+
+\begin{theorem}[Distinct Real Roots]
+If the characteristic equation has $n$ distinct real roots $r_1, r_2, \ldots, r_n$, then the general solution is:
+$$y(t) = c_1 e^{r_1 t} + c_2 e^{r_2 t} + \cdots + c_n e^{r_n t}$$
+where $c_1, c_2, \ldots, c_n$ are arbitrary constants.
+\end{theorem}
+
+\begin{insight}
+The functions $\{e^{r_1 t}, e^{r_2 t}, \ldots, e^{r_n t}\}$ form a fundamental set of solutions. Their Wronskian is:
+$$W(t) = \prod_{i<j} (r_j - r_i) \cdot e^{(r_1 + r_2 + \cdots + r_n)t} \neq 0$$
+proving linear independence.
+\end{insight}
+
+\subsection{Case 2: Complex Conjugate Roots}
+
+\begin{theorem}[Complex Roots for Real Equations]
+If the differential equation has real coefficients and $r = \alpha + i\beta$ is a complex root, then $\bar{r} = \alpha - i\beta$ is also a root. The corresponding real-valued solutions are:
+$$y_1(t) = e^{\alpha t} \cos(\beta t), \quad y_2(t) = e^{\alpha t} \sin(\beta t)$$
+\end{theorem}
+
+\begin{proof}
+From the complex solutions $e^{(\alpha + i\beta)t}$ and $e^{(\alpha - i\beta)t}$, we use Euler's formula:
+$$e^{(\alpha \pm i\beta)t} = e^{\alpha t} e^{\pm i\beta t} = e^{\alpha t}[\cos(\beta t) \pm i\sin(\beta t)]$$
+
+Taking linear combinations:
+\begin{align}
+y_1 &= \frac{1}{2}[e^{(\alpha + i\beta)t} + e^{(\alpha - i\beta)t}] = e^{\alpha t}\cos(\beta t) \\
+y_2 &= \frac{1}{2i}[e^{(\alpha + i\beta)t} - e^{(\alpha - i\beta)t}] = e^{\alpha t}\sin(\beta t)
+\end{align}
+\end{proof}
+
+\subsection{Case 3: Repeated Roots (Overview)}
+
+\begin{theorem}[Repeated Roots]
+If $r$ is a root of multiplicity $k$, then the $k$ linearly independent solutions are:
+$$e^{rt}, \, te^{rt}, \, t^2e^{rt}, \, \ldots, \, t^{k-1}e^{rt}$$
+\end{theorem}
+
+\begin{warning}
+The full proof of the repeated roots case requires reduction of order or the theory of generalized eigenvectors. We will cover this in detail in Lesson 44.
+\end{warning}
+
+\section{Complete Solution Algorithm}
+
+\begin{method}[Characteristic Equation Method]
+\begin{enumerate}
+    \item Write the characteristic equation by replacing $y^{(k)}$ with $r^k$.
+    \item Find all roots of the characteristic polynomial.
+    \item For each root, construct the corresponding solutions:
+    \begin{itemize}
+        \item Real root $r$ of multiplicity 1: $e^{rt}$
+        \item Real root $r$ of multiplicity $m$: $e^{rt}, te^{rt}, \ldots, t^{m-1}e^{rt}$
+        \item Complex conjugate pair $\alpha \pm i\beta$ of multiplicity 1: $e^{\alpha t}\cos(\beta t), e^{\alpha t}\sin(\beta t)$
+        \item Complex conjugate pair $\alpha \pm i\beta$ of multiplicity $m$:
+        $$e^{\alpha t}\cos(\beta t), te^{\alpha t}\cos(\beta t), \ldots, t^{m-1}e^{\alpha t}\cos(\beta t)$$
+        $$e^{\alpha t}\sin(\beta t), te^{\alpha t}\sin(\beta t), \ldots, t^{m-1}e^{\alpha t}\sin(\beta t)$$
+    \end{itemize}
+    \item The general solution is the linear combination of all these solutions.
+\end{enumerate}
+\end{method}
+
+\section{Worked Examples}
+
+\begin{example}[Second-Order with Distinct Real Roots]
+Solve: $y'' - 5y' + 6y = 0$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Characteristic equation: $r^2 - 5r + 6 = 0$
+    \item Factor: $(r-2)(r-3) = 0$
+    \item Roots: $r_1 = 2, r_2 = 3$
+    \item General solution: $y(t) = c_1 e^{2t} + c_2 e^{3t}$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Second-Order with Complex Roots]
+Solve: $y'' + 2y' + 5y = 0$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Characteristic equation: $r^2 + 2r + 5 = 0$
+    \item Using quadratic formula: $r = \frac{-2 \pm \sqrt{4-20}}{2} = \frac{-2 \pm 4i}{2} = -1 \pm 2i$
+    \item Roots: $r_1 = -1 + 2i, r_2 = -1 - 2i$
+    \item General solution: $y(t) = e^{-t}[c_1 \cos(2t) + c_2 \sin(2t)]$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Third-Order Mixed Roots]
+Solve: $y''' - y'' - y' + y = 0$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Characteristic equation: $r^3 - r^2 - r + 1 = 0$
+    \item Factor by grouping: $r^2(r-1) - (r-1) = (r^2-1)(r-1) = (r-1)^2(r+1) = 0$
+    \item Roots: $r_1 = 1$ (multiplicity 2), $r_2 = -1$
+    \item General solution: $y(t) = (c_1 + c_2 t)e^t + c_3 e^{-t}$
+\end{enumerate}
+\end{example}
+
+\section{Connection to Linear Systems}
+
+\begin{insight}
+Consider the second-order equation $y'' + py' + qy = 0$. Converting to a system with $x_1 = y$ and $x_2 = y'$:
+$$\begin{pmatrix} x_1' \\ x_2' \end{pmatrix} = \begin{pmatrix} 0 & 1 \\ -q & -p \end{pmatrix} \begin{pmatrix} x_1 \\ x_2 \end{pmatrix}$$
+
+The characteristic polynomial of this companion matrix is:
+$$\det\begin{pmatrix} -\lambda & 1 \\ -q & -p-\lambda \end{pmatrix} = \lambda^2 + p\lambda + q$$
+
+This is exactly our characteristic equation! The roots are the eigenvalues of the companion matrix.
+\end{insight}
+
+\section{Initial Value Problems}
+
+\begin{method}[Solving IVPs]
+For an $n$-th order IVP with initial conditions $y(t_0) = y_0, y'(t_0) = y_1, \ldots, y^{(n-1)}(t_0) = y_{n-1}$:
+\begin{enumerate}
+    \item Find the general solution using the characteristic equation method.
+    \item Apply the initial conditions to get $n$ linear equations in the $n$ unknown constants.
+    \item Solve the linear system for the constants.
+\end{enumerate}
+\end{method}
+
+\begin{examtip}
+Prof. Ditkowski often gives initial conditions at $t = 0$. This simplifies calculations since $e^0 = 1$, $\cos(0) = 1$, and $\sin(0) = 0$.
+\end{examtip}
+
+\section{Common Errors to Avoid}
+
+\begin{warning}
+\begin{enumerate}
+    \item \textbf{Sign errors:} The signs in the characteristic equation match those in the differential equation.
+    \item \textbf{Complex roots:} Always convert to real form for real differential equations.
+    \item \textbf{Multiplicities:} Count multiplicities carefully - $(r-2)^3 = 0$ means multiplicity 3, not 1.
+    \item \textbf{Quadratic formula:} Check discriminant sign to determine root type.
+    \item \textbf{Initial conditions:} Don't forget to differentiate when applying $y'(t_0) = y_1$.
+\end{enumerate}
+\end{warning}
+
+\section{Solution Forms Summary Table}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Root Type} & \textbf{Multiplicity} & \textbf{Solution Terms} \\
+\hline
+Real $r$ & 1 & $e^{rt}$ \\
+\hline
+Real $r$ & $k$ & $e^{rt}, te^{rt}, \ldots, t^{k-1}e^{rt}$ \\
+\hline
+Complex $\alpha \pm i\beta$ & 1 & $e^{\alpha t}\cos(\beta t), e^{\alpha t}\sin(\beta t)$ \\
+\hline
+Complex $\alpha \pm i\beta$ & $k$ & $t^j e^{\alpha t}\cos(\beta t), t^j e^{\alpha t}\sin(\beta t)$ \\
+& & for $j = 0, 1, \ldots, k-1$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
+```
+
+---
+
+## **Component 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 43: Practice Problems\\Characteristic Equation Method}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+
+\maketitle
+
+\section*{Part A: Characteristic Equation Setup (5 problems)}
+
+\begin{enumerate}
+\item Write the characteristic equation for: $y''' - 6y'' + 11y' - 6y = 0$
+
+\item Write the characteristic equation for: $2y^{(4)} + 3y'' - y = 0$
+
+\item Write the characteristic equation for: $y'' + 4y' + 4y = 0$
+
+\item Write the characteristic equation for: $y''' + y' = 0$
+
+\item Write the characteristic equation for: $y^{(4)} + 2y'' + y = 0$
+\end{enumerate}
+
+\section*{Part B: Distinct Real Roots (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 7y' + 12y = 0$
+
+\item Solve: $y''' - 6y'' + 11y' - 6y = 0$
+
+\item Solve the IVP: $y'' - y' - 2y = 0$, $y(0) = 3$, $y'(0) = 1$
+
+\item Solve: $y^{(4)} - 5y'' + 4y = 0$
+
+\item Find the solution of $y'' - 9y = 0$ that satisfies $y(0) = 2$ and remains bounded as $t \to -\infty$.
+\end{enumerate}
+
+\section*{Part C: Repeated Roots (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 4y' + 4y = 0$
+
+\item Solve: $y''' - 3y'' + 3y' - y = 0$
+
+\item Solve the IVP: $y'' + 6y' + 9y = 0$, $y(0) = 1$, $y'(0) = -2$
+
+\item Solve: $y^{(4)} - 4y''' + 6y'' - 4y' + y = 0$
+
+\item Find all solutions of $y''' - 6y'' + 12y' - 8y = 0$ that satisfy $\lim_{t \to \infty} e^{-2t}y(t) = L$ for some finite $L \neq 0$.
+\end{enumerate}
+
+\section*{Part D: Complex Roots (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' + y = 0$
+
+\item Solve: $y'' - 2y' + 2y = 0$
+
+\item Solve the IVP: $y'' + 4y' + 13y = 0$, $y(0) = 1$, $y'(0) = -2$
+
+\item Solve: $y^{(4)} + 4y'' = 0$
+
+\item Find the solution of $y'' + 2y' + 5y = 0$ with $y(0) = 0$ that has maximum amplitude.
+\end{enumerate}
+
+\section*{Part E: Mixed Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y''' - y'' + y' - y = 0$
+
+\item Solve: $y^{(4)} + y''' - y' - y = 0$
+
+\item Solve: $y^{(4)} + 8y'' + 16y = 0$
+
+\item Find all solutions of $y''' + y'' - y' - y = 0$ that are periodic.
+
+\item Solve the IVP: $y^{(4)} - y = 0$, $y(0) = 1$, $y'(0) = 0$, $y''(0) = 1$, $y'''(0) = 0$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Consider the equation $y'' + py' + qy = 0$ where $p, q \in \mathbb{R}$.
+\begin{enumerate}[label=(\alph*)]
+    \item For what values of $p$ and $q$ are all solutions bounded as $t \to \infty$?
+    \item For what values do all solutions oscillate?
+    \item When do all non-zero solutions tend to infinity as $t \to \infty$?
+\end{enumerate}
+
+\item Let $y'' + ay' + by = 0$ have solutions $y_1(t) = e^{2t}$ and $y_2(t) = e^{-3t}$. Find $a$ and $b$.
+
+\item The characteristic equation of a third-order ODE has roots $r_1 = 2$, $r_2 = 3$, and $r_3 = -1$. If $y(0) = 1$, $y'(0) = 5$, and $y''(0) = 7$, find the solution.
+
+\item A fourth-order equation has characteristic polynomial $(r^2 + 4)(r - 1)^2 = 0$. Write the general real-valued solution.
+
+\item Show that if $y(t)$ is a solution of $y'' + py' + qy = 0$ with constant coefficients, then $z(t) = y(at + b)$ is a solution of a similar equation. Find the new equation.
+\end{enumerate}
+
+\newpage
+
+\section*{Solutions}
+
+\subsection*{Part A: Characteristic Equation Setup}
+
+\begin{enumerate}
+\item $r^3 - 6r^2 + 11r - 6 = 0$
+
+\item $2r^4 + 3r^2 - 1 = 0$
+
+\item $r^2 + 4r + 4 = 0$
+
+\item $r^3 + r = 0$
+
+\item $r^4 + 2r^2 + 1 = 0$
+\end{enumerate}
+
+\subsection*{Part B: Distinct Real Roots}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 - 7r + 12 = 0$\\
+Factor: $(r-3)(r-4) = 0$\\
+Roots: $r_1 = 3, r_2 = 4$\\
+General solution: $y(t) = c_1e^{3t} + c_2e^{4t}$
+
+\item Characteristic equation: $r^3 - 6r^2 + 11r - 6 = 0$\\
+Factor: $(r-1)(r-2)(r-3) = 0$\\
+Roots: $r_1 = 1, r_2 = 2, r_3 = 3$\\
+General solution: $y(t) = c_1e^t + c_2e^{2t} + c_3e^{3t}$
+
+\item Characteristic equation: $r^2 - r - 2 = 0$\\
+Factor: $(r-2)(r+1) = 0$\\
+Roots: $r_1 = 2, r_2 = -1$\\
+General solution: $y(t) = c_1e^{2t} + c_2e^{-t}$\\
+Apply ICs: $c_1 + c_2 = 3$, $2c_1 - c_2 = 1$\\
+Solving: $c_1 = 4/3$, $c_2 = 5/3$\\
+Solution: $y(t) = \frac{4}{3}e^{2t} + \frac{5}{3}e^{-t}$
+
+\item Characteristic equation: $r^4 - 5r^2 + 4 = 0$\\
+Let $s = r^2$: $s^2 - 5s + 4 = 0$\\
+Factor: $(s-1)(s-4) = 0$, so $s = 1$ or $s = 4$\\
+Thus $r^2 = 1$ or $r^2 = 4$\\
+Roots: $r = \pm 1, \pm 2$\\
+General solution: $y(t) = c_1e^{-2t} + c_2e^{-t} + c_3e^t + c_4e^{2t}$
+
+\item Characteristic equation: $r^2 - 9 = 0$\\
+Roots: $r = \pm 3$\\
+General solution: $y(t) = c_1e^{3t} + c_2e^{-3t}$\\
+For boundedness as $t \to -\infty$, need $c_1 = 0$\\
+Apply $y(0) = 2$: $c_2 = 2$\\
+Solution: $y(t) = 2e^{-3t}$
+\end{enumerate}
+
+\subsection*{Part C: Repeated Roots}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 - 4r + 4 = 0$\\
+Factor: $(r-2)^2 = 0$\\
+Root: $r = 2$ (multiplicity 2)\\
+General solution: $y(t) = (c_1 + c_2t)e^{2t}$
+
+\item Characteristic equation: $r^3 - 3r^2 + 3r - 1 = 0$\\
+Factor: $(r-1)^3 = 0$\\
+Root: $r = 1$ (multiplicity 3)\\
+General solution: $y(t) = (c_1 + c_2t + c_3t^2)e^t$
+
+\item Characteristic equation: $r^2 + 6r + 9 = 0$\\
+Factor: $(r+3)^2 = 0$\\
+Root: $r = -3$ (multiplicity 2)\\
+General solution: $y(t) = (c_1 + c_2t)e^{-3t}$\\
+Apply ICs: $c_1 = 1$, $c_2 - 3c_1 = -2$\\
+Thus $c_2 = 1$\\
+Solution: $y(t) = (1 + t)e^{-3t}$
+
+\item Characteristic equation: $r^4 - 4r^3 + 6r^2 - 4r + 1 = 0$\\
+This is $(r-1)^4 = 0$\\
+Root: $r = 1$ (multiplicity 4)\\
+General solution: $y(t) = (c_1 + c_2t + c_3t^2 + c_4t^3)e^t$
+
+\item Characteristic equation: $r^3 - 6r^2 + 12r - 8 = 0$\\
+Factor: $(r-2)^3 = 0$\\
+Root: $r = 2$ (multiplicity 3)\\
+General solution: $y(t) = (c_1 + c_2t + c_3t^2)e^{2t}$\\
+For finite limit, need $c_3 = 0$ and $c_2 = 0$\\
+Solution: $y(t) = c_1e^{2t}$ for any $c_1 \neq 0$
+\end{enumerate}
+
+\subsection*{Part D: Complex Roots}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 + 1 = 0$\\
+Roots: $r = \pm i$\\
+General solution: $y(t) = c_1\cos(t) + c_2\sin(t)$
+
+\item Characteristic equation: $r^2 - 2r + 2 = 0$\\
+Roots: $r = 1 \pm i$\\
+General solution: $y(t) = e^t(c_1\cos(t) + c_2\sin(t))$
+
+\item Characteristic equation: $r^2 + 4r + 13 = 0$\\
+Roots: $r = -2 \pm 3i$\\
+General solution: $y(t) = e^{-2t}(c_1\cos(3t) + c_2\sin(3t))$\\
+Apply ICs: $c_1 = 1$, $-2c_1 + 3c_2 = -2$\\
+Thus $c_2 = 0$\\
+Solution: $y(t) = e^{-2t}\cos(3t)$
+
+\item Characteristic equation: $r^4 + 4r^2 = 0$\\
+Factor: $r^2(r^2 + 4) = 0$\\
+Roots: $r = 0$ (multiplicity 2), $r = \pm 2i$\\
+General solution: $y(t) = c_1 + c_2t + c_3\cos(2t) + c_4\sin(2t)$
+
+\item Characteristic equation: $r^2 + 2r + 5 = 0$\\
+Roots: $r = -1 \pm 2i$\\
+General solution: $y(t) = e^{-t}(c_1\cos(2t) + c_2\sin(2t))$\\
+Apply $y(0) = 0$: $c_1 = 0$\\
+For maximum amplitude, choose $c_2$ as large as needed\\
+Solution: $y(t) = Ae^{-t}\sin(2t)$ for any $A \neq 0$
+\end{enumerate}
+
+\subsection*{Part E: Mixed Cases}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^3 - r^2 + r - 1 = 0$\\
+Factor: $r^2(r-1) + (r-1) = (r^2+1)(r-1) = 0$\\
+Roots: $r = 1, r = \pm i$\\
+General solution: $y(t) = c_1e^t + c_2\cos(t) + c_3\sin(t)$
+
+\item Characteristic equation: $r^4 + r^3 - r - 1 = 0$\\
+Factor: $r^3(r+1) - (r+1) = (r^3-1)(r+1) = (r-1)(r^2+r+1)(r+1) = 0$\\
+Roots: $r = 1, -1, \frac{-1 \pm i\sqrt{3}}{2}$\\
+General solution: $y(t) = c_1e^t + c_2e^{-t} + e^{-t/2}(c_3\cos(\frac{\sqrt{3}}{2}t) + c_4\sin(\frac{\sqrt{3}}{2}t))$
+
+\item Characteristic equation: $r^4 + 8r^2 + 16 = 0$\\
+This is $(r^2 + 4)^2 = 0$\\
+Roots: $r = \pm 2i$ (each with multiplicity 2)\\
+General solution: $y(t) = (c_1 + c_2t)\cos(2t) + (c_3 + c_4t)\sin(2t)$
+
+\item Characteristic equation: $r^3 + r^2 - r - 1 = 0$\\
+Factor: $(r+1)^2(r-1) = 0$\\
+Roots: $r = -1$ (multiplicity 2), $r = 1$\\
+No periodic solutions (all involve exponentials)
+
+\item Characteristic equation: $r^4 - 1 = 0$\\
+Roots: $r = \pm 1, \pm i$\\
+General solution: $y(t) = c_1e^t + c_2e^{-t} + c_3\cos(t) + c_4\sin(t)$\\
+Apply ICs: System gives $c_1 = c_2 = c_3 = 1/2$, $c_4 = 0$\\
+Solution: $y(t) = \frac{1}{2}(e^t + e^{-t} + \cos(t))$
+\end{enumerate}
+
+\subsection*{Part F: Exam-Style Problems}
+
+\begin{enumerate}[resume]
+\item
+\begin{enumerate}[label=(\alph*)]
+    \item All solutions bounded: Need both roots to have negative real parts. This occurs when $p > 0$ and $q > 0$ (by Routh-Hurwitz).
+    \item Solutions oscillate: Need complex roots, so discriminant $p^2 - 4q < 0$, i.e., $q > p^2/4$.
+    \item Solutions tend to infinity: At least one root has positive real part. This occurs when either $p < 0$ or $q < 0$.
+\end{enumerate}
+
+\item The characteristic equation must be $(r-2)(r+3) = r^2 + r - 6 = 0$\\
+Thus $a = 1$ and $b = -6$.
+
+\item Characteristic equation: $(r-2)(r-3)(r+1) = r^3 - 4r^2 + r + 6 = 0$\\
+General solution: $y(t) = c_1e^{2t} + c_2e^{3t} + c_3e^{-t}$\\
+Apply ICs to get system:\\
+$c_1 + c_2 + c_3 = 1$\\
+$2c_1 + 3c_2 - c_3 = 5$\\
+$4c_1 + 9c_2 + c_3 = 7$\\
+Solving: $c_1 = 3/2$, $c_2 = 0$, $c_3 = -1/2$\\
+Solution: $y(t) = \frac{3}{2}e^{2t} - \frac{1}{2}e^{-t}$
+
+\item Roots: $r = \pm 2i, r = 1$ (multiplicity 2)\\
+General solution: $y(t) = c_1\cos(2t) + c_2\sin(2t) + (c_3 + c_4t)e^t$
+
+\item Let $s = at + b$, so $t = (s-b)/a$.\\
+Then $\frac{dy}{dt} = a\frac{dy}{ds}$ and $\frac{d^2y}{dt^2} = a^2\frac{d^2y}{ds^2}$\\
+Substituting: $a^2y'' + apy' + qy = 0$\\
+Dividing by $a^2$: $y'' + \frac{p}{a}y' + \frac{q}{a^2}y = 0$\\
+New equation has coefficients $p' = p/a$ and $q' = q/a^2$.
+\end{enumerate}
+
+\end{document}
+```
+
+---
+
+## **Component 4: NotebookLM Instructions**
+
+# **NotebookLM Instructions for Lesson 43**
+
+## **How to Use These Materials**
+
+1. **Import Order**:
+   - First, import the Audio Lesson Script as a text document
+   - Second, import the Theory Document (compile LaTeX first or convert to PDF)
+   - Third, import the Practice Problems (compile LaTeX first)
+
+2. **Audio Generation Settings**:
+   - Select "Conversational" or "Tutorial" style if available
+   - Set pace to "Moderate" for mathematical content
+   - Enable "Technical Terms" pronunciation guide
+   - Request emphasis on formulas and key concepts
+
+3. **Study Sequence**:
+   - **Day 1**: Listen to audio lesson while following along with Theory Document
+   - **Day 2**: Work through Parts A-C of practice problems
+   - **Day 3**: Complete Parts D-F and review solutions
+   - **Day 4**: Re-listen to audio focusing on weak areas
+
+4. **Interactive Features**:
+   - Create flashcards for each solution form in the summary table
+   - Generate quiz questions on root types and their solutions
+   - Ask NotebookLM to explain specific examples step-by-step
+
+## **Key Formulas to Memorize**
+
+Create a formula sheet with:
+- Characteristic equation: Replace $y^{(k)}$ with $r^k$
+- Quadratic formula: $r = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$
+- Complex to real conversion: $e^{(\alpha \pm i\beta)t} \rightarrow e^{\alpha t}[\cos(\beta t), \sin(\beta t)]$
+- Solution forms for each root type (see summary table)
+
+## **Practice Problem Strategy**
+
+1. **Part A**: These are mechanical - just practice pattern recognition
+2. **Part B**: Focus on factoring techniques and initial conditions
+3. **Part C**: Remember the $t^k$ multipliers for repeated roots
+4. **Part D**: Always convert complex exponentials to real trig functions
+5. **Part E**: These combine all cases - typical exam problems
+6. **Part F**: These are Prof. Ditkowski's style - require deeper understanding
+
+## **Common Mistakes Checklist**
+
+Before submitting any solution, verify:
+- [ ] Signs in characteristic equation match the ODE
+- [ ] All roots found (including multiplicities)
+- [ ] Complex roots converted to real form
+- [ ] All constants determined from initial conditions
+- [ ] Solution satisfies original ODE (substitute back)
+
+## **Connections to Other Lessons**
+
+- **Next (Lesson 44)**: Will explain WHY repeated roots give $t^k$ terms
+- **Lesson 45**: Uses these homogeneous solutions for undetermined coefficients
+- **Lesson 46**: Reduction of order finds second solutions
+- **Lesson 47**: Euler equations reduce to this method
+
+## **Exam Preparation Tips**
+
+1. Prof. Ditkowski loves:
+   - Initial value problems with complex roots
+   - Third-order equations with mixed root types
+   - Questions about solution behavior (bounded, oscillatory, etc.)
+
+2. Speed techniques:
+   - Memorize common factorizations: $r^2 \pm 1$, $r^3 \pm 1$, etc.
+   - For $r^4 + ar^2 + b = 0$, substitute $s = r^2$ first
+   - Check partial fractions for rational roots
+
+3. Verification method:
+   - Always verify one solution by direct substitution
+   - Use Wronskian to confirm linear independence if time permits
+
+## **Advanced Study Questions**
+
+Ask NotebookLM to generate explanations for:
+1. Why do exponentials solve constant coefficient equations?
+2. How does the characteristic equation relate to the companion matrix?
+3. What's the connection between repeated roots and Jordan blocks?
+4. Why do complex roots always come in conjugate pairs for real ODEs?
+5. How does this method extend to partial differential equations?
+
+## **Time Management for This Lesson**
+
+- Theory understanding: 2 hours
+- Audio lesson + notes: 1 hour
+- Practice problems A-C: 1.5 hours
+- Practice problems D-F: 1.5 hours
+- Review and synthesis: 1 hour
+- **Total: 7 hours**
+
+Remember: This is THE fundamental method for constant coefficients. Master it completely before moving to Lesson 44.
+
+---
+
+**Lesson 43 complete. Request 'Generate Lesson 44' for the next lesson in Block 12.**

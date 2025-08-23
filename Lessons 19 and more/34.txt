@@ -1,0 +1,522 @@
+# **Lesson 34: Variation of Parameters for Systems**
+
+## **Part 1: Audio Lesson Script**
+
+Welcome to Lesson 34! Today we're extending variation of parameters to systems. So basically, we're solving non-homogeneous systems: x' = Ax + f(t), where f(t) is a forcing term. This is where all our work on homogeneous systems and the matrix exponential pays off big time!
+
+Here's the key insight: just like for single equations, we look for a solution of the form x_p(t) = Φ(t)v(t), where Φ(t) is the fundamental matrix of the homogeneous system, and v(t) is a vector function we need to find. The idea is brilliant - we're varying the constants in the homogeneous solution!
+
+Let me show you the systematic approach. First, recall that the fundamental matrix Φ(t) satisfies:
+- Φ'(t) = AΦ(t)
+- Φ(0) = I (usually, but we can normalize)
+
+For constant coefficient systems, Φ(t) = e^(At), which we just learned to compute!
+
+Now, assume x_p(t) = Φ(t)v(t). Taking the derivative:
+x_p' = Φ'v + Φv' = AΦv + Φv' = Ax_p + Φv'
+
+For this to equal Ax_p + f, we need:
+Φv' = f
+Therefore: v' = Φ^(-1)f
+
+Integrating: v(t) = ∫Φ^(-1)(s)f(s)ds
+
+So the particular solution is:
+**x_p(t) = Φ(t)∫Φ^(-1)(s)f(s)ds**
+
+Let's do a concrete example:
+```
+x' = [2  1] x + [e^t]
+     [0  2]     [0  ]
+```
+
+First, find Φ(t). This matrix has repeated eigenvalue λ = 2, so:
+Φ(t) = e^(2t)[1  t]
+              [0  1]
+
+Next, find Φ^(-1)(t):
+Φ^(-1)(t) = e^(-2t)[1  -t]
+                    [0   1]
+
+Now compute Φ^(-1)(s)f(s):
+Φ^(-1)(s)f(s) = e^(-2s)[1  -s][e^s] = e^(-2s)[e^s] = [e^(-s)]
+                        [0   1][0  ]          [0  ]   [0    ]
+
+Integrate:
+v(t) = ∫[e^(-s)]ds = [-e^(-s)]|_0^t = [-e^(-t) + 1]
+       [0     ]      [0      ]        [0          ]
+
+Finally:
+x_p(t) = e^(2t)[1  t][-e^(-t) + 1] = e^(2t)[-e^(-t) + 1]
+               [0  1][0          ]          [0          ]
+       = [e^t - e^(2t)]
+         [0          ]
+
+Wait, let me recalculate that matrix multiplication:
+x_p(t) = e^(2t)[1  t][-e^(-t) + 1] = e^(2t)[1(-e^(-t) + 1) + t(0)]
+               [0  1][0          ]          [0(-e^(-t) + 1) + 1(0)]
+       = e^(2t)[-e^(-t) + 1] = [-e^t + e^(2t)]
+               [0          ]    [0            ]
+
+Actually, I made an error. Let me be more careful with the bounds of integration. If we integrate from 0 to t:
+v(t) = ∫_0^t [e^(-s)]ds = [-e^(-s)]|_0^t = [-e^(-t) - (-1)] = [1 - e^(-t)]
+              [0     ]      [0      ]                          [0         ]
+
+So: x_p(t) = e^(2t)[1  t][1 - e^(-t)] = e^(2t)[1 - e^(-t)]
+                    [0  1][0         ]          [0         ]
+           = [e^(2t)(1 - e^(-t))] = [e^(2t) - e^t]
+             [0                 ]    [0           ]
+
+The general solution is x = x_h + x_p, where x_h is the homogeneous solution.
+
+Here's a crucial observation: for constant coefficient systems, we can write this more elegantly. Since Φ(t) = e^(At) and Φ^(-1)(s) = e^(-As), the particular solution becomes:
+**x_p(t) = ∫_0^t e^(A(t-s))f(s)ds**
+
+This is a convolution! It says: "Apply the forcing at time s, then evolve it forward to time t using the homogeneous evolution operator."
+
+Common mistakes to avoid:
+1. **Forgetting to find Φ^(-1)** - You need the inverse of the fundamental matrix!
+2. **Wrong integration bounds** - Usually integrate from 0 to t
+3. **Matrix multiplication errors** - Be super careful with the order
+4. **Not checking the solution** - Verify x_p' = Ax_p + f
+
+Prof. Ditkowski loves these types of forcing functions:
+- Exponentials: f(t) = [e^(at), 0]^T
+- Trigonometric: f(t) = [cos(t), sin(t)]^T
+- Polynomials: f(t) = [t, t²]^T
+- Step functions: f(t) = [H(t-1), 0]^T
+
+Here's my memory trick: "FIV" - **F**undamental matrix, **I**nverse, **V**ary (integrate).
+
+The physical interpretation is beautiful: each bit of forcing f(s)ds at time s creates an impulse that then evolves according to the homogeneous dynamics. The total response is the superposition of all these evolved impulses - that's what the integral represents!
+
+For the special case where f(t) = e^(αt)b (exponential forcing with constant vector b), if α is not an eigenvalue of A, we can often guess x_p = e^(αt)c and find c algebraically:
+αe^(αt)c = Ae^(αt)c + e^(αt)b
+(αI - A)c = b
+c = (αI - A)^(-1)b
+
+This is much faster than variation of parameters when it works!
+
+Quick exam tip: Prof. Ditkowski often gives you Φ(t) directly to save time, so you just need to find Φ^(-1) and integrate. Also, he loves asking for particular solutions only - you don't always need the complete general solution.
+
+Remember, variation of parameters works for ANY fundamental matrix, not just e^(At). If the system has variable coefficients, you'd use whatever fundamental matrix you can find. But for our course, constant coefficients are the main focus.
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{nicematrix, systeme}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{variation}
+
+\title{Lesson 34: Variation of Parameters for Systems}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Non-homogeneous Linear Systems}
+
+\begin{definition}[Non-homogeneous System]
+A non-homogeneous system of linear ODEs has the form:
+\[\mathbf{x}'(t) = A(t)\mathbf{x}(t) + \mathbf{f}(t)\]
+where $A(t)$ is an $n \times n$ matrix and $\mathbf{f}(t)$ is the forcing term.
+\end{definition}
+
+\begin{theorem}[General Solution Structure]
+The general solution to the non-homogeneous system is:
+\[\mathbf{x}(t) = \mathbf{x}_h(t) + \mathbf{x}_p(t)\]
+where $\mathbf{x}_h$ is the general solution to the homogeneous system and $\mathbf{x}_p$ is any particular solution.
+\end{theorem}
+
+\section{Variation of Parameters Method}
+
+\begin{variation}
+\textbf{The Fundamental Formula:}
+Given a fundamental matrix $\Phi(t)$ for the homogeneous system $\mathbf{x}' = A\mathbf{x}$, the particular solution is:
+\[\mathbf{x}_p(t) = \Phi(t)\int \Phi^{-1}(s)\mathbf{f}(s)\,ds\]
+\end{variation}
+
+\begin{method}[Step-by-Step Procedure]
+\begin{enumerate}
+\item \textbf{Find the fundamental matrix} $\Phi(t)$ for $\mathbf{x}' = A\mathbf{x}$
+   \begin{itemize}
+   \item For constant $A$: $\Phi(t) = e^{At}$
+   \item Columns of $\Phi$ are linearly independent solutions
+   \end{itemize}
+
+\item \textbf{Compute the inverse} $\Phi^{-1}(t)$
+   \begin{itemize}
+   \item For constant $A$: $\Phi^{-1}(t) = e^{-At}$
+   \item Use Wronskian: $W(t) = \det(\Phi(t)) = e^{\int \text{tr}(A)\,dt}$
+   \end{itemize}
+
+\item \textbf{Form the product} $\Phi^{-1}(s)\mathbf{f}(s)$
+
+\item \textbf{Integrate} component-wise: $\mathbf{v}(t) = \int \Phi^{-1}(s)\mathbf{f}(s)\,ds$
+
+\item \textbf{Multiply} to get particular solution: $\mathbf{x}_p(t) = \Phi(t)\mathbf{v}(t)$
+\end{enumerate}
+\end{method}
+
+\section{Constant Coefficient Case}
+
+\begin{keypoint}
+\textbf{Convolution Formula:}
+For constant matrix $A$ with $\Phi(t) = e^{At}$:
+\[\mathbf{x}_p(t) = \int_0^t e^{A(t-s)}\mathbf{f}(s)\,ds\]
+This represents the superposition of impulse responses!
+\end{keypoint}
+
+\begin{example}[2×2 System with Exponential Forcing]
+Solve $\mathbf{x}' = \begin{pmatrix} 1 & 2 \\ 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{4t} \\ 0 \end{pmatrix}$
+
+\textbf{Solution:}
+\begin{enumerate}
+\item \textbf{Find eigenvalues and eigenvectors:}
+\begin{itemize}
+\item $\lambda_1 = 1$: $\mathbf{v}_1 = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+\item $\lambda_2 = 3$: $\mathbf{v}_2 = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+\end{itemize}
+
+\item \textbf{Fundamental matrix:}
+\[\Phi(t) = \begin{pmatrix} e^t & e^{3t} \\ 0 & e^{3t} \end{pmatrix}\]
+
+\item \textbf{Inverse fundamental matrix:}
+\[\Phi^{-1}(t) = \begin{pmatrix} e^{-t} & -e^{-t} \\ 0 & e^{-3t} \end{pmatrix}\]
+
+\item \textbf{Compute $\Phi^{-1}(s)\mathbf{f}(s)$:}
+\[\Phi^{-1}(s)\mathbf{f}(s) = \begin{pmatrix} e^{-s} & -e^{-s} \\ 0 & e^{-3s} \end{pmatrix}\begin{pmatrix} e^{4s} \\ 0 \end{pmatrix} = \begin{pmatrix} e^{3s} \\ 0 \end{pmatrix}\]
+
+\item \textbf{Integrate:}
+\[\mathbf{v}(t) = \int_0^t \begin{pmatrix} e^{3s} \\ 0 \end{pmatrix}ds = \begin{pmatrix} \frac{1}{3}(e^{3t} - 1) \\ 0 \end{pmatrix}\]
+
+\item \textbf{Particular solution:}
+\[\mathbf{x}_p(t) = \begin{pmatrix} e^t & e^{3t} \\ 0 & e^{3t} \end{pmatrix}\begin{pmatrix} \frac{1}{3}(e^{3t} - 1) \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{1}{3}e^t(e^{3t} - 1) \\ 0 \end{pmatrix} = \begin{pmatrix} \frac{1}{3}(e^{4t} - e^t) \\ 0 \end{pmatrix}\]
+\end{enumerate}
+\end{example}
+
+\begin{example}[System with Trigonometric Forcing]
+Solve $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(2t) \\ 0 \end{pmatrix}$
+
+\textbf{Solution:}
+The fundamental matrix is (from complex eigenvalues $\pm i$):
+\[\Phi(t) = \begin{pmatrix} \cos t & \sin t \\ -\sin t & \cos t \end{pmatrix}, \quad \Phi^{-1}(t) = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}\]
+
+Computing:
+\[\Phi^{-1}(s)\mathbf{f}(s) = \begin{pmatrix} \cos s & -\sin s \\ \sin s & \cos s \end{pmatrix}\begin{pmatrix} \cos(2s) \\ 0 \end{pmatrix} = \begin{pmatrix} \cos s \cos(2s) \\ \sin s \cos(2s) \end{pmatrix}\]
+
+Using the identity $\cos s \cos(2s) = \frac{1}{2}[\cos(s) + \cos(3s)]$:
+\[\mathbf{v}(t) = \int_0^t \begin{pmatrix} \frac{1}{2}[\cos(s) + \cos(3s)] \\ \frac{1}{2}[\sin(s)\cos(2s)] \end{pmatrix}ds\]
+
+After integration and multiplication by $\Phi(t)$, we get the particular solution.
+\end{example}
+
+\section{Special Cases and Shortcuts}
+
+\begin{insight}
+\textbf{Undetermined Coefficients Approach:}
+For $\mathbf{x}' = A\mathbf{x} + \mathbf{f}(t)$ where $\mathbf{f}(t) = e^{\alpha t}\mathbf{b}$:
+\begin{itemize}
+\item If $\alpha$ is not an eigenvalue: Try $\mathbf{x}_p = e^{\alpha t}\mathbf{c}$
+\item Substitute to get: $(\alpha I - A)\mathbf{c} = \mathbf{b}$
+\item Solution: $\mathbf{c} = (\alpha I - A)^{-1}\mathbf{b}$
+\end{itemize}
+\end{insight}
+
+\begin{warning}
+\textbf{Common Errors:}
+\begin{itemize}
+\item Using $\Phi(t)$ instead of $\Phi^{-1}(t)$ in the integral
+\item Wrong order of matrix multiplication
+\item Forgetting integration constants (use definite integrals!)
+\item Not verifying the particular solution
+\item Confusion between $\Phi(t-s)$ and $\Phi(t)\Phi^{-1}(s)$
+\end{itemize}
+\end{warning}
+
+\section{Fundamental Solution and Green's Matrix}
+
+\begin{definition}[Green's Matrix]
+The Green's matrix (or kernel) for the system is:
+\[G(t,s) = \begin{cases}
+\Phi(t)\Phi^{-1}(s) & \text{if } t \geq s \\
+0 & \text{if } t < s
+\end{cases}\]
+For constant coefficients: $G(t,s) = e^{A(t-s)}$ for $t \geq s$.
+\end{definition}
+
+\begin{theorem}[Solution via Green's Matrix]
+The particular solution with zero initial conditions is:
+\[\mathbf{x}_p(t) = \int_0^t G(t,s)\mathbf{f}(s)\,ds\]
+\end{theorem}
+
+\begin{examtip}
+Prof. Ditkowski's typical problems:
+\begin{itemize}
+\item 2×2 systems with exponential forcing
+\item Systems where $\Phi(t)$ is given
+\item Forcing terms like $\begin{pmatrix} t \\ 0 \end{pmatrix}$ or $\begin{pmatrix} e^t \\ e^{-t} \end{pmatrix}$
+\item Verification that a given function is a particular solution
+\item Initial value problems requiring both $\mathbf{x}_h$ and $\mathbf{x}_p$
+\end{itemize}
+\end{examtip}
+
+\section{Connection to Single Equations}
+
+For a single $n$-th order equation converted to a system:
+\[y^{(n)} + a_{n-1}y^{(n-1)} + \cdots + a_0y = f(t)\]
+
+The companion matrix form gives:
+\[\mathbf{x}' = \begin{pmatrix}
+0 & 1 & 0 & \cdots & 0 \\
+0 & 0 & 1 & \cdots & 0 \\
+\vdots & \vdots & \vdots & \ddots & \vdots \\
+0 & 0 & 0 & \cdots & 1 \\
+-a_0 & -a_1 & -a_2 & \cdots & -a_{n-1}
+\end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ 0 \\ \vdots \\ 0 \\ f(t) \end{pmatrix}\]
+
+The variation of parameters formula for systems then recovers the scalar variation formula!
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 34: Practice Problems - Variation of Parameters for Systems}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Finding Fundamental Matrices}
+
+\begin{enumerate}
+\item Find the fundamental matrix for $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x}$
+
+\item Compute $\Phi(t)$ and $\Phi^{-1}(t)$ for $\mathbf{x}' = \begin{pmatrix} 3 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Find the fundamental matrix for $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}\mathbf{x}$
+
+\item Given $\Phi(t) = \begin{pmatrix} e^t & e^{2t} \\ e^t & 2e^{2t} \end{pmatrix}$, find $\Phi^{-1}(t)$
+
+\item Verify that $\Phi(t) = \begin{pmatrix} \cos t & \sin t \\ -\sin t & \cos t \end{pmatrix}$ is a fundamental matrix and find its inverse.
+\end{enumerate}
+
+\section*{Part B: Basic Variation of Parameters}
+
+\begin{enumerate}[start=6]
+\item Solve $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{3t} \\ 0 \end{pmatrix}$
+
+\item Find a particular solution: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ t \end{pmatrix}$
+
+\item Solve $\mathbf{x}' = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Find $\mathbf{x}_p$ for $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^t \\ e^{2t} \end{pmatrix}$
+
+\item Solve $\mathbf{x}' = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part C: Systems with Trigonometric Forcing}
+
+\begin{enumerate}[start=11]
+\item Solve $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \sin t \\ 0 \end{pmatrix}$
+
+\item Find a particular solution: $\mathbf{x}' = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(3t) \\ \sin(3t) \end{pmatrix}$
+
+\item Solve $\mathbf{x}' = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^t\cos t \\ 0 \end{pmatrix}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ \sin(2t) \end{pmatrix}$ (resonance!)
+
+\item Solve $\mathbf{x}' = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{-t}\cos(2t) \\ e^{-t}\sin(2t) \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part D: Initial Value Problems}
+
+\begin{enumerate}[start=16]
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \\ t \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Find $\mathbf{x}(1)$ for: $\mathbf{x}' = \begin{pmatrix} 3 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{3t} \\ e^{2t} \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part E: 3×3 Systems}
+
+\begin{enumerate}[start=21]
+\item Find a particular solution: $\mathbf{x}' = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^t \\ e^{2t} \\ e^{3t} \end{pmatrix}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ 0 \\ t \end{pmatrix}$
+
+\item Find $\mathbf{x}_p$ for: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \\ 0 \end{pmatrix}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 0 & -1 \\ 0 & 1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ \cos t \\ \sin t \end{pmatrix}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} -1 & 0 & 0 \\ 0 & -2 & 0 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part F: Special Methods and Applications}
+
+\begin{enumerate}[start=26]
+\item Use undetermined coefficients to solve: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{3t} \\ e^{4t} \end{pmatrix}$
+
+\item For the system $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -\omega^2 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ F\cos(\omega t) \end{pmatrix}$, find the resonant solution.
+
+\item A coupled tank system: $\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 10 \\ 5 \end{pmatrix}$ where $\mathbf{x}$ represents salt concentrations. Find the steady-state solution.
+
+\item Verify that variation of parameters gives the correct particular solution for: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item \textbf{Challenge:} Show that if $\mathbf{f}(t) = \mathbf{f}_0$ is constant and $A$ is invertible, then $\mathbf{x}_p = -A^{-1}\mathbf{f}_0$ is a particular solution.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $\Phi(t) = e^{2t}\begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$
+
+\textbf{Problem 6:} $\mathbf{x}_p = \begin{pmatrix} \frac{1}{2}e^{3t} \\ 0 \end{pmatrix}$
+
+\textbf{Problem 7:} Use $\Phi(t) = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, get $\mathbf{x}_p = \begin{pmatrix} t^3/6 \\ t^2/2 \end{pmatrix}$
+
+\textbf{Problem 11:} Resonance occurs! Solution involves $t\cos t$ and $t\sin t$ terms.
+
+\textbf{Problem 16:} Particular solution has $te^{2t}$ terms due to repeated eigenvalue.
+
+\textbf{Problem 26:} Try $\mathbf{x}_p = \begin{pmatrix} ae^{3t} \\ be^{4t} \end{pmatrix}$ and solve for $a, b$.
+
+\textbf{Problem 28:} Steady-state: $\mathbf{x}_p = \begin{pmatrix} 5 \\ 5 \end{pmatrix}$
+
+\textbf{Key Strategy:} Always find the fundamental matrix first. For constant coefficient systems, this is $e^{At}$. Then apply the variation formula systematically.
+
+\textbf{Verification:} Always check that $\mathbf{x}_p' = A\mathbf{x}_p + \mathbf{f}(t)$.
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+1. **Import Strategy:**
+   - Upload Audio Script emphasizing the FIV method
+   - Import Theory Document with complete variation formula
+   - Add Practice Problems organized by forcing type
+   - Create a "Common Forcing Functions" reference sheet
+
+2. **Audio Generation Tips:**
+   - Request explanation of "Why does variation of parameters always work?"
+   - Ask for the physical interpretation of the convolution
+   - Generate step-by-step examples with different forcing terms
+   - Create comparison with undetermined coefficients method
+
+3. **Study Sequence:**
+   - Review fundamental matrices from previous lessons
+   - Master finding Φ^(-1)(t)
+   - Practice the integration step carefully
+   - Apply to different forcing functions
+   - Connect to physical applications
+
+4. **Key Concepts to Query NotebookLM:**
+   - "Walk through variation of parameters step by step"
+   - "Explain the convolution interpretation"
+   - "When can I use undetermined coefficients instead?"
+   - "How do I handle resonance in systems?"
+   - "Show me the connection to Green's functions"
+
+5. **Common Confusion Points:**
+   - Why we need Φ^(-1) not Φ in the integral
+   - Integration bounds (usually 0 to t)
+   - Matrix multiplication order matters!
+   - When undetermined coefficients is faster
+   - Resonance when forcing frequency matches eigenvalue
+
+6. **Integration with Previous Lessons:**
+   - Lesson 30-32: Need eigenvalues/eigenvectors for Φ(t)
+   - Lesson 33: Use e^(At) as fundamental matrix
+   - This extends scalar variation of parameters
+   - Foundation for Duhamel's principle (next lesson)
+
+7. **Exam Preparation Focus:**
+   - Prof. Ditkowski often gives Φ(t) to save time
+   - Focus on the integration and multiplication steps
+   - Common forcing: exponentials, trig, polynomials
+   - May ask to verify a given particular solution
+   - IVPs combining homogeneous and particular solutions
+
+8. **Practice Problem Strategy:**
+   - Part A: Review fundamental matrices
+   - Part B: Simple exponential forcing
+   - Part C: Trigonometric forcing (watch for resonance!)
+   - Part D: Complete IVPs
+   - Part E: Higher dimensional systems
+   - Part F: Special techniques and shortcuts
+
+9. **Memory Aids to Program:**
+   - "FIV: Fundamental, Inverse, Vary"
+   - "Particular = Fundamental × Integral(Inverse × Forcing)"
+   - "Check: x_p' should equal Ax_p + f"
+   - "Convolution = superposition of impulses"
+
+10. **Self-Assessment Questions:**
+    - Can I find Φ^(-1)(t) quickly?
+    - Do I recognize when undetermined coefficients is faster?
+    - Can I handle different types of forcing functions?
+    - Do I understand the convolution interpretation?
+    - Can I solve complete IVPs with forcing?
+
+11. **Time Management:**
+    - Audio lesson: 20 minutes
+    - Theory study: 45 minutes
+    - Basic problems: 1 hour
+    - Trigonometric forcing: 45 minutes
+    - IVPs: 45 minutes
+    - 3×3 systems: 30 minutes
+
+12. **Critical Warnings:**
+    - This method ALWAYS works (unlike undetermined coefficients)
+    - Matrix order in multiplication is crucial
+    - Don't forget the bounds of integration
+    - Verify your particular solution
+    - Watch for resonance (forcing matches natural frequency)
+
+13. **Physical Applications:**
+    - Forced mechanical vibrations
+    - RLC circuits with voltage sources
+    - Chemical reactions with input flows
+    - Population models with migration
+    - Economic models with external shocks
+
+14. **Quick Diagnostic:**
+    Ask NotebookLM: "Walk me through solving x' = [[0,1],[-1,0]]x + [cos(t),0]^T using variation of parameters." If you can predict each step, you understand!
+
+15. **Connection to Final Lesson:**
+    - Lesson 35 combines everything: Duhamel's principle
+    - Variation of parameters is part of the complete solution
+    - Understanding this prepares you for the full solution formula
+    - This is essential for non-homogeneous systems on the exam
+
+---
+
+**Lesson 34 complete. Request 'Generate Lesson 35' for the next lesson in Block 9.**

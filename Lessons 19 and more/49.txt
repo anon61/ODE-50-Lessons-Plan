@@ -1,0 +1,688 @@
+# **Lesson 49: Frobenius Method - Regular Singular Points**
+
+## **1. Audio Lesson Script**
+
+Alright, so last lesson we handled ordinary points with power series - that was the "nice" case. But here's the thing: many of the most important ODEs in physics and engineering have singular points, and we need to solve around them! Today, I'm going to show you the Frobenius method, which is like power series on steroids.
+
+Let me start with why this matters. Remember Bessel's equation? It shows up in heat conduction in cylinders, vibrating drums, electromagnetic waves in cylindrical waveguides - basically anywhere with circular symmetry. The equation is:
+x²y'' + xy' + (x² - ν²)y = 0
+
+Try using regular power series at x = 0... it fails! Why? Because when we put it in standard form, we get y'' + (1/x)y' + (1 - ν²/x²)y = 0. See those denominators? Both p(x) = 1/x and q(x) = 1 - ν²/x² blow up at x = 0. That's a singular point!
+
+But here's the key insight: not all singular points are equally bad. We classify them:
+- **Regular singular point**: xp(x) and x²q(x) are both analytic at x₀
+- **Irregular singular point**: At least one of these is still singular
+
+For regular singular points, Frobenius discovered we can still find series solutions, but with a twist - we need to multiply by a power of x first!
+
+The Frobenius method assumes:
+y = xʳ Σ(n=0 to ∞) aₙxⁿ = Σ(n=0 to ∞) aₙx^(n+r)
+
+where r might not be an integer! This r is determined by something called the indicial equation.
+
+Let me walk you through the method with a concrete example:
+xy'' + 2y' - xy = 0
+
+Step 1: Check that x = 0 is a regular singular point. In standard form: y'' + (2/x)y' - y = 0. So p(x) = 2/x and q(x) = -1. Check: xp(x) = 2 ✓ and x²q(x) = -x² ✓. Both analytic at 0, so it's regular singular!
+
+Step 2: Assume y = Σ(n=0 to ∞) aₙx^(n+r) with a₀ ≠ 0.
+
+Step 3: Find derivatives:
+- y' = Σ(n=0 to ∞) (n+r)aₙx^(n+r-1)
+- y'' = Σ(n=0 to ∞) (n+r)(n+r-1)aₙx^(n+r-2)
+
+Step 4: Substitute into the ODE. After multiplying xy'' by x, we get:
+Σ(n=0 to ∞) (n+r)(n+r-1)aₙx^(n+r-1) + 2Σ(n=0 to ∞) (n+r)aₙx^(n+r-1) - Σ(n=0 to ∞) aₙx^(n+r+1) = 0
+
+Step 5: Here's the crucial part - the lowest power of x is x^(r-1), and its coefficient must be zero:
+[r(r-1) + 2r]a₀ = 0
+
+Since a₀ ≠ 0, we get: r² + r = r(r+1) = 0
+This is the **indicial equation**! Its roots are r₁ = 0 and r₂ = -1.
+
+Now here's where it gets interesting. The nature of the solution depends on the roots:
+
+**Case 1: Roots differ by a non-integer** (like r₁ = 1/2, r₂ = -1/3)
+You get two independent solutions, one for each root:
+y₁ = x^(r₁) Σ aₙxⁿ and y₂ = x^(r₂) Σ bₙxⁿ
+
+**Case 2: Repeated roots** (r₁ = r₂)
+One solution is y₁ = x^r Σ aₙxⁿ
+Second solution includes a logarithm: y₂ = y₁ ln(x) + x^r Σ bₙxⁿ
+
+**Case 3: Roots differ by an integer** (like r₁ = 2, r₂ = -1)
+This is the tricky case! Sometimes you get two Frobenius series, sometimes the second solution needs a logarithm. You have to try and see!
+
+Back to our example: r₁ = 0, r₂ = -1 differ by 1 (integer!). For r₁ = 0:
+y₁ = Σ aₙxⁿ
+
+Setting up the recurrence by matching coefficients of x^(n+r-1):
+[(n+1)n + 2(n+1)]a_(n+1) = a_(n-1) for n ≥ 1
+
+This gives: a_(n+1) = a_(n-1)/[(n+1)(n+2)]
+
+Computing: a₁ = 0 (from n=0 case), a₂ = a₀/(2·3) = a₀/6, a₃ = 0, a₄ = a₂/(4·5) = a₀/120...
+
+For the second solution with r₂ = -1, we'd need to check if we can find a pure Frobenius series or if we need logarithms.
+
+Here's a common mistake: forgetting that the indicial equation comes from the LOWEST power of x, not just setting n = 0! Always identify the lowest power first.
+
+Prof. Ditkowski loves Bessel's equation on exams. For Bessel with parameter ν:
+- Indicial equation: r² - ν² = 0, so r = ±ν
+- If ν is not an integer or half-integer, you get two Frobenius series
+- If ν is an integer, the second solution involves logarithms
+
+Exam tip: You usually only need to find the indicial equation and state which case applies. Full series computation is rare unless specifically asked. If you see "find the form of the solution," just identify the roots and write y₁ = x^(r₁)(a₀ + a₁x + ...) without computing coefficients.
+
+Another key point: Regular singular points often appear at x = 0, but they can be anywhere. For (x-2)²y'' + (x-2)y' + y = 0, the regular singular point is at x = 2. You'd assume y = (x-2)^r Σ aₙ(x-2)ⁿ.
+
+So basically, the Frobenius method extends power series to handle singular points by adding that crucial x^r factor. The indicial equation tells us what r should be, and the difference between roots determines the form of solutions. Master this, and you can tackle Bessel, Legendre, and all sorts of important physics equations!
+
+## **2. LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{algorithm2e}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{frobenius}
+
+\title{Lesson 49: The Frobenius Method for Regular Singular Points}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Classification of Singular Points}
+
+\begin{definition}[Singular Point Types]
+For the ODE in standard form: $y'' + p(x)y' + q(x)y = 0$
+
+A singular point $x = x_0$ is:
+\begin{itemize}
+\item \textbf{Regular} if $(x-x_0)p(x)$ and $(x-x_0)^2q(x)$ are both analytic at $x_0$
+\item \textbf{Irregular} if at least one of these is not analytic at $x_0$
+\end{itemize}
+\end{definition}
+
+\begin{keypoint}
+Quick test for $x = 0$: Write the ODE as
+$$x^2y'' + xP(x)y' + Q(x)y = 0$$
+If $P(x)$ and $Q(x)$ are analytic at $x = 0$, then $x = 0$ is a regular singular point.
+\end{keypoint}
+
+\section{The Frobenius Method}
+
+\begin{theorem}[Frobenius Theorem]
+Near a regular singular point $x_0$, at least one solution has the form:
+$$y = (x-x_0)^r \sum_{n=0}^{\infty} a_n(x-x_0)^n, \quad a_0 \neq 0$$
+where $r$ is determined by the indicial equation.
+\end{theorem}
+
+\begin{method}[Frobenius Procedure]
+\begin{enumerate}
+\item Verify $x_0$ is a regular singular point
+\item Assume: $y = \sum_{n=0}^{\infty} a_n(x-x_0)^{n+r}$ with $a_0 \neq 0$
+\item Compute derivatives:
+$$y' = \sum_{n=0}^{\infty} (n+r)a_n(x-x_0)^{n+r-1}$$
+$$y'' = \sum_{n=0}^{\infty} (n+r)(n+r-1)a_n(x-x_0)^{n+r-2}$$
+\item Substitute into ODE and simplify
+\item Find the indicial equation from the lowest power of $(x-x_0)$
+\item Solve for $r$ (roots $r_1 \geq r_2$ if real)
+\item Find recurrence relations for each root
+\item Determine second solution based on root difference
+\end{enumerate}
+\end{method}
+
+\section{The Indicial Equation}
+
+\begin{frobenius}
+For the ODE at $x = 0$: $x^2y'' + xP(x)y' + Q(x)y = 0$
+
+With $P(x) = \sum_{k=0}^{\infty} p_kx^k$ and $Q(x) = \sum_{k=0}^{\infty} q_kx^k$
+
+The indicial equation is:
+$$r(r-1) + p_0r + q_0 = 0$$
+or equivalently:
+$$r^2 + (p_0-1)r + q_0 = 0$$
+\end{frobenius}
+
+\section{Three Cases for Solutions}
+
+\begin{keypoint}
+Let $r_1$ and $r_2$ be roots of the indicial equation with $\text{Re}(r_1) \geq \text{Re}(r_2)$.
+\end{keypoint}
+
+\subsection{Case 1: $r_1 - r_2 \neq$ integer}
+
+Two independent Frobenius series solutions:
+$$y_1 = x^{r_1}\sum_{n=0}^{\infty} a_n x^n, \quad y_2 = x^{r_2}\sum_{n=0}^{\infty} b_n x^n$$
+
+\subsection{Case 2: $r_1 = r_2 = r$ (repeated roots)}
+
+First solution: $y_1 = x^r\sum_{n=0}^{\infty} a_n x^n$
+
+Second solution: $y_2 = y_1\ln(x) + x^r\sum_{n=1}^{\infty} c_n x^n$
+
+\subsection{Case 3: $r_1 - r_2 = N$ (positive integer)}
+
+First solution: $y_1 = x^{r_1}\sum_{n=0}^{\infty} a_n x^n$
+
+Second solution may be:
+\begin{itemize}
+\item Pure Frobenius: $y_2 = x^{r_2}\sum_{n=0}^{\infty} b_n x^n$ (if no conflict)
+\item With logarithm: $y_2 = Cy_1\ln(x) + x^{r_2}\sum_{n=0}^{\infty} b_n x^n$
+\end{itemize}
+
+\begin{warning}
+In Case 3, you must check if the recurrence relation for $r_2$ leads to a contradiction at $n = N$. If it does, the logarithmic term is necessary with $C \neq 0$.
+\end{warning}
+
+\section{Important Examples}
+
+\subsection{Bessel's Equation of Order $\nu$}
+
+$$x^2y'' + xy' + (x^2 - \nu^2)y = 0$$
+
+\begin{frobenius}
+\begin{itemize}
+\item Indicial equation: $r^2 - \nu^2 = 0$
+\item Roots: $r_1 = \nu$, $r_2 = -\nu$
+\item If $\nu \neq$ integer: Two Frobenius series $J_{\nu}(x)$ and $J_{-\nu}(x)$
+\item If $\nu = n$ (integer): Second solution $Y_n(x)$ contains $\ln(x)$
+\end{itemize}
+\end{frobenius}
+
+\subsection{Euler's Equation}
+
+$$x^2y'' + \alpha xy' + \beta y = 0$$
+
+\begin{insight}
+Euler's equation has constant $P(x) = \alpha$ and $Q(x) = \beta$, making it the simplest equation with a regular singular point. Solutions are $y = x^r$ where $r$ satisfies $r(r-1) + \alpha r + \beta = 0$.
+\end{insight}
+
+\section{Systematic Approach for Exam Problems}
+
+\begin{examtip}
+Prof. Ditkowski's typical Frobenius problem structure:
+\begin{enumerate}
+\item[Step 1:] Identify and classify singular points (2 pts)
+\item[Step 2:] Find indicial equation and roots (3 pts)
+\item[Step 3:] State which case applies (1 pt)
+\item[Step 4:] Write general form of solutions (2 pts)
+\item[Step 5:] Find first 2-3 coefficients if asked (2 pts)
+\end{enumerate}
+Total: 8-10 points
+\end{examtip}
+
+\section{Recurrence Relations in Frobenius Method}
+
+For $y = \sum_{n=0}^{\infty} a_n x^{n+r}$, after substitution:
+
+General form near $x = 0$:
+$$\sum_{n=0}^{\infty} \left[(n+r)(n+r-1) + p_0(n+r) + q_0\right]a_n x^{n+r} + \text{higher order terms} = 0$$
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwIn{Regular singular point ODE}
+\KwOut{Frobenius series solution}
+Write ODE as $x^2y'' + xP(x)y' + Q(x)y = 0$\;
+Expand $P(x) = p_0 + p_1x + \cdots$ and $Q(x) = q_0 + q_1x + \cdots$\;
+Form indicial equation: $r^2 + (p_0-1)r + q_0 = 0$\;
+Solve for $r_1, r_2$\;
+\If{$r_1 - r_2 \notin \mathbb{Z}$}{
+    Find two Frobenius series\;
+}
+\ElseIf{$r_1 = r_2$}{
+    Find one series, second has $\ln(x)$\;
+}
+\Else{
+    Check for logarithmic case\;
+}
+\caption{Frobenius Method Algorithm}
+\end{algorithm}
+
+\section{Common Equations and Their Indicial Equations}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Equation Name} & \textbf{Standard Form at $x=0$} & \textbf{Indicial Equation} \\
+\hline
+Bessel order $\nu$ & $x^2y'' + xy' + (x^2-\nu^2)y = 0$ & $r^2 - \nu^2 = 0$ \\
+\hline
+Modified Bessel & $x^2y'' + xy' - (x^2+\nu^2)y = 0$ & $r^2 - \nu^2 = 0$ \\
+\hline
+Laguerre & $xy'' + (1-x)y' + ny = 0$ & $r = 0$ (repeated) \\
+\hline
+Euler & $x^2y'' + \alpha xy' + \beta y = 0$ & $r^2 + (\alpha-1)r + \beta = 0$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
+```
+
+## **3. LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 49: Practice Problems - Frobenius Method}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Classifying Singular Points (6 problems)}
+
+\begin{enumerate}
+\item Classify all singular points (regular or irregular) for:
+$$x^2(x-1)y'' + 2xy' + y = 0$$
+
+\item For Bessel's equation $x^2y'' + xy' + (x^2-4)y = 0$, verify that $x = 0$ is a regular singular point.
+
+\item Determine the nature of $x = 0$ for:
+$$x^3y'' + xy' + y = 0$$
+
+\item Show that both $x = 0$ and $x = 1$ are regular singular points of:
+$$x(1-x)y'' + [c-(a+b+1)x]y' - aby = 0$$
+(This is the hypergeometric equation)
+
+\item Classify the singular point at $x = 0$ for:
+$$x^2y'' + \sin(x)y' + xy = 0$$
+
+\item Find and classify all singular points:
+$$(x^2-1)^2y'' + (x-1)y' + y = 0$$
+\end{enumerate}
+
+\section*{Part B: Finding Indicial Equations (6 problems)}
+
+\begin{enumerate}[resume]
+\item Find the indicial equation at $x = 0$ for:
+$$xy'' + y' - y = 0$$
+
+\item Determine the indicial equation for:
+$$x^2y'' + x(1+x)y' - y = 0$$
+
+\item Find the indicial equation and its roots for:
+$$2x^2y'' + xy' - (1+x)y = 0$$
+
+\item For the equation $x^2y'' + 3xy' + (1-x)y = 0$, find the indicial equation and identify which case applies.
+
+\item Find the indicial equation at $x = 1$ for:
+$$(x-1)^2y'' + (x-1)y' + y = 0$$
+
+\item Determine the indicial equation for Laguerre's equation:
+$$xy'' + (1-x)y' + ny = 0$$
+\end{enumerate}
+
+\section*{Part C: Determining Solution Forms (5 problems)}
+
+\begin{enumerate}[resume]
+\item For $x^2y'' + xy' + (x^2-1/4)y = 0$, find the roots of the indicial equation and state the form of the general solution.
+
+\item Given the indicial roots $r_1 = 3$ and $r_2 = -2$, write the general form of the solution.
+
+\item If the indicial equation has repeated root $r = 1/2$, write the form of both linearly independent solutions.
+
+\item For Bessel's equation of order 2, explain why the second solution must contain $\ln(x)$.
+
+\item Given roots $r_1 = 1$ and $r_2 = 0$, determine whether a logarithmic term is needed by checking the recurrence at $n = 1$.
+\end{enumerate}
+
+\section*{Part D: Computing Frobenius Series (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find the first three non-zero terms of the Frobenius series solution for:
+$$xy'' + 2y' + xy = 0$$ using the larger root.
+
+\item For $x^2y'' + xy' + (x^2-1)y = 0$, find the recurrence relation for the root $r = 1$.
+
+\item Solve using Frobenius method:
+$$2xy'' + (1+2x)y' + y = 0$$
+Find coefficients $a_0, a_1, a_2$ for the larger root.
+
+\item For the equation $x^2y'' + x^2y' - 2y = 0$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the indicial equation
+\item Find the recurrence relation for $r = 2$
+\item Compute the first four coefficients
+\end{enumerate}
+
+\item Apply Frobenius method to find one solution of:
+$$x^2y'' + x(x+1)y' - y = 0$$
+\end{enumerate}
+
+\section*{Part E: Special Cases and Logarithmic Solutions (3 problems)}
+
+\begin{enumerate}[resume]
+\item Show that for $x^2y'' + 3xy' + (1+x)y = 0$ with repeated root $r = -1$, the second solution must contain $\ln(x)$.
+
+\item For the equation with roots differing by an integer:
+$$x^2y'' + xy' - y = 0$$
+Determine if both solutions can be pure Frobenius series or if logarithms are needed.
+
+\item Verify that Euler's equation $x^2y'' - xy' + y = 0$ has solutions $y_1 = x$ and $y_2 = x\ln(x)$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[10 points]} Consider the modified Bessel equation:
+$$x^2y'' + xy' - (x^2 + n^2)y = 0$$ where $n = 2$.
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Show that $x = 0$ is a regular singular point
+\item [3 pts] Find the indicial equation and its roots
+\item [2 pts] Which case applies for the general solution?
+\item [3 pts] Write the form of both linearly independent solutions
+\end{enumerate}
+
+\item \textbf{[9 points]} For the equation:
+$$x(x-1)y'' + 3y' + y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find and classify all singular points
+\item [3 pts] Find the indicial equation at $x = 0$
+\item [3 pts] Find the first three terms of the Frobenius series for the larger root
+\end{enumerate}
+
+\item \textbf{[8 points]} Given:
+$$2x^2y'' + x(1+x)y' - 2y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find the indicial equation and roots
+\item [2 pts] Set up the recurrence relation
+\item [3 pts] Determine if the second solution requires logarithms
+\end{enumerate}
+
+\item \textbf{[10 points]} \textit{Comprehensive Problem}
+$$x^2y'' + x(1-x)y' - (1+3x)y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Verify $x = 0$ is a regular singular point
+\item [3 pts] Find the indicial equation and solve for $r$
+\item [3 pts] Find the recurrence relation for the larger root
+\item [2 pts] State the form of the general solution
+\end{enumerate}
+
+\item \textbf{[12 points]} \textit{Prof. Ditkowski Special - Hypergeometric Type}
+Consider: $x(1-x)y'' + [2-(3+x)]y' - y = 0$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Show both $x = 0$ and $x = 1$ are regular singular points
+\item [3 pts] Find the indicial equation at $x = 0$
+\item [3 pts] Find the indicial equation at $x = 1$
+\item [3 pts] Around which point would you prefer to expand and why?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:}
+- $x = 0$: Check $xp(x) = 2x^2/(x(x-1))$ and $x^2q(x) = x^2/(x(x-1))$ at $x = 0$ → Regular
+- $x = 1$: Check $(x-1)p(x)$ and $(x-1)^2q(x)$ at $x = 1$ → Regular
+
+\textbf{Problem 7:}
+Standard form: $y'' + (1/x)y' - (1/x)y = 0$
+- $p_0 = 1$, $q_0 = 0$
+- Indicial equation: $r(r-1) + r = 0$ → $r^2 = 0$ → $r = 0$ (repeated)
+
+\textbf{Problem 13:}
+- Indicial equation: $r^2 - 1/4 = 0$
+- Roots: $r_1 = 1/2$, $r_2 = -1/2$ (differ by 1)
+- Form: Check if pure Frobenius works for $r_2$ or needs log term
+
+\textbf{Problem 18:}
+For larger root $r = 0$:
+- $y = a_0(1 - x^2/2 + x^4/24 - \cdots)$
+- This gives the Bessel function $J_0(x)$ series
+
+\textbf{Problem 26:}
+- Indicial roots: $r = 2, -1$ (differ by 3)
+- At $x = 0$: Regular singular point
+- Second solution likely needs no logarithm (check recurrence)
+
+\textbf{Key Insights:}
+- Always check $r_1 - r_2$ first
+- Integer differences require careful analysis
+- Bessel-type equations are exam favorites
+- When $r = 0$ appears, one solution is a regular power series
+
+\end{document}
+```
+
+## **4. NotebookLM Instructions**
+
+```markdown
+# NotebookLM Instructions for Lesson 49
+
+## How to Use These Materials
+
+### Initial Setup
+1. Create a new NotebookLM notebook titled "ODE Lesson 49 - Frobenius Method"
+2. Upload the audio script as "Lesson49_Audio.txt"
+3. Upload the theory document as "Lesson49_Theory.pdf" (after LaTeX compilation)
+4. Upload the practice problems as "Lesson49_Problems.pdf"
+
+### Audio Generation Settings
+- Select mathematical educational tone
+- Enable clear pronunciation for:
+  - "Frobenius" (fro-BAY-nee-us)
+  - "Indicial" (in-DISH-al)
+  - "Bessel" (BESS-el)
+- Moderate pace with pauses for complex concepts
+- Emphasize the three cases distinctly
+
+### Study Sequence Recommendations
+
+#### Phase 1: Understanding Singular Points (1.5 hours)
+1. Listen to audio lesson introduction (first 5 minutes)
+2. Read Theory Section 1 on classification
+3. Complete Practice Problems Part A
+4. Create comparison chart: ordinary vs regular vs irregular
+
+#### Phase 2: Mastering the Method (2 hours)
+1. Re-listen to audio with Theory document
+2. Focus on indicial equation derivation
+3. Complete Problems Part B
+4. Practice finding indicial equations quickly
+
+#### Phase 3: Three Cases Deep Dive (2 hours)
+1. Study Theory Section 4 carefully
+2. Create flowchart for determining which case
+3. Complete Problems Part C and D
+4. Work through one example of each case
+
+#### Phase 4: Advanced Applications (1.5 hours)
+1. Study Bessel and other special equations
+2. Complete Problem Part E
+3. Practice Part F under exam conditions
+4. Review logarithmic solution cases
+
+### Integration with Computational Tools
+
+#### Wolfram Alpha Commands:
+```
+"Frobenius method x^2*y'' + x*y' + (x^2-4)*y = 0"
+"indicial equation for Bessel equation"
+"regular singular point at x=0"
+"series solution near singular point"
+```
+
+#### Python/SymPy for Verification:
+```python
+from sympy import *
+
+x = symbols('x')
+y = Function('y')
+
+# Check singular points
+def classify_singular_point(p, q, x0=0):
+    # Check if x0 is ordinary
+    if p.subs(x, x0).is_finite and q.subs(x, x0).is_finite:
+        return "Ordinary point"
+
+    # Check if regular singular
+    xp = (x - x0) * p
+    x2q = (x - x0)**2 * q
+
+    if (xp.subs(x, x0).is_finite and
+        x2q.subs(x, x0).is_finite):
+        return "Regular singular point"
+
+    return "Irregular singular point"
+
+# Find indicial equation
+def indicial_equation(P_coeff, Q_coeff):
+    """P and Q from x²y'' + xP(x)y' + Q(x)y = 0"""
+    p0 = P_coeff.subs(x, 0)
+    q0 = Q_coeff.subs(x, 0)
+
+    r = symbols('r')
+    indicial = r*(r-1) + p0*r + q0
+    return solve(indicial, r)
+```
+
+#### MATLAB Code:
+```matlab
+% Frobenius method implementation
+syms x r n
+syms a(n)
+
+% For x²y'' + xy' + (x²-v²)y = 0 (Bessel)
+v = 1/2; % parameter
+
+% Indicial equation
+indicial = r^2 - v^2;
+roots = solve(indicial, r);
+disp(['Indicial roots: ', char(roots(1)), ', ', char(roots(2))]);
+
+% Check root difference
+diff = roots(1) - roots(2);
+if mod(diff, 1) == 0
+    disp('Roots differ by integer - check for logs');
+else
+    disp('Two Frobenius series solutions');
+end
+```
+
+### Common Student Questions
+
+**Q: "How do I know if I need logarithms in Case 3?"**
+A: Try to find the second solution with r₂. If the recurrence relation gives a contradiction (like 0·aₙ = nonzero), then you need logarithms.
+
+**Q: "What's the difference between Euler's equation and general Frobenius?"**
+A: Euler's equation has constant P(x) and Q(x), so you can solve it exactly with y = xʳ. General Frobenius needs infinite series.
+
+**Q: "Do I always expand around x = 0?"**
+A: No! Expand around the singular point you're asked about. For (x-2)²y'' + ..., you'd expand around x = 2.
+
+### Memory Aids
+
+**FRICS Method:**
+- **F**ind singular points
+- **R**egular or irregular?
+- **I**ndicial equation
+- **C**ases (check root difference)
+- **S**eries construction
+
+**Indicial Equation Quick Formula:**
+For x²y'' + xP(x)y' + Q(x)y = 0:
+"r squared plus (P₀ minus 1)r plus Q₀ equals zero"
+
+**Three Cases Mnemonic:**
+- "**N**on-integer → **N**o logs"
+- "**R**epeated → **R**equires logs"
+- "**I**nteger → **I**nvestigate!"
+
+### Quick Reference Card
+
+| Root Difference | Solution Form | Key Point |
+|----------------|---------------|-----------|
+| Non-integer | Two Frobenius series | Straightforward |
+| Zero (repeated) | One series + log term | Always needs log |
+| Positive integer | Check recurrence | May or may not need log |
+
+### Special Equations Cheat Sheet
+
+| Equation | Indicial Roots | Standard Solutions |
+|----------|---------------|-------------------|
+| Bessel (ν) | r = ±ν | Jᵥ(x), Yᵥ(x) |
+| Modified Bessel | r = ±ν | Iᵥ(x), Kᵥ(x) |
+| Euler | From r² + (α-1)r + β = 0 | Powers of x |
+| Laguerre | r = 0 (repeated) | Lₙ(x) polynomials |
+
+### Exam Strategy
+
+#### Time Management (20-minute problem):
+- 2 min: Identify and classify singular points
+- 3 min: Write and solve indicial equation
+- 2 min: Determine which case applies
+- 5 min: Set up series and find recurrence
+- 5 min: Compute first few coefficients
+- 3 min: Check and state final answer
+
+#### Point Distribution Focus:
+- Indicial equation: Never skip (3-4 points)
+- Classification: Quick points (1-2 points)
+- Series setup: Partial credit even if incomplete
+- Don't compute many terms unless required
+
+### Professor-Specific Notes
+
+**Prof. Ditkowski's Preferences:**
+- Always state P(x) and Q(x) explicitly
+- Show indicial equation derivation, not just formula
+- Bessel equation appears in ~40% of exams with Frobenius
+- Integer root differences are favorite test cases
+- Partial credit for correct method even with arithmetic errors
+
+**Common Exam Phrases:**
+- "Find the indicial equation and classify the solutions"
+- "Determine the form of the general solution"
+- "State whether logarithmic terms appear"
+- "Find the first three non-zero terms"
+
+### Links to Other Lessons
+- Previous: Lesson 48 (Power series at ordinary points)
+- Next: Lesson 50 (Numerical methods)
+- Related: Complex analysis (for convergence)
+- Applications: Quantum mechanics, Bessel functions
+
+### Advanced Tips
+
+**When Stuck on Recurrence:**
+1. Write out first few terms explicitly
+2. Look for patterns in denominators
+3. Check if some aₙ = 0 creates simplification
+4. Remember a₀ ≠ 0 by assumption
+
+**Convergence Note:**
+- Series converges at least up to nearest OTHER singular point
+- For Bessel at x = 0: converges for all finite x
+- Can use ratio test on resulting series
+
+**Physical Interpretation:**
+- Regular singular points often represent physical singularities
+- r < 0: solution blows up (often unphysical)
+- r ≥ 0: solution remains finite (physical)
+- Logarithms: represent resonance or special behavior
+```
+
+---
+
+**Lesson 49 complete. Request 'Generate Lesson 50' for the next lesson in Block 13.**

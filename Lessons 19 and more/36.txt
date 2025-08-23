@@ -1,0 +1,598 @@
+# **Lesson 36: Phase Space and Trajectories - Basic Concepts**
+
+## **Part 1: Audio Lesson Script**
+
+Hey there! Welcome to Lesson 36, where we're diving into one of the most beautiful and intuitive topics in differential equations - phase portraits! I'm super excited about this because, honestly, this is where ODEs come alive visually.
+
+So basically, up until now, we've been thinking about solutions as functions of time - you know, x(t), y(t), curves on a graph with time on the horizontal axis. But here's the key insight: what if we forget about time for a moment and just look at how our variables relate to each other? That's exactly what phase space does!
+
+Let me show you what I mean. Imagine you're tracking a pendulum. Sure, you could plot angle versus time and angular velocity versus time separately. But phase space says, "Hey, let's plot angle on the x-axis and angular velocity on the y-axis, and watch the point (θ, θ') move around!" Each point in this space represents a complete state of the system. Cool, right?
+
+Here's the fundamental idea: In phase space, every possible state of your system is a point. For a system with n first-order equations, you need n dimensions. Got a second-order equation? Convert it to two first-order equations, boom - 2D phase space! This is why we spent so much time on that conversion process earlier.
+
+Now, when we solve an ODE and get x(t), y(t), these solutions trace out a curve in phase space as time goes forward. We call this curve a trajectory or an orbit. And here's something crucial for Prof. Ditkowski's exam - trajectories can NEVER cross! Why? Because of uniqueness! If two trajectories crossed at a point, that would mean from that initial condition, the system could evolve in two different ways. That violates the uniqueness theorem we learned way back.
+
+Let me walk through a simple example. Consider the system:
+dx/dt = y
+dy/dt = -x
+
+If we start at point (1, 0), what happens? Well, at t=0, we're moving in the positive y direction (since dx/dt = 0, dy/dt = -1). As time goes on, this traces out a circle! The solution is x(t) = cos(t), y(t) = -sin(t), but in phase space, we just see a circle - we've lost the time information, but gained geometric insight!
+
+Here's a common mistake students make: they think the trajectory shows speed. Nope! A trajectory just shows the path. A particle could move along that path fast or slow - the phase portrait doesn't tell us that directly. Though we can figure it out from the vector field magnitude.
+
+Speaking of vector fields - at each point (x,y) in phase space, we can draw a little arrow showing (dx/dt, dy/dt). This is the direction field or vector field. It tells us which way trajectories flow at each point. Think of it like a weather map showing wind directions - trajectories follow these arrows like leaves in the wind!
+
+Critical points, or equilibrium points, are super important. These are points where dx/dt = 0 AND dy/dt = 0 simultaneously. At these points, if you place a particle there, it stays there forever! No movement! In our pendulum example, these would be the pendulum hanging straight down (stable) or balanced upside-down (unstable).
+
+Let me give you another example that always shows up on exams. Consider:
+dx/dt = x - y
+dy/dt = x + y
+
+To find equilibria, set both equal to zero:
+x - y = 0, so x = y
+x + y = 0, so x = -y
+
+The only solution is x = 0, y = 0. So we have one equilibrium at the origin.
+
+Now, Prof. Ditkowski loves asking about closed orbits - these are trajectories that loop back on themselves, representing periodic solutions. Remember our circle example? That's a closed orbit! The system repeats itself periodically. But here's an exam tip: closed orbits can only exist in 2D or higher. In 1D, you can only go left or right - no loops possible!
+
+There's also this concept of invariant sets. Basically, if trajectories start in some region and stay in that region forever, that region is invariant. The equilibrium points are the simplest invariant sets - just single points! But you can have invariant lines (like eigenvector directions for linear systems), invariant planes, or even stranger sets.
+
+One more thing that trips students up: the difference between a solution and a trajectory. The solution includes time: (x(t), y(t)). The trajectory is just the geometric curve, no time stamps. Multiple solutions can have the same trajectory if they differ by a time shift. Think about it - if I start on a circular orbit but at a different point, I trace the same circle, just starting at a different "time."
+
+For Prof. Ditkowski's exam, always remember to:
+1. Identify ALL equilibrium points first
+2. Check that trajectories don't cross (except at equilibria)
+3. Use arrows to show flow direction
+4. Label your axes clearly
+
+Oh, and here's a memory trick: think of phase space as a map and trajectories as roads. Cars (solutions) drive on these roads at different speeds, but the roads (trajectories) stay the same. Equilibria are like parking spots - once you're there, you don't move!
+
+The power of this geometric view is that we can understand system behavior without solving the equations explicitly. We'll build on this next lesson when we classify all possible behaviors of 2D linear systems. Get ready - it's about to get even more visual!
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+
+\title{Phase Space and Trajectories: Geometric Theory of ODEs}
+\author{ODE 1 - Lesson 36}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Phase Space Fundamentals}
+
+\begin{definition}[Phase Space]
+For a system of $n$ first-order ODEs:
+$$\frac{d\mathbf{x}}{dt} = \mathbf{f}(\mathbf{x}, t)$$
+where $\mathbf{x} = (x_1, x_2, \ldots, x_n)^T$, the \textbf{phase space} is the $n$-dimensional space with coordinates $(x_1, x_2, \ldots, x_n)$.
+\end{definition}
+
+\begin{keypoint}
+\textbf{Key Insight:} Phase space represents all possible states of the system. Each point corresponds to a unique state, regardless of time.
+\end{keypoint}
+
+\begin{definition}[Trajectory/Orbit]
+A \textbf{trajectory} (or \textbf{orbit}) is the curve traced out in phase space by a solution $\mathbf{x}(t)$ as $t$ varies. Formally, it is the set:
+$$\Gamma = \{\mathbf{x}(t) : t \in I\}$$
+where $I$ is the interval of existence.
+\end{definition}
+
+\begin{warning}
+\textbf{Critical Distinction:}
+\begin{itemize}
+    \item \textbf{Solution:} $\mathbf{x}(t)$ - includes time parametrization
+    \item \textbf{Trajectory:} The geometric curve - no time information
+\end{itemize}
+Multiple solutions can give the same trajectory (time-shifted solutions)!
+\end{warning}
+
+\section{Direction Fields and Flow}
+
+\begin{definition}[Direction Field]
+The \textbf{direction field} (or \textbf{vector field}) of the system $\dot{\mathbf{x}} = \mathbf{f}(\mathbf{x})$ assigns to each point $\mathbf{x}$ the vector $\mathbf{f}(\mathbf{x})$, indicating the instantaneous direction and speed of motion.
+\end{definition}
+
+\begin{theorem}[Non-Intersection of Trajectories]
+If $\mathbf{f}(\mathbf{x})$ satisfies the conditions for existence and uniqueness, then trajectories cannot intersect except at equilibrium points.
+\end{theorem}
+
+\begin{proof}
+Suppose two trajectories $\Gamma_1$ and $\Gamma_2$ intersect at point $\mathbf{x}_0$ which is not an equilibrium. By uniqueness, the solution starting at $\mathbf{x}_0$ is unique, so $\Gamma_1 = \Gamma_2$. Contradiction.
+\end{proof}
+
+\section{Equilibrium Points and Invariant Sets}
+
+\begin{definition}[Equilibrium Point]
+A point $\mathbf{x}^*$ is an \textbf{equilibrium point} (or \textbf{critical point}, \textbf{fixed point}) if:
+$$\mathbf{f}(\mathbf{x}^*) = \mathbf{0}$$
+\end{definition}
+
+\begin{examtip}
+\textbf{Finding Equilibria - Prof. Ditkowski's Method:}
+\begin{enumerate}
+    \item Set all derivatives equal to zero
+    \item Solve the resulting algebraic system
+    \item Check each solution carefully
+    \item State coordinates explicitly: "Equilibrium at $(x^*, y^*) = (a, b)$"
+\end{enumerate}
+\end{examtip}
+
+\begin{definition}[Invariant Set]
+A set $S \subset \mathbb{R}^n$ is \textbf{invariant} under the flow if:
+$$\mathbf{x}(0) \in S \implies \mathbf{x}(t) \in S \text{ for all } t$$
+\end{definition}
+
+\section{Special Types of Trajectories}
+
+\begin{definition}[Closed Orbit]
+A trajectory $\Gamma$ is a \textbf{closed orbit} if it is homeomorphic to a circle and the solution is periodic:
+$$\exists T > 0 : \mathbf{x}(t + T) = \mathbf{x}(t) \text{ for all } t$$
+\end{definition}
+
+\begin{insight}
+\textbf{Dimension Restriction:} Closed orbits cannot exist in 1D phase space! In 1D, trajectories are confined to the real line and cannot loop back without violating uniqueness.
+\end{insight}
+
+\begin{definition}[Heteroclinic and Homoclinic Orbits]
+\begin{itemize}
+    \item \textbf{Heteroclinic orbit:} Connects two different equilibria
+    \item \textbf{Homoclinic orbit:} Starts and ends at the same equilibrium
+\end{itemize}
+\end{definition}
+
+\section{Phase Portraits for 2D Systems}
+
+For a 2D autonomous system:
+\begin{align}
+\frac{dx}{dt} &= f(x, y) \\
+\frac{dy}{dt} &= g(x, y)
+\end{align}
+
+\begin{keypoint}
+\textbf{Construction Steps:}
+\begin{enumerate}
+    \item Find all equilibria: solve $f(x,y) = 0$ and $g(x,y) = 0$
+    \item Compute the direction field at selected points
+    \item Identify special trajectories (if any)
+    \item Sketch trajectories following the direction field
+    \item Add arrows indicating flow direction
+\end{enumerate}
+\end{keypoint}
+
+\section{Converting Higher-Order Equations}
+
+\begin{example}[Second-Order to First-Order System]
+Convert $\ddot{x} + p(x)\dot{x} + q(x) = 0$ to phase space form:
+
+Let $x_1 = x$ and $x_2 = \dot{x}$. Then:
+\begin{align}
+\dot{x}_1 &= x_2 \\
+\dot{x}_2 &= -p(x_1)x_2 - q(x_1)
+\end{align}
+Phase space is the $(x_1, x_2)$-plane, often relabeled as $(x, \dot{x})$-plane.
+\end{example}
+
+\section{Nullclines Method}
+
+\begin{definition}[Nullclines]
+The \textbf{nullclines} are curves where one component of the vector field vanishes:
+\begin{itemize}
+    \item \textbf{$x$-nullcline:} $f(x,y) = 0$ (vertical flow)
+    \item \textbf{$y$-nullcline:} $g(x,y) = 0$ (horizontal flow)
+\end{itemize}
+\end{definition}
+
+\begin{insight}
+\textbf{Using Nullclines:}
+\begin{itemize}
+    \item Equilibria occur at nullcline intersections
+    \item Trajectories cross nullclines vertically or horizontally
+    \item Nullclines divide phase space into regions with consistent flow direction
+\end{itemize}
+\end{insight}
+
+\section{Exam-Critical Formulas}
+
+\begin{examtip}
+\textbf{Must-Know for Prof. Ditkowski's Exam:}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Concept} & \textbf{Formula/Property} \\
+\hline
+Equilibrium condition & $\mathbf{f}(\mathbf{x}^*) = \mathbf{0}$ \\
+\hline
+Trajectory uniqueness & No intersections except at equilibria \\
+\hline
+Closed orbit period & $\mathbf{x}(t+T) = \mathbf{x}(t)$ \\
+\hline
+Direction at point $(x,y)$ & Vector $(f(x,y), g(x,y))$ \\
+\hline
+Speed along trajectory & $|\mathbf{f}(\mathbf{x})| = \sqrt{f^2 + g^2}$ \\
+\hline
+\end{tabular}
+\end{examtip}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz}
+\usepackage{geometry, enumitem, mdframed}
+\geometry{margin=1in}
+
+\newmdenv[linecolor=blue,linewidth=1pt]{hint}
+
+\title{Practice Problems - Lesson 36: Phase Space and Trajectories}
+\author{ODE 1 Course}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Phase Space Concepts (Problems 1-5)}
+
+\begin{enumerate}
+\item Consider the system $\dot{x} = y$, $\dot{y} = -x$.
+\begin{enumerate}[label=(\alph*)]
+    \item What is the dimension of the phase space?
+    \item Find all equilibrium points.
+    \item Show that $x^2 + y^2$ is constant along trajectories.
+    \item What does this tell you about the shape of trajectories?
+\end{enumerate}
+
+\item For the equation $\ddot{x} + 2\dot{x} + 5x = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to a first-order system.
+    \item Identify the phase space variables.
+    \item Find the equilibrium point(s) in phase space.
+\end{enumerate}
+
+\item True or False (explain your answer):
+\begin{enumerate}[label=(\alph*)]
+    \item Two different trajectories can pass through the same point.
+    \item A trajectory can cross itself.
+    \item Every bounded trajectory must be a closed orbit.
+    \item In 1D phase space, closed orbits are possible.
+\end{enumerate}
+
+\item Given the direction field at point $(2, 3)$ is $(1, -2)$:
+\begin{enumerate}[label=(\alph*)]
+    \item What is the instantaneous direction of motion?
+    \item What is the speed at this point?
+    \item Find the slope of the trajectory at this point.
+\end{enumerate}
+
+\item For the system $\dot{x} = x(1-x-y)$, $\dot{y} = y(1-2x-y)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibrium points.
+    \item Verify your answers by substitution.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part B: Nullclines and Direction Fields (Problems 6-10)}
+
+\begin{enumerate}[resume]
+\item For the system $\dot{x} = x - y$, $\dot{y} = x + y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the $x$-nullcline.
+    \item Find the $y$-nullcline.
+    \item Where do the nullclines intersect?
+    \item What is special about this intersection point?
+\end{enumerate}
+
+\item Consider $\dot{x} = y^2 - x$, $\dot{y} = x - 2y$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find both nullclines.
+    \item Sketch the nullclines on the same axes.
+    \item Identify all equilibrium points.
+\end{enumerate}
+
+\item For the system $\dot{x} = \sin(y)$, $\dot{y} = \cos(x)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the equilibrium at the origin.
+    \item Find another equilibrium point.
+    \item Are there infinitely many equilibria? Why?
+\end{enumerate}
+
+\item Given nullclines $x = 0$ and $y = x^2$:
+\begin{enumerate}[label=(\alph*)]
+    \item What system could have these nullclines?
+    \item Find the equilibrium points.
+    \item Determine the flow direction in the region $x > 0, y > x^2$.
+\end{enumerate}
+
+\item For $\dot{x} = y - x^2$, $\dot{y} = -x$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show that the origin is an equilibrium.
+    \item Find any other equilibria.
+    \item What are the nullclines?
+    \item Sketch the direction field at points $(1,0)$, $(0,1)$, $(-1,0)$, $(0,-1)$.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part C: Trajectories and Invariant Sets (Problems 11-16)}
+
+\begin{enumerate}[resume]
+\item Show that the unit circle $x^2 + y^2 = 1$ is an invariant set for:
+$$\dot{x} = -y + x(1 - x^2 - y^2), \quad \dot{y} = x + y(1 - x^2 - y^2)$$
+
+\item For the system $\dot{x} = y$, $\dot{y} = -\sin(x)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria in $-\pi \leq x \leq \pi$.
+    \item Show that $E = \frac{1}{2}y^2 - \cos(x)$ is constant along trajectories.
+    \item Use this to sketch different types of trajectories.
+\end{enumerate}
+
+\item Consider the linear system $\dot{\mathbf{x}} = A\mathbf{x}$ where $A = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find the eigenvalues of $A$.
+    \item What type of trajectories do you expect?
+    \item Find a conserved quantity.
+\end{enumerate}
+
+\item Prove that if a trajectory is bounded and the vector field is continuous, then:
+\begin{enumerate}[label=(\alph*)]
+    \item The trajectory exists for all time.
+    \item The omega-limit set is non-empty.
+\end{enumerate}
+
+\item For the system $\dot{r} = r(1-r)$, $\dot{\theta} = 1$ in polar coordinates:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all circular trajectories.
+    \item Describe the behavior as $t \to \infty$.
+    \item Is the unit circle attracting or repelling?
+\end{enumerate}
+
+\item Given a gradient system $\dot{\mathbf{x}} = -\nabla V(\mathbf{x})$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show that $V$ decreases along trajectories.
+    \item What does this imply about closed orbits?
+    \item Find equilibria in terms of $V$.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part D: Special Trajectories (Problems 17-21)}
+
+\begin{enumerate}[resume]
+\item For a 2D system, explain why:
+\begin{enumerate}[label=(\alph*)]
+    \item A homoclinic orbit cannot exist in linear systems.
+    \item Closed orbits require at least one equilibrium inside.
+    \item Trajectories cannot spiral into a closed orbit from outside.
+\end{enumerate}
+
+\item Consider the Van der Pol system $\ddot{x} - \mu(1-x^2)\dot{x} + x = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to first-order form.
+    \item Find the unique equilibrium.
+    \item For $\mu = 0$, describe all trajectories.
+\end{enumerate}
+
+\item For the Hamiltonian system with $H(x,y) = \frac{1}{2}(x^2 + y^2) + x^2y - \frac{1}{3}y^3$:
+\begin{enumerate}[label=(\alph*)]
+    \item Write the corresponding ODE system.
+    \item Show that $H$ is conserved.
+    \item Find all equilibria.
+\end{enumerate}
+
+\item Analyze the system $\dot{x} = y + x(x^2 + y^2)$, $\dot{y} = -x + y(x^2 + y^2)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Show the origin is an equilibrium.
+    \item Convert to polar coordinates.
+    \item Describe the trajectory behavior near the origin.
+\end{enumerate}
+
+\item For the Lotka-Volterra system $\dot{x} = x(a - by)$, $\dot{y} = y(-c + dx)$:
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria (assume $a,b,c,d > 0$).
+    \item Find a conserved quantity.
+    \item What does this imply about trajectory types?
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Advanced Concepts (Problems 22-26)}
+
+\begin{enumerate}[resume]
+\item Prove the Poincaré-Bendixson theorem consequence:
+If a trajectory in 2D is bounded and contains no equilibria, it must approach a closed orbit.
+
+\item For the system on the cylinder $(x \mod 2\pi, y \in \mathbb{R})$:
+$$\dot{x} = 1, \quad \dot{y} = \sin(x)$$
+\begin{enumerate}[label=(\alph*)]
+    \item Are there any equilibria?
+    \item Describe all possible trajectories.
+    \item Are there any closed orbits?
+\end{enumerate}
+
+\item Consider a 3D system with a 2D invariant plane:
+\begin{enumerate}[label=(\alph*)]
+    \item How can you identify such a plane?
+    \item What does this mean for trajectories starting in the plane?
+    \item Give an example of such a system.
+\end{enumerate}
+
+\item For the delayed logistic equation $\dot{x} = rx(1 - x(t-\tau))$:
+\begin{enumerate}[label=(\alph*)]
+    \item What is the phase space?
+    \item Why is it infinite-dimensional?
+    \item Find the equilibria.
+\end{enumerate}
+
+\item Analyze the reversible system (invariant under $t \to -t, y \to -y$):
+$$\dot{x} = y, \quad \dot{y} = x - x^3$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find all equilibria.
+    \item Use reversibility to deduce trajectory properties.
+    \item Find the homoclinic orbits.
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (Problems 27-30)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Style]} Consider the system:
+$$\dot{x} = 2x - y - x^2, \quad \dot{y} = x - 2y + xy$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find ALL equilibrium points.
+    \item Find the nullclines.
+    \item Determine the direction field at $(1, 1)$.
+    \item Sketch the phase portrait near each equilibrium.
+    \item Classify the stability of each equilibrium (intuitive).
+\end{enumerate}
+
+\item \textbf{[Comprehensive]} For the pendulum equation $\ddot{\theta} + \sin(\theta) = 0$:
+\begin{enumerate}[label=(\alph*)]
+    \item Convert to phase space form.
+    \item Find equilibria in $[0, 2\pi]$.
+    \item Derive the energy function.
+    \item Sketch the complete phase portrait.
+    \item Identify separatrices, closed orbits, and equilibrium types.
+    \item Explain the physical meaning of each trajectory type.
+\end{enumerate}
+
+\item \textbf{[Theoretical]} Prove or disprove:
+\begin{enumerate}[label=(\alph*)]
+    \item Every 2D system has at least one equilibrium.
+    \item If all trajectories are bounded, there exists a closed orbit.
+    \item A trajectory can have empty omega-limit set.
+    \item Two closed orbits cannot intersect.
+\end{enumerate}
+
+\item \textbf{[Application]} A chemical reaction follows:
+$$\dot{A} = -kAB + \ell, \quad \dot{B} = -kAB + m$$
+where $k, \ell, m > 0$ are constants.
+\begin{enumerate}[label=(\alph*)]
+    \item Find equilibria.
+    \item Show that $A + B$ changes linearly with time.
+    \item Use this to reduce to a 1D problem.
+    \item Describe the long-term behavior.
+    \item Sketch the phase portrait.
+\end{enumerate}
+\end{enumerate}
+
+\begin{hint}
+\textbf{Key Solution Strategies:}
+\begin{itemize}
+    \item Always find equilibria first
+    \item Look for conserved quantities (energy, momentum, etc.)
+    \item Use nullclines to organize phase space
+    \item Check trajectory uniqueness carefully
+    \item Connect mathematical results to physical meaning
+    \item For Prof. Ditkowski: Show ALL algebraic steps
+\end{itemize}
+\end{hint}
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Step 1: Prepare Your Documents**
+- Save the Audio Lesson Script as a clean text file (remove formatting)
+- Compile both LaTeX documents into PDFs
+- Keep all three documents ready for upload
+
+**Step 2: Upload to NotebookLM**
+1. Create a new notebook titled "ODE Lesson 36 - Phase Space"
+2. Upload the audio script text file
+3. Upload the theory PDF
+4. Upload the practice problems PDF
+
+**Step 3: Generate Your Audio Lesson**
+- Select the audio script document
+- Click "Generate Audio" or use the audio generation feature
+- Choose settings for a conversational, teaching tone
+- Set pace to moderate (not too fast for mathematical content)
+
+**Step 4: Study Sequence**
+1. **First Pass (30 min):** Listen to audio while walking/commuting
+2. **Second Pass (45 min):** Read theory document, take notes
+3. **Third Pass (1 hr):** Work through Part A & B problems
+4. **Fourth Pass (1 hr):** Complete Parts C & D
+5. **Review (45 min):** Attempt Part F exam problems
+6. **Synthesis (30 min):** Create your own phase portrait examples
+
+**Step 5: Integration with Computational Tools**
+- Use MATLAB/Python to verify phase portraits:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Example: Plot direction field
+x = np.linspace(-3, 3, 20)
+y = np.linspace(-3, 3, 20)
+X, Y = np.meshgrid(x, y)
+
+# System: dx/dt = y, dy/dt = -x
+U = Y
+V = -X
+
+plt.quiver(X, Y, U, V)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Direction Field')
+plt.grid(True)
+plt.show()
+```
+
+**Step 6: Active Learning Techniques**
+- Pause audio to work examples yourself
+- Create phase portrait flashcards
+- Draw direction fields by hand before checking
+- Explain concepts aloud as if teaching someone
+
+**Step 7: Checkpoint Questions**
+After studying, you should be able to:
+- [ ] Define phase space and trajectory precisely
+- [ ] Find all equilibria for any 2D system
+- [ ] Explain why trajectories cannot cross
+- [ ] Sketch direction fields accurately
+- [ ] Identify nullclines quickly
+- [ ] Distinguish solutions from trajectories
+- [ ] Recognize invariant sets
+- [ ] Convert higher-order equations to first-order systems
+
+**Step 8: Connection to Other Lessons**
+- This lesson provides the geometric foundation for Lessons 37-39
+- Review eigenvalue computation (Block 9) for next lesson
+- Phase portraits visualize the solutions from previous blocks
+- Critical for understanding stability (upcoming material)
+
+**Pro Tips for NotebookLM:**
+1. Use the chat feature to quiz yourself on definitions
+2. Ask it to generate additional practice problems
+3. Request explanations of difficult concepts in simpler terms
+4. Have it create summary cards for exam review
+5. Use voice notes to record your own understanding
+
+**Common Issues and Solutions:**
+- If audio is too fast: Download and play at 0.75x speed
+- If formulas are unclear: Refer to the PDF while listening
+- If concepts seem abstract: Draw everything by hand
+- If problems are difficult: Start with nullclines method
+
+---
+
+**Lesson 36 complete. Request 'Generate Lesson 37' for the next lesson in Block 10.**

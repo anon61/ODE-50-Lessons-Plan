@@ -1,0 +1,563 @@
+# **Lesson 32: Complex Eigenvalues - Real Solutions**
+
+## **Part 1: Audio Lesson Script**
+
+Hey there! Welcome to Lesson 32, where we tackle complex eigenvalues. So basically, when you solve that characteristic equation and get complex roots, don't panic! This actually leads to some of the most interesting behavior in ODEs - oscillations and spirals. Prof. Ditkowski absolutely loves these on exams because they test whether you really understand the connection between complex numbers and trigonometry.
+
+Here's the key insight: complex eigenvalues ALWAYS come in conjugate pairs for real matrices. If λ = α + iβ is an eigenvalue, then λ̄ = α - iβ is also an eigenvalue. This is because the characteristic polynomial has real coefficients. And here's the beautiful part - these complex eigenvalues give us real solutions involving sines and cosines!
+
+Let me show you the process with a classic example:
+```
+A = [0  -1]
+    [1   0]
+```
+
+This is a rotation matrix! Let's find the eigenvalues:
+det(A - λI) = det([-λ  -1]) = λ² + 1 = 0
+              ([1  -λ])
+
+So λ = ±i. Pure imaginary eigenvalues - this means pure rotation with no growth or decay.
+
+Now for the eigenvector with λ = i:
+(A - iI)v = [-i  -1][v₁] = [0]
+            [1   -i][v₂]   [0]
+
+From the first row: -iv₁ - v₂ = 0, so v₂ = -iv₁. Choose v₁ = 1:
+v = [1, -i]ᵀ
+
+Here's where Euler's formula becomes our hero! The complex solution is:
+x(t) = e^(it)[1, -i]ᵀ = (cos t + i sin t)[1, -i]ᵀ
+
+Expanding this:
+x(t) = [cos t + i sin t, -i cos t + sin t]ᵀ
+
+Now, the crucial step - separate real and imaginary parts:
+Real part: [cos t, sin t]ᵀ
+Imaginary part: [sin t, -cos t]ᵀ
+
+These two real vectors form our fundamental solutions! The general real solution is:
+**x(t) = c₁[cos t, sin t]ᵀ + c₂[sin t, -cos t]ᵀ**
+
+Let's do a more general example with both rotation and growth/decay:
+```
+A = [2  -3]
+    [3   2]
+```
+
+The characteristic equation: det(A - λI) = (2-λ)² + 9 = λ² - 4λ + 13 = 0
+Using the quadratic formula: λ = (4 ± √(16-52))/2 = (4 ± 6i)/2 = 2 ± 3i
+
+So α = 2 (growth rate) and β = 3 (rotation frequency).
+
+For λ = 2 + 3i, find the eigenvector:
+(A - (2+3i)I)v = [-3i  -3][v₁] = [0]
+                 [3   -3i][v₂]   [0]
+
+From row 1: -3iv₁ - 3v₂ = 0, so v₂ = -iv₁. Choose v₁ = 1:
+v = [1, -i]ᵀ
+
+The complex solution: x(t) = e^((2+3i)t)[1, -i]ᵀ = e^(2t)e^(3it)[1, -i]ᵀ
+
+Using Euler: e^(3it) = cos(3t) + i sin(3t)
+
+So: x(t) = e^(2t)(cos(3t) + i sin(3t))[1, -i]ᵀ
+
+Multiply out and separate:
+Real part: e^(2t)[cos(3t), sin(3t)]ᵀ
+Imaginary part: e^(2t)[sin(3t), -cos(3t)]ᵀ
+
+General real solution:
+**x(t) = e^(2t)[c₁(cos(3t)[1,0]ᵀ + sin(3t)[0,1]ᵀ) + c₂(sin(3t)[1,0]ᵀ - cos(3t)[0,1]ᵀ)]**
+
+Wait, that looks messy! Let me rewrite it cleaner:
+**x(t) = e^(2t)[c₁[cos(3t), sin(3t)]ᵀ + c₂[sin(3t), -cos(3t)]ᵀ]**
+
+The e^(2t) out front tells us we have exponential growth (since α = 2 > 0), while the trig functions give rotation with angular frequency β = 3.
+
+Here's my memory trick: "ERIC" - **E**uler's formula, **R**eal and **I**maginary parts, **C**ombine for solution.
+
+Physical interpretation is amazing:
+- α > 0: Outward spiral (unstable)
+- α < 0: Inward spiral (stable)
+- α = 0: Center (pure rotation, neutrally stable)
+- β determines rotation speed
+
+Common mistakes to avoid:
+1. **Forgetting complex conjugates** - You only need to work with one; the other gives the same real solutions
+2. **Not extracting real parts correctly** - Carefully separate Re and Im
+3. **Wrong Euler's formula** - Remember: e^(iθ) = cos θ + i sin θ
+4. **Missing the e^(αt) factor** - This scales everything!
+
+Prof. Ditkowski's favorite trick: He'll give you a matrix where the eigenvalues are λ = a ± bi and ask about the behavior at t = 2π/b. At this time, we've completed one full rotation!
+
+Here's a crucial connection - in the phase plane, complex eigenvalues create spirals or centers. The real part α determines whether you spiral in or out, while the imaginary part β determines how fast you rotate. If you see a spiral in a phase portrait, you KNOW there are complex eigenvalues lurking!
+
+Quick tip for exams: If the characteristic equation is λ² - 2aλ + (a² + b²) = 0, then λ = a ± bi immediately! This form appears often because it comes from matrices like:
+```
+[a  -b]
+[b   a]
+```
+
+This is the standard form for complex eigenvalues - memorize it!
+
+For initial value problems with complex eigenvalues, you still just plug in t = 0 and solve for c₁ and c₂. The algebra is the same, just with trig functions involved.
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{nicematrix, systeme}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{complex}
+
+\title{Lesson 32: Complex Eigenvalues - Real Solutions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Complex Eigenvalues for Real Systems}
+
+\begin{theorem}[Complex Conjugate Pairs]
+If $A$ is a real $n \times n$ matrix and $\lambda = \alpha + i\beta$ is a complex eigenvalue with eigenvector $\mathbf{v} = \mathbf{p} + i\mathbf{q}$, then:
+\begin{itemize}
+\item $\bar{\lambda} = \alpha - i\beta$ is also an eigenvalue
+\item $\bar{\mathbf{v}} = \mathbf{p} - i\mathbf{q}$ is the corresponding eigenvector
+\end{itemize}
+\end{theorem}
+
+\begin{complex}
+\textbf{Euler's Formula - The Key Tool:}
+\[e^{i\theta} = \cos\theta + i\sin\theta\]
+Therefore:
+\[e^{(\alpha + i\beta)t} = e^{\alpha t}e^{i\beta t} = e^{\alpha t}(\cos(\beta t) + i\sin(\beta t))\]
+\end{complex}
+
+\begin{method}[Extracting Real Solutions]
+Given complex eigenvalue $\lambda = \alpha + i\beta$ with eigenvector $\mathbf{v} = \mathbf{p} + i\mathbf{q}$:
+
+\textbf{Step 1:} Write the complex solution:
+\[\mathbf{x}_c(t) = e^{(\alpha + i\beta)t}(\mathbf{p} + i\mathbf{q})\]
+
+\textbf{Step 2:} Apply Euler's formula:
+\[\mathbf{x}_c(t) = e^{\alpha t}[\cos(\beta t) + i\sin(\beta t)][\mathbf{p} + i\mathbf{q}]\]
+
+\textbf{Step 3:} Expand and collect real and imaginary parts:
+\begin{align}
+\mathbf{x}_c(t) &= e^{\alpha t}[(\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}) \\
+&\quad + i(\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q})]
+\end{align}
+
+\textbf{Step 4:} Extract two real solutions:
+\begin{align}
+\mathbf{x}_1(t) &= e^{\alpha t}[\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}] \\
+\mathbf{x}_2(t) &= e^{\alpha t}[\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q}]
+\end{align}
+\end{method}
+
+\begin{theorem}[General Real Solution]
+For a 2×2 system with complex eigenvalues $\lambda = \alpha \pm i\beta$:
+\[\mathbf{x}(t) = e^{\alpha t}[c_1(\cos(\beta t)\mathbf{p} - \sin(\beta t)\mathbf{q}) + c_2(\sin(\beta t)\mathbf{p} + \cos(\beta t)\mathbf{q})]\]
+where $\mathbf{p} = \text{Re}(\mathbf{v})$ and $\mathbf{q} = \text{Im}(\mathbf{v})$.
+\end{theorem}
+
+\section{Standard Forms and Special Cases}
+
+\begin{keypoint}
+\textbf{Standard Matrix Form for Complex Eigenvalues:}
+The matrix
+\[A = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}\]
+has eigenvalues $\lambda = \alpha \pm i\beta$ with eigenvectors $\mathbf{v} = \begin{pmatrix} 1 \\ \mp i \end{pmatrix}$.
+
+This represents:
+\begin{itemize}
+\item Rotation with angular velocity $\beta$
+\item Scaling with rate $\alpha$
+\item Combined: logarithmic spiral
+\end{itemize}
+\end{keypoint}
+
+\section{Complete Examples}
+
+\begin{example}[Pure Rotation]
+Solve $\mathbf{x}' = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\textbf{Solution:}
+\begin{enumerate}
+\item \textbf{Eigenvalues:}
+\[\det(A - \lambda I) = \det\begin{pmatrix} -\lambda & -2 \\ 2 & -\lambda \end{pmatrix} = \lambda^2 + 4 = 0\]
+So $\lambda = \pm 2i$ (pure imaginary $\Rightarrow$ center)
+
+\item \textbf{Eigenvector for $\lambda = 2i$:}
+\[(A - 2iI)\mathbf{v} = \begin{pmatrix} -2i & -2 \\ 2 & -2i \end{pmatrix}\begin{pmatrix} v_1 \\ v_2 \end{pmatrix} = \begin{pmatrix} 0 \\ 0 \end{pmatrix}\]
+From row 1: $-2iv_1 - 2v_2 = 0 \Rightarrow v_2 = -iv_1$
+
+Choose $v_1 = 1$: $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + i\begin{pmatrix} 0 \\ -1 \end{pmatrix}$
+
+So $\mathbf{p} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{q} = \begin{pmatrix} 0 \\ -1 \end{pmatrix}$
+
+\item \textbf{Real Solutions:}
+\begin{align}
+\mathbf{x}_1(t) &= \cos(2t)\begin{pmatrix} 1 \\ 0 \end{pmatrix} - \sin(2t)\begin{pmatrix} 0 \\ -1 \end{pmatrix} = \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} \\
+\mathbf{x}_2(t) &= \sin(2t)\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \cos(2t)\begin{pmatrix} 0 \\ -1 \end{pmatrix} = \begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}
+\end{align}
+
+\item \textbf{General Solution:}
+\[\mathbf{x}(t) = c_1\begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} + c_2\begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}\]
+
+\item \textbf{Apply Initial Conditions:}
+\[\begin{pmatrix} 1 \\ 0 \end{pmatrix} = c_1\begin{pmatrix} 1 \\ 0 \end{pmatrix} + c_2\begin{pmatrix} 0 \\ -1 \end{pmatrix}\]
+So $c_1 = 1$ and $c_2 = 0$.
+
+\item \textbf{Final Solution:}
+\[\mathbf{x}(t) = \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}\]
+This is circular motion with radius 1 and period $\pi$!
+\end{enumerate}
+\end{example}
+
+\begin{example}[Spiral Solution]
+Solve $\mathbf{x}' = \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\mathbf{x}$
+
+\textbf{Solution:}
+This is already in standard form with $\alpha = 1$, $\beta = 2$.
+\begin{itemize}
+\item Eigenvalues: $\lambda = 1 \pm 2i$
+\item Since $\alpha = 1 > 0$: unstable spiral
+\item Angular frequency: $\omega = 2$
+\item Period of rotation: $T = 2\pi/2 = \pi$
+\end{itemize}
+
+General solution:
+\[\mathbf{x}(t) = e^t\left[c_1\begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix} + c_2\begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}\right]\]
+\end{example}
+
+\begin{example}[3×3 System with Complex Eigenvalues]
+Consider $\mathbf{x}' = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & -2 \end{pmatrix}\mathbf{x}$
+
+\textbf{Solution:}
+The eigenvalues are $\lambda_1 = i$, $\lambda_2 = -i$, $\lambda_3 = -2$.
+
+For $\lambda = i$: eigenvector $\mathbf{v} = \begin{pmatrix} 1 \\ -i \\ 0 \end{pmatrix}$
+
+Real solutions from complex pair:
+\[\mathbf{x}_1(t) = \begin{pmatrix} \cos t \\ \sin t \\ 0 \end{pmatrix}, \quad \mathbf{x}_2(t) = \begin{pmatrix} \sin t \\ -\cos t \\ 0 \end{pmatrix}\]
+
+For $\lambda_3 = -2$: eigenvector $\mathbf{v}_3 = \begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}$
+
+General solution:
+\[\mathbf{x}(t) = c_1\begin{pmatrix} \cos t \\ \sin t \\ 0 \end{pmatrix} + c_2\begin{pmatrix} \sin t \\ -\cos t \\ 0 \end{pmatrix} + c_3e^{-2t}\begin{pmatrix} 0 \\ 0 \\ 1 \end{pmatrix}\]
+\end{example}
+
+\begin{insight}
+\textbf{Phase Portrait Classification:}
+\begin{center}
+\begin{tabular}{|c|c|l|}
+\hline
+$\alpha$ & $\beta$ & Behavior \\
+\hline
+$\alpha > 0$ & $\beta \neq 0$ & Unstable spiral (outward) \\
+$\alpha < 0$ & $\beta \neq 0$ & Stable spiral (inward) \\
+$\alpha = 0$ & $\beta \neq 0$ & Center (closed orbits) \\
+\hline
+\end{tabular}
+\end{center}
+
+The ratio $|\alpha/\beta|$ determines the "tightness" of the spiral:
+\begin{itemize}
+\item Small ratio: tight spiral (many rotations)
+\item Large ratio: loose spiral (few rotations)
+\end{itemize}
+\end{insight}
+
+\begin{warning}
+\textbf{Common Errors with Complex Eigenvalues:}
+\begin{itemize}
+\item Forgetting to extract BOTH real and imaginary parts
+\item Using $e^{i\theta} = \sin\theta + i\cos\theta$ (wrong order!)
+\item Not including the $e^{\alpha t}$ scaling factor
+\item Trying to use complex eigenvectors directly in the real solution
+\item Missing the negative sign in conjugate eigenvalues
+\end{itemize}
+\end{warning}
+
+\begin{examtip}
+Prof. Ditkowski's exam patterns:
+\begin{itemize}
+\item Often uses matrices of form $\begin{pmatrix} a & -b \\ b & a \end{pmatrix}$
+\item Asks about period of oscillation: $T = 2\pi/\beta$
+\item Tests understanding of spiral vs. center
+\item May ask for solution at specific times like $t = \pi/\beta$
+\item Loves IVPs that simplify nicely (e.g., $c_2 = 0$)
+\end{itemize}
+\end{examtip}
+
+\section{Connection to Linear Algebra}
+
+The matrix $A = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}$ can be written as:
+\[A = \alpha I + \beta J\]
+where $J = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ is the 90° rotation matrix.
+
+This decomposition shows:
+\begin{itemize}
+\item $\alpha I$: uniform scaling
+\item $\beta J$: rotation
+\item Combined: spiral motion
+\end{itemize}
+
+\section{Quick Reference Table}
+
+\begin{center}
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Eigenvalues} & \textbf{Solution Form} & \textbf{Behavior} \\
+\hline
+$\lambda = \pm i\beta$ & $c_1\cos(\beta t) + c_2\sin(\beta t)$ & Center \\
+$\lambda = \alpha \pm i\beta$, $\alpha > 0$ & $e^{\alpha t}[c_1\cos(\beta t) + c_2\sin(\beta t)]$ & Unstable spiral \\
+$\lambda = \alpha \pm i\beta$, $\alpha < 0$ & $e^{\alpha t}[c_1\cos(\beta t) + c_2\sin(\beta t)]$ & Stable spiral \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 32: Practice Problems - Complex Eigenvalues}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Finding Complex Eigenvalues and Eigenvectors}
+
+\begin{enumerate}
+\item Find the eigenvalues of $A = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}$ and classify the equilibrium.
+
+\item Find the eigenvalues and eigenvectors of $A = \begin{pmatrix} 2 & -5 \\ 1 & 2 \end{pmatrix}$.
+
+\item Determine $\alpha$ and $\beta$ if the eigenvalues are $\lambda = 3 \pm 4i$.
+
+\item For what values of $a$ does $A = \begin{pmatrix} a & -2 \\ 2 & a \end{pmatrix}$ have complex eigenvalues?
+
+\item Find a 2×2 matrix with eigenvalues $\lambda = -1 \pm 3i$.
+\end{enumerate}
+
+\section*{Part B: Extracting Real Solutions}
+
+\begin{enumerate}[start=6]
+\item Given eigenvalue $\lambda = 2i$ with eigenvector $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix}$, find two real solutions.
+
+\item Extract real solutions from $\lambda = 1 + i$ with eigenvector $\mathbf{v} = \begin{pmatrix} 1 \\ -i \end{pmatrix}$.
+
+\item If $\mathbf{x}_c(t) = e^{(2+3i)t}\begin{pmatrix} 1+i \\ 2 \end{pmatrix}$, find the real and imaginary parts.
+
+\item Convert the complex solution $\mathbf{x}(t) = e^{-t+2it}\begin{pmatrix} i \\ 1 \end{pmatrix}$ to real form.
+
+\item Given $\lambda = 3 - 2i$ and $\mathbf{v} = \begin{pmatrix} 2 \\ 1+i \end{pmatrix}$, find the general real solution.
+\end{enumerate}
+
+\section*{Part C: 2×2 Systems with Complex Eigenvalues}
+
+\begin{enumerate}[start=11]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & -4 \\ 1 & 0 \end{pmatrix}\mathbf{x}$
+
+\item Solve the IVP: $\mathbf{x}' = \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 2 \\ 0 \end{pmatrix}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} -1 & 2 \\ -2 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 3 & -2 \\ 4 & 3 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Determine the solution: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part D: Stability and Behavior Analysis}
+
+\begin{enumerate}[start=16]
+\item Classify the stability of the origin for $\mathbf{x}' = \begin{pmatrix} -2 & 3 \\ -3 & -2 \end{pmatrix}\mathbf{x}$
+
+\item Find the period of oscillation for $\mathbf{x}' = \begin{pmatrix} 0 & -3 \\ 3 & 0 \end{pmatrix}\mathbf{x}$
+
+\item Determine when the solution reaches maximum distance from origin: $\mathbf{x}' = \begin{pmatrix} 1 & -2 \\ 2 & 1 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item For what values of $k$ is the origin stable for $\mathbf{x}' = \begin{pmatrix} k & -4 \\ 1 & k \end{pmatrix}\mathbf{x}$?
+
+\item Find a system where solutions spiral inward with period $\pi$.
+\end{enumerate}
+
+\section*{Part E: 3×3 and Higher Dimensional Systems}
+
+\begin{enumerate}[start=21]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & -1 & 0 \\ 1 & 0 & 0 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x}$
+
+\item Find the general solution: $\mathbf{x}' = \begin{pmatrix} 1 & -1 & 0 \\ 1 & 1 & 0 \\ 0 & 0 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ -1 & 0 & 0 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$
+
+\item Analyze: $\mathbf{x}' = \begin{pmatrix} -1 & 0 & 2 \\ 0 & -1 & -2 \\ -2 & 2 & -1 \end{pmatrix}\mathbf{x}$
+
+\item Find all eigenvalues: $A = \begin{pmatrix} 0 & -1 & 0 & 0 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 2 & -3 \\ 0 & 0 & 3 & 2 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part F: Applications and Special Cases}
+
+\begin{enumerate}[start=26]
+\item A mass-spring system gives $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -4 & 0 \end{pmatrix}\mathbf{x}$ where $x_1$ is position, $x_2$ is velocity. Find the frequency of oscillation.
+
+\item An RLC circuit yields $\mathbf{x}' = \begin{pmatrix} -1 & -2 \\ 2 & -1 \end{pmatrix}\mathbf{x}$. Determine if the circuit is underdamped, overdamped, or critically damped.
+
+\item Two coupled oscillators give $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 & 0 \\ -2 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 1 & 0 & -2 & 0 \end{pmatrix}\mathbf{x}$. Find the normal modes.
+
+\item Show that if $A$ is skew-symmetric ($A^T = -A$), all eigenvalues are pure imaginary.
+
+\item \textbf{Challenge:} Prove that for the system $\mathbf{x}' = \begin{pmatrix} \alpha & -\beta \\ \beta & \alpha \end{pmatrix}\mathbf{x}$, the solution curves are logarithmic spirals with equation $r = r_0e^{(\alpha/\beta)\theta}$ in polar coordinates.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $\lambda = \pm i$, center (pure rotation)
+
+\textbf{Problem 6:} $\mathbf{x}_1(t) = \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}$, $\mathbf{x}_2(t) = \begin{pmatrix} \sin(2t) \\ -\cos(2t) \end{pmatrix}$
+
+\textbf{Problem 11:} $\lambda = \pm 2i$, $\mathbf{x}(t) = c_1\begin{pmatrix} \cos(2t) \\ \sin(2t)/2 \end{pmatrix} + c_2\begin{pmatrix} \sin(2t) \\ -\cos(2t)/2 \end{pmatrix}$
+
+\textbf{Problem 12:} First find $\lambda = 1 \pm i$, then apply initial conditions.
+
+\textbf{Problem 17:} Period $T = 2\pi/\beta = 2\pi/3$
+
+\textbf{Problem 19:} Stable for $k < 0$
+
+\textbf{Problem 26:} Natural frequency $\omega = 2$ rad/s
+
+\textbf{Problem 27:} Underdamped (complex eigenvalues with negative real part)
+
+\textbf{Key Strategy:} Always use Euler's formula to convert complex exponentials to real trig functions. Remember that complex eigenvalues come in conjugate pairs, and you only need to work with one of them.
+
+\textbf{Verification:} Check that your real solutions satisfy the original differential equation!
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+1. **Import Strategy:**
+   - Upload Audio Script emphasizing the ERIC method
+   - Import Theory Document for formal Euler's formula applications
+   - Add Practice Problems organized by complexity
+   - Create a "Complex to Real Conversion" reference sheet
+
+2. **Audio Generation Tips:**
+   - Request clear explanation of "Why do complex eigenvalues give oscillations?"
+   - Ask for step-by-step Euler's formula application
+   - Generate comparison between spiral, center, and node behaviors
+   - Create mnemonic devices for remembering real solution forms
+
+3. **Study Sequence:**
+   - Start with understanding Euler's formula thoroughly
+   - Practice extracting real and imaginary parts from complex expressions
+   - Master the 2×2 standard form case
+   - Apply to general matrices
+   - Connect to phase portrait behavior
+
+4. **Key Concepts to Query NotebookLM:**
+   - "Explain why complex eigenvalues come in conjugate pairs"
+   - "Show me how to extract real solutions step by step"
+   - "What's the physical meaning of the real and imaginary parts of λ?"
+   - "How do I know if it's a spiral or a center?"
+   - "Walk through applying Euler's formula to eigenvectors"
+
+5. **Common Confusion Points:**
+   - Real part of eigenvalue → growth/decay rate
+   - Imaginary part of eigenvalue → rotation frequency
+   - Real and imaginary parts of eigenvector → define the rotation plane
+   - Why we get TWO real solutions from ONE complex eigenvalue pair
+   - The connection between α, β and spiral tightness
+
+6. **Integration with Previous Lessons:**
+   - Lesson 30: Complex eigenvalues are found the same way
+   - Lesson 31: Complex eigenvalues can also be repeated!
+   - Phase Portraits: Spirals and centers come from complex eigenvalues
+   - Linear Algebra: Review complex vector spaces if needed
+
+7. **Exam Preparation Focus:**
+   - Prof. Ditkowski loves the standard form matrix
+   - Always asks about stability (sign of real part)
+   - Period calculation appears frequently: T = 2π/β
+   - Initial value problems with nice simplifications
+   - Connecting solution behavior to eigenvalue properties
+
+8. **Practice Problem Strategy:**
+   - Part A: Get comfortable with complex arithmetic
+   - Part B: Master the extraction process
+   - Part C: Full solutions with complex eigenvalues
+   - Part D: Understanding behavior from eigenvalues
+   - Part E: Mixed systems (complex + real eigenvalues)
+
+9. **Memory Aids to Program:**
+   - "Real part → Radial (growth/decay)"
+   - "Imaginary part → Rotation"
+   - "Cosine comes first in Euler's formula"
+   - "Standard form: diagonal gives real part, off-diagonal gives imaginary"
+
+10. **Self-Assessment Questions:**
+    - Can I identify when eigenvalues will be complex from the matrix?
+    - Do I remember Euler's formula correctly?
+    - Can I extract real solutions without looking at notes?
+    - Do I understand the phase portrait implications?
+    - Can I solve IVPs with complex eigenvalues?
+
+11. **Time Management:**
+    - Audio lesson: 20 minutes
+    - Theory study: 45 minutes
+    - Euler's formula practice: 30 minutes
+    - 2×2 systems: 1.5 hours
+    - 3×3 mixed systems: 1 hour
+    - Behavior analysis: 30 minutes
+
+12. **Critical Warnings:**
+    - This WILL be on the exam
+    - Euler's formula must be memorized perfectly
+    - Sign errors in extracting real parts are common
+    - Always verify your solution satisfies the ODE
+    - Complex conjugates give the SAME real solutions
+
+13. **Physical Interpretations to Understand:**
+    - Mechanical: underdamped oscillators
+    - Electrical: RLC circuits
+    - Population: predator-prey cycles
+    - Chemistry: oscillating reactions
+    - Economics: business cycles
+
+14. **Quick Diagnostic:**
+    Ask NotebookLM: "Give me a 2×2 matrix with eigenvalues 2 ± 3i and walk through finding the complete real solution." If you can predict each step before it's shown, you're ready!
+
+15. **Connection to Next Lessons:**
+    - Lesson 33: Matrix exponential handles all cases uniformly
+    - Lesson 34: Non-homogeneous systems with oscillatory behavior
+    - Lesson 35: Duhamel's principle with complex eigenvalues
+    - Stability analysis uses the real part of complex eigenvalues
+
+---
+
+**Lesson 32 complete. Request 'Generate Lesson 33' for the next lesson in Block 9.**

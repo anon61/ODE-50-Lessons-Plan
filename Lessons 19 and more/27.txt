@@ -1,0 +1,516 @@
+# **Lesson 27: Fundamental Matrix Solutions - Construction**
+
+## **Part 1: Audio Lesson Script**
+
+"Alright, now that we can convert any higher-order equation into a system, let's talk about THE most powerful tool for solving systems - the fundamental matrix. This is where linear algebra meets differential equations in the most beautiful way possible.
+
+So basically, here's the big picture: for a system x' = A(t)x, we want to find a matrix Φ(t) whose columns are linearly independent solutions. This matrix literally contains ALL the information about your system's behavior. Once you have it, solving any initial value problem becomes just matrix multiplication. Let me show you why this is so powerful.
+
+First, let's understand what a fundamental matrix actually is. If you have n linearly independent solutions x₁(t), x₂(t), ..., xₙ(t) to your system x' = A(t)x, then the fundamental matrix is simply:
+
+Φ(t) = [x₁(t) | x₂(t) | ... | xₙ(t)]
+
+where each solution is a column vector. Here's the key property - and this is CRUCIAL for Prof. Ditkowski's exams - the fundamental matrix satisfies:
+
+Φ'(t) = A(t)Φ(t)
+
+This means if you differentiate each column of Φ, you get A times that column. This is the defining property, and you'll often need to verify it on exams.
+
+Now, here's where it gets really interesting. There's a special fundamental matrix called the principal fundamental matrix, which satisfies Φ(t₀) = I, the identity matrix. This one's particularly nice because the solution to the IVP with x(t₀) = x₀ becomes simply:
+
+x(t) = Φ(t)x₀
+
+No matrix inversion needed! But usually, we don't have this luxury. For a general fundamental matrix where Φ(t₀) ≠ I, the solution is:
+
+x(t) = Φ(t)Φ(t₀)⁻¹x₀
+
+Let me walk you through a concrete example. Consider the system:
+x' = [0, 1; -2, -3]x
+
+To find the fundamental matrix, we first need two independent solutions. Using eigenvalues (which we'll cover more later), we find λ₁ = -1 and λ₂ = -2, giving us:
+
+x₁(t) = e^(-t)[1, -1]ᵀ and x₂(t) = e^(-2t)[1, -2]ᵀ
+
+So our fundamental matrix is:
+Φ(t) = [e^(-t), e^(-2t); -e^(-t), -2e^(-2t)]
+
+Now here's a critical skill - verifying this is correct. We need to check Φ'(t) = AΦ(t):
+
+Φ'(t) = [-e^(-t), -2e^(-2t); e^(-t), 4e^(-2t)]
+
+And:
+AΦ(t) = [0, 1; -2, -3][e^(-t), e^(-2t); -e^(-t), -2e^(-2t)] = [-e^(-t), -2e^(-2t); e^(-t), 4e^(-2t)]
+
+They match! This verification step appears on EVERY exam.
+
+Now, to solve an IVP, say x(0) = [3, -5]ᵀ. First, find Φ(0):
+Φ(0) = [1, 1; -1, -2]
+
+Then compute Φ(0)⁻¹. Here's a quick trick for 2×2 matrices:
+For M = [a, b; c, d], we have M⁻¹ = (1/det(M))[d, -b; -c, a]
+
+So Φ(0)⁻¹ = (1/(-1))[−2, -1; 1, 1] = [2, 1; -1, -1]
+
+Therefore:
+x(t) = Φ(t)Φ(0)⁻¹x₀ = [e^(-t), e^(-2t); -e^(-t), -2e^(-2t)][2, 1; -1, -1][3, -5]ᵀ
+
+Working through the matrix multiplication:
+Φ(0)⁻¹x₀ = [2, 1; -1, -1][3, -5]ᵀ = [1, 2]ᵀ
+
+So: x(t) = [e^(-t), e^(-2t); -e^(-t), -2e^(-2t)][1, 2]ᵀ = [e^(-t) + 2e^(-2t), -e^(-t) - 4e^(-2t)]ᵀ
+
+Here's a memory trick: think of the fundamental matrix as a 'solution container' - each column is a complete solution, and any linear combination of columns is also a solution. The coefficients in that linear combination? They're determined by your initial conditions!
+
+Common mistakes to avoid:
+1. Forgetting that columns must be linearly independent - always check the determinant!
+2. Matrix multiplication order - it's Φ(t) times Φ(t₀)⁻¹, not the reverse
+3. Not verifying Φ'(t) = A(t)Φ(t) - this costs easy points
+4. Confusion between Φ(t) and Φ(t₀) - keep track of where you're evaluating
+
+An advanced insight: the fundamental matrix is never singular! Its determinant, called the Wronskian, is never zero. We'll explore this more in the next lesson, but this means Φ(t)⁻¹ always exists.
+
+For time-varying systems where A = A(t), the construction is conceptually the same but computationally harder. You still need n independent solutions, but finding them might require series methods or numerical techniques.
+
+Here's what Prof. Ditkowski loves to test: given some solutions, construct Φ(t), verify it's fundamental, then use it to solve an IVP. Practice this three-step process until it's automatic. Also, he often asks about the relationship between different fundamental matrices - if Φ₁(t) and Φ₂(t) are both fundamental matrices for the same system, then Φ₂(t) = Φ₁(t)C for some constant invertible matrix C.
+
+The fundamental matrix is truly fundamental - it encodes everything about your system's solution space. Master this concept, and systems of ODEs become manageable!"
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{nicematrix}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=brown,linewidth=2pt]{computation}
+
+\title{Lesson 27: Fundamental Matrix Solutions - Construction}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Definition and Properties}
+
+\begin{definition}[Fundamental Matrix]
+A matrix $\Phi(t)$ is a \textbf{fundamental matrix} for the system $\mathbf{x}' = A(t)\mathbf{x}$ if:
+\begin{enumerate}
+\item Each column of $\Phi(t)$ is a solution to the system
+\item The columns are linearly independent for all $t$
+\item $\Phi'(t) = A(t)\Phi(t)$
+\end{enumerate}
+\end{definition}
+
+\begin{keypoint}
+For an $n \times n$ system, the fundamental matrix $\Phi(t)$ is $n \times n$ with structure:
+$$\Phi(t) = [\mathbf{x}_1(t) \mid \mathbf{x}_2(t) \mid \cdots \mid \mathbf{x}_n(t)]$$
+where each $\mathbf{x}_i(t)$ is a linearly independent solution vector.
+\end{keypoint}
+
+\begin{theorem}[Fundamental Matrix Properties]
+If $\Phi(t)$ is a fundamental matrix, then:
+\begin{enumerate}
+\item $\det(\Phi(t)) \neq 0$ for all $t$ (never singular)
+\item $\Phi'(t) = A(t)\Phi(t)$ (matrix differential equation)
+\item General solution: $\mathbf{x}(t) = \Phi(t)\mathbf{c}$ for any constant vector $\mathbf{c}$
+\item $\Phi(t)^{-1}$ exists for all $t$
+\end{enumerate}
+\end{theorem}
+
+\section{Principal Fundamental Matrix}
+
+\begin{definition}[Principal Fundamental Matrix]
+The \textbf{principal fundamental matrix} $\Phi(t)$ at $t_0$ satisfies:
+$$\Phi(t_0) = I$$
+where $I$ is the identity matrix.
+\end{definition}
+
+\begin{insight}
+The principal fundamental matrix provides the simplest IVP solution formula:
+$$\mathbf{x}(t) = \Phi(t)\mathbf{x}_0$$
+for the initial condition $\mathbf{x}(t_0) = \mathbf{x}_0$.
+\end{insight}
+
+\section{Solution of Initial Value Problems}
+
+\begin{theorem}[IVP Solution Formula]
+For the IVP:
+$$\mathbf{x}' = A(t)\mathbf{x}, \quad \mathbf{x}(t_0) = \mathbf{x}_0$$
+The unique solution is:
+$$\mathbf{x}(t) = \Phi(t)\Phi(t_0)^{-1}\mathbf{x}_0$$
+where $\Phi(t)$ is any fundamental matrix.
+\end{theorem}
+
+\begin{computation}
+Solution procedure:
+\begin{enumerate}
+\item Find $n$ linearly independent solutions $\mathbf{x}_1(t), \ldots, \mathbf{x}_n(t)$
+\item Construct $\Phi(t) = [\mathbf{x}_1(t) \mid \cdots \mid \mathbf{x}_n(t)]$
+\item Compute $\Phi(t_0)$
+\item Find $\Phi(t_0)^{-1}$
+\item Calculate $\mathbf{x}(t) = \Phi(t)\Phi(t_0)^{-1}\mathbf{x}_0$
+\end{enumerate}
+\end{computation}
+
+\section{Construction Methods}
+
+\begin{method}[For Constant Coefficient Systems]
+For $\mathbf{x}' = A\mathbf{x}$ with constant $A$:
+\begin{enumerate}
+\item Find eigenvalues $\lambda_1, \ldots, \lambda_n$ of $A$
+\item Find corresponding eigenvectors $\mathbf{v}_1, \ldots, \mathbf{v}_n$
+\item Solutions: $\mathbf{x}_i(t) = e^{\lambda_i t}\mathbf{v}_i$
+\item Fundamental matrix: $\Phi(t) = [e^{\lambda_1 t}\mathbf{v}_1 \mid \cdots \mid e^{\lambda_n t}\mathbf{v}_n]$
+\end{enumerate}
+\end{method}
+
+\section{Examples}
+
+\begin{example}[2×2 System]
+Consider $\mathbf{x}' = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\mathbf{x}$.
+
+\textbf{Step 1:} Find eigenvalues
+$$\det(A - \lambda I) = \det\begin{bmatrix} 1-\lambda & 2 \\ 3 & 2-\lambda \end{bmatrix} = \lambda^2 - 3\lambda - 4 = 0$$
+$$\lambda_1 = 4, \quad \lambda_2 = -1$$
+
+\textbf{Step 2:} Find eigenvectors
+For $\lambda_1 = 4$: $\mathbf{v}_1 = \begin{bmatrix} 2 \\ 3 \end{bmatrix}$
+For $\lambda_2 = -1$: $\mathbf{v}_2 = \begin{bmatrix} 1 \\ -1 \end{bmatrix}$
+
+\textbf{Step 3:} Construct fundamental matrix
+$$\Phi(t) = \begin{bmatrix} 2e^{4t} & e^{-t} \\ 3e^{4t} & -e^{-t} \end{bmatrix}$$
+
+\textbf{Step 4:} Verify $\Phi'(t) = A\Phi(t)$
+$$\Phi'(t) = \begin{bmatrix} 8e^{4t} & -e^{-t} \\ 12e^{4t} & e^{-t} \end{bmatrix}$$
+$$A\Phi(t) = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\begin{bmatrix} 2e^{4t} & e^{-t} \\ 3e^{4t} & -e^{-t} \end{bmatrix} = \begin{bmatrix} 8e^{4t} & -e^{-t} \\ 12e^{4t} & e^{-t} \end{bmatrix} \checkmark$$
+\end{example}
+
+\begin{example}[IVP Solution]
+Using the fundamental matrix from Example 1, solve:
+$$\mathbf{x}' = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\mathbf{x}, \quad \mathbf{x}(0) = \begin{bmatrix} 5 \\ 7 \end{bmatrix}$$
+
+\textbf{Solution:}
+$$\Phi(0) = \begin{bmatrix} 2 & 1 \\ 3 & -1 \end{bmatrix}$$
+$$\Phi(0)^{-1} = \frac{1}{-5}\begin{bmatrix} -1 & -1 \\ -3 & 2 \end{bmatrix} = \begin{bmatrix} 1/5 & 1/5 \\ 3/5 & -2/5 \end{bmatrix}$$
+$$\Phi(0)^{-1}\mathbf{x}_0 = \begin{bmatrix} 1/5 & 1/5 \\ 3/5 & -2/5 \end{bmatrix}\begin{bmatrix} 5 \\ 7 \end{bmatrix} = \begin{bmatrix} 12/5 \\ 1/5 \end{bmatrix}$$
+$$\mathbf{x}(t) = \Phi(t)\begin{bmatrix} 12/5 \\ 1/5 \end{bmatrix} = \begin{bmatrix} \frac{24}{5}e^{4t} + \frac{1}{5}e^{-t} \\ \frac{36}{5}e^{4t} - \frac{1}{5}e^{-t} \end{bmatrix}$$
+\end{example}
+
+\section{Relationship Between Fundamental Matrices}
+
+\begin{theorem}[Fundamental Matrix Relationship]
+If $\Phi_1(t)$ and $\Phi_2(t)$ are both fundamental matrices for the same system, then:
+$$\Phi_2(t) = \Phi_1(t)C$$
+where $C$ is a constant nonsingular matrix.
+\end{theorem}
+
+\begin{warning}
+Common errors:
+\begin{itemize}
+\item Forgetting to verify linear independence of solutions
+\item Wrong matrix multiplication order in IVP formula
+\item Not checking $\Phi'(t) = A(t)\Phi(t)$
+\item Confusing $\Phi(t)$ with individual solution vectors
+\end{itemize}
+\end{warning}
+
+\section{Special Cases and Extensions}
+
+\begin{insight}
+For repeated eigenvalues, the fundamental matrix includes terms with $t$:
+$$\Phi(t) = e^{\lambda t}[I + tN + \frac{t^2}{2!}N^2 + \cdots]$$
+where $N$ is the nilpotent part of $A - \lambda I$.
+\end{insight}
+
+\begin{examtip}
+Prof. Ditkowski's favorite exam questions:
+\begin{itemize}
+\item Construct $\Phi(t)$ from given solutions
+\item Verify fundamental matrix property
+\item Use $\Phi(t)$ to solve specific IVP
+\item Find relationship between two fundamental matrices
+\item Compute $\Phi(t)\Phi(s)^{-1}$ for various $s, t$
+\end{itemize}
+\end{examtip}
+
+\section{Matrix Exponential Connection}
+
+\begin{proposition}
+For constant matrix $A$, the principal fundamental matrix at $t_0 = 0$ is:
+$$\Phi(t) = e^{At} = I + At + \frac{A^2t^2}{2!} + \cdots$$
+\end{proposition}
+
+\end{document}
+```
+
+## **Part 3: Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 27: Practice Problems}
+\author{Fundamental Matrix Solutions - Construction}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Fundamental Matrix Construction (6 problems)}
+
+\begin{enumerate}
+\item Given solutions $\mathbf{x}_1(t) = \begin{bmatrix} e^t \\ 2e^t \end{bmatrix}$ and $\mathbf{x}_2(t) = \begin{bmatrix} e^{3t} \\ e^{3t} \end{bmatrix}$, construct the fundamental matrix.
+
+\item For the system $\mathbf{x}' = \begin{bmatrix} 2 & 1 \\ 0 & 2 \end{bmatrix}\mathbf{x}$, find a fundamental matrix.
+
+\item Verify that $\Phi(t) = \begin{bmatrix} e^{2t} & e^{-t} \\ e^{2t} & -2e^{-t} \end{bmatrix}$ is a fundamental matrix for some system. Find the system.
+
+\item Given $\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -4 & 0 \end{bmatrix}\mathbf{x}$, construct the fundamental matrix using trigonometric functions.
+
+\item Find the principal fundamental matrix at $t = 0$ for $\mathbf{x}' = \begin{bmatrix} 3 & -2 \\ 2 & -1 \end{bmatrix}\mathbf{x}$.
+
+\item Construct a fundamental matrix for $\mathbf{x}' = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{bmatrix}\mathbf{x}$.
+\end{enumerate}
+
+\section*{Part B: IVP Solutions Using Fundamental Matrices (5 problems)}
+
+\begin{enumerate}[resume]
+\item Use $\Phi(t) = \begin{bmatrix} e^t & e^{-t} \\ e^t & -e^{-t} \end{bmatrix}$ to solve the IVP with $\mathbf{x}(0) = \begin{bmatrix} 3 \\ 1 \end{bmatrix}$.
+
+\item Given $\Phi(t) = \begin{bmatrix} \cos t & \sin t \\ -\sin t & \cos t \end{bmatrix}$, solve for $\mathbf{x}(t)$ with $\mathbf{x}(\pi/2) = \begin{bmatrix} 1 \\ 0 \end{bmatrix}$.
+
+\item The fundamental matrix $\Phi(t) = \begin{bmatrix} e^{2t} & te^{2t} \\ 0 & e^{2t} \end{bmatrix}$ corresponds to a system with repeated eigenvalues. Solve the IVP with $\mathbf{x}(0) = \begin{bmatrix} 2 \\ -1 \end{bmatrix}$.
+
+\item Find the solution to $\mathbf{x}' = \begin{bmatrix} 1 & 2 \\ 3 & 2 \end{bmatrix}\mathbf{x}$ with $\mathbf{x}(1) = \begin{bmatrix} e \\ 0 \end{bmatrix}$.
+
+\item Use the fundamental matrix method to solve $\mathbf{x}' = \begin{bmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ -6 & -11 & -6 \end{bmatrix}\mathbf{x}$ with $\mathbf{x}(0) = \begin{bmatrix} 1 \\ 0 \\ 0 \end{bmatrix}$.
+\end{enumerate}
+
+\section*{Part C: Verification and Properties (5 problems)}
+
+\begin{enumerate}[resume]
+\item Verify that $\Phi(t) = \begin{bmatrix} e^{3t} & e^{-2t} \\ 3e^{3t} & -2e^{-2t} \end{bmatrix}$ satisfies $\Phi'(t) = A\Phi(t)$ and find $A$.
+
+\item Show that if $\Phi(t)$ is a fundamental matrix, then so is $\Phi(t)C$ for any nonsingular constant matrix $C$.
+
+\item Prove that $\det(\Phi(t))$ is never zero if $\Phi(t)$ is a fundamental matrix.
+
+\item Given two fundamental matrices $\Phi_1(t) = \begin{bmatrix} e^t & 0 \\ 0 & e^{2t} \end{bmatrix}$ and $\Phi_2(t) = \begin{bmatrix} 2e^t & e^{2t} \\ 3e^t & 4e^{2t} \end{bmatrix}$, find the constant matrix $C$ such that $\Phi_2(t) = \Phi_1(t)C$.
+
+\item Verify that the columns of $\Phi(t) = \begin{bmatrix} \cos 2t & \sin 2t \\ -2\sin 2t & 2\cos 2t \end{bmatrix}$ are linearly independent for all $t$.
+\end{enumerate}
+
+\section*{Part D: Principal Fundamental Matrix (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find the principal fundamental matrix at $t_0 = 0$ for $\mathbf{x}' = \begin{bmatrix} 0 & 1 \\ -1 & 0 \end{bmatrix}\mathbf{x}$.
+
+\item Given $\Phi(t) = \begin{bmatrix} e^{2t} + e^{-t} & e^{2t} - e^{-t} \\ 2e^{2t} - e^{-t} & 2e^{2t} + e^{-t} \end{bmatrix}$, find the principal fundamental matrix at $t = 0$.
+
+\item Construct the principal fundamental matrix at $t = 1$ for $\mathbf{x}' = \begin{bmatrix} 1 & 0 \\ 0 & -1 \end{bmatrix}\mathbf{x}$.
+
+\item If $\Psi(t)$ is the principal fundamental matrix at $t_0$, express the solution to $\mathbf{x}(t_0) = \mathbf{x}_0$ in terms of $\Psi(t)$.
+
+\item Show that the principal fundamental matrix is unique for a given $t_0$.
+\end{enumerate}
+
+\section*{Part E: Advanced Theory (4 problems)}
+
+\begin{enumerate}[resume]
+\item Prove that if $A(t)$ is continuous on an interval $I$, then a fundamental matrix exists on $I$.
+
+\item Show that for constant $A$, the fundamental matrix can be written as $\Phi(t) = P e^{Dt} P^{-1}$ where $D$ is the diagonal matrix of eigenvalues and $P$ is the matrix of eigenvectors.
+
+\item Prove that $\Phi(t+s) = \Phi(t)\Phi(s)\Phi(0)^{-1}$ for constant coefficient systems.
+
+\item If $\Phi(t)$ is a fundamental matrix for $\mathbf{x}' = A(t)\mathbf{x}$, show that $\Psi(t) = \Phi(t)^{-T}$ is a fundamental matrix for the adjoint system $\mathbf{y}' = -A(t)^T\mathbf{y}$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Given the system $\mathbf{x}' = \begin{bmatrix} 4 & -3 \\ 2 & -1 \end{bmatrix}\mathbf{x}$:
+\begin{enumerate}[label=(\alph*)]
+\item Find all eigenvalues and eigenvectors
+\item Construct the fundamental matrix $\Phi(t)$
+\item Verify $\Phi'(t) = A\Phi(t)$
+\item Solve the IVP with $\mathbf{x}(0) = \begin{bmatrix} 1 \\ 2 \end{bmatrix}$
+\end{enumerate}
+
+\item The solutions $\mathbf{x}_1(t) = e^t\begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}$, $\mathbf{x}_2(t) = e^{2t}\begin{bmatrix} 1 \\ 2 \\ 4 \end{bmatrix}$, $\mathbf{x}_3(t) = e^{3t}\begin{bmatrix} 1 \\ 3 \\ 9 \end{bmatrix}$ form a fundamental set.
+\begin{enumerate}[label=(\alph*)]
+\item Construct $\Phi(t)$
+\item Find the system matrix $A$
+\item Compute $\Phi(1)\Phi(0)^{-1}$
+\end{enumerate}
+
+\item For the system with fundamental matrix $\Phi(t) = \begin{bmatrix} e^{-t} & e^{-t}(1+t) \\ -e^{-t} & -e^{-t}t \end{bmatrix}$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the system matrix $A$
+\item Explain why there's a term with $t$
+\item Find all solutions to $\mathbf{x}' = A\mathbf{x}$
+\end{enumerate}
+
+\item Given partial information: $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$ has $\text{tr}(A) = 4$ and $\det(A) = 3$.
+\begin{enumerate}[label=(\alph*)]
+\item Find the eigenvalues
+\item If one eigenvector is $\begin{bmatrix} 1 \\ 1 \end{bmatrix}$, find $A$
+\item Construct the fundamental matrix
+\item Find the principal fundamental matrix at $t = 0$
+\end{enumerate}
+
+\item (Comprehensive) Consider the third-order equation $y''' - 6y'' + 11y' - 6y = 0$.
+\begin{enumerate}[label=(\alph*)]
+\item Convert to a first-order system
+\item Given that $e^t, e^{2t}, e^{3t}$ are solutions to the scalar equation, construct the fundamental matrix
+\item Solve the IVP: $y(0) = 1$, $y'(0) = 2$, $y''(0) = 3$
+\item Verify your solution satisfies the original equation
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:} $\Phi(t) = \begin{bmatrix} e^t & e^{3t} \\ 2e^t & e^{3t} \end{bmatrix}$
+
+\textbf{Problem 3:} $A = \Phi'(t)\Phi(t)^{-1} = \begin{bmatrix} 3 & -1 \\ 3 & -2 \end{bmatrix}$
+
+\textbf{Problem 7:} $\mathbf{x}(t) = 2e^t\begin{bmatrix} 1 \\ 1 \end{bmatrix} + e^{-t}\begin{bmatrix} 1 \\ -1 \end{bmatrix}$
+
+\textbf{Problem 12:} $A = \begin{bmatrix} 3 & 0 \\ 3 & -2 \end{bmatrix}$
+
+\textbf{Problem 16:} $C = \begin{bmatrix} 2 & 1 \\ 3 & 4 \end{bmatrix}$
+
+\textbf{Problem 18:} Principal fundamental matrix: $\Phi_p(t) = \begin{bmatrix} \cos t & \sin t \\ -\sin t & \cos t \end{bmatrix}$
+
+\textbf{Problem 25:} Eigenvalues: $\lambda_1 = 1, \lambda_2 = 2$ (repeated)
+
+\textbf{Key Insights:}
+\begin{itemize}
+\item Always verify $\Phi'(t) = A\Phi(t)$ to confirm fundamental matrix
+\item Check $\det(\Phi(t)) \neq 0$ for linear independence
+\item Remember: $\mathbf{x}(t) = \Phi(t)\Phi(t_0)^{-1}\mathbf{x}_0$
+\item Principal fundamental matrix simplifies to $\mathbf{x}(t) = \Phi(t)\mathbf{x}_0$
+\item For repeated eigenvalues, expect terms with $t$ in $\Phi(t)$
+\end{itemize}
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+**Preparation Steps:**
+1. Save all LaTeX documents as PDFs after compilation
+2. Create a new NotebookLM notebook titled "ODE Lesson 27 - Fundamental Matrices"
+3. Upload the audio script, theory document, and practice problems
+4. Link with Lesson 26 materials for continuity
+
+**Audio Generation Settings:**
+- Emphasize the conceptual understanding of "solution containers"
+- Request clear pronunciation of mathematical terms
+- Focus on the IVP solution formula
+- Highlight verification steps
+- Include warnings about common errors
+
+**Study Sequence:**
+1. **Foundation (45 minutes):**
+   - Listen to audio while reviewing Definition 1 and Theorem 1
+   - Understand what makes a matrix "fundamental"
+   - Practice identifying fundamental matrices
+   - Work through the 2×2 example step-by-step
+
+2. **Construction Practice (60 minutes):**
+   - Complete Part A problems
+   - Focus on eigenvalue-eigenvector method
+   - Practice assembling columns into matrices
+   - Verify each construction with $\Phi'(t) = A\Phi(t)$
+
+3. **IVP Mastery (75 minutes):**
+   - Memorize the formula: $\mathbf{x}(t) = \Phi(t)\Phi(t_0)^{-1}\mathbf{x}_0$
+   - Work through Part B problems
+   - Practice matrix inversion for 2×2 and 3×3 cases
+   - Time yourself on complete IVP solutions
+
+4. **Advanced Topics (60 minutes):**
+   - Study principal fundamental matrices (Part D)
+   - Understand the relationship between different fundamental matrices
+   - Practice Part E theoretical problems
+   - Connect to matrix exponential concept
+
+5. **Exam Preparation (90 minutes):**
+   - Complete all Part F problems under timed conditions
+   - Focus on Prof. Ditkowski's multi-part format
+   - Practice the three-step verification process
+   - Review all warning boxes and exam tips
+
+**Integration Points:**
+- **From Lesson 26:** Use companion matrices to find system matrix $A$
+- **To Lesson 28:** Fundamental matrix determinant = Wronskian
+- **To Lesson 29:** Connect to Liouville's formula
+- **Linear Algebra:** Review eigenvalues, matrix multiplication, inversion
+
+**Common Pitfalls to Avoid:**
+1. **Column Order:** Each column must be a complete solution vector
+2. **Independence Check:** Always verify $\det(\Phi(t)) \neq 0$
+3. **Matrix Multiplication:** Order matters! $\Phi(t)\Phi(t_0)^{-1}$, not reversed
+4. **Verification:** Always check $\Phi'(t) = A\Phi(t)$
+5. **Initial Time:** Keep track of whether $t_0 = 0$ or not
+
+**Quick Reference Formulas:**
+- Definition: $\Phi'(t) = A(t)\Phi(t)$
+- IVP Solution: $\mathbf{x}(t) = \Phi(t)\Phi(t_0)^{-1}\mathbf{x}_0$
+- Principal: $\Phi(t_0) = I \Rightarrow \mathbf{x}(t) = \Phi(t)\mathbf{x}_0$
+- Relationship: $\Phi_2(t) = \Phi_1(t)C$ for constant $C$
+- Never singular: $\det(\Phi(t)) \neq 0$ always
+
+**Matrix Inversion Quick Guide:**
+For 2×2: If $M = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$, then
+$$M^{-1} = \frac{1}{ad-bc}\begin{bmatrix} d & -b \\ -c & a \end{bmatrix}$$
+
+For 3×3: Use cofactor method or row reduction
+
+**Prof. Ditkowski Exam Patterns:**
+- **Question Type 1:** Construct $\Phi(t)$ from eigenvalues/eigenvectors (30% frequency)
+- **Question Type 2:** Verify given matrix is fundamental (20% frequency)
+- **Question Type 3:** Use $\Phi(t)$ to solve specific IVP (40% frequency)
+- **Question Type 4:** Find relationship between two fundamental matrices (10% frequency)
+
+**Time Management for Exam:**
+- Fundamental matrix construction: 5 minutes
+- Verification of properties: 2 minutes
+- IVP solution with given $\Phi(t)$: 3-4 minutes
+- Complete problem (find $\Phi$, verify, solve IVP): 10-12 minutes
+
+**Memory Aids:**
+- "Fundamental = Foundation" - contains all solutions
+- "Columns are Complete solutions" - each column solves the system
+- "Principal = Primary" - the simplest one with $\Phi(t_0) = I$
+- "Never Singular" - determinant never zero
+- "Verify with Derive" - always check $\Phi' = A\Phi$
+
+**Practice Strategy:**
+1. Start with diagonal systems (easiest)
+2. Move to distinct real eigenvalues
+3. Practice complex eigenvalues (trigonometric solutions)
+4. Master repeated eigenvalues (terms with $t$)
+5. Always verify your constructions
+
+---
+
+**Lesson 27 complete. Request 'Generate Lesson 28' for the next lesson in Block 8.**

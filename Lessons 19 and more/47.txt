@@ -1,0 +1,1140 @@
+# **Lesson 47: Euler-Cauchy Equations - The t^n Coefficients**
+
+## **Component 1: Audio Lesson Script**
+*[Duration: 15-20 minutes when read aloud]*
+
+---
+
+**Opening**
+
+So basically, we've saved the best for last in this block. Euler-Cauchy equations - also called equidimensional equations - are the perfect bridge between constant and variable coefficient ODEs. They look scary with all those t's multiplying derivatives, but here's the secret: they're just constant coefficient equations in disguise. Today I'll show you two methods to solve them, and you'll see why Prof. Ditkowski loves putting these on exams.
+
+The beautiful thing about Euler equations is their scaling property. If you stretch or compress the independent variable by a factor, the equation maintains its form. This makes them natural for problems with geometric similarity - like heat flow in circular regions, vibrations of conical structures, or any problem where the physics scales with distance from a point.
+
+**The Euler-Cauchy Equation**
+
+The general n-th order Euler equation looks like:
+t^n y^(n) + a_(n-1) t^(n-1) y^(n-1) + ... + a_1 t y' + a_0 y = 0
+
+For second-order (the most common):
+t²y'' + aty' + by = 0
+
+where a and b are constants. Notice how the power of t matches the order of the derivative? That's the key pattern.
+
+**Method 1: The Power Solution (Direct Approach)**
+
+Here's the insight that makes everything work: Try y = t^r for some constant r.
+
+Why? Because:
+- y = t^r
+- y' = rt^(r-1)
+- y'' = r(r-1)t^(r-2)
+
+Substituting into t²y'' + aty' + by = 0:
+t² · r(r-1)t^(r-2) + at · rt^(r-1) + b · t^r = 0
+r(r-1)t^r + art^r + bt^r = 0
+t^r[r(r-1) + ar + b] = 0
+
+Since t^r ≠ 0 (for t > 0), we need:
+r(r-1) + ar + b = 0
+r² + (a-1)r + b = 0
+
+This is the characteristic equation for the Euler equation! It's algebraic, just like for constant coefficients.
+
+**Example 1: Distinct Real Roots**
+
+Solve: t²y'' - 3ty' + 4y = 0 for t > 0.
+
+Assuming y = t^r:
+r(r-1) - 3r + 4 = 0
+r² - r - 3r + 4 = 0
+r² - 4r + 4 = 0
+(r - 2)² = 0
+
+Wait, that's a repeated root! Let me redo with a better example.
+
+Actually, let's do: t²y'' - 3ty' + 3y = 0
+
+r(r-1) - 3r + 3 = 0
+r² - r - 3r + 3 = 0
+r² - 4r + 3 = 0
+(r - 1)(r - 3) = 0
+
+So r₁ = 1 and r₂ = 3.
+
+General solution: y = c₁t + c₂t³
+
+See how clean that is? Powers of t, just like we guessed!
+
+**Case 2: Repeated Roots**
+
+Now let's go back to t²y'' - 3ty' + 4y = 0.
+
+We got (r - 2)² = 0, so r = 2 is a double root.
+
+Just like with constant coefficients and repeated roots, we need a second solution. By analogy (or by reduction of order), the second solution is t²ln(t).
+
+General solution: y = (c₁ + c₂ln(t))t²
+
+The pattern is:
+- Single root r: solution is t^r
+- Double root r: solutions are t^r and t^r ln(t)
+- Triple root r: solutions are t^r, t^r ln(t), and t^r (ln(t))²
+
+**Case 3: Complex Roots**
+
+Solve: t²y'' - ty' + 5y = 0
+
+Characteristic equation:
+r(r-1) - r + 5 = 0
+r² - 2r + 5 = 0
+r = (2 ± √(4-20))/2 = (2 ± 4i)/2 = 1 ± 2i
+
+For complex roots α ± iβ, the real solutions are:
+t^α cos(β ln(t)) and t^α sin(β ln(t))
+
+So our solution is:
+y = t[c₁cos(2ln(t)) + c₂sin(2ln(t))]
+
+This represents oscillation on a logarithmic scale - pretty wild!
+
+**Method 2: Change of Variables (The Transform Method)**
+
+Here's the elegant approach that reveals the deep structure. Let x = ln(t), so t = e^x.
+
+If y is a function of t, and we define v(x) = y(t) = y(e^x), then:
+
+dy/dt = (dy/dx)(dx/dt) = (1/t)(dv/dx)
+
+So: t(dy/dt) = dv/dx
+
+For the second derivative (this is trickier):
+d²y/dt² = d/dt[(1/t)(dv/dx)]
+= -(1/t²)(dv/dx) + (1/t²)(d²v/dx²)
+= (1/t²)[d²v/dx² - dv/dx]
+
+So: t²(d²y/dt²) = d²v/dx² - dv/dx
+
+**The Magic Transformation**
+
+For the Euler equation t²y'' + aty' + by = 0:
+- Replace t²y'' with v'' - v'
+- Replace ty' with v'
+- Replace y with v
+
+We get:
+(v'' - v') + av' + bv = 0
+v'' + (a-1)v' + bv = 0
+
+That's a constant coefficient equation in v(x)!
+
+**Example: Using the Transform**
+
+Consider t²y'' + 2ty' - 6y = 0.
+
+After transformation: v'' + (2-1)v' - 6v = 0
+So: v'' + v' - 6v = 0
+
+Characteristic equation: λ² + λ - 6 = 0
+Factor: (λ + 3)(λ - 2) = 0
+Roots: λ = -3, 2
+
+Solution in x: v(x) = c₁e^(-3x) + c₂e^(2x)
+
+Transform back using x = ln(t):
+y(t) = c₁e^(-3ln(t)) + c₂e^(2ln(t))
+= c₁t^(-3) + c₂t²
+
+Same answer as the direct method!
+
+**Why Prof. Ditkowski Loves These**
+
+Euler equations appear everywhere in physics and engineering:
+
+1. **Radial problems in cylindrical/spherical coordinates**: The radial part of Laplace's equation becomes an Euler equation.
+
+2. **Self-similar solutions**: Any PDE that admits scaling symmetry often reduces to an Euler ODE.
+
+3. **Financial mathematics**: The Black-Scholes equation for options pricing transforms to an Euler equation.
+
+**Example: The Full Treatment**
+
+Let's solve t²y'' + 3ty' + y = 0 completely.
+
+Method 1 (Direct):
+r(r-1) + 3r + 1 = 0
+r² - r + 3r + 1 = 0
+r² + 2r + 1 = 0
+(r + 1)² = 0
+
+Double root at r = -1.
+Solution: y = (c₁ + c₂ln(t))/t
+
+Method 2 (Transform):
+v'' + (3-1)v' + v = 0
+v'' + 2v' + v = 0
+(λ + 1)² = 0
+
+Double root at λ = -1.
+v = (c₁ + c₂x)e^(-x)
+y = (c₁ + c₂ln(t))e^(-ln(t)) = (c₁ + c₂ln(t))/t
+
+Perfect match!
+
+**Common Mistakes**
+
+1. **Domain issues**: Euler equations behave differently for t > 0 and t < 0. Usually, we work with t > 0.
+
+2. **Forgetting the ln(t) for repeated roots**: Just like constant coefficients need t for repeated roots, Euler equations need ln(t).
+
+3. **Complex roots formula**: Remember it's t^α[cos(β ln t), sin(β ln t)], not regular trig functions.
+
+4. **Wrong characteristic equation**: The equation is r(r-1) + ar + b = 0, not r² + ar + b = 0. That (r-1) is crucial!
+
+**Memory Technique**
+
+Think "powers match powers":
+- t² with y'' → power 2 matches order 2
+- t with y' → power 1 matches order 1
+- No t with y → power 0 matches order 0
+
+For the characteristic equation: "r chooses r-1" (like combinations) plus the obvious terms.
+
+**Connection to Series Solutions**
+
+Here's something beautiful: Euler equations are exactly the equations where the Frobenius method gives you a simple indicial equation. The roots of our characteristic equation are the indices in the series solution!
+
+This is why Euler equations are the gateway to more general series methods - they're the simplest equations with a regular singular point (at t = 0).
+
+**Exam Strategy**
+
+When you see an Euler equation:
+
+1. **Quick identification**: Powers of t match derivative orders
+2. **Choose method**:
+   - Direct (t^r) for simple cases
+   - Transform (x = ln t) if you prefer constant coefficients
+3. **Write characteristic equation carefully**: r(r-1) + ar + b = 0
+4. **Handle all cases**:
+   - Distinct real → t^(r₁), t^(r₂)
+   - Repeated → t^r, t^r ln(t)
+   - Complex → t^α cos(β ln t), t^α sin(β ln t)
+
+**Closing**
+
+So basically, Euler equations look intimidating but they're sheep in wolves' clothing - just constant coefficient equations wearing a logarithmic disguise. Master both methods - the direct power approach for speed, and the transformation for understanding. Prof. Ditkowski will definitely include at least one on your exam, often combined with initial conditions or as part of a larger problem. They're the perfect test of whether you really understand the structure underlying all our solution methods.
+
+---
+
+## **Component 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{formula}
+
+\title{Lesson 47: Euler-Cauchy Equations}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+\begin{definition}[Euler-Cauchy Equation]
+An $n$-th order Euler-Cauchy equation (also called an equidimensional equation) has the form:
+$$t^n y^{(n)} + a_{n-1} t^{n-1} y^{(n-1)} + \cdots + a_1 t y' + a_0 y = 0$$
+where $a_0, a_1, \ldots, a_{n-1}$ are constants and $t \neq 0$.
+\end{definition}
+
+\begin{keypoint}
+The defining characteristic: the power of $t$ equals the order of the derivative in each term. This creates a scaling symmetry that makes these equations solvable by elementary methods.
+\end{keypoint}
+
+\section{Method 1: Power Function Ansatz}
+
+\begin{theorem}[Power Solutions]
+For the Euler equation, solutions have the form $y = t^r$ where $r$ satisfies an algebraic characteristic equation.
+\end{theorem}
+
+\subsection{Second-Order Case}
+
+Consider the second-order Euler equation:
+$$t^2 y'' + a t y' + b y = 0, \quad t > 0$$
+
+\begin{method}[Direct Solution Method]
+\begin{enumerate}
+    \item Assume $y = t^r$ for some constant $r$
+    \item Compute derivatives:
+    \begin{align}
+    y &= t^r \\
+    y' &= r t^{r-1} \\
+    y'' &= r(r-1) t^{r-2}
+    \end{align}
+    \item Substitute into the equation:
+    $$t^2 \cdot r(r-1)t^{r-2} + at \cdot rt^{r-1} + b \cdot t^r = 0$$
+    \item Simplify:
+    $$t^r[r(r-1) + ar + b] = 0$$
+    \item Since $t^r \neq 0$ for $t > 0$, we get the characteristic equation:
+    $$r^2 + (a-1)r + b = 0$$
+\end{enumerate}
+\end{method}
+
+\begin{formula}
+\textbf{Characteristic Equation for Second-Order Euler:}
+$$\boxed{r(r-1) + ar + b = 0 \quad \text{or} \quad r^2 + (a-1)r + b = 0}$$
+\end{formula}
+
+\subsection{Solution Forms Based on Roots}
+
+\begin{theorem}[Complete Solution Classification]
+Let $r_1, r_2$ be roots of the characteristic equation. Then:
+\begin{enumerate}
+    \item \textbf{Distinct real roots}: $y = c_1 t^{r_1} + c_2 t^{r_2}$
+    \item \textbf{Repeated real root} $r$: $y = (c_1 + c_2 \ln t) t^r$
+    \item \textbf{Complex roots} $r = \alpha \pm i\beta$:
+    $$y = t^\alpha [c_1 \cos(\beta \ln t) + c_2 \sin(\beta \ln t)]$$
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof of Repeated Root Case]
+When $r$ is a repeated root, we use reduction of order. Given $y_1 = t^r$, we seek $y_2 = v(t) \cdot t^r$.
+
+The Euler equation in standard form:
+$$y'' + \frac{a}{t}y' + \frac{b}{t^2}y = 0$$
+
+Using the reduction formula with $p(t) = a/t$:
+$$v = \int \frac{e^{-\int (a/t) dt}}{t^{2r}} dt = \int \frac{t^{-a}}{t^{2r}} dt$$
+
+For a repeated root, $r = (1-a)/2$, so $2r = 1-a$. Thus:
+$$v = \int \frac{t^{-a}}{t^{1-a}} dt = \int \frac{1}{t} dt = \ln t$$
+
+Therefore, $y_2 = t^r \ln t$.
+\end{proof}
+
+\section{Method 2: Logarithmic Transformation}
+
+\begin{theorem}[Transformation to Constant Coefficients]
+The substitution $x = \ln t$ (equivalently, $t = e^x$) transforms an Euler equation into a constant coefficient equation.
+\end{theorem}
+
+\subsection{Derivative Transformations}
+
+\begin{lemma}[Change of Variables]
+Under the substitution $x = \ln t$, if $v(x) = y(t)$:
+\begin{align}
+t \frac{dy}{dt} &= \frac{dv}{dx} \\
+t^2 \frac{d^2y}{dt^2} &= \frac{d^2v}{dx^2} - \frac{dv}{dx} \\
+t^3 \frac{d^3y}{dt^3} &= \frac{d^3v}{dx^3} - 3\frac{d^2v}{dx^2} + 2\frac{dv}{dx}
+\end{align}
+\end{lemma}
+
+\begin{proof}[Proof for Second Derivative]
+Using the chain rule:
+$$\frac{dy}{dt} = \frac{dv}{dx} \cdot \frac{dx}{dt} = \frac{1}{t} \frac{dv}{dx}$$
+
+For the second derivative:
+$$\frac{d^2y}{dt^2} = \frac{d}{dt}\left(\frac{1}{t} \frac{dv}{dx}\right) = -\frac{1}{t^2}\frac{dv}{dx} + \frac{1}{t} \frac{d}{dt}\left(\frac{dv}{dx}\right)$$
+
+Since $\frac{d}{dt}\left(\frac{dv}{dx}\right) = \frac{d^2v}{dx^2} \cdot \frac{dx}{dt} = \frac{1}{t}\frac{d^2v}{dx^2}$:
+
+$$\frac{d^2y}{dt^2} = \frac{1}{t^2}\left(\frac{d^2v}{dx^2} - \frac{dv}{dx}\right)$$
+\end{proof}
+
+\subsection{The Transformed Equation}
+
+\begin{theorem}[Constant Coefficient Form]
+The Euler equation $t^2y'' + aty' + by = 0$ becomes:
+$$v'' + (a-1)v' + bv = 0$$
+where $v(x) = y(e^x)$ and $x = \ln t$.
+\end{theorem}
+
+\begin{insight}
+The characteristic polynomial of the transformed equation is identical to the characteristic equation from the direct method! This confirms the deep connection between the two approaches.
+\end{insight}
+
+\section{Higher-Order Euler Equations}
+
+\begin{theorem}[General $n$-th Order]
+For the $n$-th order Euler equation, assume $y = t^r$. The characteristic equation is:
+$$\prod_{k=0}^{n-1}(r-k) + \sum_{j=1}^{n-1} a_j \prod_{k=0}^{j-1}(r-k) + a_0 = 0$$
+\end{theorem}
+
+\begin{example}[Third-Order]
+For $t^3y''' + at^2y'' + bty' + cy = 0$:
+
+Assuming $y = t^r$:
+- $y' = rt^{r-1}$
+- $y'' = r(r-1)t^{r-2}$
+- $y''' = r(r-1)(r-2)t^{r-3}$
+
+Characteristic equation:
+$$r(r-1)(r-2) + ar(r-1) + br + c = 0$$
+\end{example}
+
+\section{Important Special Cases}
+
+\subsection{The Cauchy-Euler Equation}
+
+\begin{definition}[Standard Cauchy-Euler]
+The equation $t^2y'' + ty' + (\lambda^2 t^2 + \nu^2)y = 0$ appears in many applications, especially in Bessel function theory.
+\end{definition}
+
+\subsection{Modified Euler Equations}
+
+\begin{example}[Shifted Center]
+For equations centered at $t = t_0$:
+$$(t-t_0)^2 y'' + a(t-t_0)y' + by = 0$$
+Use the substitution $s = t - t_0$ first.
+\end{example}
+
+\section{Solution Strategies}
+
+\begin{method}[Complete Solution Process]
+\begin{enumerate}
+    \item \textbf{Identify}: Check if powers match derivatives
+    \item \textbf{Choose domain}: Usually $t > 0$
+    \item \textbf{Select method}:
+    \begin{itemize}
+        \item Direct ($y = t^r$) for straightforward cases
+        \item Transform ($x = \ln t$) for complex or higher-order
+    \end{itemize}
+    \item \textbf{Find characteristic equation}
+    \item \textbf{Solve for roots}
+    \item \textbf{Build solution} based on root types:
+    \begin{itemize}
+        \item Real distinct: $t^{r_1}, t^{r_2}, \ldots$
+        \item Real repeated: $t^r, t^r\ln t, t^r(\ln t)^2, \ldots$
+        \item Complex: $t^\alpha\cos(\beta\ln t), t^\alpha\sin(\beta\ln t)$
+    \end{itemize}
+\end{enumerate}
+\end{method}
+
+\section{Applications}
+
+\begin{insight}
+Euler equations arise naturally in:
+\begin{enumerate}
+    \item \textbf{Radial symmetry}: Solutions to Laplace's equation in polar/spherical coordinates
+    \item \textbf{Self-similar solutions}: PDEs with scaling symmetry
+    \item \textbf{Power-law media}: Heat conduction in materials with power-law properties
+    \item \textbf{Financial mathematics}: Option pricing models
+    \item \textbf{Fractal geometry}: Equations on self-similar domains
+\end{enumerate}
+\end{insight}
+
+\section{Connection to Other Topics}
+
+\subsection{Series Solutions}
+
+\begin{theorem}[Frobenius Connection]
+The point $t = 0$ is a regular singular point of the Euler equation. The indicial equation from the Frobenius method is exactly our characteristic equation.
+\end{theorem}
+
+\subsection{Relationship to Constant Coefficients}
+
+\begin{keypoint}
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Constant Coefficient} & \textbf{Euler Equation} \\
+\hline
+$y = e^{rt}$ ansatz & $y = t^r$ ansatz \\
+\hline
+Repeated root gives $te^{rt}$ & Repeated root gives $t^r\ln t$ \\
+\hline
+Complex roots give $e^{\alpha t}\sin(\beta t)$ & Complex roots give $t^\alpha\sin(\beta\ln t)$ \\
+\hline
+Linear time scale & Logarithmic time scale \\
+\hline
+\end{tabular}
+\end{center}
+\end{keypoint}
+
+\section{Common Pitfalls}
+
+\begin{warning}
+\begin{enumerate}
+    \item \textbf{Domain}: Solutions differ for $t > 0$ and $t < 0$
+    \item \textbf{Characteristic equation}: It's $r(r-1) + ar + b$, not $r^2 + ar + b$
+    \item \textbf{Complex roots}: Arguments are $\beta\ln t$, not $\beta t$
+    \item \textbf{At $t = 0$}: This is a singular point; solutions may not extend through it
+    \item \textbf{Initial conditions}: Often given at $t = 1$ to avoid the singularity
+\end{enumerate}
+\end{warning}
+
+\begin{examtip}
+Prof. Ditkowski often combines Euler equations with:
+\begin{itemize}
+    \item Initial value problems at $t = 1$
+    \item Boundary value problems on $[1, e]$
+    \item Questions about solution behavior as $t \to 0^+$ or $t \to \infty$
+    \item Transformation to constant coefficients
+\end{itemize}
+\end{examtip}
+
+\section{Summary Table}
+
+\begin{formula}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Equation} & \textbf{Characteristic Eq.} & \textbf{Solutions} \\
+\hline
+$t^2y'' + aty' + by = 0$ & $r^2 + (a-1)r + b = 0$ & Based on roots \\
+\hline
+Distinct real $r_1, r_2$ & -- & $c_1t^{r_1} + c_2t^{r_2}$ \\
+\hline
+Repeated root $r$ & -- & $(c_1 + c_2\ln t)t^r$ \\
+\hline
+Complex $\alpha \pm i\beta$ & -- & $t^\alpha[c_1\cos(\beta\ln t) + c_2\sin(\beta\ln t)]$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{formula}
+
+\end{document}
+```
+
+---
+
+## **Component 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 47: Practice Problems\\Euler-Cauchy Equations}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+
+\maketitle
+
+\section*{Part A: Basic Euler Equations (5 problems)}
+
+\begin{enumerate}
+\item Solve: $t^2y'' - 2ty' + 2y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' + 3ty' + y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' - ty' - 3y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' + 4ty' + 2y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' - 3ty' + 4y = 0$ for $t > 0$
+\end{enumerate}
+
+\section*{Part B: Repeated Roots Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $t^2y'' - 3ty' + 4y = 0$ for $t > 0$ (verify repeated root)
+
+\item Solve: $t^2y'' + 5ty' + 4y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' - ty' + y = 0$ for $t > 0$
+
+\item Solve: $4t^2y'' + 8ty' + y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' + 3ty' + y = 0$ for $t > 0$
+\end{enumerate}
+
+\section*{Part C: Complex Roots Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $t^2y'' - ty' + 5y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' + ty' + y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' - 3ty' + 13y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' + ty' + 4y = 0$ for $t > 0$
+
+\item Solve: $t^2y'' + 3ty' + 5y = 0$ for $t > 0$
+\end{enumerate}
+
+\section*{Part D: Using the Transform Method (5 problems)}
+
+\begin{enumerate}[resume]
+\item Using $x = \ln t$, transform and solve: $t^2y'' - 4ty' + 6y = 0$
+
+\item Transform and solve: $t^2y'' + 2ty' - 2y = 0$
+
+\item Show that the transform method gives the same solution as the direct method for: $t^2y'' - ty' - 8y = 0$
+
+\item Use the transform to solve: $t^2y'' + 5ty' + 3y = 0$
+
+\item Transform the third-order equation: $t^3y''' + 3t^2y'' - 2ty' + 2y = 0$
+\end{enumerate}
+
+\section*{Part E: Initial Value Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $t^2y'' - 2ty' + 2y = 0$, $y(1) = 3$, $y'(1) = 5$
+
+\item Solve: $t^2y'' + 3ty' + y = 0$, $y(1) = 2$, $y'(1) = -1$
+
+\item Solve: $t^2y'' - ty' + y = 0$, $y(1) = 0$, $y'(1) = 1$
+
+\item Solve: $t^2y'' - ty' + 5y = 0$, $y(1) = 1$, $y'(1) = 2$
+
+\item Solve: $t^2y'' - 3ty' + 4y = 0$, $y(2) = 8$, $y'(2) = 12$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Consider the equation $t^2y'' + aty' + by = 0$.
+\begin{enumerate}[label=(\alph*)]
+    \item For what values of $a$ and $b$ are all solutions bounded as $t \to \infty$?
+    \item For what values do solutions oscillate on a logarithmic scale?
+    \item Find conditions for polynomial solutions.
+\end{enumerate}
+
+\item The equation $t^2y'' - 2\alpha ty' + \alpha(\alpha+1)y = 0$ has $y_1 = t^\alpha$ as a solution.
+\begin{enumerate}[label=(\alph*)]
+    \item Verify this directly.
+    \item Find the second solution.
+    \item What is special about this equation?
+\end{enumerate}
+
+\item Transform the equation $(t+1)^2y'' + 3(t+1)y' + y = 0$ to an Euler equation and solve.
+
+\item For the equation $t^2y'' + ty' + (t^2 - \nu^2)y = 0$ (Bessel's equation of order $\nu$):
+\begin{enumerate}[label=(\alph*)]
+    \item Show this is NOT a pure Euler equation.
+    \item Find the indicial equation at $t = 0$.
+    \item What are the indices?
+\end{enumerate}
+
+\item Consider the system of Euler equations:
+$$\begin{cases}
+t^2y'' - 2ty' + 2y = z \\
+t^2z'' - 4tz' + 6z = y
+\end{cases}$$
+\begin{enumerate}[label=(\alph*)]
+    \item Find the general solution for $y$ and $z$.
+    \item Determine if solutions can remain bounded as $t \to 0^+$.
+\end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\section*{Solutions}
+
+\subsection*{Part A: Basic Euler Equations}
+
+\begin{enumerate}
+\item Characteristic equation: $r(r-1) - 2r + 2 = 0$\\
+$r^2 - 3r + 2 = 0$\\
+$(r-1)(r-2) = 0$\\
+Roots: $r = 1, 2$\\
+General solution: $y = c_1t + c_2t^2$
+
+\item Characteristic equation: $r(r-1) + 3r + 1 = 0$\\
+$r^2 + 2r + 1 = 0$\\
+$(r+1)^2 = 0$\\
+Repeated root: $r = -1$\\
+General solution: $y = \frac{c_1 + c_2\ln t}{t}$
+
+\item Characteristic equation: $r(r-1) - r - 3 = 0$\\
+$r^2 - 2r - 3 = 0$\\
+$(r-3)(r+1) = 0$\\
+Roots: $r = 3, -1$\\
+General solution: $y = c_1t^3 + \frac{c_2}{t}$
+
+\item Characteristic equation: $r(r-1) + 4r + 2 = 0$\\
+$r^2 + 3r + 2 = 0$\\
+$(r+1)(r+2) = 0$\\
+Roots: $r = -1, -2$\\
+General solution: $y = \frac{c_1}{t} + \frac{c_2}{t^2}$
+
+\item Characteristic equation: $r(r-1) - 3r + 4 = 0$\\
+$r^2 - 4r + 4 = 0$\\
+$(r-2)^2 = 0$\\
+Repeated root: $r = 2$\\
+General solution: $y = (c_1 + c_2\ln t)t^2$
+\end{enumerate}
+
+\subsection*{Part B: Repeated Roots Cases}
+
+\begin{enumerate}[resume]
+\item Already solved in Part A, #5:\\
+$r = 2$ (double root)\\
+General solution: $y = (c_1 + c_2\ln t)t^2$
+
+\item Characteristic equation: $r^2 + 4r + 4 = 0$\\
+$(r+2)^2 = 0$\\
+Repeated root: $r = -2$\\
+General solution: $y = \frac{c_1 + c_2\ln t}{t^2}$
+
+\item Characteristic equation: $r^2 - 2r + 1 = 0$\\
+$(r-1)^2 = 0$\\
+Repeated root: $r = 1$\\
+General solution: $y = (c_1 + c_2\ln t)t$
+
+\item Divide by 4: $t^2y'' + 2ty' + \frac{1}{4}y = 0$\\
+Characteristic equation: $r^2 + r + \frac{1}{4} = 0$\\
+$(r + \frac{1}{2})^2 = 0$\\
+Repeated root: $r = -\frac{1}{2}$\\
+General solution: $y = \frac{c_1 + c_2\ln t}{\sqrt{t}}$
+
+\item Characteristic equation: $r^2 + 2r + 1 = 0$\\
+$(r+1)^2 = 0$\\
+Repeated root: $r = -1$\\
+General solution: $y = \frac{c_1 + c_2\ln t}{t}$
+\end{enumerate}
+
+\subsection*{Part C: Complex Roots Cases}
+
+\begin{enumerate}[resume]
+\item Characteristic equation: $r^2 - 2r + 5 = 0$\\
+$r = \frac{2 \pm \sqrt{4-20}}{2} = 1 \pm 2i$\\
+General solution: $y = t[c_1\cos(2\ln t) + c_2\sin(2\ln t)]$
+
+\item Characteristic equation: $r^2 + 1 = 0$\\
+$r = \pm i$\\
+General solution: $y = c_1\cos(\ln t) + c_2\sin(\ln t)$
+
+\item Characteristic equation: $r^2 - 4r + 13 = 0$\\
+$r = \frac{4 \pm \sqrt{16-52}}{2} = 2 \pm 3i$\\
+General solution: $y = t^2[c_1\cos(3\ln t) + c_2\sin(3\ln t)]$
+
+\item Characteristic equation: $r^2 + 4 = 0$\\
+$r = \pm 2i$\\
+General solution: $y = c_1\cos(2\ln t) + c_2\sin(2\ln t)$
+
+\item Characteristic equation: $r^2 + 2r + 5 = 0$\\
+$r = \frac{-2 \pm \sqrt{4-20}}{2} = -1 \pm 2i$\\
+General solution: $y = \frac{1}{t}[c_1\cos(2\ln t) + c_2\sin(2\ln t)]$
+\end{enumerate}
+
+\subsection*{Part D: Using the Transform Method}
+
+\begin{enumerate}[resume]
+\item Let $x = \ln t$, $v(x) = y(t)$\\
+Transform: $v'' - 5v' + 6v = 0$\\
+Characteristic: $\lambda^2 - 5\lambda + 6 = 0$\\
+$(\lambda - 2)(\lambda - 3) = 0$\\
+$v = c_1e^{2x} + c_2e^{3x}$\\
+Back-transform: $y = c_1t^2 + c_2t^3$
+
+\item Transform: $v'' + v' - 2v = 0$\\
+Characteristic: $\lambda^2 + \lambda - 2 = 0$\\
+$(\lambda + 2)(\lambda - 1) = 0$\\
+$v = c_1e^{-2x} + c_2e^x$\\
+Back-transform: $y = \frac{c_1}{t^2} + c_2t$
+
+\item Direct method: $r^2 - 2r - 8 = 0 \Rightarrow r = 4, -2$\\
+Transform method: $v'' - 2v' - 8v = 0$\\
+Same characteristic equation!\\
+Solution: $y = c_1t^4 + \frac{c_2}{t^2}$
+
+\item Transform: $v'' + 4v' + 3v = 0$\\
+$(\lambda + 1)(\lambda + 3) = 0$\\
+$v = c_1e^{-x} + c_2e^{-3x}$\\
+Back-transform: $y = \frac{c_1}{t} + \frac{c_2}{t^3}$
+
+\item Let $D = d/dx$. Transform gives:\\
+$(D^3 - 3D^2 + 2D) + 3(D^2 - D) - 2D + 2 = 0$\\
+$D^3 - D - 2D + 2 = D^3 - 3D + 2 = 0$\\
+Characteristic: $\lambda^3 - 3\lambda + 2 = 0$\\
+$(\lambda - 1)^2(\lambda + 2) = 0$\\
+$v = (c_1 + c_2x)e^x + c_3e^{-2x}$\\
+$y = (c_1 + c_2\ln t)t + \frac{c_3}{t^2}$
+\end{enumerate}
+
+\subsection*{Part E: Initial Value Problems}
+
+\begin{enumerate}[resume]
+\item From Part A #1: $y = c_1t + c_2t^2$\\
+$y(1) = c_1 + c_2 = 3$\\
+$y'(t) = c_1 + 2c_2t$\\
+$y'(1) = c_1 + 2c_2 = 5$\\
+Solving: $c_2 = 2$, $c_1 = 1$\\
+Solution: $y = t + 2t^2$
+
+\item From Part A #2: $y = \frac{c_1 + c_2\ln t}{t}$\\
+$y(1) = c_1 = 2$\\
+$y'(t) = \frac{c_2 - c_1 - c_2\ln t}{t^2}$\\
+$y'(1) = c_2 - c_1 = -1$\\
+$c_2 = 1$\\
+Solution: $y = \frac{2 + \ln t}{t}$
+
+\item From Part B #8: $y = (c_1 + c_2\ln t)t$\\
+$y(1) = c_1 = 0$\\
+$y'(t) = c_1 + c_2(1 + \ln t)$\\
+$y'(1) = c_2 = 1$\\
+Solution: $y = t\ln t$
+
+\item From Part C #11: $y = t[c_1\cos(2\ln t) + c_2\sin(2\ln t)]$\\
+$y(1) = c_1 = 1$\\
+$y'(t) = [c_1\cos(2\ln t) + c_2\sin(2\ln t)] + t[-2c_1\sin(2\ln t)/t + 2c_2\cos(2\ln t)/t]$\\
+$y'(1) = 1 + 2c_2 = 2$\\
+$c_2 = \frac{1}{2}$\\
+Solution: $y = t[\cos(2\ln t) + \frac{1}{2}\sin(2\ln t)]$
+
+\item From Part A #5: $y = (c_1 + c_2\ln t)t^2$\\
+$y(2) = 4c_1 + 4c_2\ln 2 = 8$\\
+$y'(t) = 2(c_1 + c_2\ln t)t + c_2t$\\
+$y'(2) = 8c_1 + 8c_2\ln 2 + 2c_2 = 12$\\
+From first: $c_1 + c_2\ln 2 = 2$\\
+From second: $4c_1 + 4c_2\ln 2 + c_2 = 6$\\
+$c_2 = -2$, $c_1 = 2 + 2\ln 2$\\
+Solution: $y = [2 + 2\ln 2 - 2\ln t]t^2 = 2t^2[1 + \ln(4/t)]$
+\end{enumerate}
+
+\subsection*{Part F: Exam-Style Problems}
+
+\begin{enumerate}[resume]
+\item
+\begin{enumerate}[label=(\alph*)]
+\item Bounded as $t \to \infty$: Need both roots to have negative real parts.\\
+From $r^2 + (a-1)r + b = 0$: Need $a > 1$ and $b > 0$ (and $(a-1)^2 > 4b$ for real roots).
+
+\item Oscillation: Need complex roots, so $(a-1)^2 < 4b$.
+
+\item Polynomial solutions: Need positive integer roots. For example, $r = n$ requires $n^2 + (a-1)n + b = 0$.
+\end{enumerate}
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item $y_1' = \alpha t^{\alpha-1}$, $y_1'' = \alpha(\alpha-1)t^{\alpha-2}$\\
+Substitute: $\alpha(\alpha-1) - 2\alpha \cdot \alpha + \alpha(\alpha+1) = 0$ ✓
+
+\item Characteristic equation: $r^2 - (2\alpha+1)r + \alpha(\alpha+1) = 0$\\
+$(r-\alpha)(r-(\alpha+1)) = 0$\\
+Second solution: $y_2 = t^{\alpha+1}$
+
+\item This is the Euler equation whose solutions are consecutive powers of $t$.
+\end{enumerate}
+
+\item Let $s = t + 1$, then the equation becomes:\\
+$s^2y'' + 3sy' + y = 0$ (standard Euler in $s$)\\
+Characteristic: $r^2 + 2r + 1 = (r+1)^2 = 0$\\
+$y = \frac{c_1 + c_2\ln(t+1)}{t+1}$
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item The $t^2$ in the last term makes this NOT a pure Euler equation.
+
+\item For the indicial equation, consider $y = t^r(1 + a_1t + \ldots)$\\
+Leading terms give: $r(r-1) + r - \nu^2 = 0$\\
+$r^2 - \nu^2 = 0$
+
+\item Indices: $r = \pm\nu$
+\end{enumerate}
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item Decouple: Fourth-order equations result.\\
+For $y$: $(t^2D^2 - 2tD + 2)(t^2D^2 - 4tD + 6) - 1 = 0$\\
+This gives $t^4y^{(4)} - 6t^3y''' + 15t^2y'' - 15ty' + (12-1)y = 0$\\
+Complex calculation yields general solutions.
+
+\item As $t \to 0^+$: Solutions behave like $t^r$ where $r$ are the characteristic roots. Bounded only if all $\text{Re}(r) \geq 0$.
+\end{enumerate}
+\end{enumerate}
+
+\end{document}
+```
+
+---
+
+## **Component 4: NotebookLM Instructions**
+
+# **NotebookLM Instructions for Lesson 47**
+
+## **How to Use These Materials**
+
+1. **Import Order**:
+   - Audio Script (conceptual overview)
+   - Theory Document (formal treatment)
+   - Practice Problems (mastery through repetition)
+
+2. **Audio Generation Settings**:
+   - Style: "Comparative Tutorial"
+   - Emphasize the parallel with constant coefficients
+   - Include both solution methods
+   - Highlight the transformation technique
+
+3. **Study Sequence**:
+   - **Day 1**: Audio + Theory (both methods)
+   - **Day 2**: Parts A-B (basic and repeated)
+   - **Day 3**: Parts C-D (complex and transform)
+   - **Day 4**: Parts E-F (IVPs and theory)
+
+## **Two Methods to Master**
+
+### Method 1: Direct Power Method
+```
+1. Assume y = t^r
+2. Substitute and get t^r[r(r-1) + ar + b] = 0
+3. Solve r² + (a-1)r + b = 0
+4. Build solution based on roots
+```
+
+### Method 2: Transform Method
+```
+1. Let x = ln(t)
+2. Transform to v'' + (a-1)v' + bv = 0
+3. Solve as constant coefficient
+4. Transform back: t^r = e^(rx)
+```
+
+## **The Characteristic Equation**
+
+### MEMORIZE:
+For $t²y'' + aty' + by = 0$:
+```
+Characteristic: r² + (a-1)r + b = 0
+```
+
+Note: It's (a-1), not just a!
+
+## **Solution Forms Quick Reference**
+
+| Root Type | Solution Form |
+|-----------|--------------|
+| Distinct real r₁, r₂ | c₁t^(r₁) + c₂t^(r₂) |
+| Repeated real r | (c₁ + c₂ln(t))t^r |
+| Complex α ± iβ | t^α[c₁cos(βln(t)) + c₂sin(βln(t))] |
+
+## **Key Differences from Constant Coefficients**
+
+| Feature | Constant Coeff | Euler Equation |
+|---------|---------------|----------------|
+| Ansatz | e^(rt) | t^r |
+| Repeated adds | t | ln(t) |
+| Complex args | βt | βln(t) |
+| Domain | All ℝ | Usually t > 0 |
+| Singular point | None | t = 0 |
+
+## **Practice Problem Strategy**
+
+### Part A (Basic):
+- Straightforward characteristic equations
+- Practice the formula r² + (a-1)r + b = 0
+- All have distinct real roots
+
+### Part B (Repeated):
+- Watch for perfect squares in characteristic
+- Remember: (c₁ + c₂ln(t))t^r
+- The ln(t) is crucial!
+
+### Part C (Complex):
+- Negative discriminant → complex roots
+- Arguments are βln(t), not βt
+- Factor out t^α
+
+### Part D (Transform):
+- Good for verifying answers
+- Shows the deep connection
+- Useful for higher-order equations
+
+### Part E (IVPs):
+- Usually at t = 1 (avoids singularity)
+- Same process as constant coefficients
+- Check: Does solution blow up at t = 0?
+
+### Part F (Theory):
+- Behavior as t → 0⁺ and t → ∞
+- Connection to other equation types
+- Prof. Ditkowski's favorites
+
+## **Common Mistakes to Avoid**
+
+1. **Wrong characteristic equation**
+   - WRONG: r² + ar + b = 0
+   - RIGHT: r² + (a-1)r + b = 0
+
+2. **Forgetting ln(t) for repeated roots**
+   - WRONG: c₁t² + c₂t² (not independent!)
+   - RIGHT: (c₁ + c₂ln(t))t²
+
+3. **Wrong argument for complex roots**
+   - WRONG: t²[cos(3t) + sin(3t)]
+   - RIGHT: t²[cos(3ln(t)) + sin(3ln(t))]
+
+4. **Domain issues**
+   - Solutions for t > 0 and t < 0 are different
+   - Can't always extend through t = 0
+
+## **Speed Techniques**
+
+### Quick Recognition:
+- See t²y'' + aty' + by? → Euler equation
+- Powers match derivatives? → Euler equation
+- Coefficients are t^n? → Euler equation
+
+### Fast Solution:
+1. Write characteristic immediately
+2. Use quadratic formula
+3. Identify root type
+4. Write solution form
+
+### Verification:
+- Substitute one value (like t = 1) to check
+- Behavior at t = 0 should match root signs
+- Use transform method to double-check
+
+## **Memory Aids**
+
+### "Power to Power":
+- Power ansatz (t^r) for power coefficients (t^n)
+- Like responds to like
+
+### The (a-1) Rule:
+- The y' coefficient contributes (a-1), not a
+- Think: "One less for the first derivative"
+
+### Complex Oscillation:
+- Regular ODEs: oscillate in time
+- Euler equations: oscillate in log-time
+- cos(βln(t)) = t^(iβ) in complex form
+
+## **Connections to Other Topics**
+
+### Series Solutions:
+- t = 0 is a regular singular point
+- Characteristic equation = indicial equation
+- Frobenius method starts here
+
+### Bessel Functions:
+- Modified Euler equations lead to Bessel
+- Important in cylindrical problems
+- Same singular point structure
+
+### Constant Coefficients:
+- Transform reveals they're the same!
+- x = ln(t) is the bridge
+- Exponential ↔ Power duality
+
+## **Interactive NotebookLM Features**
+
+1. **Method comparison**:
+   - "Show both methods for t²y'' - 3ty' + 3y = 0"
+   - "Why do both methods give the same answer?"
+
+2. **Transformation practice**:
+   - "Transform t³y''' + 2t²y'' - ty' + y = 0"
+   - "What does x = ln(t) do geometrically?"
+
+3. **Solution behavior**:
+   - "How does t² + t²ln(t) behave near t = 0?"
+   - "When are Euler solutions bounded?"
+
+## **Study Time Allocation**
+
+- Understanding both methods: 1.5 hours
+- Audio + theory: 1 hour
+- Practice A-C: 2 hours
+- Practice D-E: 1.5 hours
+- Practice F: 1 hour
+- Review: 1 hour
+- **Total: 8 hours**
+
+## **Exam Strategy**
+
+### Recognition Phase (5 seconds):
+- Powers of t match derivative orders?
+- If yes → Euler equation
+
+### Solution Phase (2 minutes):
+1. Write characteristic equation
+2. Solve for r
+3. Classify roots
+4. Write general solution
+
+### IVP Phase (if needed, +1 minute):
+1. Apply conditions (usually at t = 1)
+2. Solve linear system
+3. Write particular solution
+
+### Verification (if time):
+- Check one point
+- Verify behavior at boundaries
+
+## **Advanced Questions**
+
+Ask NotebookLM:
+1. Why is t = 0 always a singular point?
+2. How do Euler equations arise in polar coordinates?
+3. What's the connection to scale invariance?
+4. Can we solve Euler equations on t < 0?
+5. How do these extend to systems?
+
+## **Physical Applications**
+
+Euler equations model:
+- Radial heat flow
+- Vibrations of non-uniform strings
+- Self-similar fluid flows
+- Option pricing (Black-Scholes)
+- Quantum mechanics in spherical coordinates
+
+## **Prof. Ditkowski's Exam Patterns**
+
+Common problem types:
+1. Basic Euler with IVP at t = 1
+2. Find a and b given two solutions
+3. Transform method verification
+4. Behavior analysis as t → 0⁺ or t → ∞
+5. Connection to Bessel or other special equations
+
+## **Final Mastery Check**
+
+You've mastered Euler equations when:
+- [ ] Can identify them instantly
+- [ ] Write characteristic equation without thinking
+- [ ] Know all three solution forms by heart
+- [ ] Can use both solution methods
+- [ ] Understand the t = 0 singularity
+
+## **Block 12 Summary**
+
+Congratulations! You've completed Block 12. You now have:
+- **Lesson 43**: Characteristic equation method
+- **Lesson 44**: Understanding repeated roots
+- **Lesson 45**: Undetermined coefficients
+- **Lesson 46**: Reduction of order
+- **Lesson 47**: Euler-Cauchy equations
+
+These five lessons give you complete mastery over:
+- All constant coefficient ODEs
+- Finding particular solutions
+- Understanding solution structure
+- Special variable coefficient cases
+
+## **Integration with Other Blocks**
+
+This block connects to:
+- **Block 8-9**: Systems and eigenvalues
+- **Block 13**: Series solutions (next!)
+- **Block 10-11**: Existence and uniqueness
+- **Applications**: Engineering and physics
+
+## **Key Takeaway for Block 12**
+
+Every linear ODE with constant coefficients is solvable by algebra alone. The characteristic equation transforms calculus into algebra. Master these methods and you'll solve 60% of Prof. Ditkowski's exam efficiently and accurately.
+
+---
+
+**Lesson 47 and Block 12 complete! You now have the complete toolkit for constant coefficient and Euler equations. Practice these methods until they're automatic - they're the foundation for everything else in the course.**

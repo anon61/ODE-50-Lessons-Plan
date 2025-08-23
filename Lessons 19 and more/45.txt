@@ -1,0 +1,1055 @@
+# **Lesson 45: Method of Undetermined Coefficients**
+
+## **Component 1: Audio Lesson Script**
+*[Duration: 15-20 minutes when read aloud]*
+
+---
+
+**Opening**
+
+So basically, everything we've done so far has been for homogeneous equations - where the right-hand side is zero. But in the real world? Forces act on systems. Circuits have voltage sources. Springs get pushed. That's where non-homogeneous equations come in, and today I'm going to show you the most efficient method for solving them: undetermined coefficients.
+
+Here's the beautiful thing about this method - it's purely algebraic. No integration needed. You just guess the right form, plug it in, and solve for coefficients. It's like having a cheat code for differential equations. But there's a catch - it only works for certain types of forcing functions. Let me show you exactly when and how to use it.
+
+**The Non-Homogeneous Problem**
+
+Consider the general non-homogeneous linear ODE with constant coefficients:
+a_n y^(n) + ... + a_1 y' + a_0 y = f(t)
+
+The complete solution has two parts:
+y = y_h + y_p
+
+where y_h is the homogeneous solution (from Lessons 43-44) and y_p is a particular solution that we need to find.
+
+The homogeneous solution y_h contains all the arbitrary constants and satisfies the initial conditions. The particular solution y_p is just ONE solution that makes the equation work with the forcing function f(t).
+
+**When Does This Method Work?**
+
+Undetermined coefficients works when f(t) is a linear combination of:
+1. Polynomials: t^n, t^2, t, constants
+2. Exponentials: e^(at)
+3. Sines and cosines: sin(bt), cos(bt)
+4. Products of these: t^2 e^(3t), e^(-t)cos(2t), t·sin(t)
+
+Why these functions? Because when you differentiate them, you get the same type of function back! A polynomial stays a polynomial (maybe lower degree), e^(at) stays e^(at), and trig functions stay trig functions. This closure property is what makes the method work.
+
+**The Basic Strategy**
+
+Here's the algorithm:
+1. Identify the form of f(t)
+2. Guess a particular solution y_p with the same form but undetermined coefficients
+3. Substitute y_p into the ODE
+4. Match coefficients to find the unknowns
+
+Let me show you with examples.
+
+**Example 1: Polynomial Forcing**
+
+Solve: y'' - 3y' + 2y = 4t + 5
+
+First, find y_h. Characteristic equation: r^2 - 3r + 2 = 0, giving r = 1, 2.
+So y_h = c_1 e^t + c_2 e^(2t).
+
+Now for y_p. Since f(t) = 4t + 5 is a first-degree polynomial, we guess:
+y_p = At + B
+
+Why not just At? Because when we differentiate, we'll get constants too, and we need to match all terms.
+
+Calculate derivatives:
+- y_p' = A
+- y_p'' = 0
+
+Substitute into the ODE:
+0 - 3A + 2(At + B) = 4t + 5
+2At + (2B - 3A) = 4t + 5
+
+Matching coefficients:
+- Coefficient of t: 2A = 4, so A = 2
+- Constant term: 2B - 3A = 5, so 2B - 6 = 5, giving B = 11/2
+
+Therefore: y_p = 2t + 11/2
+
+Complete solution: y = c_1 e^t + c_2 e^(2t) + 2t + 11/2
+
+**Example 2: Exponential Forcing**
+
+Solve: y'' - 5y' + 6y = e^(4t)
+
+Homogeneous: r^2 - 5r + 6 = 0, giving r = 2, 3.
+So y_h = c_1 e^(2t) + c_2 e^(3t).
+
+For f(t) = e^(4t), guess: y_p = Ae^(4t)
+
+Derivatives:
+- y_p' = 4Ae^(4t)
+- y_p'' = 16Ae^(4t)
+
+Substitute:
+16Ae^(4t) - 5(4Ae^(4t)) + 6Ae^(4t) = e^(4t)
+(16A - 20A + 6A)e^(4t) = e^(4t)
+2Ae^(4t) = e^(4t)
+
+So A = 1/2, giving y_p = (1/2)e^(4t).
+
+**The Resonance Problem**
+
+Now here's where it gets tricky. What if the forcing function matches one of your homogeneous solutions? This is called resonance, and it's where students make mistakes.
+
+**Example 3: Resonance Case**
+
+Solve: y'' - 5y' + 6y = e^(2t)
+
+Same homogeneous solution: y_h = c_1 e^(2t) + c_2 e^(3t)
+
+If we guess y_p = Ae^(2t), we have a problem! This is already in y_h. When we substitute, we'll get 0 = e^(2t), which is impossible.
+
+The fix? Multiply by t:
+y_p = Ate^(2t)
+
+Now:
+- y_p' = Ae^(2t) + 2Ate^(2t)
+- y_p'' = 4Ae^(2t) + 4Ate^(2t)
+
+Substitute:
+[4Ae^(2t) + 4Ate^(2t)] - 5[Ae^(2t) + 2Ate^(2t)] + 6[Ate^(2t)] = e^(2t)
+e^(2t)[4A + 4At - 5A - 10At + 6At] = e^(2t)
+e^(2t)[-A] = e^(2t)
+
+So A = -1, giving y_p = -te^(2t).
+
+The rule: If your guess matches a homogeneous solution, multiply by t. If it still matches (repeated roots), multiply by t^2, and so on.
+
+**Example 4: Trigonometric Forcing**
+
+Solve: y'' + 4y = sin(3t)
+
+Homogeneous: r^2 + 4 = 0, giving r = ±2i.
+So y_h = c_1 cos(2t) + c_2 sin(2t).
+
+For f(t) = sin(3t), we must guess BOTH sine and cosine:
+y_p = A cos(3t) + B sin(3t)
+
+Why both? Because derivatives of sine give cosine and vice versa. We need both to match.
+
+Derivatives:
+- y_p' = -3A sin(3t) + 3B cos(3t)
+- y_p'' = -9A cos(3t) - 9B sin(3t)
+
+Substitute:
+[-9A cos(3t) - 9B sin(3t)] + 4[A cos(3t) + B sin(3t)] = sin(3t)
+(-5A) cos(3t) + (-5B) sin(3t) = 0 + sin(3t)
+
+Matching:
+- Coefficient of cos(3t): -5A = 0, so A = 0
+- Coefficient of sin(3t): -5B = 1, so B = -1/5
+
+Therefore: y_p = -(1/5) sin(3t)
+
+**Example 5: Resonant Trigonometric**
+
+This is the most important case for physics - pure resonance.
+
+Solve: y'' + 4y = sin(2t)
+
+Now we have trouble! The forcing frequency matches the natural frequency. Our guess A cos(2t) + B sin(2t) is already in y_h.
+
+Multiply by t:
+y_p = t[A cos(2t) + B sin(2t)]
+
+After substituting and simplifying (trust me, it's messy):
+A = 1/4, B = 0
+
+So y_p = (t/4) cos(2t)
+
+This solution grows without bound - that's resonance! The amplitude increases linearly with time.
+
+**The Superposition Principle**
+
+When f(t) has multiple terms, handle each separately:
+
+If f(t) = 3e^t + 2sin(t) - 4t^2, find particular solutions for each:
+- y_p1 for 3e^t
+- y_p2 for 2sin(t)
+- y_p3 for -4t^2
+
+Then y_p = y_p1 + y_p2 + y_p3.
+
+**The Complete Guessing Table**
+
+Here's your cheat sheet:
+
+| f(t) | Guess y_p |
+|------|-----------|
+| Polynomial degree n | Polynomial degree n |
+| e^(at) | Ae^(at) |
+| sin(bt) or cos(bt) | A cos(bt) + B sin(bt) |
+| t^n e^(at) | (Polynomial degree n) × e^(at) |
+| e^(at) sin(bt) | e^(at)[A cos(bt) + B sin(bt)] |
+
+If resonance occurs (guess matches homogeneous), multiply by t^s where s is the multiplicity of the matching root.
+
+**Common Mistakes**
+
+1. **Forgetting both sine and cosine**: Even if f(t) = cos(3t), you need both in y_p.
+
+2. **Wrong degree polynomial**: If f(t) = t^3, you need y_p = At^3 + Bt^2 + Ct + D, not just At^3.
+
+3. **Missing resonance**: Always check if your guess appears in y_h first!
+
+4. **Product rules**: For f(t) = t^2 e^(3t), you need y_p = (At^2 + Bt + C)e^(3t), not just At^2 e^(3t).
+
+**Memory Technique**
+
+Think of it as "mimicry with modification":
+- The particular solution mimics the forcing function
+- But includes all related terms (lower degree polynomials, both trig functions)
+- And modifies for resonance when needed
+
+**Why Not Always Use This Method?**
+
+Undetermined coefficients is fast but limited. It fails for:
+- f(t) = tan(t), sec(t), ln(t), 1/t
+- Any function that doesn't stay in a finite-dimensional space under differentiation
+
+For these, we need variation of parameters (next topic in your course).
+
+**Closing**
+
+So basically, undetermined coefficients is pattern matching with algebra. Identify the forcing type, make an educated guess with unknown coefficients, substitute, and solve. The only subtlety is resonance - when your guess matches a homogeneous solution, multiply by t. Master this method and you'll solve 90% of the non-homogeneous ODEs on Prof. Ditkowski's exam in minutes instead of hours. It's pure algorithmic beauty.
+
+---
+
+## **Component 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor, booktabs}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{formula}
+
+\title{Lesson 45: Method of Undetermined Coefficients}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+
+\maketitle
+
+\section{The Non-Homogeneous Linear ODE}
+
+\begin{definition}[Non-Homogeneous Linear ODE]
+An $n$-th order non-homogeneous linear ODE with constant coefficients has the form:
+$$L[y] = a_n y^{(n)} + a_{n-1} y^{(n-1)} + \cdots + a_1 y' + a_0 y = f(t)$$
+where $f(t) \not\equiv 0$ is called the forcing function or non-homogeneous term.
+\end{definition}
+
+\begin{theorem}[Structure of General Solution]
+The general solution of $L[y] = f(t)$ is:
+$$y(t) = y_h(t) + y_p(t)$$
+where:
+\begin{itemize}
+    \item $y_h(t)$ is the general solution of the homogeneous equation $L[y] = 0$
+    \item $y_p(t)$ is any particular solution of $L[y] = f(t)$
+\end{itemize}
+\end{theorem}
+
+\begin{proof}
+If $L[y_p] = f(t)$ and $L[y_h] = 0$, then:
+$$L[y_h + y_p] = L[y_h] + L[y_p] = 0 + f(t) = f(t)$$
+Conversely, if $y_1$ and $y_2$ both satisfy $L[y] = f(t)$, then:
+$$L[y_1 - y_2] = L[y_1] - L[y_2] = f(t) - f(t) = 0$$
+So $y_1 - y_2$ is a homogeneous solution.
+\end{proof}
+
+\section{Suitable Forcing Functions}
+
+\begin{definition}[UC-Suitable Functions]
+A function $f(t)$ is suitable for the method of undetermined coefficients if it belongs to a finite-dimensional space that is closed under differentiation.
+\end{definition}
+
+\begin{keypoint}
+The method works for linear combinations of:
+\begin{enumerate}
+    \item Polynomials: $t^n, t^{n-1}, \ldots, t, 1$
+    \item Exponentials: $e^{at}$ where $a \in \mathbb{C}$
+    \item Trigonometric: $\sin(bt), \cos(bt)$ where $b \in \mathbb{R}$
+    \item Products: $t^n e^{at}, e^{at}\sin(bt), e^{at}\cos(bt), t^n e^{at}\sin(bt)$, etc.
+\end{enumerate}
+\end{keypoint}
+
+\section{The Method: Non-Resonant Case}
+
+\begin{method}[Undetermined Coefficients - Basic]
+For $L[y] = f(t)$ where $f(t)$ is UC-suitable:
+\begin{enumerate}
+    \item Solve the homogeneous equation $L[y] = 0$ to find $y_h$
+    \item Based on the form of $f(t)$, guess the form of $y_p$ with undetermined coefficients
+    \item Compute the derivatives of $y_p$
+    \item Substitute into $L[y_p] = f(t)$
+    \item Equate coefficients of like terms to determine the unknowns
+    \item Write the general solution: $y = y_h + y_p$
+\end{enumerate}
+\end{method}
+
+\subsection{Guessing Rules for Common Functions}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Forcing Function $f(t)$} & \textbf{Trial Solution $y_p(t)$} \\
+\hline
+$P_n(t)$ (polynomial degree $n$) & $A_n t^n + A_{n-1}t^{n-1} + \cdots + A_1 t + A_0$ \\
+\hline
+$e^{at}$ & $Ae^{at}$ \\
+\hline
+$\sin(bt)$ or $\cos(bt)$ & $A\cos(bt) + B\sin(bt)$ \\
+\hline
+$P_n(t) e^{at}$ & $(A_n t^n + \cdots + A_0)e^{at}$ \\
+\hline
+$e^{at}\sin(bt)$ or $e^{at}\cos(bt)$ & $e^{at}[A\cos(bt) + B\sin(bt)]$ \\
+\hline
+$P_n(t) e^{at} \sin(bt)$ & $e^{at}[(A_n t^n + \cdots + A_0)\cos(bt) +$ \\
+& $(B_n t^n + \cdots + B_0)\sin(bt)]$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\begin{warning}
+Always include both $\sin$ and $\cos$ terms when the forcing function contains either trigonometric function, as derivatives will produce both.
+\end{warning}
+
+\section{Resonance and the Modification Rule}
+
+\begin{definition}[Resonance]
+Resonance occurs when the trial solution $y_p$ (or part of it) is a solution of the homogeneous equation $L[y] = 0$.
+\end{definition}
+
+\begin{theorem}[Modification for Resonance]
+If the standard trial solution is a homogeneous solution corresponding to a root $r$ of multiplicity $m$, multiply the trial solution by $t^m$.
+\end{theorem}
+
+\begin{insight}
+Resonance physically corresponds to driving a system at its natural frequency, leading to unbounded growth in amplitude (the $t^m$ factor).
+\end{insight}
+
+\subsection{Resonance Detection Algorithm}
+
+\begin{method}[Checking for Resonance]
+\begin{enumerate}
+    \item Find all roots of the characteristic equation (with multiplicities)
+    \item For forcing function $f(t) = e^{at}g(t)$:
+    \begin{itemize}
+        \item If $a$ is not a characteristic root: no modification
+        \item If $a$ is a simple root: multiply trial by $t$
+        \item If $a$ is a root of multiplicity $m$: multiply trial by $t^m$
+    \end{itemize}
+    \item For $f(t) = e^{at}[\sin(bt) \text{ or } \cos(bt)]$:
+    \begin{itemize}
+        \item Check if $a \pm ib$ are characteristic roots
+        \item Multiply by $t^m$ where $m$ is the multiplicity
+    \end{itemize}
+\end{enumerate}
+\end{method}
+
+\section{The Superposition Principle}
+
+\begin{theorem}[Superposition]
+If $f(t) = f_1(t) + f_2(t) + \cdots + f_k(t)$ and $L[y_{p_i}] = f_i(t)$ for each $i$, then:
+$$L[y_{p_1} + y_{p_2} + \cdots + y_{p_k}] = f_1(t) + f_2(t) + \cdots + f_k(t)$$
+Therefore: $y_p = y_{p_1} + y_{p_2} + \cdots + y_{p_k}$
+\end{theorem}
+
+\begin{keypoint}
+Handle each term in $f(t)$ separately, then add the particular solutions. This often simplifies the algebra significantly.
+\end{keypoint}
+
+\section{Comprehensive Examples}
+
+\begin{example}[Polynomial Forcing]
+Solve: $y'' - 3y' + 2y = 6t^2 - 4t + 1$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Homogeneous: $r^2 - 3r + 2 = 0 \Rightarrow r = 1, 2$
+
+    Thus: $y_h = c_1 e^t + c_2 e^{2t}$
+
+    \item Trial: $y_p = At^2 + Bt + C$
+
+    \item Derivatives: $y_p' = 2At + B$, $y_p'' = 2A$
+
+    \item Substitute:
+    $$2A - 3(2At + B) + 2(At^2 + Bt + C) = 6t^2 - 4t + 1$$
+    $$2At^2 + (-6A + 2B)t + (2A - 3B + 2C) = 6t^2 - 4t + 1$$
+
+    \item Match coefficients:
+    \begin{align}
+    t^2: & \quad 2A = 6 \Rightarrow A = 3 \\
+    t^1: & \quad -6A + 2B = -4 \Rightarrow B = 7 \\
+    t^0: & \quad 2A - 3B + 2C = 1 \Rightarrow C = 8
+    \end{align}
+
+    \item Solution: $y = c_1 e^t + c_2 e^{2t} + 3t^2 + 7t + 8$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Resonant Exponential]
+Solve: $y'' - 4y' + 4y = e^{2t}$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Homogeneous: $(r-2)^2 = 0 \Rightarrow r = 2$ (double root)
+
+    Thus: $y_h = (c_1 + c_2 t)e^{2t}$
+
+    \item Standard trial $Ae^{2t}$ appears in $y_h$ (resonance!)
+
+    Since 2 is a double root, multiply by $t^2$: $y_p = At^2 e^{2t}$
+
+    \item Derivatives:
+    \begin{align}
+    y_p' &= 2Ate^{2t} + 2At^2e^{2t} = 2Ate^{2t}(1 + t) \\
+    y_p'' &= 2Ae^{2t}(1 + 4t + 2t^2)
+    \end{align}
+
+    \item Substitute and simplify: $2Ae^{2t} = e^{2t}$
+
+    \item Thus $A = 1/2$ and $y_p = \frac{t^2}{2}e^{2t}$
+\end{enumerate}
+\end{example}
+
+\begin{example}[Resonant Trigonometric]
+Solve: $y'' + \omega^2 y = F_0 \cos(\omega t)$
+
+\textbf{Solution:}
+\begin{enumerate}
+    \item Homogeneous: $r^2 + \omega^2 = 0 \Rightarrow r = \pm i\omega$
+
+    Thus: $y_h = c_1 \cos(\omega t) + c_2 \sin(\omega t)$
+
+    \item Resonance! Multiply by $t$: $y_p = t[A\cos(\omega t) + B\sin(\omega t)]$
+
+    \item After substitution: $A = 0$, $B = \frac{F_0}{2\omega}$
+
+    \item Solution exhibits linear growth: $y_p = \frac{F_0 t}{2\omega}\sin(\omega t)$
+\end{enumerate}
+\end{example}
+
+\section{Common Pitfalls and Tips}
+
+\begin{warning}
+Common mistakes to avoid:
+\begin{enumerate}
+    \item Forgetting lower-degree terms in polynomial trials
+    \item Omitting sine or cosine in trigonometric trials
+    \item Missing resonance when the forcing matches homogeneous solutions
+    \item Wrong multiplicity in resonance modification
+    \item Arithmetic errors in coefficient matching
+\end{enumerate}
+\end{warning}
+
+\begin{examtip}
+Prof. Ditkowski's exam strategy:
+\begin{enumerate}
+    \item Always find $y_h$ first and write it clearly
+    \item Check for resonance before writing trial solution
+    \item For mixed forcing terms, use superposition
+    \item Verify one coefficient as a check
+    \item State the general solution explicitly
+\end{enumerate}
+\end{examtip}
+
+\section{Complete Trial Solution Table}
+
+\begin{formula}
+\begin{center}
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Forcing $f(t)$} & \textbf{Char. Root?} & \textbf{Trial $y_p$} \\
+\hline
+$P_n(t)$ & $r = 0$ not a root & $A_n t^n + \cdots + A_0$ \\
+& $r = 0$ mult. $m$ & $t^m(A_n t^n + \cdots + A_0)$ \\
+\hline
+$e^{at}$ & $r = a$ not a root & $Ae^{at}$ \\
+& $r = a$ mult. $m$ & $At^m e^{at}$ \\
+\hline
+$\sin(bt), \cos(bt)$ & $r = \pm ib$ not roots & $A\cos(bt) + B\sin(bt)$ \\
+& $r = \pm ib$ mult. $m$ & $t^m[A\cos(bt) + B\sin(bt)]$ \\
+\hline
+$P_n(t)e^{at}$ & $r = a$ not a root & $(A_n t^n + \cdots + A_0)e^{at}$ \\
+& $r = a$ mult. $m$ & $t^m(A_n t^n + \cdots + A_0)e^{at}$ \\
+\hline
+$e^{at}\sin(bt)$ & $r = a \pm ib$ not roots & $e^{at}[A\cos(bt) + B\sin(bt)]$ \\
+$e^{at}\cos(bt)$ & $r = a \pm ib$ mult. $m$ & $t^m e^{at}[A\cos(bt) + B\sin(bt)]$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{formula}
+
+\end{document}
+```
+
+---
+
+## **Component 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 45: Practice Problems\\Method of Undetermined Coefficients}
+\author{ODE 1 with Prof. Adi Ditkowski}
+\date{Tel Aviv University}
+
+\begin{document}
+
+\maketitle
+
+\section*{Part A: Basic Non-Resonant Cases (5 problems)}
+
+\begin{enumerate}
+\item Solve: $y'' - 5y' + 6y = 12$
+
+\item Solve: $y'' + y' - 2y = 4t - 6$
+
+\item Solve: $y'' - 4y = 3e^{-t}$
+
+\item Solve: $y'' + 9y = 5\cos(2t)$
+
+\item Solve: $y'' - 2y' + y = t^2 + 1$
+\end{enumerate}
+
+\section*{Part B: Resonance Cases (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 4y = e^{2t}$
+
+\item Solve: $y'' + 4y = \sin(2t)$
+
+\item Solve: $y'' - 6y' + 9y = e^{3t}$
+
+\item Solve: $y'' + y = \cos(t) + \sin(t)$
+
+\item Solve: $y''' - y' = e^t$
+\end{enumerate}
+
+\section*{Part C: Products and Combinations (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 3y' + 2y = te^t$
+
+\item Solve: $y'' + 4y = e^{-t}\sin(t)$
+
+\item Solve: $y'' - y = t^2e^t$
+
+\item Solve: $y'' + 2y' + 5y = e^{-t}\cos(2t)$
+
+\item Solve: $y''' - y'' = t^2 + e^t$
+\end{enumerate}
+
+\section*{Part D: Superposition Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 4y' + 3y = 2e^t + 3e^{2t}$
+
+\item Solve: $y'' + y = t + \sin(t)$
+
+\item Solve: $y'' - y' - 6y = 8e^{3t} - 5\sin(t)$
+
+\item Solve: $y'' + 4y = 3\cos(2t) + 4\sin(3t)$
+
+\item Solve: $y''' - y' = 2t + 3e^{-t} + \cos(t)$
+\end{enumerate}
+
+\section*{Part E: Initial Value Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item Solve: $y'' - 3y' + 2y = e^{3t}$, $y(0) = 1$, $y'(0) = 2$
+
+\item Solve: $y'' + 4y = 8t$, $y(0) = 0$, $y'(0) = 1$
+
+\item Solve: $y'' + y = \sin(2t)$, $y(0) = 0$, $y'(\pi/4) = 1$
+
+\item Solve: $y'' - 4y' + 4y = t^2e^{2t}$, $y(0) = 0$, $y'(0) = 0$
+
+\item Solve: $y''' - y' = 4$, $y(0) = 0$, $y'(0) = 0$, $y''(0) = 2$
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item (Prof. Ditkowski style) Consider $y'' + 2y' + y = f(t)$.
+\begin{enumerate}[label=(\alph*)]
+    \item If $f(t) = e^{-t}$, explain why standard undetermined coefficients fails.
+    \item Find the particular solution using the modified approach.
+    \item What physical phenomenon does this represent?
+\end{enumerate}
+
+\item A mass-spring system satisfies $y'' + \omega_0^2 y = F_0\cos(\omega t)$.
+\begin{enumerate}[label=(\alph*)]
+    \item Find the general solution when $\omega \neq \omega_0$.
+    \item Find the general solution when $\omega = \omega_0$ (resonance).
+    \item Describe the behavior as $\omega \to \omega_0$.
+\end{enumerate}
+
+\item Find all values of $a$ for which $y'' - 4y' + 4y = e^{at}$ has a particular solution of the form $y_p = Ae^{at}$.
+
+\item For the equation $y'' + py' + qy = e^{rt}$, derive conditions on $p$, $q$, and $r$ that determine whether resonance occurs.
+
+\item Solve $y^{(4)} + 2y'' + y = \cos(t)$ and explain why this represents a doubly resonant system.
+\end{enumerate}
+
+\newpage
+
+\section*{Solutions}
+
+\subsection*{Part A: Basic Non-Resonant Cases}
+
+\begin{enumerate}
+\item Homogeneous: $r^2 - 5r + 6 = 0 \Rightarrow r = 2, 3$\\
+$y_h = c_1e^{2t} + c_2e^{3t}$\\
+Trial: $y_p = A$ (constant)\\
+Substitute: $6A = 12 \Rightarrow A = 2$\\
+General solution: $y = c_1e^{2t} + c_2e^{3t} + 2$
+
+\item Homogeneous: $r^2 + r - 2 = 0 \Rightarrow r = 1, -2$\\
+$y_h = c_1e^t + c_2e^{-2t}$\\
+Trial: $y_p = At + B$\\
+$y_p' = A$, $y_p'' = 0$\\
+Substitute: $0 + A - 2(At + B) = 4t - 6$\\
+$-2At + (A - 2B) = 4t - 6$\\
+$A = -2$, $B = 2$\\
+General solution: $y = c_1e^t + c_2e^{-2t} - 2t + 2$
+
+\item Homogeneous: $r^2 - 4 = 0 \Rightarrow r = \pm 2$\\
+$y_h = c_1e^{2t} + c_2e^{-2t}$\\
+Trial: $y_p = Ae^{-t}$\\
+$y_p' = -Ae^{-t}$, $y_p'' = Ae^{-t}$\\
+Substitute: $Ae^{-t} - 4Ae^{-t} = 3e^{-t}$\\
+$-3A = 3 \Rightarrow A = -1$\\
+General solution: $y = c_1e^{2t} + c_2e^{-2t} - e^{-t}$
+
+\item Homogeneous: $r^2 + 9 = 0 \Rightarrow r = \pm 3i$\\
+$y_h = c_1\cos(3t) + c_2\sin(3t)$\\
+Trial: $y_p = A\cos(2t) + B\sin(2t)$\\
+$y_p'' = -4A\cos(2t) - 4B\sin(2t)$\\
+Substitute: $5A\cos(2t) + 5B\sin(2t) = 5\cos(2t)$\\
+$A = 1$, $B = 0$\\
+General solution: $y = c_1\cos(3t) + c_2\sin(3t) + \cos(2t)$
+
+\item Homogeneous: $(r-1)^2 = 0 \Rightarrow r = 1$ (double)\\
+$y_h = (c_1 + c_2t)e^t$\\
+Trial: $y_p = At^2 + Bt + C$\\
+$y_p' = 2At + B$, $y_p'' = 2A$\\
+Substitute: $2A - 2(2At + B) + (At^2 + Bt + C) = t^2 + 1$\\
+$At^2 + (B - 4A)t + (2A - 2B + C) = t^2 + 1$\\
+$A = 1$, $B = 4$, $C = 7$\\
+General solution: $y = (c_1 + c_2t)e^t + t^2 + 4t + 7$
+\end{enumerate}
+
+\subsection*{Part B: Resonance Cases}
+
+\begin{enumerate}[resume]
+\item Homogeneous: $r = \pm 2$, so $y_h = c_1e^{2t} + c_2e^{-2t}$\\
+Resonance! Trial: $y_p = Ate^{2t}$\\
+$y_p' = Ae^{2t} + 2Ate^{2t}$\\
+$y_p'' = 4Ae^{2t} + 4Ate^{2t}$\\
+Substitute: $4Ae^{2t} = e^{2t} \Rightarrow A = 1/4$\\
+General solution: $y = c_1e^{2t} + c_2e^{-2t} + \frac{t}{4}e^{2t}$
+
+\item Homogeneous: $r = \pm 2i$, so $y_h = c_1\cos(2t) + c_2\sin(2t)$\\
+Resonance! Trial: $y_p = t[A\cos(2t) + B\sin(2t)]$\\
+After substitution: $-4A\sin(2t) + 4B\cos(2t) = \sin(2t)$\\
+$A = -1/4$, $B = 0$\\
+General solution: $y = c_1\cos(2t) + c_2\sin(2t) - \frac{t}{4}\cos(2t)$
+
+\item Homogeneous: $(r-3)^2 = 0$, so $y_h = (c_1 + c_2t)e^{3t}$\\
+Double resonance! Trial: $y_p = At^2e^{3t}$\\
+After substitution: $2Ae^{3t} = e^{3t} \Rightarrow A = 1/2$\\
+General solution: $y = (c_1 + c_2t)e^{3t} + \frac{t^2}{2}e^{3t}$
+
+\item Homogeneous: $r = \pm i$, so $y_h = c_1\cos(t) + c_2\sin(t)$\\
+Resonance! Trial: $y_p = t[A\cos(t) + B\sin(t)]$\\
+After substitution: $-2A\sin(t) + 2B\cos(t) = \cos(t) + \sin(t)$\\
+$A = -1/2$, $B = 1/2$\\
+General solution: $y = c_1\cos(t) + c_2\sin(t) + \frac{t}{2}[-\cos(t) + \sin(t)]$
+
+\item Homogeneous: $r(r^2 - 1) = 0 \Rightarrow r = 0, \pm 1$\\
+$y_h = c_1 + c_2e^t + c_3e^{-t}$\\
+Resonance at $r = 1$! Trial: $y_p = Ate^t$\\
+After substitution: $2Ae^t = e^t \Rightarrow A = 1/2$\\
+General solution: $y = c_1 + c_2e^t + c_3e^{-t} + \frac{t}{2}e^t$
+\end{enumerate}
+
+\subsection*{Part C: Products and Combinations}
+
+\begin{enumerate}[resume]
+\item Homogeneous: $r = 1, 2$, so $y_h = c_1e^t + c_2e^{2t}$\\
+Resonance! Trial: $y_p = t(At + B)e^t = (At^2 + Bt)e^t$\\
+After substitution: $A = -1$, $B = -2$\\
+General solution: $y = c_1e^t + c_2e^{2t} - t(t + 2)e^t$
+
+\item Homogeneous: $r^2 + 4 = 0 \Rightarrow r = \pm 2i$\\
+Trial: $y_p = e^{-t}[A\cos(t) + B\sin(t)]$\\
+After substitution: $A = -1/6$, $B = 1/6$\\
+General solution: $y = c_1\cos(2t) + c_2\sin(2t) + \frac{e^{-t}}{6}[-\cos(t) + \sin(t)]$
+
+\item Homogeneous: $r = \pm 1$\\
+Resonance! Trial: $y_p = t(At^2 + Bt + C)e^t$\\
+After substitution: $A = 1/6$, $B = 0$, $C = 0$\\
+General solution: $y = c_1e^t + c_2e^{-t} + \frac{t^3}{6}e^t$
+
+\item Homogeneous: $r = -1 \pm 2i$\\
+Resonance! Trial: $y_p = te^{-t}[A\cos(2t) + B\sin(2t)]$\\
+After substitution: $A = 0$, $B = 1/4$\\
+General solution: $y = e^{-t}[c_1\cos(2t) + c_2\sin(2t)] + \frac{t}{4}e^{-t}\sin(2t)$
+
+\item Homogeneous: $r^2(r - 1) = 0 \Rightarrow r = 0$ (double), $r = 1$\\
+For $t^2$: Trial $t^2(At^2 + Bt + C)$ due to double root at 0\\
+For $e^t$: Trial $Dte^t$ due to simple root at 1\\
+Combined: $y_p = At^4 + Bt^3 + Ct^2 + Dte^t$\\
+After substitution: $A = -1/12$, $B = 0$, $C = -1$, $D = -1$\\
+General solution: $y = c_1 + c_2t + c_3e^t - \frac{t^4}{12} - t^2 - te^t$
+\end{enumerate}
+
+\subsection*{Part D: Superposition Problems}
+
+\begin{enumerate}[resume]
+\item Homogeneous: $r = 1, 3$\\
+For $2e^t$: resonance, use $y_{p1} = Ate^t \Rightarrow A = -1$\\
+For $3e^{2t}$: no resonance, use $y_{p2} = Be^{2t} \Rightarrow B = -3$\\
+General solution: $y = c_1e^t + c_2e^{3t} - te^t - 3e^{2t}$
+
+\item Homogeneous: $r = \pm i$\\
+For $t$: $y_{p1} = At + B \Rightarrow A = 1, B = 0$\\
+For $\sin(t)$: resonance, $y_{p2} = t[C\cos(t) + D\sin(t)] \Rightarrow C = 0, D = -1/2$\\
+General solution: $y = c_1\cos(t) + c_2\sin(t) + t - \frac{t}{2}\sin(t)$
+
+\item Homogeneous: $r = 3, -2$\\
+For $8e^{3t}$: resonance, $y_{p1} = Ate^{3t} \Rightarrow A = 8/5$\\
+For $-5\sin(t)$: $y_{p2} = B\cos(t) + C\sin(t) \Rightarrow B = -1/2, C = 1/2$\\
+General solution: $y = c_1e^{3t} + c_2e^{-2t} + \frac{8t}{5}e^{3t} - \frac{1}{2}\cos(t) + \frac{1}{2}\sin(t)$
+
+\item Homogeneous: $r = \pm 2i$\\
+For $3\cos(2t)$: resonance, $y_{p1} = t[A\cos(2t) + B\sin(2t)] \Rightarrow A = 0, B = 3/4$\\
+For $4\sin(3t)$: $y_{p2} = C\cos(3t) + D\sin(3t) \Rightarrow C = 0, D = -4/5$\\
+General solution: $y = c_1\cos(2t) + c_2\sin(2t) + \frac{3t}{4}\sin(2t) - \frac{4}{5}\sin(3t)$
+
+\item Homogeneous: $r = 0, \pm 1$\\
+For $2t$: double resonance at 0, $y_{p1} = At^3 \Rightarrow A = -1/3$\\
+For $3e^{-t}$: resonance, $y_{p2} = Bte^{-t} \Rightarrow B = -3/2$\\
+For $\cos(t)$: $y_{p3} = C\cos(t) + D\sin(t) \Rightarrow C = -1/2, D = 0$\\
+General solution: $y = c_1 + c_2e^t + c_3e^{-t} - \frac{t^3}{3} - \frac{3t}{2}e^{-t} - \frac{1}{2}\cos(t)$
+\end{enumerate}
+
+\subsection*{Part E: Initial Value Problems}
+
+\begin{enumerate}[resume]
+\item General: $y = c_1e^t + c_2e^{2t} + e^{3t}$\\
+$y(0) = c_1 + c_2 + 1 = 1 \Rightarrow c_1 + c_2 = 0$\\
+$y'(0) = c_1 + 2c_2 + 3 = 2 \Rightarrow c_1 + 2c_2 = -1$\\
+Solving: $c_2 = -1$, $c_1 = 1$\\
+Solution: $y = e^t - e^{2t} + e^{3t}$
+
+\item General: $y = c_1\cos(2t) + c_2\sin(2t) + 2t$\\
+$y(0) = c_1 = 0$\\
+$y'(0) = 2c_2 + 2 = 1 \Rightarrow c_2 = -1/2$\\
+Solution: $y = -\frac{1}{2}\sin(2t) + 2t$
+
+\item General: $y = c_1\cos(t) + c_2\sin(t) - \frac{1}{3}\sin(2t)$\\
+$y(0) = c_1 = 0$\\
+$y'(t) = -c_1\sin(t) + c_2\cos(t) - \frac{2}{3}\cos(2t)$\\
+$y'(\pi/4) = c_2/\sqrt{2} = 1 \Rightarrow c_2 = \sqrt{2}$\\
+Solution: $y = \sqrt{2}\sin(t) - \frac{1}{3}\sin(2t)$
+
+\item General: $y = (c_1 + c_2t)e^{2t} + \frac{t^4}{12}e^{2t}$\\
+$y(0) = c_1 = 0$\\
+$y'(0) = c_2 + 2c_1 = 0 \Rightarrow c_2 = 0$\\
+Solution: $y = \frac{t^4}{12}e^{2t}$
+
+\item General: $y = c_1 + c_2e^t + c_3e^{-t} - 2t^2$\\
+$y(0) = c_1 + c_2 + c_3 = 0$\\
+$y'(0) = c_2 - c_3 = 0$\\
+$y''(0) = c_2 + c_3 - 4 = 2 \Rightarrow c_2 + c_3 = 6$\\
+Solving: $c_2 = c_3 = 3$, $c_1 = -6$\\
+Solution: $y = -6 + 3e^t + 3e^{-t} - 2t^2$
+\end{enumerate}
+
+\subsection*{Part F: Exam-Style Problems}
+
+\begin{enumerate}[resume]
+\item
+\begin{enumerate}[label=(\alph*)]
+\item $(r+1)^2 = 0$, so $r = -1$ is a double root. Standard trial $Ae^{-t}$ is already in $y_h$.
+\item Use $y_p = At^2e^{-t}$. After substitution: $A = 1/2$.
+\item This represents critical damping with resonant forcing.
+\end{enumerate}
+
+\item
+\begin{enumerate}[label=(\alph*)]
+\item Non-resonant: $y = c_1\cos(\omega_0 t) + c_2\sin(\omega_0 t) + \frac{F_0}{\omega_0^2 - \omega^2}\cos(\omega t)$
+\item Resonant: $y = c_1\cos(\omega_0 t) + c_2\sin(\omega_0 t) + \frac{F_0 t}{2\omega_0}\sin(\omega_0 t)$
+\item As $\omega \to \omega_0$, amplitude $\to \infty$ (beats phenomenon)
+\end{enumerate}
+
+\item $(r-2)^2 = 0$ gives double root at $r = 2$.\\
+$y_p = Ae^{at}$ works only if $a \neq 2$.\\
+All values except $a = 2$.
+
+\item Characteristic: $r^2 + pr + q = 0$\\
+Resonance occurs when $r$ satisfies this, i.e., $r^2 + pr + q = 0$.
+
+\item $(r^2 + 1)^2 = 0$ gives $r = \pm i$ with multiplicity 2.\\
+For $\cos(t)$: double resonance!\\
+$y_p = t^2[A\cos(t) + B\sin(t)]$\\
+After substitution: $A = 0$, $B = 1/8$\\
+$y = (c_1 + c_2t)\cos(t) + (c_3 + c_4t)\sin(t) + \frac{t^2}{8}\sin(t)$
+\end{enumerate}
+
+\end{document}
+```
+
+---
+
+## **Component 4: NotebookLM Instructions**
+
+# **NotebookLM Instructions for Lesson 45**
+
+## **How to Use These Materials**
+
+1. **Import Order**:
+   - First: Audio Lesson Script (essential for conceptual understanding)
+   - Second: Theory Document (formalize the concepts)
+   - Third: Practice Problems (apply and master)
+
+2. **Audio Generation Settings**:
+   - Style: "Problem-Solving Tutorial"
+   - Include worked examples verbally
+   - Emphasize the decision tree for choosing trial solutions
+   - Pause points before each new concept
+
+3. **Study Sequence**:
+   - **Day 1**: Audio + Theory (understand the method)
+   - **Day 2**: Parts A-B (basic and resonance)
+   - **Day 3**: Parts C-D (products and superposition)
+   - **Day 4**: Parts E-F (IVPs and exam problems)
+
+## **Core Algorithm to Master**
+
+### The UC Method Decision Tree:
+```
+1. Find homogeneous solution y_h
+2. Identify f(t) type
+3. Write standard trial solution
+4. Check: Does trial appear in y_h?
+   - No → Use standard trial
+   - Yes → Multiply by t^m (m = multiplicity)
+5. Substitute and solve for coefficients
+6. Combine: y = y_h + y_p
+```
+
+## **Trial Solution Quick Reference**
+
+Create flashcards for each:
+
+| f(t) Type | Standard Trial | If Resonant (mult. m) |
+|-----------|---------------|------------------------|
+| Constant k | A | At^m |
+| Polynomial P_n(t) | A_n t^n + ... + A_0 | t^m(A_n t^n + ... + A_0) |
+| e^(at) | Ae^(at) | At^m e^(at) |
+| sin(bt) or cos(bt) | A cos(bt) + B sin(bt) | t^m[A cos(bt) + B sin(bt)] |
+| P_n(t)e^(at) | (A_n t^n + ... + A_0)e^(at) | t^m(A_n t^n + ... + A_0)e^(at) |
+
+## **Common Mistakes Checklist**
+
+Before solving any problem:
+- [ ] Found ALL roots of characteristic equation?
+- [ ] Identified ALL terms in f(t)?
+- [ ] Included BOTH sin and cos for trig forcing?
+- [ ] Included ALL polynomial degrees (not just highest)?
+- [ ] Checked for resonance?
+- [ ] Applied correct multiplicity for resonance?
+
+## **Practice Problem Strategy by Part**
+
+### Part A (Basic Non-Resonant):
+- Straightforward application
+- Focus on coefficient matching technique
+- Verify at least one coefficient as a check
+
+### Part B (Resonance):
+- ALWAYS check if trial is in y_h first
+- Count multiplicity carefully
+- Remember: t^m where m is the multiplicity
+
+### Part C (Products):
+- Products need complete polynomial sets
+- e^(at)sin(bt) needs BOTH trig functions
+- Check resonance for the exponential part
+
+### Part D (Superposition):
+- Handle each term separately
+- Add all particular solutions
+- Watch for different types of resonance
+
+### Part E (IVPs):
+- Find general solution first
+- Apply conditions to full solution
+- Check: Does solution satisfy both ODE and ICs?
+
+### Part F (Theory/Exam):
+- These test deep understanding
+- Physical interpretation matters
+- Prof. Ditkowski loves resonance questions
+
+## **Memory Techniques**
+
+### "The Three Questions":
+1. What's the form? (polynomial, exp, trig, product)
+2. Is it resonant? (check against y_h)
+3. What's the multiplicity? (for resonance modification)
+
+### "PEST" for forcing types:
+- **P**olynomial
+- **E**xponential
+- **S**ine/Cosine
+- **T**heir products
+
+### Resonance Rhyme:
+"If your guess is in y_h,
+Multiply by t to the m-th"
+
+## **Physical Interpretation**
+
+Ask NotebookLM to explain:
+- Non-resonant: Steady-state response at forcing frequency
+- Resonant: Linear growth (dangerous in real systems!)
+- Damped resonance: Eventually bounded but large transient
+
+## **Connections to Other Lessons**
+
+### From Previous:
+- Lesson 43: Provides y_h (characteristic equation)
+- Lesson 44: Explains why t^m appears in resonance
+
+### To Next:
+- Lesson 46: Reduction of order (theoretical foundation)
+- Lesson 47: Euler equations (different coefficient type)
+- Future: Variation of parameters (when UC fails)
+
+## **Speed Techniques for Exams**
+
+1. **Quick Resonance Check**:
+   - Write characteristic roots first
+   - Circle any that match forcing exponentials
+   - Box any that match forcing frequencies
+
+2. **Coefficient Matching**:
+   - Set up equations systematically
+   - Use matrix form for multiple unknowns
+   - Check easiest coefficient first
+
+3. **Superposition Shortcut**:
+   - Number each f(t) term
+   - Write y_p = y_p1 + y_p2 + ...
+   - Solve each independently
+
+## **Interactive NotebookLM Features**
+
+1. **Generate practice with variations**:
+   - "Give me 5 problems like Part B #7 but with different roots"
+   - "Create resonance problems with triple roots"
+   - "Mix polynomial and exponential forcing"
+
+2. **Concept checks**:
+   - "Why do we need both sin and cos?"
+   - "Explain resonance physically"
+   - "When does UC method fail?"
+
+3. **Solution verification**:
+   - "Check if y = ... satisfies the ODE"
+   - "Verify my coefficient matching"
+   - "Is this the correct trial solution?"
+
+## **Study Time Allocation**
+
+- Understanding the method: 1.5 hours
+- Audio lesson + theory: 1.5 hours
+- Practice A-B (basic + resonance): 2 hours
+- Practice C-D (products + superposition): 2 hours
+- Practice E-F (IVPs + exam): 2 hours
+- Review and synthesis: 1 hour
+- **Total: 10 hours**
+
+## **Exam Strategy Specific to UC**
+
+1. **Time-saving order**:
+   - Write y_h immediately
+   - Identify f(t) type
+   - Check resonance
+   - Write trial (with modifications if needed)
+   - Set up coefficient equations
+   - Solve systematically
+
+2. **Partial credit strategy**:
+   - Always write the correct trial form (even if you can't solve)
+   - Show resonance check explicitly
+   - Set up coefficient matching equations
+   - State general solution form
+
+3. **Common exam tricks**:
+   - f(t) = sin(ωt) where ω matches natural frequency
+   - Hidden resonance in product terms
+   - Multiple resonances in superposition
+
+## **Advanced Questions for Understanding**
+
+Ask NotebookLM:
+1. Why does UC fail for f(t) = tan(t)?
+2. How does resonance relate to eigenvalues?
+3. What's the connection to Fourier series?
+4. Why is superposition valid only for linear ODEs?
+5. How does this extend to systems of ODEs?
+
+## **Key Formula Sheet Items**
+
+Must memorize:
+- Standard trial forms (the table)
+- Resonance modification: multiply by t^m
+- Superposition principle
+- Common derivatives of products
+
+## **Final Mastery Check**
+
+You've mastered UC when you can:
+- [ ] Identify trial solution in < 10 seconds
+- [ ] Spot resonance immediately
+- [ ] Set up coefficient equations without errors
+- [ ] Handle 3+ term superposition confidently
+- [ ] Explain physical meaning of resonance
+
+## **Most Important Takeaway**
+
+Undetermined Coefficients is algorithmic:
+1. It ALWAYS works for PEST functions
+2. Resonance is handled by multiplying by t^m
+3. Superposition makes complex problems simple
+4. It's faster than variation of parameters when applicable
+
+Master this method - it's 40% of Prof. Ditkowski's non-homogeneous ODE problems!
+
+---
+
+**Lesson 45 complete. Request 'Generate Lesson 46' for the next lesson in Block 12.**

@@ -1,0 +1,518 @@
+# **Lesson 48: Power Series Solutions - Ordinary Points**
+
+## **1. Audio Lesson Script**
+
+Hey there! So basically, we've reached a really fascinating part of ODEs - what do we do when our usual methods just... don't work? You know how we've been solving linear ODEs with constant coefficients, finding nice exponential solutions? Well, here's the thing - most ODEs in the real world don't have these neat closed-form solutions. But don't worry! Today, I'm going to show you an incredibly powerful technique: power series solutions.
+
+Let me paint you a picture. Imagine you're trying to solve y'' + xy = 0. This is called the Airy equation, and it shows up everywhere in physics - quantum mechanics, optics, you name it. Try solving this with our usual methods... yeah, doesn't work, right? There's no combination of exponentials, sines, or cosines that satisfies this. That's where power series come in!
+
+Here's the key insight: even though we can't write the solution in terms of elementary functions, we CAN express it as an infinite series. Think of it like this - remember Taylor series from calculus? We're basically saying "Hey, the solution is some function that has a Taylor series, so let's assume y = a₀ + a₁x + a₂x² + a₃x³ + ..." and then figure out what those coefficients need to be.
+
+Now, when can we use this method? We need what's called an **ordinary point**. For a second-order ODE in standard form:
+y'' + p(x)y' + q(x)y = 0
+
+The point x = x₀ is ordinary if both p(x) and q(x) are analytic at x₀ - meaning they have convergent power series there. If either p or q blows up or has other bad behavior, that's a singular point, and we need different methods (that's next lesson!).
+
+Let me walk you through the method with a concrete example. Consider:
+y'' - 2xy' + 4y = 0
+
+First, check x = 0: both p(x) = -2x and q(x) = 4 are perfectly nice at x = 0, so it's an ordinary point. Great!
+
+Step 1: Assume the solution has the form y = Σ(n=0 to ∞) aₙxⁿ
+
+Step 2: Find the derivatives:
+- y' = Σ(n=1 to ∞) naₙxⁿ⁻¹
+- y'' = Σ(n=2 to ∞) n(n-1)aₙxⁿ⁻²
+
+Step 3: Substitute into the ODE. Here's where it gets interesting! We get:
+Σ(n=2 to ∞) n(n-1)aₙxⁿ⁻² - 2x·Σ(n=1 to ∞) naₙxⁿ⁻¹ + 4·Σ(n=0 to ∞) aₙxⁿ = 0
+
+Step 4: Now here's the tricky part - index shifting! We need all terms to have the same power of x. For the first sum, let m = n-2, so n = m+2:
+Σ(m=0 to ∞) (m+2)(m+1)aₘ₊₂xᵐ
+
+For the middle term, that x multiplies the sum, giving:
+-2Σ(n=1 to ∞) naₙxⁿ
+
+See what I'm doing? We're aligning all the powers of x so we can combine terms.
+
+Step 5: After combining and setting coefficients of each power of x to zero, we get a **recurrence relation**:
+(n+2)(n+1)aₙ₊₂ - 2naₙ + 4aₙ = 0
+
+Solving for aₙ₊₂:
+aₙ₊₂ = (2n-4)aₙ / [(n+2)(n+1)]
+
+This is golden! This relation lets us find all coefficients in terms of a₀ and a₁ (which come from initial conditions).
+
+Let's compute a few:
+- n=0: a₂ = -4a₀/(2·1) = -2a₀
+- n=1: a₃ = -2a₁/(3·2) = -a₁/3
+- n=2: a₄ = 0·a₂/(4·3) = 0
+- n=3: a₅ = 2a₃/(5·4) = -a₁/30
+
+Notice something cool? All even coefficients after a₄ are zero! The solution splits into two independent parts - one with even powers (related to a₀) and one with odd powers (related to a₁).
+
+Here's a common mistake students make: forgetting to shift indices properly. Always, ALWAYS check that your indices match up correctly. Prof. Ditkowski loves testing this - he'll give you an ODE where the index shifting is slightly tricky, and if you mess it up, your whole recurrence relation is wrong.
+
+Another exam tip: You usually only need to find the first 3-4 non-zero coefficients. Don't waste time computing 10 terms unless specifically asked!
+
+For convergence, here's the key theorem: if x₀ is an ordinary point, the series solution converges at least in |x-x₀| < R, where R is the distance to the nearest singular point in the complex plane. For our example, since there are no singular points, the series converges everywhere!
+
+One more quick example - the Hermite equation: y'' - 2xy' + 2ny = 0. This appears in quantum mechanics for the harmonic oscillator. Using our method, you'd find that when n is a non-negative integer, one solution becomes a polynomial - these are the famous Hermite polynomials!
+
+So basically, power series methods turn unsolvable ODEs into a systematic process: assume a series, substitute, shift indices, find recurrence relations, compute coefficients. It's like building the solution piece by piece. Remember - this works for ordinary points. Next lesson, we'll tackle the trickier case of singular points with the Frobenius method!
+
+## **2. LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{algorithm2e}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=cyan,linewidth=2pt]{series}
+
+\title{Lesson 48: Power Series Solutions at Ordinary Points}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction and Motivation}
+
+Many important ODEs cannot be solved in terms of elementary functions. Power series methods provide systematic approaches to find solutions as infinite series.
+
+\begin{definition}[Ordinary and Singular Points]
+For the ODE in standard form:
+$$y'' + p(x)y' + q(x)y = 0$$
+\begin{itemize}
+\item $x = x_0$ is an \textbf{ordinary point} if both $p(x)$ and $q(x)$ are analytic at $x_0$
+\item $x = x_0$ is a \textbf{singular point} if either $p(x)$ or $q(x)$ is not analytic at $x_0$
+\end{itemize}
+\end{definition}
+
+\begin{keypoint}
+At ordinary points, we can always find two linearly independent power series solutions of the form:
+$$y = \sum_{n=0}^{\infty} a_n(x-x_0)^n$$
+\end{keypoint}
+
+\section{The Power Series Method}
+
+\begin{method}[Power Series Solution Procedure]
+\begin{enumerate}
+\item Verify that $x_0$ is an ordinary point
+\item Assume: $y = \sum_{n=0}^{\infty} a_n(x-x_0)^n$
+\item Compute derivatives:
+$$y' = \sum_{n=1}^{\infty} na_n(x-x_0)^{n-1}, \quad y'' = \sum_{n=2}^{\infty} n(n-1)a_n(x-x_0)^{n-2}$$
+\item Substitute into the ODE
+\item Shift indices to align powers of $(x-x_0)$
+\item Equate coefficients of like powers to zero
+\item Solve the resulting recurrence relation
+\item Express $a_n$ in terms of $a_0$ and $a_1$
+\end{enumerate}
+\end{method}
+
+\begin{warning}
+Index shifting is crucial! When you have $(x-x_0)^{n-2}$, substitute $m = n-2$ so $n = m+2$:
+$$\sum_{n=2}^{\infty} f(n)(x-x_0)^{n-2} = \sum_{m=0}^{\infty} f(m+2)(x-x_0)^m$$
+\end{warning}
+
+\section{Convergence Theory}
+
+\begin{theorem}[Convergence of Power Series Solutions]
+If $x_0$ is an ordinary point of $y'' + p(x)y' + q(x)y = 0$, then there exist two linearly independent solutions:
+$$y_1 = \sum_{n=0}^{\infty} a_n(x-x_0)^n, \quad y_2 = \sum_{n=0}^{\infty} b_n(x-x_0)^n$$
+convergent in $|x-x_0| < R$, where $R$ is at least the distance from $x_0$ to the nearest singular point in the complex plane.
+\end{theorem}
+
+\begin{insight}
+The radius of convergence is determined by singularities in the complex plane, even if the real line looks fine!
+\end{insight}
+
+\section{Key Examples}
+
+\subsection{Example 1: Airy Equation}
+$$y'' - xy = 0$$
+\begin{series}
+Solution around $x = 0$ (ordinary point):
+\begin{align}
+y &= a_0\left(1 + \frac{x^3}{2\cdot 3} + \frac{x^6}{2\cdot 3 \cdot 5 \cdot 6} + \cdots\right) \\
+&\quad + a_1\left(x + \frac{x^4}{3\cdot 4} + \frac{x^7}{3\cdot 4 \cdot 6 \cdot 7} + \cdots\right)
+\end{align}
+Recurrence: $(n+2)(n+1)a_{n+2} = a_{n-1}$ for $n \geq 1$
+\end{series}
+
+\subsection{Example 2: Hermite Equation}
+$$y'' - 2xy' + 2\lambda y = 0$$
+
+\begin{examtip}
+When $\lambda = n$ (non-negative integer), one solution becomes a polynomial - the Hermite polynomial $H_n(x)$.
+\end{examtip}
+
+\section{Common Recurrence Relations}
+
+\begin{center}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Equation} & \textbf{Recurrence Relation} & \textbf{Special Property} \\
+\hline
+$y'' - xy = 0$ (Airy) & $(n+2)(n+1)a_{n+2} = a_{n-1}$ & 3-term recurrence \\
+\hline
+$y'' - 2xy' + 2ny = 0$ & $(n+2)(n+1)a_{n+2} = 2(n-k)a_n$ & Terminates if $k \in \mathbb{N}$ \\
+\hline
+$(1-x^2)y'' - 2xy' + n(n+1)y = 0$ & Complex & Legendre polynomials \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Algorithm for Finding Recurrence Relations}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwIn{ODE with ordinary point at $x_0$}
+\KwOut{Recurrence relation for coefficients}
+Write ODE in standard form\;
+Substitute $y = \sum a_n(x-x_0)^n$\;
+Compute $y'$ and $y''$ term by term\;
+Substitute all series into ODE\;
+\For{each summation}{
+    Shift index so all have $(x-x_0)^m$\;
+}
+Combine all terms with same power\;
+Set coefficient of each $(x-x_0)^m$ to zero\;
+Solve for highest index coefficient\;
+\caption{Power Series Method}
+\end{algorithm}
+
+\section{Exam Strategy}
+
+\begin{examtip}
+Prof. Ditkowski's typical power series problem:
+\begin{enumerate}
+\item Identify all singular points (1-2 points)
+\item Find recurrence relation (3-4 points)
+\item Compute first 3-4 non-zero terms (2-3 points)
+\item State radius of convergence (1 point)
+\end{enumerate}
+Total: 7-10 points out of 100
+\end{examtip}
+
+\begin{warning}
+Common errors that cost points:
+\begin{itemize}
+\item Wrong index shifting (lose 2-3 points)
+\item Sign errors in recurrence (lose 1-2 points)
+\item Not simplifying coefficients (lose 1 point)
+\item Forgetting initial conditions determine $a_0, a_1$ (lose 1 point)
+\end{itemize}
+\end{warning}
+
+\end{document}
+```
+
+## **3. LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 48: Practice Problems - Power Series Solutions}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Identifying Ordinary Points (6 problems)}
+
+\begin{enumerate}
+\item Classify all points as ordinary or singular for:
+$$y'' + \frac{1}{x}y' + y = 0$$
+
+\item For the equation $(x^2-4)y'' + xy' + y = 0$, identify all singular points and classify them.
+
+\item Show that $x = 0$ is an ordinary point of:
+$$y'' + e^x y' + \sin(x) y = 0$$
+
+\item Determine the ordinary points of:
+$$y'' + \frac{2x}{1-x^2}y' + \frac{1}{1-x^2}y = 0$$
+
+\item For Bessel's equation $x^2y'' + xy' + (x^2-n^2)y = 0$, explain why $x = 0$ is NOT an ordinary point.
+
+\item Find all ordinary points in the complex plane for:
+$$y'' + \frac{1}{x^2+1}y = 0$$
+\end{enumerate}
+
+\section*{Part B: Setting Up Power Series (6 problems)}
+
+\begin{enumerate}[resume]
+\item Set up (but don't solve) the power series solution around $x = 0$ for:
+$$y'' - xy' + 2y = 0$$
+
+\item Write the first four terms of $y$, $y'$, and $y''$ if:
+$$y = \sum_{n=0}^{\infty} a_n x^n$$
+
+\item Express $xy'$ and $x^2y''$ in summation form if $y = \sum_{n=0}^{\infty} a_n x^n$.
+
+\item For the series $y = \sum_{n=0}^{\infty} a_n(x-1)^n$, write $y''$ and $(x-1)y'$ in summation notation.
+
+\item Show how to shift indices to combine:
+$$\sum_{n=2}^{\infty} n(n-1)a_n x^{n-2} + \sum_{n=0}^{\infty} a_n x^n$$
+
+\item Rewrite with common powers of $x$:
+$$\sum_{n=3}^{\infty} a_n x^{n-3} - 2\sum_{n=1}^{\infty} na_n x^{n+1}$$
+\end{enumerate}
+
+\section*{Part C: Finding Recurrence Relations (5 problems)}
+
+\begin{enumerate}[resume]
+\item Find the recurrence relation for:
+$$y'' + xy = 0$$
+
+\item Derive the recurrence relation for:
+$$y'' - 2xy' + 4y = 0$$
+
+\item Find the recurrence for the Hermite equation:
+$$y'' - 2xy' + 6y = 0$$
+
+\item Determine the recurrence relation for:
+$$(1+x)y'' + y' - y = 0$$ around $x = 0$.
+
+\item Find the three-term recurrence for:
+$$y'' + xy' + y = 0$$
+\end{enumerate}
+
+\section*{Part D: Computing Series Coefficients (5 problems)}
+
+\begin{enumerate}[resume]
+\item Given $y'' - xy = 0$ with $y(0) = 1$, $y'(0) = 0$, find $a_0$ through $a_6$.
+
+\item For $y'' + y = 0$ with initial conditions $y(0) = 1$, $y'(0) = 1$, compute the first 5 non-zero terms and identify the solution.
+
+\item Solve $y'' - 2xy' + 4y = 0$ with $y(0) = 2$, $y'(0) = 0$. Find coefficients up to $x^4$.
+
+\item For the Airy equation $y'' - xy = 0$, express $a_6$ and $a_7$ in terms of $a_0$ and $a_1$.
+
+\item Given the recurrence $a_{n+2} = \frac{n-2}{(n+2)(n+1)}a_n$ with $a_0 = 1$, $a_1 = 0$, find which coefficients are zero.
+\end{enumerate}
+
+\section*{Part E: Convergence Analysis (3 problems)}
+
+\begin{enumerate}[resume]
+\item Find the radius of convergence for the series solution of:
+$$y'' + \frac{1}{x^2-1}y = 0$$ around $x = 0$.
+
+\item Determine the convergence region for:
+$$(x^2+2x+5)y'' + xy' + y = 0$$ around $x = 0$.
+
+\item Explain why the series solution of $y'' + y = 0$ around any point converges everywhere.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[10 points]} Consider the equation:
+$$y'' - 2xy' + (\lambda - 1)y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Verify that $x = 0$ is an ordinary point
+\item [4 pts] Find the recurrence relation
+\item [3 pts] Find the first four non-zero terms when $\lambda = 5$
+\item [1 pt] What is the radius of convergence?
+\end{enumerate}
+
+\item \textbf{[8 points]} For the modified Airy equation:
+$$y'' + (x-1)y = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find the recurrence relation for solutions around $x = 1$
+\item [3 pts] Express $a_3, a_4, a_5$ in terms of $a_0$ and $a_1$
+\item [2 pts] Which pattern do you observe?
+\end{enumerate}
+
+\item \textbf{[9 points]} Solve using power series:
+$$y'' + x^2y = 0, \quad y(0) = 1, \quad y'(0) = -1$$
+Find coefficients through $x^6$.
+
+\item \textbf{[7 points]} The equation $y'' - 2xy' + 2ny = 0$ has polynomial solutions when $n \in \mathbb{N}$.
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Find the recurrence relation
+\item [2 pts] Show that $a_{n+1} = 0$ when $n$ is a positive integer
+\item [2 pts] Find the polynomial solution for $n = 3$
+\end{enumerate}
+
+\item \textbf{[10 points]} \textit{Challenge - Prof. Ditkowski Special}
+Consider: $(1-x^2)y'' - xy' + \alpha^2 y = 0$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Find all singular points
+\item [3 pts] Derive the recurrence around $x = 0$
+\item [3 pts] Show the series has only even or odd powers
+\item [2 pts] Find radius of convergence
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:} $x = 0$ is a singular point (p(x) = 1/x not analytic at 0)
+
+\textbf{Problem 13:} Recurrence: $(n+2)(n+1)a_{n+2} + a_n = 0$, so $a_{n+2} = -\frac{a_n}{(n+2)(n+1)}$
+
+\textbf{Problem 18:} With $y(0) = 1, y'(0) = 0$: $a_0 = 1, a_1 = 0, a_2 = 0, a_3 = 1/6, a_4 = 0, a_5 = 0, a_6 = 1/180$
+
+\textbf{Problem 23:} Radius = 1 (singular points at $x = \pm 1$)
+
+\textbf{Key Insight for Problem 28:} When $(1-x^2)$ appears, expect Legendre-type behavior with $R = 1$.
+
+\end{document}
+```
+
+## **4. NotebookLM Instructions**
+
+```markdown
+# NotebookLM Instructions for Lesson 48
+
+## How to Use These Materials
+
+### Initial Setup
+1. Create a new NotebookLM notebook titled "ODE Lesson 48 - Power Series"
+2. Upload the audio script as "Lesson48_Audio.txt"
+3. Upload the theory document as "Lesson48_Theory.pdf" (after LaTeX compilation)
+4. Upload the practice problems as "Lesson48_Problems.pdf"
+
+### Audio Generation Settings
+- Select conversational, educational tone
+- Enable mathematical terminology pronunciation
+- Set pace to moderate (allow time for concept absorption)
+- Include emphasis on:
+  - "Ordinary point" vs "singular point"
+  - "Recurrence relation"
+  - "Index shifting"
+  - "Convergence radius"
+
+### Study Sequence Recommendations
+
+#### Phase 1: Foundation (1.5 hours)
+1. Listen to audio lesson once without notes
+2. Read Theory Sections 1-2
+3. Re-listen to audio while following Theory document
+4. Make note cards for definitions
+
+#### Phase 2: Method Mastery (2 hours)
+1. Work through Theory Section 3 examples by hand
+2. Practice Problems Part A (identifying points)
+3. Practice Problems Part B (series setup)
+4. Create your own index-shifting reference sheet
+
+#### Phase 3: Problem Solving (2 hours)
+1. Complete Problems Part C (recurrence relations)
+2. Complete Problems Part D (computing coefficients)
+3. Check solutions and identify error patterns
+4. Review audio tips for common mistakes
+
+#### Phase 4: Exam Preparation (1.5 hours)
+1. Complete Part F exam-style problems under time pressure
+2. Review Theory document exam tips
+3. Create a one-page formula sheet
+4. Practice explaining the method verbally
+
+### Integration with Computational Tools
+
+#### Wolfram Alpha Commands:
+```
+"power series solution y'' - xy = 0"
+"series expansion of Airy function"
+"recurrence relation calculator"
+```
+
+#### Python/SymPy verification:
+```python
+from sympy import *
+x = symbols('x')
+y = Function('y')
+
+# Define ODE
+ode = Eq(y(x).diff(x, 2) - x*y(x), 0)
+
+# Get series solution
+series_sol = dsolve(ode, y(x), hint='2nd_power_series_ordinary')
+```
+
+#### MATLAB verification:
+```matlab
+syms y(x) a0 a1
+ode = diff(y,x,2) - x*y == 0;
+conds = [y(0) == a0, subs(diff(y,x),x,0) == a1];
+ySol = dsolve(ode, conds);
+taylor(ySol, x, 'Order', 10)
+```
+
+### Common Student Questions
+
+**Q: "How do I know when to use power series vs other methods?"**
+A: Check if you can solve with characteristic equations first. If the coefficients aren't constant or the equation doesn't fit standard forms, try power series.
+
+**Q: "What if I get stuck on index shifting?"**
+A: Write out the first few terms explicitly! Don't just work with summation notation. See what power of x each term gives.
+
+**Q: "How many terms should I compute?"**
+A: For Prof. Ditkowski's exam: usually 3-4 non-zero terms. The problem will specify if more are needed.
+
+### Memory Aids
+
+**OSCAR Method for Power Series:**
+- **O**rdinary point check
+- **S**eries substitution
+- **C**ombine and shift indices
+- **A**lign powers of x
+- **R**ecurrence relation
+
+**Index Shifting Mantra:**
+"When n-2 becomes m, then n becomes m+2"
+"The sum limits shift opposite to the index"
+
+### Quick Reference Card
+
+| Step | Action | Common Error |
+|------|--------|--------------|
+| 1 | Check ordinary point | Forgetting complex singularities |
+| 2 | Set up series | Wrong starting index |
+| 3 | Differentiate | Dropping first terms |
+| 4 | Substitute | Sign errors |
+| 5 | Shift indices | Incorrect new limits |
+| 6 | Find recurrence | Not isolating highest index |
+| 7 | Compute coefficients | Arithmetic mistakes |
+
+### Links to Other Lessons
+- Previous: Lesson 47 (Laplace for systems)
+- Next: Lesson 49 (Frobenius method)
+- Related: Calculus II Taylor series
+- Applications: Quantum mechanics, special functions
+
+### Time-Saving Exam Tips
+1. If recurrence has pattern, state it instead of computing many terms
+2. For convergence, just find nearest singular point
+3. Check n=0,1,2 cases separately if general recurrence is complex
+4. Remember: Hermite → polynomial when n ∈ ℕ
+5. Airy equation → 3-term recurrence (pattern repeats every 3)
+
+### Professor-Specific Notes
+- Prof. Ditkowski likes testing index shifting
+- Often includes one "recognize the special function" problem
+- Partial credit given for correct recurrence even if coefficients wrong
+- Always state convergence radius, even if "obvious"
+```
+
+---
+
+**Lesson 48 complete. Request 'Generate Lesson 49' for the next lesson in Block 13.**

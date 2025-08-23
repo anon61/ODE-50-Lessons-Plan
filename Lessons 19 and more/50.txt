@@ -1,0 +1,826 @@
+# **Lesson 50: Numerical Methods - Euler, RK, and Stability**
+
+## **1. Audio Lesson Script**
+
+Alright, so we've covered series solutions for when we can't find closed-form solutions. But here's the reality check - even series solutions can be impractical! What if you need the solution at x = 100? You're not going to compute 100 terms of a series! That's where numerical methods come in. These are the workhorses of real-world ODE solving.
+
+Let me give you the big picture. When engineers design aircraft, when meteorologists predict weather, when biologists model populations - they're using numerical methods. The idea is simple but powerful: instead of finding y(x) as a formula, we approximate it at discrete points: y₀, y₁, y₂, ... separated by a step size h.
+
+Let's start with the simplest method - Euler's method. Consider the IVP:
+y' = f(x,y), y(x₀) = y₀
+
+Here's the key insight: from calculus, y'(x₀) ≈ [y(x₀+h) - y(x₀)]/h for small h. Rearranging:
+y(x₀+h) ≈ y(x₀) + h·y'(x₀) = y₀ + h·f(x₀,y₀)
+
+This gives us Euler's formula:
+yₙ₊₁ = yₙ + h·f(xₙ,yₙ)
+
+Let me show you with a concrete example. Solve y' = x + y, y(0) = 1 on [0,1] with h = 0.25.
+
+- Start: x₀ = 0, y₀ = 1
+- Step 1: y₁ = y₀ + h(x₀ + y₀) = 1 + 0.25(0 + 1) = 1.25
+- Step 2: y₂ = y₁ + h(x₁ + y₁) = 1.25 + 0.25(0.25 + 1.25) = 1.625
+- Step 3: y₃ = y₂ + h(x₂ + y₂) = 1.625 + 0.25(0.5 + 1.625) = 2.156
+- Step 4: y₄ = y₃ + h(x₃ + y₃) = 2.156 + 0.25(0.75 + 2.156) = 2.883
+
+The exact solution is y = 2e^x - x - 1, so y(1) = 2e - 2 ≈ 3.437. Our approximation gives 2.883. Not great, right? That's because Euler has local truncation error O(h²) and global error O(h).
+
+Now, here's where it gets interesting - improved methods! The problem with Euler is we're using the slope at the beginning of the interval for the whole step. What if we're smarter about it?
+
+Improved Euler (Heun's method) uses the average of slopes at the beginning and end:
+- Predict: ỹₙ₊₁ = yₙ + h·f(xₙ,yₙ)
+- Correct: yₙ₊₁ = yₙ + (h/2)[f(xₙ,yₙ) + f(xₙ₊₁,ỹₙ₊₁)]
+
+This is a second-order method - local error O(h³), global error O(h²). Much better!
+
+But the crown jewel is the fourth-order Runge-Kutta (RK4). This is what Prof. Ditkowski really wants you to understand:
+
+k₁ = h·f(xₙ, yₙ)
+k₂ = h·f(xₙ + h/2, yₙ + k₁/2)
+k₃ = h·f(xₙ + h/2, yₙ + k₂/2)
+k₄ = h·f(xₙ + h, yₙ + k₃)
+
+yₙ₊₁ = yₙ + (k₁ + 2k₂ + 2k₃ + k₄)/6
+
+The idea is genius - we sample the slope at the beginning (k₁), twice at the midpoint (k₂, k₃), and once at the end (k₄), then take a weighted average. The weights 1-2-2-1 are carefully chosen to cancel error terms up to O(h⁴).
+
+Let's apply RK4 to our example with h = 0.5 (just two steps):
+Step 1: x₀ = 0, y₀ = 1
+- k₁ = 0.5(0 + 1) = 0.5
+- k₂ = 0.5(0.25 + 1.25) = 0.75
+- k₃ = 0.5(0.25 + 1.375) = 0.8125
+- k₄ = 0.5(0.5 + 1.8125) = 1.156
+- y₁ = 1 + (0.5 + 1.5 + 1.625 + 1.156)/6 = 1.797
+
+Already with just h = 0.5, RK4 is more accurate than Euler with h = 0.25!
+
+Now, here's a crucial concept for exams - stability. Consider y' = λy where λ < 0 (decay problem). The exact solution decays to zero. But what about numerical solutions?
+
+For Euler: yₙ₊₁ = yₙ + hλyₙ = (1 + hλ)yₙ
+
+This is a geometric sequence! It decays only if |1 + hλ| < 1. This means:
+-2 < hλ < 0
+
+So for stability, we need h < 2/|λ|. If λ = -100 (stiff equation), we need h < 0.02. Tiny steps!
+
+Here's the key insight about stiff equations: they have widely different time scales. Think of a chemical reaction with both fast and slow components. The fast component forces tiny time steps even after it's essentially died out. That's inefficiency!
+
+RK4 has a larger stability region than Euler, but for very stiff problems, we need implicit methods like backward Euler:
+yₙ₊₁ = yₙ + h·f(xₙ₊₁,yₙ₊₁)
+
+This requires solving an equation at each step (often with Newton's method), but it's unconditionally stable for decay problems!
+
+Common exam mistakes to avoid:
+1. Forgetting that k₂ and k₃ use the MIDPOINT xₙ + h/2
+2. Using yₙ instead of yₙ + k₁/2 in computing k₂
+3. Wrong weights in RK4 (remember: 1-2-2-1, divide by 6)
+4. Confusing local error (one step) with global error (accumulated)
+
+Prof. Ditkowski usually asks conceptual questions: "Why is RK4 more accurate than Euler?" Answer: It uses information about the derivative at multiple points within each step, achieving higher-order accuracy.
+
+Or: "When would you choose implicit over explicit methods?" Answer: For stiff equations where stability requirements would force extremely small steps in explicit methods.
+
+Another favorite: "What's the trade-off in choosing step size h?" Answer: Smaller h means better accuracy but more computational work and potentially more round-off error accumulation.
+
+So basically, numerical methods turn ODEs into iteration formulas. Euler is simple but crude, RK4 is the workhorse for non-stiff problems, and implicit methods handle stiff equations. Master these three, understand stability, and you're set for any numerical ODE question!
+
+## **2. LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{algorithm2e}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{stability}
+
+\title{Lesson 50: Numerical Methods for ODEs}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction to Numerical Methods}
+
+\begin{definition}[Numerical Solution]
+A numerical solution to the IVP $y' = f(x,y)$, $y(x_0) = y_0$ is a sequence of approximations:
+$$(x_0, y_0), (x_1, y_1), \ldots, (x_n, y_n)$$
+where $y_i \approx y(x_i)$ and $x_{i+1} = x_i + h$ (step size).
+\end{definition}
+
+\begin{keypoint}
+Numerical methods trade analytical exactness for computational practicality, providing approximate solutions at discrete points.
+\end{keypoint}
+
+\section{Euler's Method}
+
+\begin{method}[Forward Euler]
+$$y_{n+1} = y_n + hf(x_n, y_n)$$
+\begin{itemize}
+\item Order: 1
+\item Local truncation error: $O(h^2)$
+\item Global error: $O(h)$
+\item Stability: Conditionally stable
+\item Function evaluations per step: 1
+\end{itemize}
+\end{method}
+
+\begin{insight}
+Euler's method is the Taylor series $y(x+h) \approx y(x) + hy'(x)$ truncated after the linear term.
+\end{insight}
+
+\section{Runge-Kutta Methods}
+
+\subsection{Second-Order Methods}
+
+\begin{method}[Improved Euler (Heun's Method)]
+\begin{align}
+k_1 &= f(x_n, y_n) \\
+k_2 &= f(x_n + h, y_n + hk_1) \\
+y_{n+1} &= y_n + \frac{h}{2}(k_1 + k_2)
+\end{align}
+\end{method}
+
+\begin{method}[Midpoint Method (RK2)]
+\begin{align}
+k_1 &= f(x_n, y_n) \\
+k_2 &= f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_1) \\
+y_{n+1} &= y_n + hk_2
+\end{align}
+\end{method}
+
+\subsection{Fourth-Order Runge-Kutta (RK4)}
+
+\begin{method}[Classical RK4]
+\begin{align}
+k_1 &= f(x_n, y_n) \\
+k_2 &= f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_1) \\
+k_3 &= f(x_n + \frac{h}{2}, y_n + \frac{h}{2}k_2) \\
+k_4 &= f(x_n + h, y_n + hk_3) \\
+y_{n+1} &= y_n + \frac{h}{6}(k_1 + 2k_2 + 2k_3 + k_4)
+\end{align}
+\end{method}
+
+\begin{examtip}
+Remember RK4 weights as "1-2-2-1, divide by 6". The middle points get double weight!
+\end{examtip}
+
+\section{Error Analysis}
+
+\begin{definition}[Error Types]
+\begin{itemize}
+\item \textbf{Local truncation error}: Error in one step, assuming previous value exact
+\item \textbf{Global error}: Accumulated error over all steps
+\item \textbf{Round-off error}: Due to finite precision arithmetic
+\end{itemize}
+\end{definition}
+
+\begin{theorem}[Error Orders]
+\begin{center}
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Method} & \textbf{Order} & \textbf{Local Error} & \textbf{Global Error} \\
+\hline
+Euler & 1 & $O(h^2)$ & $O(h)$ \\
+Improved Euler & 2 & $O(h^3)$ & $O(h^2)$ \\
+RK2 & 2 & $O(h^3)$ & $O(h^2)$ \\
+RK4 & 4 & $O(h^5)$ & $O(h^4)$ \\
+\hline
+\end{tabular}
+\end{center}
+\end{theorem}
+
+\section{Stability Analysis}
+
+\begin{stability}
+For the test equation $y' = \lambda y$ with $\lambda \in \mathbb{C}$:
+
+\textbf{Euler's Method:}
+$$y_{n+1} = (1 + h\lambda)y_n$$
+Stable if $|1 + h\lambda| < 1$
+
+\textbf{RK4:}
+$$y_{n+1} = \left(1 + h\lambda + \frac{(h\lambda)^2}{2} + \frac{(h\lambda)^3}{6} + \frac{(h\lambda)^4}{24}\right)y_n$$
+Stable if $|R(h\lambda)| < 1$ where $R$ is the stability function.
+\end{stability}
+
+\begin{definition}[Stiff Equations]
+An ODE is \textbf{stiff} if:
+\begin{itemize}
+\item Solutions have components with vastly different time scales
+\item Explicit methods require extremely small steps for stability
+\item The problem has large negative eigenvalues (for systems)
+\end{itemize}
+\end{definition}
+
+\begin{warning}
+For stiff problems, explicit methods become impractical. Use implicit methods like Backward Euler:
+$$y_{n+1} = y_n + hf(x_{n+1}, y_{n+1})$$
+\end{warning}
+
+\section{Algorithm Comparison}
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\KwIn{$f(x,y)$, $x_0$, $y_0$, $h$, $N$ steps}
+\KwOut{Numerical solution $(x_i, y_i)$}
+$x \leftarrow x_0$; $y \leftarrow y_0$\;
+\For{$i = 0$ to $N-1$}{
+    \Switch{Method}{
+        \Case{Euler}{
+            $y \leftarrow y + hf(x,y)$\;
+        }
+        \Case{RK4}{
+            $k_1 \leftarrow f(x,y)$\;
+            $k_2 \leftarrow f(x+h/2, y+hk_1/2)$\;
+            $k_3 \leftarrow f(x+h/2, y+hk_2/2)$\;
+            $k_4 \leftarrow f(x+h, y+hk_3)$\;
+            $y \leftarrow y + h(k_1+2k_2+2k_3+k_4)/6$\;
+        }
+    }
+    $x \leftarrow x + h$\;
+    Store $(x,y)$\;
+}
+\caption{General Numerical ODE Solver}
+\end{algorithm}
+
+\section{Practical Considerations}
+
+\subsection{Step Size Selection}
+
+\begin{keypoint}
+Optimal step size balances:
+\begin{itemize}
+\item Truncation error (decreases with smaller $h$)
+\item Round-off error (increases with more steps)
+\item Computational cost (increases with smaller $h$)
+\end{itemize}
+\end{keypoint}
+
+\subsection{Adaptive Step Size}
+
+\begin{insight}
+Modern solvers adjust $h$ dynamically:
+\begin{itemize}
+\item Estimate error using two different methods
+\item Decrease $h$ if error too large
+\item Increase $h$ if error very small
+\item Maintain error within tolerance
+\end{itemize}
+\end{insight}
+
+\section{Systems of ODEs}
+
+For the system $\mathbf{y}' = \mathbf{f}(x, \mathbf{y})$:
+
+\begin{method}[Vector RK4]
+\begin{align}
+\mathbf{k}_1 &= \mathbf{f}(x_n, \mathbf{y}_n) \\
+\mathbf{k}_2 &= \mathbf{f}(x_n + \frac{h}{2}, \mathbf{y}_n + \frac{h}{2}\mathbf{k}_1) \\
+\mathbf{k}_3 &= \mathbf{f}(x_n + \frac{h}{2}, \mathbf{y}_n + \frac{h}{2}\mathbf{k}_2) \\
+\mathbf{k}_4 &= \mathbf{f}(x_n + h, \mathbf{y}_n + h\mathbf{k}_3) \\
+\mathbf{y}_{n+1} &= \mathbf{y}_n + \frac{h}{6}(\mathbf{k}_1 + 2\mathbf{k}_2 + 2\mathbf{k}_3 + \mathbf{k}_4)
+\end{align}
+\end{method}
+
+\section{Exam Strategy}
+
+\begin{examtip}
+Common exam questions and point distribution:
+\begin{itemize}
+\item Apply Euler's method for 2-3 steps (3-4 pts)
+\item Apply RK4 for one step (4-5 pts)
+\item Compare methods' accuracy (2-3 pts)
+\item Discuss stability for given $\lambda$ (2-3 pts)
+\item Identify if equation is stiff (1-2 pts)
+\end{itemize}
+\end{examtip}
+
+\begin{warning}
+Common errors:
+\begin{itemize}
+\item Using $y_n$ instead of $y_n + k_1/2$ in RK4's $k_2$
+\item Forgetting to update $x_n$ when computing $k_i$
+\item Wrong RK4 weights (not 1-2-2-1)
+\item Confusing order with number of function evaluations
+\end{itemize}
+\end{warning}
+
+\end{document}
+```
+
+## **3. LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, geometry, enumitem}
+\geometry{margin=1in}
+
+\title{Lesson 50: Practice Problems - Numerical Methods}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Euler's Method (6 problems)}
+
+\begin{enumerate}
+\item Apply Euler's method with $h = 0.1$ to solve:
+$$y' = x - y, \quad y(0) = 1$$
+Find $y(0.3)$ (show all steps).
+
+\item Use Euler's method with $h = 0.25$ for:
+$$y' = y + e^x, \quad y(0) = 0$$
+Compute approximations at $x = 0.25, 0.5, 0.75, 1$.
+
+\item For the IVP $y' = -2y$, $y(0) = 1$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the exact solution
+\item Apply Euler with $h = 0.5$ to find $y(1)$
+\item Compare with the exact value
+\end{enumerate}
+
+\item Determine the maximum stable step size for Euler's method applied to:
+$$y' = -10y$$
+
+\item Use Euler's method with $h = 0.2$ for the system:
+$$x' = y, \quad y' = -x, \quad x(0) = 1, \quad y(0) = 0$$
+Find $(x(0.4), y(0.4))$.
+
+\item Backward Euler for $y' = -100y$, $y(0) = 1$. Show that with $h = 0.1$:
+$$y_1 = \frac{y_0}{1 + 100h}$$
+\end{enumerate}
+
+\section*{Part B: Runge-Kutta Methods (6 problems)}
+
+\begin{enumerate}[resume]
+\item Apply the improved Euler method (Heun) with $h = 0.5$ to:
+$$y' = xy, \quad y(0) = 1$$
+Find $y(1)$.
+
+\item Use the midpoint method (RK2) with $h = 0.25$ for:
+$$y' = \sin(x) + y, \quad y(0) = 0$$
+Compute $y(0.5)$.
+
+\item Apply RK4 with $h = 0.5$ to solve:
+$$y' = x^2 + y^2, \quad y(0) = 0$$
+Find $y(0.5)$ (show all $k_i$ values).
+
+\item For $y' = -y + x + 1$, $y(0) = 1$:
+\begin{enumerate}[label=(\alph*)]
+\item Apply one step of RK4 with $h = 1$
+\item Find the exact solution and compare
+\end{enumerate}
+
+\item Use RK4 with $h = 0.2$ for the system:
+$$\begin{cases}
+x' = x - y \\
+y' = x + y
+\end{cases}, \quad x(0) = 1, \quad y(0) = 0$$
+Find $(x(0.2), y(0.2))$.
+
+\item Compare Euler and RK4 for $y' = y$, $y(0) = 1$ with $h = 0.5$. Find $y(0.5)$ using both methods and the exact solution.
+\end{enumerate}
+
+\section*{Part C: Error Analysis (5 problems)}
+
+\begin{enumerate}[resume]
+\item For $y' = y$, $y(0) = 1$ on $[0,1]$:
+\begin{enumerate}[label=(\alph*)]
+\item If we want global error $< 10^{-4}$ using Euler, estimate required $h$
+\item Repeat for RK4
+\item How many steps does each method need?
+\end{enumerate}
+
+\item The local truncation error for Euler is $\frac{h^2}{2}y''(\xi)$. For $y' = x^2$, $y(0) = 0$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the exact local error at $x = h$
+\item Verify it's $O(h^2)$
+\end{enumerate}
+
+\item Given that RK4 has local error $O(h^5)$, if halving the step size reduces the error by factor $F$, what is $F$?
+
+\item For $y' = -1000y + 1000$, $y(0) = 2$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the exact solution
+\item Is this equation stiff? Why?
+\item What happens if you use Euler with $h = 0.01$?
+\end{enumerate}
+
+\item Richardson extrapolation: If $y_h$ is the Euler approximation with step $h$ and $y_{h/2}$ with step $h/2$, show that:
+$$y_{improved} = 2y_{h/2} - y_h$$
+has error $O(h^2)$.
+\end{enumerate}
+
+\section*{Part D: Stability Analysis (5 problems)}
+
+\begin{enumerate}[resume]
+\item For the test equation $y' = \lambda y$ with $\lambda = -5$:
+\begin{enumerate}[label=(\alph*)]
+\item Find the stability condition for Euler
+\item Find the stability condition for RK4
+\item Which method allows larger steps?
+\end{enumerate}
+
+\item Show that backward Euler is unconditionally stable for $y' = \lambda y$ with $\operatorname{Re}(\lambda) < 0$.
+
+\item For the system:
+$$\mathbf{y}' = \begin{pmatrix} -1 & 10 \\ 0 & -100 \end{pmatrix} \mathbf{y}$$
+\begin{enumerate}[label=(\alph*)]
+\item Find the eigenvalues
+\item What step size does Euler need for stability?
+\item Is this system stiff?
+\end{enumerate}
+
+\item The stability function for RK4 is:
+$$R(z) = 1 + z + \frac{z^2}{2} + \frac{z^3}{6} + \frac{z^4}{24}$$
+Find $|R(-2)|$ and determine if $h\lambda = -2$ is stable.
+
+\item Compare stability regions: sketch the stability boundary in the complex $h\lambda$ plane for:
+\begin{enumerate}[label=(\alph*)]
+\item Euler's method
+\item Backward Euler
+\end{enumerate}
+\end{enumerate}
+
+\section*{Part E: Implementation Considerations (3 problems)}
+
+\begin{enumerate}[resume]
+\item Write pseudocode for adaptive step size control using error estimation.
+
+\item For solving to tolerance $\epsilon = 10^{-6}$ on $[0,10]$:
+\begin{enumerate}[label=(\alph*)]
+\item Estimate steps needed for Euler
+\item Estimate steps needed for RK4
+\item Which is more efficient?
+\end{enumerate}
+
+\item Higher-order ODEs: Convert $y'' + 2y' + y = e^x$, $y(0) = 1$, $y'(0) = 0$ to a system and show first Euler step with $h = 0.1$.
+\end{enumerate}
+
+\section*{Part F: Exam-Style Problems (5 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[10 points]} Consider $y' = x + y$, $y(0) = 1$.
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Apply two steps of Euler's method with $h = 0.5$
+\item [4 pts] Apply one step of RK4 with $h = 1$
+\item [3 pts] The exact solution is $y = 2e^x - x - 1$. Compare errors.
+\end{enumerate}
+
+\item \textbf{[8 points]} For the pendulum equation (small angle):
+$$\theta'' + \theta = 0, \quad \theta(0) = 0.1, \quad \theta'(0) = 0$$
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Convert to a first-order system
+\item [4 pts] Apply one step of RK4 with $h = 0.1$
+\item [2 pts] Is the total energy conserved numerically?
+\end{enumerate}
+
+\item \textbf{[9 points]} Stability analysis for $y' = -50y$:
+\begin{enumerate}[label=(\alph*)]
+\item [2 pts] Find maximum stable $h$ for Euler
+\item [2 pts] Find maximum stable $h$ for RK4 (given stability limit $|h\lambda| < 2.78$)
+\item [2 pts] If you need to solve on $[0, 10]$, how many steps for each?
+\item [3 pts] Which method is more efficient and why?
+\end{enumerate}
+
+\item \textbf{[10 points]} Method comparison:
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Explain why RK4 is more accurate than Euler
+\item [3 pts] When would you prefer implicit over explicit methods?
+\item [2 pts] What is the trade-off in choosing step size?
+\item [2 pts] How do adaptive methods work?
+\end{enumerate}
+
+\item \textbf{[12 points]} \textit{Prof. Ditkowski Special}
+The chemical reaction $A \to B \to C$ has rate equations:
+$$\begin{cases}
+A' = -100A \\
+B' = 100A - B \\
+C' = B
+\end{cases}$$
+with $A(0) = 1$, $B(0) = C(0) = 0$.
+\begin{enumerate}[label=(\alph*)]
+\item [3 pts] Is this system stiff? Explain.
+\item [3 pts] Apply one Euler step with $h = 0.001$
+\item [3 pts] What happens with $h = 0.1$?
+\item [3 pts] Suggest an appropriate numerical method
+\end{enumerate}
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Selected Solutions:}
+
+\textbf{Problem 1:}
+- $y_1 = 1 + 0.1(0 - 1) = 0.9$
+- $y_2 = 0.9 + 0.1(0.1 - 0.9) = 0.82$
+- $y_3 = 0.82 + 0.1(0.2 - 0.82) = 0.758$
+
+\textbf{Problem 4:} For stability: $|1 - 10h| < 1$, so $h < 0.2$
+
+\textbf{Problem 9:} RK4 for $y' = x^2 + y^2$:
+- $k_1 = 0$
+- $k_2 = 0.5(0.25)^2 = 0.03125$
+- $k_3 = 0.5[(0.25)^2 + (0.0156)^2] \approx 0.0312$
+- $k_4 = 0.5[(0.5)^2 + (0.0312)^2] \approx 0.125$
+- $y_1 \approx 0.031$
+
+\textbf{Problem 13:} For Euler: $h \sim \sqrt{10^{-4}} = 0.01$, need 100 steps
+For RK4: $h \sim (10^{-4})^{1/4} \approx 0.1$, need 10 steps
+
+\textbf{Problem 18:} Eigenvalues: $-1, -100$. Need $h < 2/100 = 0.02$ for stability. Yes, stiff!
+
+\textbf{Key Insights:}
+- RK4 typically 10-100× more efficient than Euler
+- Stiffness determined by eigenvalue ratio
+- Implicit methods trade computation per step for stability
+- Energy conservation tests numerical accuracy
+
+\end{document}
+```
+
+## **4. NotebookLM Instructions**
+
+```markdown
+# NotebookLM Instructions for Lesson 50
+
+## How to Use These Materials
+
+### Initial Setup
+1. Create a new NotebookLM notebook titled "ODE Lesson 50 - Numerical Methods"
+2. Upload the audio script as "Lesson50_Audio.txt"
+3. Upload the theory document as "Lesson50_Theory.pdf" (after LaTeX compilation)
+4. Upload the practice problems as "Lesson50_Problems.pdf"
+
+### Audio Generation Settings
+- Clear pronunciation for method names
+- Emphasize the subscripts when speaking (n, n+1)
+- Moderate pace for formulas
+- Pause between k₁, k₂, k₃, k₄ definitions
+- Stress the weights "one, two, two, one"
+
+### Study Sequence Recommendations
+
+#### Phase 1: Understanding Basics (1 hour)
+1. Listen to audio introduction
+2. Read Theory Sections 1-2
+3. Work Problems Part A (Euler)
+4. Implement Euler in calculator/code
+
+#### Phase 2: Advanced Methods (1.5 hours)
+1. Study RK methods in Theory
+2. Re-listen to RK4 explanation
+3. Complete Problems Part B
+4. Create comparison table of methods
+
+#### Phase 3: Error and Stability (1.5 hours)
+1. Study Theory Sections 4-5
+2. Work Problems Parts C and D
+3. Visualize stability regions
+4. Understand stiffness concept
+
+#### Phase 4: Exam Preparation (1 hour)
+1. Complete Part F under time constraints
+2. Review implementation considerations
+3. Practice explaining concepts verbally
+4. Create quick reference card
+
+### Integration with Computational Tools
+
+#### Python Implementation:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+def euler(f, y0, x0, xf, h):
+    """Euler's method implementation"""
+    x = np.arange(x0, xf + h, h)
+    y = np.zeros(len(x))
+    y[0] = y0
+
+    for i in range(len(x)-1):
+        y[i+1] = y[i] + h * f(x[i], y[i])
+
+    return x, y
+
+def rk4(f, y0, x0, xf, h):
+    """RK4 implementation"""
+    x = np.arange(x0, xf + h, h)
+    y = np.zeros(len(x))
+    y[0] = y0
+
+    for i in range(len(x)-1):
+        k1 = f(x[i], y[i])
+        k2 = f(x[i] + h/2, y[i] + h*k1/2)
+        k3 = f(x[i] + h/2, y[i] + h*k2/2)
+        k4 = f(x[i] + h, y[i] + h*k3)
+        y[i+1] = y[i] + h*(k1 + 2*k2 + 2*k3 + k4)/6
+
+    return x, y
+
+# Example usage
+def f(x, y):
+    return x + y
+
+x_euler, y_euler = euler(f, 1, 0, 1, 0.1)
+x_rk4, y_rk4 = rk4(f, 1, 0, 1, 0.1)
+
+# Exact solution
+x_exact = np.linspace(0, 1, 100)
+y_exact = 2*np.exp(x_exact) - x_exact - 1
+
+# Plot comparison
+plt.plot(x_exact, y_exact, 'k-', label='Exact')
+plt.plot(x_euler, y_euler, 'ro-', label='Euler')
+plt.plot(x_rk4, y_rk4, 'bs-', label='RK4')
+plt.legend()
+plt.show()
+```
+
+#### MATLAB Implementation:
+```matlab
+% RK4 for systems
+function [t, y] = rk4_system(f, tspan, y0, h)
+    t = tspan(1):h:tspan(2);
+    n = length(t);
+    m = length(y0);
+    y = zeros(m, n);
+    y(:,1) = y0;
+
+    for i = 1:n-1
+        k1 = f(t(i), y(:,i));
+        k2 = f(t(i)+h/2, y(:,i)+h*k1/2);
+        k3 = f(t(i)+h/2, y(:,i)+h*k2/2);
+        k4 = f(t(i)+h, y(:,i)+h*k3);
+        y(:,i+1) = y(:,i) + h*(k1+2*k2+2*k3+k4)/6;
+    end
+end
+
+% Example: pendulum
+f = @(t,y) [y(2); -sin(y(1))];
+[t, y] = rk4_system(f, [0 10], [0.1; 0], 0.01);
+plot(t, y(1,:))
+```
+
+### Common Student Questions
+
+**Q: "How do I remember the RK4 formula?"**
+A: Remember the pattern:
+- k₁ uses (xₙ, yₙ)
+- k₂ uses midpoint with k₁
+- k₃ uses midpoint with k₂
+- k₄ uses endpoint with k₃
+- Weights: 1-2-2-1, divide by 6
+
+**Q: "When is an equation stiff?"**
+A: Look for:
+- Very different time scales
+- Large negative eigenvalues
+- Rapid initial transient then slow evolution
+- Explicit methods need tiny steps for stability
+
+**Q: "Which method should I use?"**
+A: Decision tree:
+- Simple, low accuracy needed → Euler
+- Non-stiff, good accuracy → RK4
+- Stiff equation → Implicit method
+- Need error control → Adaptive method
+
+### Memory Aids
+
+**METHOD Acronym for Numerical ODE Solving:**
+- **M**odel the problem (write ODE)
+- **E**stimate step size needed
+- **T**ry explicit method first
+- **H**andle stiffness if needed
+- **O**utput at discrete points
+- **D**etermine error
+
+**RK4 Mantra:**
+"Start, middle twice, end"
+"One, two, two, one, over six"
+
+**Stability Check:**
+"Lambda h inside the circle" (for stability region)
+
+### Quick Reference Card
+
+| Method | Order | Error | Evaluations | When to Use |
+|--------|-------|-------|-------------|-------------|
+| Euler | 1 | O(h) | 1 | Quick estimates |
+| Improved Euler | 2 | O(h²) | 2 | Better accuracy |
+| RK4 | 4 | O(h⁴) | 4 | Standard choice |
+| Backward Euler | 1 | O(h) | Implicit | Stiff problems |
+
+### Error Estimation
+
+| To reduce error by factor of: | Euler needs: | RK4 needs: |
+|-------------------------------|--------------|------------|
+| 10 | h/10 | h/1.78 |
+| 100 | h/100 | h/3.16 |
+| 1000 | h/1000 | h/5.62 |
+
+### Exam Strategy
+
+#### Time Management (15-minute problem):
+- 2 min: Identify method to use
+- 8 min: Perform calculations
+- 3 min: Check arithmetic
+- 2 min: Interpret results
+
+#### Calculation Tips:
+- Keep 4-5 decimal places
+- Write k₁, k₂, k₃, k₄ clearly
+- Show x and y values at each step
+- State final answer clearly
+
+#### Common Exam Patterns:
+1. "Apply [method] for [n] steps"
+2. "Compare accuracy of two methods"
+3. "Determine stability requirement"
+4. "Is this equation stiff?"
+5. "Convert to system and solve"
+
+### Professor-Specific Notes
+
+**Prof. Ditkowski's Emphasis:**
+- RK4 is the most important method
+- Understand stability conceptually
+- Know when methods fail
+- Stiffness appears in ~25% of exams
+- Often combines with systems of ODEs
+
+**Typical Point Distribution:**
+- Method application: 60%
+- Conceptual understanding: 25%
+- Error/stability analysis: 15%
+
+### Links to Other Topics
+- Previous: Lesson 49 (Frobenius method)
+- Related: Linear algebra (for systems)
+- Applications: All of engineering/physics
+- Future: PDEs use similar ideas
+
+### Practical Programming Tips
+
+**Debugging Numerical Methods:**
+1. Test on y' = y (known solution eˣ)
+2. Check signs in formulas
+3. Verify step size updates
+4. Plot to visualize behavior
+5. Compare with built-in solvers
+
+**Performance Optimization:**
+- Vectorize for systems
+- Pre-allocate arrays
+- Use sparse matrices for large systems
+- Consider parallel evaluation of k values
+
+**Real-World Usage:**
+```python
+# Using scipy's built-in solvers
+from scipy.integrate import solve_ivp
+
+result = solve_ivp(
+    fun=lambda t, y: t + y,
+    t_span=[0, 1],
+    y0=[1],
+    method='RK45',  # Adaptive RK4/5
+    rtol=1e-9
+)
+```
+
+### Final Study Checklist
+- [ ] Can apply Euler for 3+ steps
+- [ ] Can apply RK4 for 1 step
+- [ ] Understand order vs evaluations
+- [ ] Know stability condition for Euler
+- [ ] Recognize stiff equations
+- [ ] Can convert higher-order to system
+- [ ] Understand error accumulation
+- [ ] Can choose appropriate method
+```
+
+---
+
+**Lesson 50 complete. Block 13 (Advanced Topics) is now complete!**
+
+**Summary of Block 13:**
+- Lesson 48: Power series solutions at ordinary points
+- Lesson 49: Frobenius method for regular singular points
+- Lesson 50: Numerical methods and stability
+
+This completes your preparation for advanced ODE solution techniques. These methods handle the equations that don't have closed-form solutions, which represent the majority of real-world applications. Master these three approaches, and you'll be ready for any ODE that Prof. Ditkowski throws at you!

@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, enumitem}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Practice Problems: Lesson 10 - Qualitative Analysis}
+\author{Master qualitative techniques without solving!}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Basic Concepts (6 problems)}
+
+\begin{enumerate}
+\item Draw the phase line for $\frac{dy}{dx} = y^2 - 4$ and classify all equilibria.
+
+\item Using the derivative test, determine stability of equilibria for $\frac{dy}{dx} = \sin(y)$.
+
+\item For $\frac{dy}{dx} = e^y - 1$, find the equilibrium and determine its stability without computing derivatives.
+
+\item Explain why solutions to $\frac{dy}{dx} = y^2 + 1$ cannot have equilibria.
+
+\item If $y_1(0) = 1$ and $y_2(0) = 2$ are solutions to $\frac{dy}{dx} = -y$, what is their relationship for all $x > 0$?
+
+\item For $\frac{dy}{dx} = f(y)$ where $f$ is strictly decreasing, prove all equilibria are stable.
+\end{enumerate}
+
+\section*{Part B: Core Techniques (6 problems)}
+
+\begin{enumerate}[resume]
+\item Analyze the complete phase portrait for $\frac{dy}{dx} = y^3 - y$.
+
+\item For $\frac{dy}{dx} = (y-1)(y-2)(y-3)$, determine the long-term behavior of solutions with different initial conditions.
+
+\item Find regions where solutions to $\frac{dy}{dx} = x^2 - y$ are concave up vs concave down.
+
+\item Using comparison, prove that solutions to $\frac{dy}{dx} = -y + \sin(x)$ are bounded.
+
+\item For $\frac{dy}{dx} = y - y^3$, find the inflection points of solution curves.
+
+\item Determine all asymptotic behaviors for $\frac{dy}{dx} = y^2(1-y)$.
+\end{enumerate}
+
+\section*{Part C: Applications (5 problems)}
+
+\begin{enumerate}[resume]
+\item A population model follows $\frac{dP}{dt} = P(2 - P)(P - 1)$. Analyze long-term behavior for all initial populations.
+
+\item For the Gompertz equation $\frac{dy}{dx} = y\ln(K/y)$ with $K > 0$, analyze stability without solving.
+
+\item Show that $\frac{dy}{dx} = x + y^2$ has no periodic solutions.
+
+\item Find a first integral for $\frac{dy}{dx} = \frac{2xy}{x^2 - y^2}$.
+
+\item For $\frac{dy}{dx} = -y + e^{-x}$, determine $\lim_{x \to \infty} y(x)$ without solving.
+\end{enumerate}
+
+\section*{Part D: Advanced/Theoretical (5 problems)}
+
+\begin{enumerate}[resume]
+\item Prove that if $H(x,y)$ is a first integral, then $\nabla H \perp (1, f(x,y))$ at each point.
+
+\item Show that for $\frac{dy}{dx} = f(y)g(x)$ with $g(x) > 0$, stability is determined solely by $f$.
+
+\item For what functions $f(y)$ does $\frac{dy}{dx} = f(y)$ have exactly three equilibria with alternating stability?
+
+\item Prove that if all solutions to $\frac{dy}{dx} = f(x,y)$ are bounded, then $f$ must change sign.
+
+\item Characterize all ODEs of the form $\frac{dy}{dx} = f(x)g(y)$ that admit periodic solutions.
+\end{enumerate}
+
+\section*{Part E: Exam-Style Questions (6 problems)}
+
+\begin{enumerate}[resume]
+\item \textbf{[Prof. Ditkowski Special]} For $\frac{dy}{dx} = y^2 - xy$:
+    \begin{enumerate}[label=\alph*)]
+        \item Find all curves where solutions have horizontal tangents
+        \item Determine regions of increasing/decreasing behavior
+        \item Analyze concavity
+        \item Describe all possible asymptotic behaviors
+    \end{enumerate}
+
+\item Given $\frac{dy}{dx} = (1-y^2)(x^2 + 1)$:
+    \begin{enumerate}[label=\alph*)]
+        \item Find and classify all equilibria
+        \item Prove all solutions are bounded
+        \item Determine if periodic solutions exist
+        \item Sketch the qualitative behavior
+    \end{enumerate}
+
+\item \textbf{[Multi-method]} For $\frac{dy}{dx} = y(1-y)(2-y)$:
+    \begin{enumerate}[label=\alph*)]
+        \item Draw the complete phase line
+        \item Use linearization to confirm stability
+        \item Find maximum growth rate locations
+        \item Describe basin of attraction for each stable equilibrium
+    \end{enumerate}
+
+\item Without solving, prove that all solutions to $\frac{dy}{dx} = -x - y^3$ approach zero as $x \to \infty$.
+
+\item \textbf{[Energy Method]} Show that $\frac{dy}{dx} = \frac{x^3 - xy^2}{x^2y + y^3}$ has circular solution curves by finding an appropriate first integral.
+
+\item A system satisfies $\frac{dy}{dx} = f(y)$ where $f$ is continuous, $f(0) = f(1) = f(2) = 0$, $f'(0) > 0$, $f'(1) < 0$, $f'(2) > 0$.
+    \begin{enumerate}[label=\alph*)]
+        \item Sketch the phase line
+        \item How many distinct asymptotic behaviors exist?
+        \item What fraction of initial conditions lead to $y \to 1$?
+        \item Can solutions oscillate?
+    \end{enumerate}
+\end{enumerate}
+
+\section*{Answer Key with Hints}
+
+\textbf{Problem 1:} Equilibria at $y = \pm 2$; $y = -2$ unstable, $y = 2$ stable
+
+\textbf{Problem 7:} Three equilibria: $y = 0$ (unstable), $y = \pm 1$ (stable)
+
+\textbf{Problem 10:} Use comparison with $\frac{dy}{dx} = -y \pm 1$
+
+\textbf{Problem 16:} First integral: $H = x^2y - y^3/3$
+
+\textbf{Problem 25:} Use Lyapunov function $V = x^2 + y^2$
+
+\textbf{Problem 28c:} Basin of $y=1$ includes all $y \in (0,2)$
+
+\end{document}

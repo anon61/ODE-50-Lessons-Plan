@@ -1,0 +1,583 @@
+# **Lesson 35: Duhamel's Principle - The Complete Method**
+
+## **Part 1: Audio Lesson Script**
+
+Welcome to Lesson 35, our grand finale for solving linear systems! Today we're putting it all together with Duhamel's Principle. So basically, this gives us THE complete formula for solving any linear system with initial conditions AND forcing. This is the master equation that unifies everything we've learned!
+
+Here's the key insight: Duhamel's Principle says that the complete solution to x' = Ax + f(t) with x(0) = x₀ is:
+**x(t) = e^(At)x₀ + ∫₀ᵗ e^(A(t-s))f(s)ds**
+
+Look at that beautiful formula! The first term is the homogeneous solution with our initial condition, and the second term is the particular solution from variation of parameters. It's all there in one elegant expression!
+
+Let me explain the physical meaning. Think of it this way:
+- The term e^(At)x₀ evolves the initial condition forward in time
+- Each bit of forcing f(s)ds at time s creates an impulse
+- That impulse then evolves from time s to time t via e^(A(t-s))
+- The integral sums up all these evolved impulses
+
+It's literally superposition in action! Every input creates a response that propagates forward according to the system dynamics.
+
+Let's work through a complete example:
+```
+x' = [1  2] x + [e^t]  with x(0) = [1]
+     [0  3]     [0 ]              [2]
+```
+
+Step 1: Find the eigenvalues and eigenvectors.
+λ₁ = 1 with v₁ = [1, 0]ᵀ
+λ₂ = 3 with v₂ = [1, 1]ᵀ
+
+Step 2: Construct e^(At).
+Using P = [1  1] and D = [1  0]
+         [0  1]         [0  3]
+
+We get: e^(At) = [e^t      2(e^(3t) - e^t)]
+                 [0        e^(3t)         ]
+
+Hmm, let me recalculate that. P^(-1) = [1  -1]
+                                       [0   1]
+
+So: e^(At) = [1  1][e^t   0  ][1  -1]
+             [0  1][0   e^(3t)][0   1]
+           = [e^t   e^(3t) - e^t]
+             [0     e^(3t)      ]
+
+Step 3: Apply to initial condition.
+e^(At)x₀ = [e^t   e^(3t) - e^t][1] = [e^t + 2(e^(3t) - e^t)]
+           [0     e^(3t)      ][2]   [2e^(3t)            ]
+         = [2e^(3t) - e^t]
+           [2e^(3t)      ]
+
+Step 4: Compute the convolution integral.
+∫₀ᵗ e^(A(t-s))f(s)ds = ∫₀ᵗ [e^(t-s)   e^(3(t-s)) - e^(t-s)][e^s]ds
+                             [0         e^(3(t-s))        ][0  ]
+
+The first component: ∫₀ᵗ e^(t-s)·e^s ds = ∫₀ᵗ e^t ds = te^t
+The second component: 0
+
+So the particular solution is [te^t, 0]ᵀ.
+
+Step 5: Complete solution.
+x(t) = [2e^(3t) - e^t] + [te^t] = [2e^(3t) - e^t + te^t]
+       [2e^(3t)      ]   [0   ]   [2e^(3t)            ]
+
+Actually, let me be more careful with that calculation. The matrix e^(A(t-s)) operating on [e^s, 0]ᵀ gives:
+[e^(t-s)·e^s] = [e^t]
+[0          ]   [0  ]
+
+Wait, that's not right either. Let me recalculate e^(A(t-s))f(s):
+e^(A(t-s)) = [e^(t-s)   e^(3(t-s)) - e^(t-s)]
+             [0         e^(3(t-s))          ]
+
+So: e^(A(t-s))[e^s] = [e^(t-s)·e^s + 0] = [e^t]
+              [0  ]   [0            ]   [0  ]
+
+Therefore: ∫₀ᵗ [e^t]ds = [te^t]
+               [0  ]     [0   ]
+
+Final answer: x(t) = [2e^(3t) - e^t + te^t]
+                     [2e^(3t)            ]
+
+The beauty of Duhamel's Principle is that it works for ANY forcing function - discontinuous, impulsive, whatever! The formula handles everything.
+
+Here's my memory trick for Duhamel: "HIPE" - **H**omogeneous solution, **I**mpulse response, **P**articular via convolution, **E**verything combined!
+
+Common mistakes to avoid:
+1. **Forgetting the (t-s) in the exponential** - It's e^(A(t-s)), not e^(At)e^(-As)
+2. **Wrong integration variable** - Integrate with respect to s, not t
+3. **Missing the initial condition term** - Don't forget e^(At)x₀
+4. **Sign errors in (t-s)** - The delay is always positive
+
+Prof. Ditkowski loves to test Duhamel with:
+- Step functions: f(t) = H(t-a)b (Heaviside)
+- Impulses: f(t) = δ(t-a)b (Dirac delta)
+- Piecewise functions
+- Initial conditions that simplify nicely
+
+For impulse forcing f(t) = δ(t-a)b, Duhamel gives:
+x(t) = e^(At)x₀ + H(t-a)e^(A(t-a))b
+
+This shows that an impulse at time a creates a response that evolves from that moment forward!
+
+The connection to engineering is profound. In control theory, e^(A(t-s)) is called the state transition matrix. In signal processing, the convolution integral represents the system's response to an input signal. Duhamel's Principle is everywhere!
+
+Quick exam strategy: If Prof. Ditkowski asks for the complete solution to a non-homogeneous system with initial conditions, immediately write down Duhamel's formula. Then systematically compute each piece. Even if you make computational errors, showing you know the principle gets you major points!
+
+Remember, this formula encapsulates everything:
+- Eigenvalues and eigenvectors (to find e^(At))
+- Matrix exponential
+- Variation of parameters
+- Initial value problems
+- Superposition principle
+
+It's the crown jewel of linear ODE theory!
+
+## **Part 2: LaTeX Theory Document**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, tikz, pgfplots}
+\usepackage{geometry, enumitem, mdframed, array, xcolor}
+\usepackage{nicematrix, systeme}
+\geometry{margin=1in}
+
+% Custom environments
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{method}{Method}
+\newtheorem{example}{Example}
+\newmdenv[linecolor=blue,linewidth=2pt]{keypoint}
+\newmdenv[linecolor=red,linewidth=2pt]{warning}
+\newmdenv[linecolor=green,linewidth=2pt]{insight}
+\newmdenv[linecolor=purple,linewidth=2pt]{examtip}
+\newmdenv[linecolor=orange,linewidth=2pt]{duhamel}
+
+\title{Lesson 35: Duhamel's Principle - The Complete Method}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{The Master Formula}
+
+\begin{duhamel}
+\textbf{Duhamel's Principle:}
+The unique solution to the initial value problem
+\[\mathbf{x}'(t) = A\mathbf{x}(t) + \mathbf{f}(t), \quad \mathbf{x}(t_0) = \mathbf{x}_0\]
+is given by
+\[\boxed{\mathbf{x}(t) = e^{A(t-t_0)}\mathbf{x}_0 + \int_{t_0}^t e^{A(t-s)}\mathbf{f}(s)\,ds}\]
+\end{duhamel}
+
+\begin{theorem}[Components of the Solution]
+The complete solution consists of:
+\begin{enumerate}
+\item \textbf{Homogeneous contribution:} $\mathbf{x}_h(t) = e^{A(t-t_0)}\mathbf{x}_0$
+   \begin{itemize}
+   \item Evolves initial condition forward
+   \item Depends only on system dynamics (matrix $A$)
+   \item Satisfies $\mathbf{x}_h' = A\mathbf{x}_h$ with $\mathbf{x}_h(t_0) = \mathbf{x}_0$
+   \end{itemize}
+
+\item \textbf{Particular contribution:} $\mathbf{x}_p(t) = \int_{t_0}^t e^{A(t-s)}\mathbf{f}(s)\,ds$
+   \begin{itemize}
+   \item Response to forcing
+   \item Zero initial condition: $\mathbf{x}_p(t_0) = \mathbf{0}$
+   \item Convolution of forcing with impulse response
+   \end{itemize}
+\end{enumerate}
+\end{theorem}
+
+\section{Solution Operator Perspective}
+
+\begin{definition}[Solution Operator]
+The solution operator (or propagator) $S(t,s)$ maps the state at time $s$ to the state at time $t$:
+\[S(t,s) = e^{A(t-s)}\]
+Properties:
+\begin{itemize}
+\item $S(t,t) = I$ (identity at equal times)
+\item $S(t,r)S(r,s) = S(t,s)$ (semigroup property)
+\item $S(t,s)^{-1} = S(s,t)$ (time reversal)
+\end{itemize}
+\end{definition}
+
+\begin{keypoint}
+\textbf{Physical Interpretation:}
+\[\mathbf{x}(t) = \underbrace{S(t,t_0)\mathbf{x}_0}_{\text{Evolution of IC}} + \underbrace{\int_{t_0}^t S(t,s)\mathbf{f}(s)\,ds}_{\text{Accumulated forcing effects}}\]
+Each infinitesimal forcing $\mathbf{f}(s)ds$ creates an impulse at time $s$ that propagates to time $t$ via $S(t,s)$.
+\end{keypoint}
+
+\section{Complete Worked Examples}
+
+\begin{example}[2×2 System with Exponential Forcing]
+Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ e^t \end{pmatrix}$ with $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\textbf{Solution:}
+\begin{enumerate}
+\item \textbf{Find $e^{At}$:}
+Since $A^2 = 0$ (nilpotent), we have:
+\[e^{At} = I + At = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\]
+
+\item \textbf{Homogeneous solution:}
+\[\mathbf{x}_h(t) = e^{At}\mathbf{x}_0 = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 1 \\ 0 \end{pmatrix} = \begin{pmatrix} 1 \\ 0 \end{pmatrix}\]
+
+\item \textbf{Particular solution via Duhamel:}
+\begin{align}
+\mathbf{x}_p(t) &= \int_0^t e^{A(t-s)}\mathbf{f}(s)\,ds \\
+&= \int_0^t \begin{pmatrix} 1 & t-s \\ 0 & 1 \end{pmatrix}\begin{pmatrix} 0 \\ e^s \end{pmatrix}ds \\
+&= \int_0^t \begin{pmatrix} (t-s)e^s \\ e^s \end{pmatrix}ds
+\end{align}
+
+Computing the integrals:
+\begin{itemize}
+\item Second component: $\int_0^t e^s\,ds = e^t - 1$
+\item First component: $\int_0^t (t-s)e^s\,ds = t\int_0^t e^s\,ds - \int_0^t se^s\,ds$
+
+Using integration by parts for $\int se^s\,ds = se^s - e^s$:
+\[= t(e^t - 1) - [(se^s - e^s)]_0^t = t(e^t - 1) - (te^t - e^t - (0 - 1))\]
+\[= te^t - t - te^t + e^t + 1 = e^t - t + 1\]
+\end{itemize}
+
+So: $\mathbf{x}_p(t) = \begin{pmatrix} e^t - t + 1 \\ e^t - 1 \end{pmatrix}$
+
+\item \textbf{Complete solution:}
+\[\mathbf{x}(t) = \begin{pmatrix} 1 \\ 0 \end{pmatrix} + \begin{pmatrix} e^t - t + 1 \\ e^t - 1 \end{pmatrix} = \begin{pmatrix} e^t - t + 2 \\ e^t - 1 \end{pmatrix}\]
+\end{enumerate}
+\end{example}
+
+\begin{example}[System with Discontinuous Forcing]
+Solve: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-1) \\ 0 \end{pmatrix}$ with $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+where $H(t-1)$ is the Heaviside step function.
+
+\textbf{Solution:}
+\begin{enumerate}
+\item $e^{At} = \begin{pmatrix} e^{-t} & 0 \\ 0 & e^{-2t} \end{pmatrix}$
+
+\item Homogeneous: $\mathbf{x}_h(t) = \begin{pmatrix} 0 \\ e^{-2t} \end{pmatrix}$
+
+\item Particular (for $t > 1$):
+\begin{align}
+\mathbf{x}_p(t) &= \int_0^t \begin{pmatrix} e^{-(t-s)} & 0 \\ 0 & e^{-2(t-s)} \end{pmatrix}\begin{pmatrix} H(s-1) \\ 0 \end{pmatrix}ds \\
+&= \int_1^t \begin{pmatrix} e^{-(t-s)} \\ 0 \end{pmatrix}ds = \begin{pmatrix} e^{-t}\int_1^t e^s\,ds \\ 0 \end{pmatrix} \\
+&= \begin{pmatrix} e^{-t}(e^t - e) \\ 0 \end{pmatrix} = \begin{pmatrix} 1 - e^{1-t} \\ 0 \end{pmatrix}
+\end{align}
+
+\item Complete solution:
+\[\mathbf{x}(t) = \begin{cases}
+\begin{pmatrix} 0 \\ e^{-2t} \end{pmatrix} & t < 1 \\
+\begin{pmatrix} 1 - e^{1-t} \\ e^{-2t} \end{pmatrix} & t \geq 1
+\end{cases}\]
+\end{enumerate}
+\end{example}
+
+\section{Special Forcing Functions}
+
+\begin{insight}
+\textbf{Impulse Response:}
+For a Dirac delta forcing $\mathbf{f}(t) = \delta(t-a)\mathbf{b}$:
+\[\mathbf{x}(t) = e^{At}\mathbf{x}_0 + H(t-a)e^{A(t-a)}\mathbf{b}\]
+The impulse creates an instantaneous jump in the state at time $a$.
+\end{insight}
+
+\begin{method}[Periodic Forcing]
+For periodic forcing $\mathbf{f}(t + T) = \mathbf{f}(t)$, the steady-state solution (if stable) is also periodic with period $T$:
+\[\mathbf{x}_{ss}(t) = \frac{1}{I - e^{-AT}}\int_0^T e^{A(T-s)}\mathbf{f}(s)\,ds\]
+(Valid when all eigenvalues have negative real parts)
+\end{method}
+
+\section{Computational Strategies}
+
+\begin{examtip}
+\textbf{Prof. Ditkowski's Exam Strategy:}
+\begin{enumerate}
+\item Write Duhamel's formula immediately
+\item Compute $e^{At}$ using the best method:
+   \begin{itemize}
+   \item Diagonal $A$ → direct
+   \item Diagonalizable → $Pe^{Dt}P^{-1}$
+   \item Jordan blocks → polynomial terms
+   \item Nilpotent → finite series
+   \end{itemize}
+\item Apply to initial condition
+\item Set up the convolution integral
+\item Evaluate (often simplifies nicely on exams)
+\item Combine homogeneous and particular parts
+\end{enumerate}
+\end{examtip}
+
+\begin{warning}
+\textbf{Common Errors:}
+\begin{itemize}
+\item Writing $e^{At}e^{-As}$ instead of $e^{A(t-s)}$
+\item Forgetting that $t$ is a parameter in the integral (integrate over $s$)
+\item Missing the initial condition contribution
+\item Wrong bounds of integration
+\item Not checking that the solution satisfies the ODE
+\end{itemize}
+\end{warning}
+
+\section{Connection to Previous Methods}
+
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \textbf{Relation to Duhamel} \\
+\hline
+Eigenvalue method & Used to compute $e^{At}$ \\
+Matrix exponential & Core of the solution operator \\
+Variation of parameters & Second term in Duhamel's formula \\
+Fundamental matrix & $\Phi(t) = e^{At}\Phi(0)$ \\
+Green's function & $G(t,s) = e^{A(t-s)}H(t-s)$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\section{Advanced Properties}
+
+\begin{theorem}[Uniqueness]
+Duhamel's formula gives the UNIQUE solution to the IVP. This follows from:
+\begin{itemize}
+\item Existence: The formula always produces a solution
+\item Uniqueness: Follows from Picard-Lindelöf theorem
+\item The solution is continuously differentiable if $\mathbf{f}$ is continuous
+\end{itemize}
+\end{theorem}
+
+\begin{theorem}[Stability Implications]
+If all eigenvalues of $A$ have negative real parts:
+\begin{itemize}
+\item $\|e^{At}\| \leq Me^{-\alpha t}$ for some $M, \alpha > 0$
+\item The homogeneous part decays exponentially
+\item Bounded forcing produces bounded solutions
+\item System has a unique steady-state for constant forcing
+\end{itemize}
+\end{theorem}
+
+\end{document}
+```
+
+## **Part 3: LaTeX Practice Problems**
+
+```latex
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm, enumitem, geometry}
+\geometry{margin=1in}
+
+\title{Lesson 35: Practice Problems - Duhamel's Principle}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Direct Application of Duhamel's Formula}
+
+\begin{enumerate}
+\item Apply Duhamel's principle to solve: $\mathbf{x}' = \begin{pmatrix} 2 & 0 \\ 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Use Duhamel to find: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^t \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Solve using Duhamel: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ t \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Apply the formula to: $\mathbf{x}' = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^t \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Find the solution: $\mathbf{x}' = \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part B: Systems with Step Functions}
+
+\begin{enumerate}[start=6]
+\item Solve: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-2) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$
+
+\item Find: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ H(t-1) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Solve with piecewise forcing: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1-H(t-1) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Compute: $\mathbf{x}' = \begin{pmatrix} -2 & 0 \\ 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t-1) - H(t-2) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Find the response to multiple steps: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} H(t) \\ H(t-1) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part C: Impulse Response Problems}
+
+\begin{enumerate}[start=11]
+\item Find the response to $\mathbf{f}(t) = \delta(t-1)\begin{pmatrix} 1 \\ 0 \end{pmatrix}$ for $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item Solve with double impulse: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix}\mathbf{x} + \delta(t)\begin{pmatrix} 1 \\ 0 \end{pmatrix} + \delta(t-\pi)\begin{pmatrix} 0 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+
+\item Compute the impulse response matrix for $A = \begin{pmatrix} 1 & 2 \\ 0 & 3 \end{pmatrix}$
+
+\item Find the solution with initial impulse: $\mathbf{x}' = \begin{pmatrix} -2 & 1 \\ 1 & -2 \end{pmatrix}\mathbf{x}$, $\mathbf{x}(0^+) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$ (impulse at $t=0$)
+
+\item Determine the long-term behavior after impulse: $\mathbf{x}' = \begin{pmatrix} -1 & 2 \\ 0 & -3 \end{pmatrix}\mathbf{x} + \delta(t-1)\begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part D: Complete IVPs with Various Forcings}
+
+\begin{enumerate}[start=16]
+\item Solve completely: $\mathbf{x}' = \begin{pmatrix} 2 & 1 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ -1 \end{pmatrix}$
+
+\item Find: $\mathbf{x}' = \begin{pmatrix} 0 & -2 \\ 2 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \cos(2t) \\ \sin(2t) \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \end{pmatrix}$ (resonance!)
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \\ e^{-t} \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 2 \end{pmatrix}$
+
+\item Complete solution for: $\mathbf{x}' = \begin{pmatrix} -1 & 1 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 1 \end{pmatrix}$
+
+\item Find $\mathbf{x}(2)$ for: $\mathbf{x}' = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^t \\ t \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part E: 3×3 Systems Using Duhamel}
+
+\begin{enumerate}[start=21]
+\item Apply Duhamel to: $\mathbf{x}' = \begin{pmatrix} 1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 1 \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \\ -1 \end{pmatrix}$
+
+\item Solve: $\mathbf{x}' = \begin{pmatrix} 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 0 \\ 0 \\ e^t \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+
+\item Find: $\mathbf{x}' = \begin{pmatrix} -1 & 0 & 0 \\ 0 & -2 & 0 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} \sin t \\ \cos t \\ 1 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$
+
+\item Compute steady-state for: $\mathbf{x}' = \begin{pmatrix} -1 & 1 & 0 \\ 0 & -2 & 1 \\ 0 & 0 & -3 \end{pmatrix}\mathbf{x} + \begin{pmatrix} 1 \\ 0 \\ 0 \end{pmatrix}$
+
+\item Solve with Jordan block: $\mathbf{x}' = \begin{pmatrix} 2 & 1 & 0 \\ 0 & 2 & 1 \\ 0 & 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{2t} \\ 0 \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 0 \\ 0 \end{pmatrix}$
+\end{enumerate}
+
+\section*{Part F: Advanced Applications}
+
+\begin{enumerate}[start=26]
+\item Show that for constant forcing $\mathbf{f}(t) = \mathbf{c}$ and stable $A$ (all eigenvalues have negative real parts), the steady-state solution is $\mathbf{x}_{ss} = -A^{-1}\mathbf{c}$.
+
+\item Verify Duhamel gives the same result as variation of parameters for: $\mathbf{x}' = \begin{pmatrix} 1 & 0 \\ 0 & 2 \end{pmatrix}\mathbf{x} + \begin{pmatrix} e^{3t} \\ 0 \end{pmatrix}$
+
+\item For periodic forcing $\mathbf{f}(t) = \begin{pmatrix} \sin t \\ \cos t \end{pmatrix}$ with $A = \begin{pmatrix} -1 & 0 \\ 0 & -2 \end{pmatrix}$, find the steady-state periodic solution.
+
+\item Derive the response to a ramp input: $\mathbf{x}' = \begin{pmatrix} -1 & 0 \\ 0 & -1 \end{pmatrix}\mathbf{x} + \begin{pmatrix} t \cdot H(t) \\ 0 \end{pmatrix}$, $\mathbf{x}(0) = \begin{pmatrix} 0 \\ 1 \end{pmatrix}$
+
+\item \textbf{Challenge:} Prove that Duhamel's formula satisfies the differential equation and initial condition.
+\end{enumerate}
+
+\section*{Solutions and Hints}
+
+\textbf{Problem 1:} $\mathbf{x}(t) = \begin{pmatrix} \frac{1}{2}(1-e^{2t}) \\ \frac{1}{3}(1-e^{3t}) \end{pmatrix}$
+
+\textbf{Problem 3:} Use $e^{At} = \begin{pmatrix} 1 & t \\ 0 & 1 \end{pmatrix}$, get $\mathbf{x}(t) = \begin{pmatrix} 1 + t^3/6 \\ t^2/2 \end{pmatrix}$
+
+\textbf{Problem 5:} $e^{At} = \begin{pmatrix} \cos t & -\sin t \\ \sin t & \cos t \end{pmatrix}$, particular solution is $\begin{pmatrix} 1 - \cos t \\ \sin t \end{pmatrix}$
+
+\textbf{Problem 11:} $\mathbf{x}(t) = \begin{pmatrix} H(t-1)e^{-(t-1)} \\ e^{-2t} + 0 \end{pmatrix}$
+
+\textbf{Problem 16:} Repeated eigenvalue with resonance gives $t^2e^{2t}$ terms.
+
+\textbf{Problem 17:} Resonance produces $t\cos(2t)$ and $t\sin(2t)$ terms.
+
+\textbf{Key Strategy:} Always write Duhamel's formula first, then systematically compute $e^{At}$, apply to IC, set up convolution, and combine.
+
+\textbf{Verification:} Differentiate your solution and verify it satisfies both the ODE and initial condition.
+
+\end{document}
+```
+
+## **Part 4: NotebookLM Instructions**
+
+### **How to Use These Materials with NotebookLM**
+
+1. **Import Strategy:**
+   - Upload Audio Script emphasizing the HIPE framework
+   - Import Theory Document showing the complete Duhamel formula
+   - Add Practice Problems covering all forcing types
+   - Create a "Duhamel Master Formula" reference card
+
+2. **Audio Generation Tips:**
+   - Request explanation of "Why is Duhamel's principle the complete solution?"
+   - Ask for physical interpretation of the convolution
+   - Generate examples with different forcing functions
+   - Create comparison with all previous methods
+
+3. **Study Sequence:**
+   - Review matrix exponential computation (Lesson 33)
+   - Understand the homogeneous contribution
+   - Master the convolution integral
+   - Practice with different forcing types
+   - Apply to complete IVPs
+
+4. **Key Concepts to Query NotebookLM:**
+   - "Explain each term in Duhamel's formula"
+   - "Show me how impulses work with Duhamel"
+   - "Walk through a complete IVP using Duhamel"
+   - "What's the connection to Green's functions?"
+   - "How does this unify all our previous methods?"
+
+5. **Common Confusion Points:**
+   - Why e^(A(t-s)) not e^(At)e^(-As)
+   - Integration variable is s, not t
+   - Don't forget the initial condition term
+   - Step functions change integration bounds
+   - Impulses create jumps
+
+6. **Integration with All Previous Lessons:**
+   - Lessons 30-32: Need eigenvalues for e^(At)
+   - Lesson 33: Matrix exponential is central
+   - Lesson 34: Variation of parameters is the second term
+   - This IS the master formula!
+
+7. **Exam Preparation Focus:**
+   - Prof. Ditkowski LOVES Duhamel problems
+   - Write the formula immediately
+   - Show you understand both terms
+   - Common forcings: steps, impulses, exponentials
+   - Often simplifies nicely on exams
+
+8. **Practice Problem Strategy:**
+   - Part A: Basic Duhamel application
+   - Part B: Step functions (change bounds!)
+   - Part C: Impulse responses
+   - Part D: Complete IVPs
+   - Part E: Higher dimensions
+   - Part F: Theory and special cases
+
+9. **Memory Aids to Program:**
+   - "Duhamel = Homogeneous + Particular"
+   - "Evolution of IC + Accumulated forcing"
+   - "e^(A(t-s)) propagates from s to t"
+   - "Every input leaves a lasting effect"
+
+10. **Self-Assessment Questions:**
+    - Can I write Duhamel's formula from memory?
+    - Do I understand the physical interpretation?
+    - Can I handle step functions and impulses?
+    - Do I see how this unifies everything?
+    - Can I solve any linear IVP with this?
+
+11. **Time Management:**
+    - Audio lesson: 20 minutes
+    - Theory study: 1 hour (this is THE formula)
+    - Basic problems: 45 minutes
+    - Step/impulse problems: 45 minutes
+    - Complete IVPs: 1 hour
+    - Review and synthesis: 30 minutes
+
+12. **Critical Warnings:**
+    - This formula is GUARANTEED on the exam
+    - It combines everything from Block 9
+    - Understanding this means you understand linear systems
+    - Computational errors are common - be careful
+    - Always verify your solution
+
+13. **Physical Applications:**
+    - Control systems: input-output relationship
+    - Signal processing: system response
+    - Mechanical systems: forced vibrations
+    - Electrical circuits: voltage/current response
+    - Economics: shock propagation
+
+14. **Quick Diagnostic:**
+    Ask NotebookLM: "Give me a 2×2 system with step forcing and walk through Duhamel's principle completely." If you can predict every step, you've mastered Block 9!
+
+15. **Course Integration:**
+    - This completes our linear systems toolkit
+    - Foundation for stability analysis
+    - Essential for control theory
+    - Connects to Laplace transforms (if covered)
+    - THE most important formula for linear ODEs
+
+16. **Final Mastery Checklist:**
+    - [ ] Can compute e^(At) by any method
+    - [ ] Understand solution operator S(t,s)
+    - [ ] Can handle any forcing function
+    - [ ] See the superposition principle
+    - [ ] Ready for any exam problem!
+
+---
+
+**Lesson 35 complete!**
+
+**CONGRATULATIONS!** You've completed Block 9: Solving Linear Systems! This block has given you the complete toolkit for solving any system of linear ODEs with constant coefficients. Duhamel's Principle is the crown jewel that unifies everything.
+
+**Study Recommendation:** Review all six lessons in sequence, ensuring you can:
+1. Find eigenvalues and eigenvectors (Lesson 30)
+2. Handle repeated eigenvalues (Lesson 31)
+3. Extract real solutions from complex eigenvalues (Lesson 32)
+4. Compute matrix exponentials (Lesson 33)
+5. Apply variation of parameters (Lesson 34)
+6. Use Duhamel's Principle for complete solutions (Lesson 35)
+
+This material comprises approximately 35-45% of Prof. Ditkowski's exam. Master this block, and you're well on your way to success in ODE 1!
