@@ -1,0 +1,101 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry, enumitem}
+\geometry{margin=1in}
+
+\title{ODE Lesson 46: Practice Problems\\Series Solutions at Regular Singular Points - The Frobenius Method}
+\author{ODE 1 - Prof. Adi Ditkowski}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section*{Practice Problems}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+% Classification Problems
+\item Classify the singular points of the differential equation $x^2(x-1)y'' + 2xy' - y = 0$.
+
+\item For the equation $(x^2-4)y'' + (x-2)y' + xy = 0$, determine whether $x = 2$ is a regular or irregular singular point.
+
+\item Show that $x = 0$ is a regular singular point of Bessel's equation: $x^2y'' + xy' + (x^2 - n^2)y = 0$.
+
+% Indicial Equation Problems
+\item Find the indicial equation for $xy'' + (1-x)y' - y = 0$ at $x = 0$.
+
+\item Determine the indicial equation and its roots for $2x^2y'' + x(1+x)y' - y = 0$ at $x = 0$.
+
+\item For the equation $x^2y'' + x(1-x)y' - (1+3x)y = 0$, find the indicial equation at $x = 0$.
+
+% Frobenius Series Solutions
+\item Use the Frobenius method to find the general solution of $2xy'' + (1-2x)y' - y = 0$ near $x = 0$.
+
+\item Apply the Frobenius method to solve $xy'' + y' - y = 0$ in a neighborhood of $x = 0$.
+
+\item Find two linearly independent solutions of $x^2y'' + xy' + (x^2 - 1/4)y = 0$ using the Frobenius method.
+
+% Recurrence Relations
+\item For $xy'' + (2-x)y' - y = 0$, derive the recurrence relation for the coefficients in the Frobenius series.
+
+\item Given the indicial equation has roots $r_1 = 1$ and $r_2 = 0$ for $xy'' + (1-x)y' + y = 0$, find the first three non-zero terms of each solution.
+
+\item Determine the recurrence relation for $x^2y'' + x(x+1)y' - y = 0$ and find the first four coefficients.
+
+% Cases of Frobenius Method
+\item For the equation $x^2y'' + 3xy' + (1-x)y = 0$, determine which case of the Frobenius method applies.
+
+\item If the indicial equation has roots $r_1 = 2$ and $r_2 = -1$, what form will the two solutions take?
+
+\item Explain why a logarithmic term appears when the indicial equation has a repeated root.
+
+% Modified Bessel Equation
+\item Show that the modified Bessel equation $x^2y'' + xy' - (x^2 + n^2)y = 0$ has $x = 0$ as a regular singular point.
+
+\item Find the indicial equation for the modified Bessel equation of order zero: $x^2y'' + xy' - x^2y = 0$.
+
+\item Determine the form of solutions for $x^2y'' + xy' - (x^2 + 1)y = 0$ near $x = 0$.
+
+% Euler Equations
+\item Solve the Euler equation $x^2y'' + 4xy' + 2y = 0$ using the Frobenius method.
+
+\item Show that every Euler equation has regular singular points and find the indicial equation for $x^2y'' + axy' + by = 0$.
+
+\item Compare the Frobenius method solution with the standard Euler equation solution for $x^2y'' - xy' + y = 0$.
+
+% Convergence and Radius
+\item For the equation $xy'' + (1-x^2)y' - xy = 0$, determine the radius of convergence of the series solution about $x = 0$.
+
+\item If $x = 0$ and $x = 1$ are the only singular points of an ODE, what is the minimum radius of convergence for a series solution about $x = 1/2$?
+
+\item Explain why the series solution of $(1-x^2)y'' - 2xy' + n(n+1)y = 0$ (Legendre equation) converges for $|x| < 1$.
+
+% Application Problems
+\item The radial part of the Schrödinger equation for the hydrogen atom leads to $r^2R'' + 2rR' + [r^2 - l(l+1)]R = 0$. Classify the singular point at $r = 0$.
+
+\item For the Laguerre equation $xy'' + (1-x)y' + ny = 0$, find the indicial equation and discuss the nature of solutions at $x = 0$.
+
+\item The hypergeometric equation $x(1-x)y'' + [c-(a+b+1)x]y' - aby = 0$ has regular singular points at $x = 0, 1, \infty$. Find the indicial equation at $x = 0$.
+
+% Advanced Problems
+\item If the indicial equation has roots differing by an integer, explain when the second solution will require a logarithmic term.
+
+\item For $x^2y'' + x(1+x)y' + (x-n^2)y = 0$, find conditions on $n$ for which both Frobenius solutions are valid without logarithmic terms.
+
+\item Prove that if $r_1 - r_2 = N$ (positive integer) and the coefficient of $a_N$ in the recurrence relation for the second solution is zero, then a logarithmic term is necessary.
+
+\item Given that one solution of $x^2y'' + xy' + (x^2-1)y = 0$ is $y_1 = x^{-1}\sin x$, use reduction of order to find the second solution and compare with the Frobenius method result.
+
+\end{enumerate}
+
+\section*{Challenge Problems}
+
+\begin{enumerate}[label=\textbf{C\arabic*.}]
+\item Analyze the equation $x^3y'' + x^2y' + (x-1)y = 0$ at $x = 0$. Is it a regular singular point? If so, apply the Frobenius method; if not, explain why the method fails.
+
+\item For the confluent hypergeometric equation $xy'' + (c-x)y' - ay = 0$, derive the complete Frobenius series solution and discuss its convergence properties.
+
+\item Consider the equation $x^2(1-x)y'' + x(1-3x)y' - y = 0$. Find series solutions about both $x = 0$ and $x = 1$, and discuss the connection between them.
+\end{enumerate}
+
+\end{document}

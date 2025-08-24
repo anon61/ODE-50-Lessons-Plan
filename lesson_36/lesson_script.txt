@@ -49,3 +49,13 @@ For Prof. Ditkowski's exam, always remember to:
 Oh, and here's a memory trick: think of phase space as a map and trajectories as roads. Cars (solutions) drive on these roads at different speeds, but the roads (trajectories) stay the same. Equilibria are like parking spots - once you're there, you don't move!
 
 The power of this geometric view is that we can understand system behavior without solving the equations explicitly. We'll build on this next lesson when we classify all possible behaviors of 2D linear systems. Get ready - it's about to get even more visual!
+
+Actually, let me add something crucial that often appears on the final. Prof. Ditkowski likes to give you a phase portrait and ask you to reconstruct possible differential equations. Here's the strategy: Look at the behavior near equilibria - are trajectories spiraling? That suggests complex eigenvalues. Straight lines radiating out? Real eigenvalues. Closed orbits? The trace of the Jacobian must be zero!
+
+Another important concept: the phase flow. Imagine the entire phase space filled with particles, one at each point. Press "play" and watch them all flow according to the differential equations. This flow has a beautiful property - it preserves uniqueness. No particle can catch up to another or split into two. It's like an incompressible fluid flow where trajectories are streamlines!
+
+Here's something that blew my mind when I first learned it: the Poincaré-Bendixson theorem. In 2D, if a trajectory doesn't go to infinity and doesn't approach an equilibrium, it MUST approach a closed orbit! That's it - those are the only options in 2D. No chaos, no strange attractors. This is why 2D systems are so much simpler than 3D, where chaos lives!
+
+Pro tip for sketching phase portraits: Start with nullclines! These are curves where dx/dt = 0 (vertical arrows) or dy/dt = 0 (horizontal arrows). Where nullclines intersect, you get equilibria. Between nullclines, arrow directions are consistent. This breaks the phase plane into regions with predictable flow patterns.
+
+Remember, phase space is not just a tool - it's a different way of thinking about dynamics. Instead of asking "what happens at time t?", we ask "what are all possible behaviors?" This geometric perspective is what makes modern dynamics so powerful. Master this, and you've got a huge advantage in the course!

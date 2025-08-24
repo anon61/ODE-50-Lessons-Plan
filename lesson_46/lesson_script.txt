@@ -1,0 +1,72 @@
+Episode 46: Series Solutions at Regular Singular Points - The Frobenius Method
+
+So basically, we've been solving ODEs with nice smooth coefficients so far. But what happens when the coefficients blow up at certain points? That's where the Frobenius method comes in - it's like the superhero version of power series that can handle these tricky singular points. Prof. Ditkowski absolutely loves this topic because it combines everything: series, algebraic equations, and deep theoretical insights!
+
+Let me paint you the picture. You have a second-order linear ODE: y'' + P(x)y' + Q(x)y = 0. Now, if P(x) and Q(x) are analytic (nice and smooth) at x = x₀, we call x₀ an ordinary point, and regular power series work fine. But what if P(x) or Q(x) blow up at x₀? Not all hope is lost!
+
+Here's the key insight: if xP(x) and x²Q(x) are still analytic at x = 0 (shifting to x₀ = 0 for simplicity), then x = 0 is called a regular singular point. The brilliant Frobenius realized we can still find series solutions, but we need to allow for a possible logarithm or fractional power at the front!
+
+The Frobenius method assumes a solution of the form:
+y = x^r ∑(n=0 to ∞) aₙx^n = ∑(n=0 to ∞) aₙx^(n+r)
+
+where r might not be an integer! This is the game-changer. The exponent r is determined by something called the indicial equation.
+
+Let me show you how this works with the classic example: Bessel's equation of order zero.
+x²y'' + xy' + x²y = 0
+
+First, check that x = 0 is a regular singular point:
+- P(x) = 1/x, so xP(x) = 1 ✓ (analytic)
+- Q(x) = 1, so x²Q(x) = x² ✓ (analytic)
+
+Perfect! Now assume y = ∑(n=0 to ∞) aₙx^(n+r). We need:
+- y' = ∑(n=0 to ∞) (n+r)aₙx^(n+r-1)
+- y'' = ∑(n=0 to ∞) (n+r)(n+r-1)aₙx^(n+r-2)
+
+Substituting into the equation and collecting the lowest power of x (which is x^r), we get the indicial equation:
+r(r-1) + r = 0
+r² = 0
+
+So r = 0 is a repeated root! This is where things get interesting. When the indicial equation has a repeated root, the second solution involves a logarithm:
+y₂ = y₁ ln(x) + x^r ∑(n=1 to ∞) bₙx^n
+
+This is Pro Ditkowski gold! He loves asking about the different cases:
+
+Case 1: Roots differ by non-integer (r₁ - r₂ ≠ integer)
+- Two independent series solutions: y₁ = x^(r₁)∑aₙx^n and y₂ = x^(r₂)∑bₙx^n
+
+Case 2: Repeated roots (r₁ = r₂)
+- One series, one with logarithm: y₂ = y₁ ln(x) + x^r ∑bₙx^n
+
+Case 3: Roots differ by positive integer (r₁ - r₂ = positive integer)
+- Tricky! Second solution might need a logarithm, might not. Have to check!
+
+Here's a memory device: "Different roots, different powers. Same roots, blame logs. Integer gap, perhaps a trap!"
+
+Common mistake alert: Students often forget that when substituting the series, you need to shift indices to align powers of x. This is crucial for finding the recurrence relations!
+
+Another Pro Ditkowski special: He often gives you an equation and asks you to classify the singular points. Remember:
+- If lim(x→x₀) (x-x₀)P(x) and lim(x→x₀) (x-x₀)²Q(x) exist and are finite → regular singular
+- Otherwise → irregular singular (Frobenius won't work!)
+
+The physical interpretation is beautiful too. In quantum mechanics, the radial Schrödinger equation near r = 0 often has regular singular points. The Frobenius method tells us how wave functions behave near the nucleus!
+
+Let's work through finding the indicial equation for xy'' + (1-x)y' - y = 0:
+- Rewrite as: y'' + (1-x)/x · y' - 1/x · y = 0
+- P(x) = (1-x)/x, Q(x) = -1/x
+- Check: xP(x) = 1-x ✓, x²Q(x) = -x ✓ (both analytic at x = 0)
+- For the indicial equation, we only need the leading terms:
+  * y'' contributes: r(r-1)a₀x^(r-2)
+  * y' contributes: ra₀x^(r-2) from the "1" in (1-x)/x
+  * y contributes: -a₀x^(r-1) from -1/x
+
+The lowest power is x^(r-2), giving: [r(r-1) + r]a₀ = 0
+So r² = 0, another repeated root!
+
+The exam strategy: When you see a differential equation at a singular point, immediately:
+1. Check if it's regular singular
+2. Find the indicial equation (only need lowest powers!)
+3. Identify which case you're in
+4. Set up the appropriate series form
+5. Find a few terms of the series if time permits
+
+The absolute key is recognizing that Frobenius extends our power series toolkit to handle singular points. It's like having a Swiss Army knife instead of just a regular knife. Master this method, and you've conquered one of the most sophisticated techniques in ODEs!
